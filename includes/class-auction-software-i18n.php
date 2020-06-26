@@ -8,8 +8,8 @@
  * @link       https://club.wpeka.com/
  * @since      1.0.0
  *
- * @package    Woo_Auction
- * @subpackage Woo_Auction/includes
+ * @package    Auction_Software
+ * @subpackage Auction_Software/includes
  */
 
 /**
@@ -19,11 +19,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Woo_Auction
- * @subpackage Woo_Auction/includes
+ * @package    Auction_Software
+ * @subpackage Auction_Software/includes
  * @author     WPEka Club <support@wpeka.com>
  */
-class Woo_Auction_I18n {
+class Auction_Software_I18n {
 
 
 	/**
@@ -34,7 +34,7 @@ class Woo_Auction_I18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'woo-auction',
+			'auction-software',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);

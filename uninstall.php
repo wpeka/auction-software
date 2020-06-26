@@ -21,7 +21,7 @@
  * @link       https://club.wpeka.com/
  * @since      1.0.0
  *
- * @package    Woo_Auction
+ * @package    Auction_Software
  */
 
 // If uninstall not called from WordPress, then exit.

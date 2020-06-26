@@ -5,8 +5,8 @@
  * @link       https://club.wpeka.com/
  * @since      1.0.0
  *
- * @package    Woo_Auction
- * @subpackage Woo_Auction/includes
+ * @package    Auction_Software
+ * @subpackage Auction_Software/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Woo_Auction
- * @subpackage Woo_Auction/includes
+ * @package    Auction_Software
+ * @subpackage Auction_Software/includes
  * @author     WPEka Club <support@wpeka.com>
  */
-class Woo_Auction_Loader {
+class Auction_Software_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

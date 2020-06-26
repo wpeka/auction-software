@@ -5,8 +5,8 @@
  * @link       https://club.wpeka.com/
  * @since      1.0.0
  *
- * @package    Woo_Auction
- * @subpackage Woo_Auction/includes
+ * @package    Auction_Software
+ * @subpackage Auction_Software/includes
  */
 
 /**
@@ -15,11 +15,11 @@
  * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.0
- * @package    Woo_Auction
- * @subpackage Woo_Auction/includes
+ * @package    Auction_Software
+ * @subpackage Auction_Software/includes
  * @author     WPEka Club <support@wpeka.com>
  */
-class Woo_Auction_Activator {
+class Auction_Software_Activator {
 
 	/**
 	 * Short Description. (use period)
@@ -29,7 +29,7 @@ class Woo_Auction_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-
+		add_option( 'auction_software_active', true );
 	}
 
 }

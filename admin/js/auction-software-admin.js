@@ -1,8 +1,8 @@
 /**
- * Frontend JavaScript.
+ * Admin JavaScript.
  *
- * @package    Woo_Auction
- * @subpackage Woo_Auction/public
+ * @package    Auction_Software
+ * @subpackage Auction_Software/admin
  * @author     WPEka Club <support@wpeka.com>
  */
 
@@ -10,7 +10,7 @@
 	'use strict';
 
 	/**
-	 * All of the code for your public-facing JavaScript source
+	 * All of the code for your admin-facing JavaScript source
 	 * should reside in this file.
 	 *
 	 * Note: It has been assumed you will write jQuery code here, so the
@@ -36,5 +36,28 @@
 	 * Although scripts in the WordPress core, Plugins and Themes may be
 	 * practising this, we should strive to set a better example in our own work.
 	 */
+
+	$( window ).load(
+		function () {
+			if ($( "#auction_date_from" ).length || $( "#auction_date_to" ).length) {
+				$( '#auction_date_from' ).datetimepicker(
+					{
+						defaultDate: "",
+						dateFormat: "yy-mm-dd",
+						timeFormat: 'HH:mm:ss',
+						numberOfMonths: 1,
+					}
+				);
+				$( '#auction_date_to' ).datetimepicker(
+					{
+						defaultDate: "",
+						dateFormat: "yy-mm-dd",
+						timeFormat: 'HH:mm:ss',
+						numberOfMonths: 1,
+					}
+				);
+			}
+		}
+	);
 
 })( jQuery );

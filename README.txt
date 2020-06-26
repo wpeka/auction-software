@@ -1,114 +1,95 @@
-=== Plugin Name ===
-Contributors: (this should be a list of wordpress.org userid's)
+=== Auction Software ===
+Contributors: WPEka Club
 Donate link: https://club.wpeka.com/
-Tags: comments, spam
-Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 4.3
+Tags: auction, simple auction, reverse auction, auction plugin, auctions, wordpress auction, wordpress auction, wp auctions, auction script, ebay, ebay auction, bidding
+Requires at least: 5.0
+Tested up to: 5.3.2
+Requires PHP: 7.0
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
+Auction Software for Simple and Reverse auctions.
 
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
+Auction Software is a powerful auction software for WordPress. It can be easily setup in different auction modes. Simple Auctions to create professional auction websites. You can also setup Reverse Auctions, Penny Auctions or create eBay type auctions.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+Simple Auction: It's the most common type of auction. Auction starts from a specific price and users bid for the product. At the end of the auction, if the reserve price is met, the user with the highest bid can buy the product.
 
-A few notes about the sections above:
+Reverse Auction: It is exactly the reverse of Simple auction. Auction will start from a specific price and users place bids to lower the bid price. The user with the lowest bid wins. This is suitable for government contracts, service contracts, work to be awarded to lower bidders.
 
-*   "Contributors" is a comma separated list of wp.org/wp-plugins.org usernames
-*   "Tags" is a comma separated list of tags that apply to the plugin
-*   "Requires at least" is the lowest version that the plugin will work on
-*   "Tested up to" is the highest version that you've *successfully used to test the plugin*. Note that it might work on
-higher versions... this is just the highest one you've verified.
-*   Stable tag should indicate the Subversion "tag" of the latest stable version, or "trunk," if you use `/trunk/` for
-stable.
+== Features ==
 
-    Note that the `readme.txt` of the stable tag is the one that is considered the defining one for the plugin, so
-if the `/trunk/readme.txt` file says that the stable tag is `4.3`, then it is `/tags/4.3/readme.txt` that'll be used
-for displaying information about the plugin.  In this situation, the only thing considered from the trunk `readme.txt`
-is the stable tag pointer.  Thus, if you develop in trunk, you can update the trunk `readme.txt` to reflect changes in
-your in-development version, without having that information incorrectly disclosed about the current stable version
-that lacks those changes -- as long as the trunk's `readme.txt` points to the correct stable tag.
+- Quality tested with latest WordPress and WooCommerce.
+- Integrated with WooCommerce Hooks. Easily extendable.
+- Uses WooCommerce template system. Helps to create your own themes and works with popular WooCommerce Themes.
+- Rich Widgets to use in sidebars or homepages.
+- Supports multiple product types (Physical, Digital, Virtual Products/Services).
+- Email Notifications - Option to customize your email templates.
+- Ajax updates of latest bidding and prices.
+- Define your own price configuration: Starting Price of Auction, Increment Levels, Buy it now price, Reserve Price, Penny Auction credit adjustments.
+- Schedule Auctions in advance - Set start & end times.
+- Bid Ranges - Define your own bid ranges for increments. At lower prices the price for next bid can be a smaller range ($10), for higher priced products the minimum increment can be a higher amount ($100).
+- Supports multiple payment gateways.
+- Multi-lingual compatible (PO Files).
+- Enable end users to create their own auctions. Charge a fee for auction setup(via multi-vendor plugin) - Pro
+- Penny Auctions - Pro
 
-    If no stable tag is provided, it is assumed that trunk is stable, but you should specify "trunk" if that's where
-you put the stable version, in order to eliminate any doubt.
+= Email notifications =
+- Start
+- End
+- Win
+- Outbid
+
+= Widgets included =
+- Ending soon auctions
+- Featured auctions
+- Coming soon auctions
+- My auctions
+- Random auctions
+- Recent auctions
+- Recently viewed auctions : All interested or past visited auctions easily accessible.
+- Watchlist : Bidders can add products to watchlist and view anywhere on the site, including My-Auction Area.
+
+Check our [auction demo](https://demo.wpeka.com/woo-auction-software/) website (demo runs on latest WordPress, WooCommerce and Auction Software).
+
+In case you want a ready site with theme & demo data imported, please refer to -> [Auction](https://ccreadysites.cyberchimps.com/woo-auction/)
+
+== Pro Features ==
+Penny Auction: In Penny auction, the user needs to buy credits/bids. Once the user places a bid, the amount set (usually a penny) is deducted. This is not refundable. The bidder with the highest bid after the auction gets the right to buy the product at cost of start price.
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-e.g.
-
-1. Upload `woo-auction.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+1. Download the zip file.
+2. Log in as the WordPress Admin of your website.
+3. Navigate to Plugins > Add New to upload plugin
+4. Choose the plugin file to upload.
+5. Activate the plugin.
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= Where can I find documentation to setup the plugin? =
+You can find Auction Software Documentation and set up instructions [here](https://docs.wpeka.com/woo-auction/).
 
-An answer to that question.
+= Do I need any other plugins? =
+WooCommerce plugin should be installed & activated before activating Auction Software plugin. If using in multivendor mode, use the multi-vendor plugin of WooCommerce.
 
-= What about foo bar? =
+= Why is the guest user unable to place a bid? =
+To place a bid on any auction product, the user needs to register with the website. This feature is added so guest users won’t be able to move bidding in upward direction as guest users can walk away even after winning the auction.
 
-Answer to foo bar dilemma.
+= How can I setup ebay type auctions in WordPress?
+You can use any multi vendor plugin to enable end users to submit auctions. You can setup the price to charge for the auction setup.
+
+= Is it compatible with Escrow Payments? =
+Yes. To know more about setting up escrow payments click [here](https://docs.wpeka.com/woo-auction/integration-with-escrow-payments).
 
 == Screenshots ==
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
-
 == Changelog ==
-
-= 1.0 =
-* A change since the previous version.
-* Another change.
-
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
+= 1.0.0 =
+Feature: Initial version.
 
 == Upgrade Notice ==
-
-= 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
-
-= 0.5 =
-This version fixes a security related bug.  Upgrade immediately.
-
-== Arbitrary section ==
-
-You may provide arbitrary sections, in the same format as the ones above.  This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation."  Arbitrary sections will be shown below the built-in sections outlined above.
-
-== A brief Markdown Example ==
-
-Ordered list:
-
-1. Some feature
-1. Another feature
-1. Something else about the plugin
-
-Unordered list:
-
-* something
-* something else
-* third thing
-
-Here's a link to [WordPress](http://wordpress.org/ "Your favorite software") and one to [Markdown's Syntax Documentation][markdown syntax].
-Titles are optional, naturally.
-
-[markdown syntax]: http://daringfireball.net/projects/markdown/syntax
-            "Markdown is what the parser uses to process much of the readme file"
-
-Markdown uses email style notation for blockquotes and I've been told:
-> Asterisks for *emphasis*. Double it up  for **strong**.
-
-`<?php code(); // goes in backticks ?>`
+= 1.0.0 =
+Feature: Initial version.

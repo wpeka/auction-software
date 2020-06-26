@@ -5,8 +5,8 @@
  * @link       https://club.wpeka.com/
  * @since      1.0.0
  *
- * @package    Woo_Auction
- * @subpackage Woo_Auction/includes
+ * @package    Auction_Software
+ * @subpackage Auction_Software/includes
  */
 
 /**
@@ -15,11 +15,11 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    Woo_Auction
- * @subpackage Woo_Auction/includes
+ * @package    Auction_Software
+ * @subpackage Auction_Software/includes
  * @author     WPEka Club <support@wpeka.com>
  */
-class Woo_Auction_Deactivator {
+class Auction_Software_Deactivator {
 
 	/**
 	 * Short Description. (use period)
@@ -29,7 +29,7 @@ class Woo_Auction_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-
+		delete_option( 'auction_software_active' );
 	}
 
 }

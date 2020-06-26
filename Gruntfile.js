@@ -1,8 +1,8 @@
 /**
  * Grunt Tasks JavaScript.
  *
- * @package    Woo_Auction
- * @subpackage Woo_Auction
+ * @package    Auction_Software
+ * @subpackage Auction_Software
  * @author     WPeka <https://club.wpeka.com/>
  */
 
@@ -115,7 +115,7 @@ module.exports = function (grunt) {
 
 			addtextdomain: {
 				options: {
-					textdomain: 'woo_auction',
+					textdomain: 'auction-software',
 				},
 				update_all_domains: {
 					options: {
@@ -138,8 +138,8 @@ module.exports = function (grunt) {
 					options: {
 						domainPath: '/languages',
 						exclude: ['\.git/*', 'bin/*', 'node_modules/*', 'tests/*', '!vendor/**/*', '!auto-updates/*', '!analytics/*'],
-						mainFile: 'woo_auction.php',
-						potFilename: 'woo_auction.pot',
+						mainFile: 'auction-software.php',
+						potFilename: 'auction-software.pot',
 						potHeaders: {
 							poedit: true,
 							'x-poedit-keywordslist': true
