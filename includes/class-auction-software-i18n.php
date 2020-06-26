@@ -21,7 +21,7 @@
  * @since      1.0.0
  * @package    Auction_Software
  * @subpackage Auction_Software/includes
- * @author     WPEka Club <support@wpeka.com>
+ * @author     WPeka Club <support@wpeka.com>
  */
 class Auction_Software_I18n {
 

@@ -14,7 +14,7 @@
  *
  * @package    Auction_Software
  * @subpackage Auction_Software/widgets
- * @author     WPEka Club <support@wpeka.com>
+ * @author     WPeka Club <support@wpeka.com>
  */
 class Auction_Software_Widget_Recently_Viewed_Auctions extends WP_Widget {
 

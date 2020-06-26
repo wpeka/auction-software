@@ -3,7 +3,7 @@
  *
  * @package    Auction_Software
  * @subpackage Auction_Software/admin
- * @author     WPEka Club <support@wpeka.com>
+ * @author     WPeka Club <support@wpeka.com>
  */
 
 (function ($, data, wp, ajaxurl) {

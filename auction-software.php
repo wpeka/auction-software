@@ -16,7 +16,7 @@
  * Plugin URI:        https://demo.wpeka.com/woo-auction-software/
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
  * Version:           1.0.0
- * Author:            WPEka Club
+ * Author:            WPeka Club
  * Author URI:        https://club.wpeka.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
@@ -30,10 +30,10 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Include the WASTGM_Plugin_Activation class.
+ * Include the ASTGM_Plugin_Activation class.
  *
  * Plugin:
- * require_once dirname( __FILE__ ) . '/path/to/class-tgm-plugin-activation.php';
+ * require_once dirname( __FILE__ ) . '/path/to/class-astgm-plugin-activation.php';
  */
 require_once dirname( __FILE__ ) . '/class-astgm-plugin-activation.php';
 
@@ -42,11 +42,11 @@ add_action( 'tgmpa_register', 'auction_software_register_required_plugins' );
 /**
  * Register the required plugins for this theme.
  *
- * The variables passed to the `was_tgmpa()` function should be:
+ * The variables passed to the `as_tgmpa()` function should be:
  * - an array of plugin arrays;
  * - optionally a configuration array.
  * If you are not changing anything in the configuration array, you can remove the array and remove the
- * variable from the function call: `was_tgmpa( $plugins );`.
+ * variable from the function call: `as_tgmpa( $plugins );`.
  * In that case, the TGMPA default settings will be used.
  *
  * This function is hooked into `tgmpa_register`, which is fired on the WP `init` action on priority 10.
@@ -162,7 +162,7 @@ function auction_software_register_required_plugins() {
 		),
 	);
 
-	was_tgmpa( $plugins, $config );
+	as_tgmpa( $plugins, $config );
 }
 
 /**
@@ -176,24 +176,27 @@ if ( ! defined( 'AUCTION_SOFTWARE_VERSION' ) ) {
 if ( ! defined( 'AUCTION_SOFTWARE_SUFFIX' ) ) {
 	define( 'AUCTION_SOFTWARE_SUFFIX', ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min' );
 }
+if ( ! defined( 'AUCTION_SOFTWARE_PLUGIN_PATH' ) ) {
+	define( 'AUCTION_SOFTWARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+}
 if ( ! defined( 'AUCTION_SOFTWARE_PLUGIN_URL' ) ) {
 	define( 'AUCTION_SOFTWARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 }
 
-if ( ! function_exists( 'was_fs' ) ) {
+if ( ! function_exists( 'as_fs' ) ) {
 	/**
 	 * Helper function to access SDK.
 	 *
 	 * @return Analytics
 	 */
-	function was_fs() {
-		global $was_fs;
+	function as_fs() {
+		global $as_fs;
 
-		if ( ! isset( $was_fs ) ) {
+		if ( ! isset( $as_fs ) ) {
 			// Include Analytics SDK.
 			require_once dirname( __FILE__ ) . '/analytics/start.php';
 
-			$was_fs = ras_dynamic_init(
+			$as_fs = ras_dynamic_init(
 				array(
 					'id'              => '20',
 					'slug'            => 'auction-software',
@@ -206,13 +209,13 @@ if ( ! function_exists( 'was_fs' ) ) {
 			);
 		}
 
-		return $was_fs;
+		return $as_fs;
 	}
 
 	// Init Analytics.
-	was_fs();
+	as_fs();
 	// SDK initiated.
-	do_action( 'was_fs_loaded' );
+	do_action( 'as_fs_loaded' );
 }
 
 /**

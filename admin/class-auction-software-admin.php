@@ -17,7 +17,7 @@
  *
  * @package    Auction_Software
  * @subpackage Auction_Software/admin
- * @author     WPEka Club <support@wpeka.com>
+ * @author     WPeka Club <support@wpeka.com>
  */
 class Auction_Software_Admin {
 
@@ -498,8 +498,8 @@ class Auction_Software_Admin {
 	 * @return mixed
 	 */
 	public function auction_software_product_auction_tabs( $tabs ) {
-		$classes             = 'show_if_auction_simple show_if_auction_reverse';
-		$classes             = apply_filters( 'auction_software_auction_tabs_classes', $classes );
+		$classes         = 'show_if_auction_simple show_if_auction_reverse';
+		$classes         = apply_filters( 'auction_software_auction_tabs_classes', $classes );
 		$tabs['auction'] = array(
 			'label'    => __( 'Auction Settings', 'auction-software' ),
 			'target'   => 'auction_options',
@@ -548,7 +548,7 @@ class Auction_Software_Admin {
 					?>
 					</p>
 				<?php
-				$auction    = new WC_Product_Auction();
+				$auction        = new WC_Product_Auction();
 				$attribute_data = $auction->attribute_data;
 				$custom_attr    = array();
 				foreach ( $attribute_data as $attribute ) {
@@ -658,7 +658,7 @@ class Auction_Software_Admin {
 		<div class='options_group show_if_auction_simple'>
 			<?php
 			$auction_simple = new WC_Product_Auction_Simple();
-			$attribute_data     = $auction_simple->attribute_data;
+			$attribute_data = $auction_simple->attribute_data;
 			foreach ( $attribute_data as $attribute ) {
 				$custom_attr = array();
 				WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['currency'], $attribute['options'], $custom_attr );
@@ -668,7 +668,7 @@ class Auction_Software_Admin {
 		<div class='options_group show_if_auction_reverse'>
 			<?php
 			$auction_reverse = new WC_Product_Auction_Reverse();
-			$attribute_data      = $auction_reverse->attribute_data;
+			$attribute_data  = $auction_reverse->attribute_data;
 			foreach ( $attribute_data as $attribute ) {
 				$custom_attr = array();
 				WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['currency'], $attribute['options'], $custom_attr );
@@ -688,7 +688,7 @@ class Auction_Software_Admin {
 	public function auction_software_save_product_auction_options( $post_id ) {
         // phpcs:disable WordPress.Security.NonceVerification.Missing
 		$product_type   = isset( $_POST['product-type'] ) ? sanitize_text_field( wp_unslash( $_POST['product-type'] ) ) : '';
-		$auction    = new WC_Product_Auction();
+		$auction        = new WC_Product_Auction();
 		$attribute_data = $auction->attribute_data;
 		foreach ( $attribute_data as $attribute ) {
 			$attribute_id = isset( $_POST[ 'auction_' . $attribute['id'] ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'auction_' . $attribute['id'] ] ) ) : '';
@@ -715,7 +715,7 @@ class Auction_Software_Admin {
 		}
 
 		if ( 'auction_simple' === $product_type ) {
-			$auction_simple    = new WC_Product_Auction_Simple();
+			$auction_simple        = new WC_Product_Auction_Simple();
 			$attribute_data_simple = $auction_simple->attribute_data;
 			foreach ( $attribute_data_simple as $attribute_simple ) {
 				$simple_attribute_id = isset( $_POST[ 'auction_' . $attribute_simple['id'] ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'auction_' . $attribute_simple['id'] ] ) ) : '';
@@ -728,7 +728,7 @@ class Auction_Software_Admin {
 				endif;
 			}
 		} elseif ( 'auction_reverse' === $product_type ) {
-			$auction_reverse    = new WC_Product_Auction_Reverse();
+			$auction_reverse        = new WC_Product_Auction_Reverse();
 			$attribute_data_reverse = $auction_reverse->attribute_data;
 			foreach ( $attribute_data_reverse as $attribute_reverse ) {
 				$reverse_attribute_id = isset( $_POST[ 'auction_' . $attribute_reverse['id'] ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'auction_' . $attribute_reverse['id'] ] ) ) : '';

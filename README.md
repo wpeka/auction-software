@@ -1,5 +1,5 @@
 # Auction Software #
-**Contributors:** [WPEka Club](https://profiles.wordpress.org/WPEka Club)  
+**Contributors:** [WPeka Club](https://profiles.wordpress.org/WPeka Club)  
 **Donate link:** https://club.wpeka.com/  
 **Tags:** auction, simple auction, reverse auction, auction plugin, auctions, wordpress auction, wordpress auction, wp auctions, auction script, ebay, ebay auction, bidding  
 **Requires at least:** 5.0  

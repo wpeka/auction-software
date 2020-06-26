@@ -166,9 +166,9 @@ class WC_Auction_Software_Helper {
 				$previous_value          = $status;
 				$auction_history_string .= $auction_history_item_string;
 			}
-			$auction_history_string   .= '</table>';
-			$get_auction_date_from = get_post_meta( $post_id, 'auction_date_from' );
-			$auction_date_from     = '';
+			$auction_history_string .= '</table>';
+			$get_auction_date_from   = get_post_meta( $post_id, 'auction_date_from' );
+			$auction_date_from       = '';
 			if ( isset( $get_auction_date_from[0] ) ) {
 				$auction_date_from = $get_auction_date_from[0];
 			}

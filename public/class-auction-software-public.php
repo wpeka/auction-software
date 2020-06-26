@@ -17,7 +17,7 @@
  *
  * @package    Auction_Software
  * @subpackage Auction_Software/public
- * @author     WPEka Club <support@wpeka.com>
+ * @author     WPeka Club <support@wpeka.com>
  */
 class Auction_Software_Public {
 
@@ -433,7 +433,7 @@ class Auction_Software_Public {
 			if ( true === $product->is_started() ) {
 				if ( is_user_logged_in() ) {
 					if ( get_the_author_meta( 'user_email', $product->post->post_author ) !== wp_get_current_user()->user_email ) {
-						$next_bid                    = isset( $_POST['price'] ) ? sanitize_text_field( wp_unslash( $_POST['price'] ) ) : 0;
+						$next_bid                = isset( $_POST['price'] ) ? sanitize_text_field( wp_unslash( $_POST['price'] ) ) : 0;
 						$set_auction_current_bid = $product->set_auction_current_bid( $current_bid, $next_bid, $user_id, $product_id );
 						if ( 5 === (int) $set_auction_current_bid ) {
 							$notice_message = '<div class="woocommerce-message error auction-error" role="alert">' . __( 'Please enter a higher amount.', 'auction-software' ) . '</div>';

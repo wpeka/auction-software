@@ -3,7 +3,7 @@
  *
  * @package    Auction_Software
  * @subpackage Auction_Software/public
- * @author     WPEka Club <support@wpeka.com>
+ * @author     WPeka Club <support@wpeka.com>
  */
 
 (function( $ ) {
@@ -424,11 +424,11 @@
 									.replace( /(\.[\d]{2})./g, '$1' );
 							}
 						);
-						var currentBid                     = document.getElementById( 'auction_current_bid' );
-						var auctionStartPrice              = document.getElementById( 'auction_start_price' );
-						var bidIncrement                   = document.getElementById( 'auction_bid_increment' );
+						var currentBid                 = document.getElementById( 'auction_current_bid' );
+						var auctionStartPrice          = document.getElementById( 'auction_start_price' );
+						var bidIncrement               = document.getElementById( 'auction_bid_increment' );
 						var auction_initial_bid_placed = document.getElementById( 'auction_initial_bid_placed' );
-						var setStartPrice                  = '';
+						var setStartPrice              = '';
 						if (currentBid.value == 0 && auction_initial_bid_placed.value != 1) {
 							setStartPrice = auctionStartPrice.value;
 						} else if ($( ".auction-bid-simple" ).length) {
@@ -511,9 +511,9 @@
 				function (e) {
 					e.preventDefault();
 
-					var id              = $( this ).data( "value" );
-					var addWatchlist    = document.getElementById( 'auctionadd-watchlist' );
-					var removeWatchlist = document.getElementById( 'auctionremove-watchlist' );
+					var id                  = $( this ).data( "value" );
+					var addWatchlist        = document.getElementById( 'auctionadd-watchlist' );
+					var removeWatchlist     = document.getElementById( 'auctionremove-watchlist' );
 					var auctionLoginMessage = document.getElementById( 'auctionlogin_message' );
 
 					var data = {
@@ -542,8 +542,8 @@
 										addWatchlist.style.display    = 'none';
 										removeWatchlist.style.display = 'block';
 									} else if (response == 'notlogin') {
-										addWatchlist.style.display    = 'none';
-										removeWatchlist.style.display = 'none';
+										addWatchlist.style.display        = 'none';
+										removeWatchlist.style.display     = 'none';
 										auctionLoginMessage.style.display = 'block';
 									}
 								}
@@ -562,9 +562,9 @@
 				function (e) {
 					e.preventDefault();
 
-					var id              = $( this ).data( "value" );
-					var addWatchlist    = document.getElementById( 'auctionadd-watchlist' );
-					var removeWatchlist = document.getElementById( 'auctionremove-watchlist' );
+					var id                  = $( this ).data( "value" );
+					var addWatchlist        = document.getElementById( 'auctionadd-watchlist' );
+					var removeWatchlist     = document.getElementById( 'auctionremove-watchlist' );
 					var auctionLoginMessage = document.getElementById( 'auctionlogin_message' );
 
 					var data = {
@@ -593,8 +593,8 @@
 										addWatchlist.style.display    = 'block';
 										removeWatchlist.style.display = 'none';
 									} else if (response == 'notlogin') {
-										addWatchlist.style.display    = 'none';
-										removeWatchlist.style.display = 'none';
+										addWatchlist.style.display        = 'none';
+										removeWatchlist.style.display     = 'none';
 										auctionLoginMessage.style.display = 'block';
 									}
 								}

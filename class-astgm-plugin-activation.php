@@ -32,7 +32,7 @@
 	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-if ( ! class_exists( 'WASTGM_Plugin_Activation' ) ) {
+if ( ! class_exists( 'ASTGM_Plugin_Activation' ) ) {
 
 	/**
 	 * Automatic plugin installation and activation library.
@@ -47,7 +47,7 @@ if ( ! class_exists( 'WASTGM_Plugin_Activation' ) ) {
 	 * @author  Thomas Griffin
 	 * @author  Gary Jones
 	 */
-	class WASTGM_Plugin_Activation {
+	class ASTGM_Plugin_Activation {
 		/**
 		 * TGMPA version number.
 		 *
@@ -80,7 +80,7 @@ if ( ! class_exists( 'WASTGM_Plugin_Activation' ) ) {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @var WASTGM_Plugin_Activation
+		 * @var ASTGM_Plugin_Activation
 		 */
 		public static $instance;
 
@@ -250,7 +250,7 @@ if ( ! class_exists( 'WASTGM_Plugin_Activation' ) ) {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @see WASTGM_Plugin_Activation::init()
+		 * @see ASTGM_Plugin_Activation::init()
 		 */
 		public function __construct() {
 			// Set the current WordPress version.
@@ -311,9 +311,9 @@ if ( ! class_exists( 'WASTGM_Plugin_Activation' ) ) {
 		 *
 		 * @since 2.0.0
 		 *
-		 * @see WASTGM_Plugin_Activation::admin_menu()
-		 * @see WASTGM_Plugin_Activation::notices()
-		 * @see WASTGM_Plugin_Activation::styles()
+		 * @see ASTGM_Plugin_Activation::admin_menu()
+		 * @see ASTGM_Plugin_Activation::notices()
+		 * @see ASTGM_Plugin_Activation::styles()
 		 */
 		public function init() {
 			/**
@@ -684,8 +684,8 @@ if ( ! class_exists( 'WASTGM_Plugin_Activation' ) ) {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @see WASTGM_Plugin_Activation::init()
-		 * @see WASTGM_Plugin_Activation::install_plugins_page()
+		 * @see ASTGM_Plugin_Activation::init()
+		 * @see ASTGM_Plugin_Activation::install_plugins_page()
 		 *
 		 * @return null Return early if user lacks capability to install a plugin.
 		 */
@@ -745,7 +745,7 @@ if ( ! class_exists( 'WASTGM_Plugin_Activation' ) ) {
 		 */
 		public function install_plugins_page() {
 			// Store new instance of plugin table in object.
-			$plugin_table = new WASTGMPA_List_Table;
+			$plugin_table = new ASTGMPA_List_Table;
 
 			// Return early if processing a plugin installation action.
 			if ( ( ( 'tgmpa-bulk-install' === $plugin_table->current_action() || 'tgmpa-bulk-update' === $plugin_table->current_action() ) && $plugin_table->process_bulk_actions() ) || $this->do_plugin_install() ) {
@@ -1209,7 +1209,7 @@ if ( ! class_exists( 'WASTGM_Plugin_Activation' ) ) {
 						unset( $plugin_slug );
 
 						$count          = count( $plugin_group );
-						$linked_plugins = array_map( array( 'WASTGMPA_Utils', 'wrap_in_em' ), $linked_plugins );
+						$linked_plugins = array_map( array( 'ASTGMPA_Utils', 'wrap_in_em' ), $linked_plugins );
 						$last_plugin    = array_pop( $linked_plugins ); // Pop off last name to prep for readability.
 						$imploded       = empty( $linked_plugins ) ? $last_plugin : ( implode( ', ', $linked_plugins ) . ' ' . esc_html_x( 'and', 'plugin A *and* plugin B', 'tgmpa' ) . ' ' . $last_plugin );
 
@@ -1394,9 +1394,9 @@ if ( ! class_exists( 'WASTGM_Plugin_Activation' ) ) {
 			// Forgive users for using string versions of booleans or floats for version number.
 			$plugin['version']            = (string) $plugin['version'];
 			$plugin['source']             = empty( $plugin['source'] ) ? 'repo' : $plugin['source'];
-			$plugin['required']           = WASTGMPA_Utils::validate_bool( $plugin['required'] );
-			$plugin['force_activation']   = WASTGMPA_Utils::validate_bool( $plugin['force_activation'] );
-			$plugin['force_deactivation'] = WASTGMPA_Utils::validate_bool( $plugin['force_deactivation'] );
+			$plugin['required']           = ASTGMPA_Utils::validate_bool( $plugin['required'] );
+			$plugin['force_activation']   = ASTGMPA_Utils::validate_bool( $plugin['force_activation'] );
+			$plugin['force_deactivation'] = ASTGMPA_Utils::validate_bool( $plugin['force_deactivation'] );
 
 			// Enrich the received data.
 			$plugin['file_path']   = $this->_get_plugin_basename_from_slug( $plugin['slug'] );
@@ -2084,7 +2084,7 @@ if ( ! class_exists( 'WASTGM_Plugin_Activation' ) ) {
 		 *
 		 * @since 2.4.0
 		 *
-		 * @return \WASTGM_Plugin_Activation The WASTGM_Plugin_Activation object.
+		 * @return \ASTGM_Plugin_Activation The ASTGM_Plugin_Activation object.
 		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof self ) ) {
@@ -2102,7 +2102,7 @@ if ( ! class_exists( 'WASTGM_Plugin_Activation' ) ) {
 		 * @since 2.5.0
 		 */
 		function load_tgm_plugin_activation() {
-			$GLOBALS['tgmpa'] = WASTGM_Plugin_Activation::get_instance();
+			$GLOBALS['tgmpa'] = ASTGM_Plugin_Activation::get_instance();
 		}
 	}
 
@@ -2113,7 +2113,7 @@ if ( ! class_exists( 'WASTGM_Plugin_Activation' ) ) {
 	}
 }
 
-if ( ! function_exists( 'was_tgmpa' ) ) {
+if ( ! function_exists( 'as_tgmpa' ) ) {
 	/**
 	 * Helper function to register a collection of required plugins.
 	 *
@@ -2123,7 +2123,7 @@ if ( ! function_exists( 'was_tgmpa' ) ) {
 	 * @param array $plugins An array of plugin arrays.
 	 * @param array $config  Optional. An array of configuration values.
 	 */
-	function was_tgmpa( $plugins, $config = array() ) {
+	function as_tgmpa( $plugins, $config = array() ) {
 		$instance = call_user_func( array( get_class( $GLOBALS['tgmpa'] ), 'get_instance' ) );
 
 		foreach ( $plugins as $plugin ) {
@@ -2161,7 +2161,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
-if ( ! class_exists( 'WASTGMPA_List_Table' ) ) {
+if ( ! class_exists( 'ASTGMPA_List_Table' ) ) {
 
 	/**
 	 * List table class for handling plugins.
@@ -2180,7 +2180,7 @@ if ( ! class_exists( 'WASTGMPA_List_Table' ) ) {
 	 * @author  Thomas Griffin
 	 * @author  Gary Jones
 	 */
-	class WASTGMPA_List_Table extends WP_List_Table {
+	class ASTGMPA_List_Table extends WP_List_Table {
 		/**
 		 * TGMPA instance.
 		 *
@@ -2956,9 +2956,9 @@ if ( ! class_exists( 'WASTGMPA_List_Table' ) ) {
 				}
 				unset( $slug, $name, $source );
 
-				// Create a new instance of WASTGMPA_Bulk_Installer.
-				$installer = new WASTGMPA_Bulk_Installer(
-					new WASTGMPA_Bulk_Installer_Skin(
+				// Create a new instance of ASTGMPA_Bulk_Installer.
+				$installer = new ASTGMPA_Bulk_Installer(
+					new ASTGMPA_Bulk_Installer_Skin(
 						array(
 							'url'          => esc_url_raw( $this->tgmpa->get_tgmpa_url() ),
 							'nonce'        => 'bulk-' . $this->_args['plural'],
@@ -3036,7 +3036,7 @@ if ( ! class_exists( 'WASTGMPA_List_Table' ) ) {
 					echo '<div id="message" class="error"><p>', wp_kses_post( $activate->get_error_message() ), '</p></div>';
 				} else {
 					$count        = count( $plugin_names ); // Count so we can use _n function.
-					$plugin_names = array_map( array( 'WASTGMPA_Utils', 'wrap_in_strong' ), $plugin_names );
+					$plugin_names = array_map( array( 'ASTGMPA_Utils', 'wrap_in_strong' ), $plugin_names );
 					$last_plugin  = array_pop( $plugin_names ); // Pop off last name to prep for readability.
 					$imploded     = empty( $plugin_names ) ? $last_plugin : ( implode( ', ', $plugin_names ) . ' ' . esc_html_x( 'and', 'plugin A *and* plugin B', 'tgmpa' ) . ' ' . $last_plugin );
 
@@ -3091,15 +3091,15 @@ if ( ! class_exists( 'WASTGMPA_List_Table' ) ) {
 		 * Retrieve plugin data, given the plugin name.
 		 *
 		 * @since      2.2.0
-		 * @deprecated 2.5.0 use {@see WASTGM_Plugin_Activation::_get_plugin_data_from_name()} instead.
-		 * @see        WASTGM_Plugin_Activation::_get_plugin_data_from_name()
+		 * @deprecated 2.5.0 use {@see ASTGM_Plugin_Activation::_get_plugin_data_from_name()} instead.
+		 * @see        ASTGM_Plugin_Activation::_get_plugin_data_from_name()
 		 *
 		 * @param string $name Name of the plugin, as it was registered.
 		 * @param string $data Optional. Array key of plugin data to return. Default is slug.
 		 * @return string|boolean Plugin slug if found, false otherwise.
 		 */
 		protected function _get_plugin_data_from_name( $name, $data = 'slug' ) {
-			_deprecated_function( __FUNCTION__, 'TGMPA 2.5.0', 'WASTGM_Plugin_Activation::_get_plugin_data_from_name()' );
+			_deprecated_function( __FUNCTION__, 'TGMPA 2.5.0', 'ASTGM_Plugin_Activation::_get_plugin_data_from_name()' );
 
 			return $this->tgmpa->_get_plugin_data_from_name( $name, $data );
 		}
@@ -3107,30 +3107,30 @@ if ( ! class_exists( 'WASTGMPA_List_Table' ) ) {
 }
 
 
-if ( ! class_exists( 'WASTGM_Bulk_Installer' ) ) {
+if ( ! class_exists( 'ASTGM_Bulk_Installer' ) ) {
 
 	/**
 	 * Hack: Prevent TGMPA v2.4.1- bulk installer class from being loaded if 2.4.1- is loaded after 2.5+.
 	 *
 	 * @since 2.5.2
 	 *
-	 * {@internal The WASTGMPA_Bulk_Installer class was originally called WASTGM_Bulk_Installer.
+	 * {@internal The ASTGMPA_Bulk_Installer class was originally called ASTGM_Bulk_Installer.
 	 *            For more information, see that class.}}
 	 */
-	class WASTGM_Bulk_Installer {
+	class ASTGM_Bulk_Installer {
 	}
 }
-if ( ! class_exists( 'WASTGM_Bulk_Installer_Skin' ) ) {
+if ( ! class_exists( 'ASTGM_Bulk_Installer_Skin' ) ) {
 
 	/**
 	 * Hack: Prevent TGMPA v2.4.1- bulk installer skin class from being loaded if 2.4.1- is loaded after 2.5+.
 	 *
 	 * @since 2.5.2
 	 *
-	 * {@internal The WASTGMPA_Bulk_Installer_Skin class was originally called WASTGM_Bulk_Installer_Skin.
+	 * {@internal The ASTGMPA_Bulk_Installer_Skin class was originally called ASTGM_Bulk_Installer_Skin.
 	 *            For more information, see that class.}}
 	 */
-	class WASTGM_Bulk_Installer_Skin {
+	class ASTGM_Bulk_Installer_Skin {
 	}
 }
 
@@ -3163,7 +3163,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 				require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 			}
 
-			if ( ! class_exists( 'WASTGMPA_Bulk_Installer' ) ) {
+			if ( ! class_exists( 'ASTGMPA_Bulk_Installer' ) ) {
 
 				/**
 				 * Installer class to handle bulk plugin installations.
@@ -3174,14 +3174,14 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 				 * @since 2.2.0
 				 *
 				 * {@internal Since 2.5.0 the class is an extension of Plugin_Upgrader rather than WP_Upgrader.}}
-				 * {@internal Since 2.5.2 the class has been renamed from WASTGM_Bulk_Installer to WASTGMPA_Bulk_Installer.
+				 * {@internal Since 2.5.2 the class has been renamed from ASTGM_Bulk_Installer to ASTGMPA_Bulk_Installer.
 				 *            This was done to prevent backward compatibility issues with v2.3.6.}}
 				 *
 				 * @package TGM-Plugin-Activation
 				 * @author  Thomas Griffin
 				 * @author  Gary Jones
 				 */
-				class WASTGMPA_Bulk_Installer extends Plugin_Upgrader {
+				class ASTGMPA_Bulk_Installer extends Plugin_Upgrader {
 					/**
 					 * Holds result of bulk plugin installation.
 					 *
@@ -3492,7 +3492,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 				}
 			}
 
-			if ( ! class_exists( 'WASTGMPA_Bulk_Installer_Skin' ) ) {
+			if ( ! class_exists( 'ASTGMPA_Bulk_Installer_Skin' ) ) {
 
 				/**
 				 * Installer skin to set strings for the bulk plugin installations..
@@ -3502,8 +3502,8 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 				 *
 				 * @since 2.2.0
 				 *
-				 * {@internal Since 2.5.2 the class has been renamed from WASTGM_Bulk_Installer_Skin to
-				 *            WASTGMPA_Bulk_Installer_Skin.
+				 * {@internal Since 2.5.2 the class has been renamed from ASTGM_Bulk_Installer_Skin to
+				 *            ASTGMPA_Bulk_Installer_Skin.
 				 *            This was done to prevent backward compatibility issues with v2.3.6.}}
 				 *
 				 * @see https://core.trac.wordpress.org/browser/trunk/src/wp-admin/includes/class-wp-upgrader-skins.php
@@ -3512,7 +3512,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 				 * @author  Thomas Griffin
 				 * @author  Gary Jones
 				 */
-				class WASTGMPA_Bulk_Installer_Skin extends Bulk_Upgrader_Skin {
+				class ASTGMPA_Bulk_Installer_Skin extends Bulk_Upgrader_Skin {
 					/**
 					 * Holds plugin info for each individual plugin installation.
 					 *
@@ -3724,21 +3724,21 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 	}
 }
 
-if ( ! class_exists( 'WASTGMPA_Utils' ) ) {
+if ( ! class_exists( 'ASTGMPA_Utils' ) ) {
 
 	/**
 	 * Generic utilities for TGMPA.
 	 *
 	 * All methods are static, poor-dev name-spacing class wrapper.
 	 *
-	 * Class was called TGM_Utils in 2.5.0 but renamed WASTGMPA_Utils in 2.5.1 as this was conflicting with Soliloquy.
+	 * Class was called TGM_Utils in 2.5.0 but renamed ASTGMPA_Utils in 2.5.1 as this was conflicting with Soliloquy.
 	 *
 	 * @since 2.5.0
 	 *
 	 * @package TGM-Plugin-Activation
 	 * @author  Juliette Reinders Folmer
 	 */
-	class WASTGMPA_Utils {
+	class ASTGMPA_Utils {
 		/**
 		 * Whether the PHP filter extension is enabled.
 		 *
@@ -3849,5 +3849,5 @@ if ( ! class_exists( 'WASTGMPA_Utils' ) ) {
 
 			return false;
 		}
-	} // End of class WASTGMPA_Utils
+	} // End of class ASTGMPA_Utils
 } // End of class_exists wrapper

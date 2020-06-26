@@ -270,7 +270,7 @@ class Auction_Software {
 		$this->loader->add_action( 'wp_ajax_woocommerce_ajax_add_to_auctionwatchlist', $plugin_public, 'auction_software_wc_ajax_add_to_auctionwatchlist' );
 		$this->loader->add_action( 'wp_ajax_nopriv_woocommerce_ajax_add_to_auctionwatchlist', $plugin_public, 'auction_software_wc_ajax_add_to_auctionwatchlist' );
 		$this->loader->add_action( 'wp_ajax_woocommerce_ajax_remove_from_auctionwatchlist', $plugin_public, 'auction_software_wc_ajax_remove_from_auctionwatchlist' );
-		$this->loader->add_action( 'wp_ajax_nopriv_woocommerce_ajax_remove_from_auctionwatchlist', $plugin_public, 'auction_software_wc_ajax_remove_from_auctionwatchlist' );
+		$this->loader->add_action( 'wp_ajax_nopriv_woocommerce_ajax_remove_from_auctionwatchlist', $plugin_public, 'auction_software_wc_ajax_remove_from_woo_watchlist' );
 
 		$this->loader->add_filter( 'woocommerce_add_to_cart_validation', $plugin_public, 'auction_software_wc_add_to_cart_validation', 10, 3 );
 		$this->loader->add_action( 'woocommerce_check_cart_items', $plugin_public, 'auction_software_wc_check_if_sold' );
