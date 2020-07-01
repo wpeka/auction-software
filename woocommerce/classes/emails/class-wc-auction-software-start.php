@@ -46,7 +46,7 @@ if ( class_exists( 'WC_Email' ) ) :
 
 			$this->template_html  = 'emails/auction-software-start.php';
 			$this->template_plain = 'emails/plain/auction-software-start.php';
-			$this->template_base  = ABSPATH . 'wp-content/plugins/auction-software/woocommerce/templates/';
+			$this->template_base  = AUCTION_SOFTWARE_PLUGIN_TEMPLATE_PATH;
 
 			$this->subject = __( '{product name} auction has started. Bid now!', 'auction-software' );
 			$this->heading = __( 'Auction has started.', 'auction-software' );

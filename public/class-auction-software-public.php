@@ -39,6 +39,7 @@ class Auction_Software_Public {
 	 */
 	private $version;
 
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -169,7 +170,14 @@ class Auction_Software_Public {
 	 * @return string
 	 */
 	public function auction_software_wc_remove_prices( $price, $product ) {
-		if ( ( 'auction_simple' === $product->get_type() ) || ( 'auction_reverse' === $product->get_type() ) ) {
+		$auction_types = apply_filters(
+			'auction_software_auction_types',
+			array(
+				'auction_simple',
+				'auction_reverse',
+			)
+		);
+		if ( in_array( $product->get_type(), $auction_types, true ) ) {
 			if ( ! is_admin() ) {
 				$price = '';
 			}
@@ -185,7 +193,14 @@ class Auction_Software_Public {
 	 * @return mixed
 	 */
 	public function auction_software_wc_quantity_input_args( $args, $product ) {
-		if ( 'auction_simple' === $product->get_type() || 'auction_reverse' === $product->get_type() ) {
+		$auction_types = apply_filters(
+			'auction_software_auction_types',
+			array(
+				'auction_simple',
+				'auction_reverse',
+			)
+		);
+		if ( in_array( $product->get_type(), $auction_types, true ) ) {
 			$input_value       = $args['input_value'];
 			$args['min_value'] = $input_value;
 			$args['max_value'] = $input_value;
@@ -197,9 +212,16 @@ class Auction_Software_Public {
 	 * Auction product loop display.
 	 */
 	public function auction_software_wc_after_shop_loop_item() {
-		$product_id = get_the_ID();
-		$product    = wc_get_product( $product_id );
-		if ( 'auction_simple' === $product->get_type() || 'auction_reverse' === $product->get_type() ) {
+		$product_id    = get_the_ID();
+		$product       = wc_get_product( $product_id );
+		$auction_types = apply_filters(
+			'auction_software_auction_types',
+			array(
+				'auction_simple',
+				'auction_reverse',
+			)
+		);
+		if ( in_array( $product->get_type(), $auction_types, true ) ) {
 			$return_arr = WC_Auction_Software_Helper::get_time_left_for_auction( $product_id );
 			$cur_bid    = WC_Auction_Software_Helper::get_auction_post_meta( $product_id, 'auction_current_bid' );
 			if ( ! empty( $return_arr ) && false === $product->is_ended() ) {
@@ -228,7 +250,14 @@ class Auction_Software_Public {
 	 */
 	public function auction_software_wc_product_add_to_cart_text( $text, $product ) {
 		if ( $product ) {
-			if ( 'auction_simple' === $product->get_type() || 'auction_reverse' === $product->get_type() ) {
+			$auction_types = apply_filters(
+				'auction_software_auction_types',
+				array(
+					'auction_simple',
+					'auction_reverse',
+				)
+			);
+			if ( in_array( $product->get_type(), $auction_types, true ) ) {
 				$time_left = WC_Auction_Software_Helper::get_time_left_for_auction( $product->get_id() );
 				if ( $time_left ) {
 					$text = __( 'Bid Now', 'auction-software' );
@@ -250,9 +279,16 @@ class Auction_Software_Public {
 	 * @return string
 	 */
 	public function auction_software_wc_loop_add_to_cart_link( $button, $product ) {
-		$product_id = get_the_ID();
-		$product    = wc_get_product( $product_id );
-		if ( 'auction_simple' === $product->get_type() || 'auction_reverse' === $product->get_type() ) {
+		$product_id    = get_the_ID();
+		$product       = wc_get_product( $product_id );
+		$auction_types = apply_filters(
+			'auction_software_auction_types',
+			array(
+				'auction_simple',
+				'auction_reverse',
+			)
+		);
+		if ( in_array( $product->get_type(), $auction_types, true ) ) {
 			$is_ended = WC_Auction_Software_Helper::get_auction_post_meta( $product_id, 'auction_is_ended' );
 			if ( 1 !== (int) $is_ended ) {
 				return $button;
@@ -279,9 +315,16 @@ class Auction_Software_Public {
 		if ( WC()->cart->is_empty() ) {
 			return $passed;
 		}
+		$auction_types = apply_filters(
+			'auction_software_auction_types',
+			array(
+				'auction_simple',
+				'auction_reverse',
+			)
+		);
 		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 			$product = wc_get_product( $cart_item['product_id'] );
-			if ( ( 'auction_simple' === $product->get_type() || 'auction_reverse' === $product->get_type() ) && $product_id === $cart_item['product_id'] ) {
+			if ( in_array( $product->get_type(), $auction_types, true ) && $product_id === $cart_item['product_id'] ) {
 				WC()->cart->remove_cart_item( $cart_item_key );
 			}
 		}
@@ -325,6 +368,7 @@ class Auction_Software_Public {
 						WC_Auction_Software_Helper::set_auction_bid_logs( $order->get_user_id(), $product_id, 0, current_time( 'mysql' ), 'ended' );
 					}
 				}
+				do_action( 'auction_software_wc_payment_complete', $product_id, $product, $order_id, $order, $item );
 			}
 		}
 		return $order_status;
@@ -334,9 +378,16 @@ class Auction_Software_Public {
 	 * Check auction product if sold already.
 	 */
 	public function auction_software_wc_check_if_sold() {
+		$auction_types = apply_filters(
+			'auction_software_auction_types',
+			array(
+				'auction_simple',
+				'auction_reverse',
+			)
+		);
 		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 			$product = wc_get_product( $cart_item['product_id'] );
-			if ( ( 'auction_simple' === $product->get_type() || 'auction_reverse' === $product->get_type() ) && 1 === (int) $product->get_auction_is_sold() ) {
+			if ( in_array( $product->get_type(), $auction_types, true ) && 1 === (int) $product->get_auction_is_sold() ) {
 				WC()->cart->remove_cart_item( $cart_item_key );
 				wc_print_notice(
 					sprintf(
@@ -350,7 +401,7 @@ class Auction_Software_Public {
 					),
 					'error'
 				);
-			} elseif ( ( 'auction_simple' === $product->get_type() || 'auction_reverse' === $product->get_type() ) && $product->is_ended() ) {
+			} elseif ( in_array( $product->get_type(), $auction_types, true ) && $product->is_ended() ) {
 				$winner = WC_Auction_Software_Helper::get_auction_post_meta( $cart_item['product_id'], 'auction_highest_bid_user' );
 				if ( get_current_user_id() !== (int) $winner ) {
 					WC()->cart->remove_cart_item( $cart_item_key );

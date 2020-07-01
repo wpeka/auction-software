@@ -179,6 +179,9 @@ if ( ! defined( 'AUCTION_SOFTWARE_SUFFIX' ) ) {
 if ( ! defined( 'AUCTION_SOFTWARE_PLUGIN_PATH' ) ) {
 	define( 'AUCTION_SOFTWARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 }
+if ( ! defined( 'AUCTION_SOFTWARE_PLUGIN_TEMPLATE_PATH' ) ) {
+	define( 'AUCTION_SOFTWARE_PLUGIN_TEMPLATE_PATH', AUCTION_SOFTWARE_PLUGIN_PATH . 'woocommerce/templates/' );
+}
 if ( ! defined( 'AUCTION_SOFTWARE_PLUGIN_URL' ) ) {
 	define( 'AUCTION_SOFTWARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 }
