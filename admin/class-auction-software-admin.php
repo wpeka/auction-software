@@ -380,6 +380,8 @@ class Auction_Software_Admin {
 					}
 				}
 			}
+
+			do_action( 'auction_software_every_minute_cron_tasks', $postid, $product );
 		}
 		wp_reset_postdata();
 	}
@@ -437,8 +439,11 @@ class Auction_Software_Admin {
 				$update_args = array_filter( $update_args );
 				if ( empty( $update_args['name'] ) ) {
 					continue;
+				} else {
+					$name = $update_args['name'];
+					unset( $update_args['name'] );
 				}
-				$inserted_term = wp_insert_term( $update_args['slug'], 'product_auction_class', $update_args );
+				$inserted_term = wp_insert_term( $name, 'product_auction_class', $update_args );
 				$term_id       = is_wp_error( $inserted_term ) ? 0 : $inserted_term['term_id'];
 			} else {
 				wp_update_term( $term_id, 'product_auction_class', $update_args );
@@ -741,7 +746,7 @@ class Auction_Software_Admin {
 				endif;
 			}
 		}
-
+		do_action( 'auction_software_save_product_auction_options', $post_id );
 		$is_ended = get_post_meta( $post_id, 'auction_is_ended' );
 		if ( ! empty( $is_ended ) && 1 === (int) $is_ended[0] ) {
 			update_post_meta( $post_id, 'auction_is_started_and_ended', 1 );
@@ -906,9 +911,18 @@ class Auction_Software_Admin {
 	 * @return mixed
 	 */
 	public function auction_software_product_auction_type_options( $product_type_options ) {
-		$product_type_options['virtual']['wrapper_class']      = 'show_if_simple show_if_auction_simple show_if_auction_reverse';
-		$product_type_options['downloadable']['wrapper_class'] = 'show_if_simple show_if_auction_simple show_if_auction_reverse';
-
+		$classes = 'show_if_auction_simple show_if_auction_reverse';
+		$classes = apply_filters( 'auction_software_auction_tabs_classes', $classes );
+		if ( isset( $product_type_options['virtual']['wrapper_class'] ) ) {
+			$product_type_options['virtual']['wrapper_class'] .= ' ' . $classes;
+		} else {
+			$product_type_options['virtual']['wrapper_class'] = $classes;
+		}
+		if ( isset( $product_type_options['downloadable']['wrapper_class'] ) ) {
+			$product_type_options['downloadable']['wrapper_class'] .= ' ' . $classes;
+		} else {
+			$product_type_options['downloadable']['wrapper_class'] = $classes;
+		}
 		return $product_type_options;
 	}
 }
