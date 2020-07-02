@@ -127,7 +127,7 @@
 							$( ".auction_bid_increment" ).load( location.href + " .auction_bid_increment>*", "" );
 							$( ".auction_current_bid_simple" ).load( location.href + " .auction_current_bid_simple>*", "" );
 							$( ".auction_current_bid_penny" ).load( location.href + " .auction_current_bid_penny>*", "" );
-							$( ".auction_current_bid_reverse" ).load( location.href + " .auction_current_bid_penny>*", "" );
+							$( ".auction_current_bid_reverse" ).load( location.href + " .auction_current_bid_reverse>*", "" );
 							$( "#auction_history_table" ).load( location.href + " #auction_history_table>*", "" );
 						},
 						60000

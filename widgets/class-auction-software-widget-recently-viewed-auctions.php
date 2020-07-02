@@ -118,6 +118,14 @@ class Auction_Software_Widget_Recently_Viewed_Auctions extends WP_Widget {
 			}
 		}
 
+		$auction_types = apply_filters(
+			'auction_software_auction_types',
+			array(
+				'auction_simple',
+				'auction_reverse',
+			)
+		);
+
 		$query_args = array(
 			'posts_per_page' => $number,
 			'no_found_rows'  => 1,
@@ -134,10 +142,7 @@ class Auction_Software_Widget_Recently_Viewed_Auctions extends WP_Widget {
 			array(
 				'taxonomy' => 'product_type',
 				'field'    => 'slug',
-				'terms'    => array(
-					'auction_simple',
-					'auction_reverse',
-				),
+				'terms'    => $auction_types,
 			),
 		);
 		$query_args['auction_arhive'] = true;
