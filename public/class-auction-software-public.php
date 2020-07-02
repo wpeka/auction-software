@@ -136,6 +136,7 @@ class Auction_Software_Public {
 				trailingslashit( $template_path )
 			);
 		}
+		do_action( 'auction_software_wc_single_product_summary', $product );
 	}
 
 	/**

@@ -102,6 +102,14 @@ class Auction_Software_Widget_Random_Auctions extends WP_Widget {
 
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Random Auctions', 'auction-software' ) : $instance['title'], $instance, $this->id_base );
 
+		$auction_types = apply_filters(
+			'auction_software_auction_types',
+			array(
+				'auction_simple',
+				'auction_reverse',
+			)
+		);
+
 		$query_args = array(
 			'post_type'      => 'product',
 			'post_status'    => 'publish',
@@ -117,10 +125,7 @@ class Auction_Software_Widget_Random_Auctions extends WP_Widget {
 			array(
 				'taxonomy' => 'product_type',
 				'field'    => 'slug',
-				'terms'    => array(
-					'auction_simple',
-					'auction_reverse',
-				),
+				'terms'    => $auction_types,
 			),
 		);
 
