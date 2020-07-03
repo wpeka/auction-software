@@ -122,32 +122,32 @@ class Auction_Software_Widget_Future_Auctions extends WP_Widget {
 			)
 		);
 
-		$query_args                   = array(
+		$query_args                    = array(
 			'posts_per_page' => $number,
 			'no_found_rows'  => 1,
 			'post_status'    => 'publish',
 			'post_type'      => 'product',
 		);
-		$query_args['meta_query']     = array(); // phpcs:ignore slow query
-		$query_args['meta_query'][]   = $woocommerce->query->stock_status_meta_query();
-		$query_args['meta_query'][]   = array(
+		$query_args['meta_query']      = array(); // phpcs:ignore slow query
+		$query_args['meta_query'][]    = $woocommerce->query->stock_status_meta_query();
+		$query_args['meta_query'][]    = array(
 			'key'     => 'auction_date_from',
 			'value'   => current_time( 'mysql' ),
 			'compare' => '>',
-			'type'    => 'DATE',
+			'type'    => 'DATETIME',
 		);
-		$query_args['meta_query']     = array_filter( $query_args['meta_query'] ); // phpcs:ignore slow query
-		$query_args['tax_query']      = array( // phpcs:ignore slow query
+		$query_args['meta_query']      = array_filter( $query_args['meta_query'] ); // phpcs:ignore slow query
+		$query_args['tax_query']       = array( // phpcs:ignore slow query
 			array(
 				'taxonomy' => 'product_type',
 				'field'    => 'slug',
 				'terms'    => $auction_types,
 			),
 		);
-		$query_args['auction_arhive'] = true;
-		$query_args['meta_key']       = 'auction_date_to'; // phpcs:ignore slow query
-		$query_args['orderby']        = 'meta_value';
-		$query_args['order']          = 'ASC';
+		$query_args['auction_archive'] = true;
+		$query_args['meta_key']        = 'auction_date_to'; // phpcs:ignore slow query
+		$query_args['orderby']         = 'meta_value';
+		$query_args['order']           = 'ASC';
 
 		$r = new WP_Query( $query_args );
 
