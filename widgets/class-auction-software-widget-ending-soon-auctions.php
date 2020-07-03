@@ -132,13 +132,13 @@ class Auction_Software_Widget_Ending_Soon_Auctions extends WP_Widget {
 			'key'     => 'auction_date_from',
 			'value'   => current_time( 'mysql' ),
 			'compare' => '<=',
-			'type'    => 'DATE',
+			'type'    => 'DATETIME',
 		);
 		$query_args['meta_query'][] = array(
 			'key'     => 'auction_date_to',
 			'value'   => current_time( 'mysql' ),
 			'compare' => '>=',
-			'type'    => 'DATE',
+			'type'    => 'DATETIME',
 		);
 		$query_args['meta_query']   = array_filter( $query_args['meta_query'] ); // phpcs:ignore slow query
 		$query_args['tax_query']    = array( // phpcs:ignore slow query

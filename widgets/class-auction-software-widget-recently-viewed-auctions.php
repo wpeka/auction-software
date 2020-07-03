@@ -135,17 +135,17 @@ class Auction_Software_Widget_Recently_Viewed_Auctions extends WP_Widget {
 			'orderby'        => 'rand',
 		);
 
-		$query_args['meta_query']     = array(); // phpcs:ignore slow query
-		$query_args['meta_query'][]   = $woocommerce->query->stock_status_meta_query();
-		$query_args['meta_query']     = array_filter( $query_args['meta_query'] ); // phpcs:ignore slow query
-		$query_args['tax_query']      = array( // phpcs:ignore slow query
+		$query_args['meta_query']      = array(); // phpcs:ignore slow query
+		$query_args['meta_query'][]    = $woocommerce->query->stock_status_meta_query();
+		$query_args['meta_query']      = array_filter( $query_args['meta_query'] ); // phpcs:ignore slow query
+		$query_args['tax_query']       = array( // phpcs:ignore slow query
 			array(
 				'taxonomy' => 'product_type',
 				'field'    => 'slug',
 				'terms'    => $auction_types,
 			),
 		);
-		$query_args['auction_arhive'] = true;
+		$query_args['auction_archive'] = true;
 
 		$r = new WP_Query( $query_args );
 

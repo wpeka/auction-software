@@ -86,6 +86,11 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 
 ## Screenshots ##
 
+1. Simple Auction.
+2. Reverse Auction
+3. Penny Auction.
+4. Auction Widgets.
+
 ## Changelog ##
 ### 1.0.0 ###
 Feature: Initial version.
