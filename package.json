@@ -1,6 +1,6 @@
 {
   "name": "auction-software",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "Gruntfile.js",
   "author": "WPeka",
   "devDependencies": {

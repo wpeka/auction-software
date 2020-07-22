@@ -388,42 +388,13 @@ class Auction_Software_Public {
 		);
 		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 			$product = wc_get_product( $cart_item['product_id'] );
-			if ( in_array( $product->get_type(), $auction_types, true ) && 1 === (int) $product->get_auction_is_sold() ) {
-				WC()->cart->remove_cart_item( $cart_item_key );
-				wc_print_notice(
-					sprintf(
-						/* translators: 1: href link */
-						esc_html__( 'Product has already sold. %s', 'auction-software' ),
-						sprintf(
-							/* translators: %s href link */
-							'<a href="%s" class="wc-backward">Return to shop</a>',
-							esc_url( wc_get_page_permalink( 'shop' ) )
-						)
-					),
-					'error'
-				);
-			} elseif ( ( ( $product->get_auction_buy_it_now_price() < $product->get_auction_current_bid() && 'auction_reverse' !== $product->get_type() ) || ( 'auction_reverse' === $product->get_type() && $product->get_auction_buy_it_now_price() > $product->get_auction_current_bid() ) ) && ! $product->is_ended() ) {
-				WC()->cart->remove_cart_item( $cart_item_key );
-				wc_print_notice(
-					sprintf(
-						/* translators: 1: href link */
-						esc_html__( 'Product current bid exceeded buy it now price.. %s', 'auction-software' ),
-						sprintf(
-							/* translators: %s href link */
-							'<a href="%s" class="wc-backward">Return to shop</a>',
-							esc_url( wc_get_page_permalink( 'shop' ) )
-						)
-					),
-					'error'
-				);
-			} elseif ( in_array( $product->get_type(), $auction_types, true ) && $product->is_ended() ) {
-				$winner = WC_Auction_Software_Helper::get_auction_post_meta( $cart_item['product_id'], 'auction_highest_bid_user' );
-				if ( get_current_user_id() !== (int) $winner ) {
+			if ( in_array( $product->get_type(), $auction_types, true ) ) {
+				if ( 1 === (int) $product->get_auction_is_sold() ) {
 					WC()->cart->remove_cart_item( $cart_item_key );
 					wc_print_notice(
 						sprintf(
 							/* translators: 1: href link */
-							esc_html__( 'Auction has ended and you are not a winner. %s', 'auction-software' ),
+							esc_html__( 'Product has already sold. %s', 'auction-software' ),
 							sprintf(
 								/* translators: %s href link */
 								'<a href="%s" class="wc-backward">Return to shop</a>',
@@ -432,6 +403,37 @@ class Auction_Software_Public {
 						),
 						'error'
 					);
+				} elseif ( ( ( $product->get_auction_buy_it_now_price() < $product->get_auction_current_bid() && 'auction_reverse' !== $product->get_type() ) || ( 'auction_reverse' === $product->get_type() && $product->get_auction_buy_it_now_price() > $product->get_auction_current_bid() ) ) && ! $product->is_ended() ) {
+					WC()->cart->remove_cart_item( $cart_item_key );
+					wc_print_notice(
+						sprintf(
+							/* translators: 1: href link */
+							esc_html__( 'Product current bid exceeded buy it now price.. %s', 'auction-software' ),
+							sprintf(
+								/* translators: %s href link */
+								'<a href="%s" class="wc-backward">Return to shop</a>',
+								esc_url( wc_get_page_permalink( 'shop' ) )
+							)
+						),
+						'error'
+					);
+				} elseif ( $product->is_ended() ) {
+					$winner = WC_Auction_Software_Helper::get_auction_post_meta( $cart_item['product_id'], 'auction_highest_bid_user' );
+					if ( get_current_user_id() !== (int) $winner ) {
+						WC()->cart->remove_cart_item( $cart_item_key );
+						wc_print_notice(
+							sprintf(
+								/* translators: 1: href link */
+								esc_html__( 'Auction has ended and you are not a winner. %s', 'auction-software' ),
+								sprintf(
+									/* translators: %s href link */
+									'<a href="%s" class="wc-backward">Return to shop</a>',
+									esc_url( wc_get_page_permalink( 'shop' ) )
+								)
+							),
+							'error'
+						);
+					}
 				}
 			}
 		}
