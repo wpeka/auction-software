@@ -678,22 +678,22 @@ class Auction_Software_Public {
         // phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
-    /**
-     * Reorder my account menu items.
-     *
-     * @return array
-     */
-    public function auction_software_my_account_menu_items() {
-        $auction_order = array(
-            'dashboard'        => __( 'Dashboard', 'woo_auction' ),
-            'auctions_list'    => __( 'Auctions', 'woo_auction' ),
-            'orders'           => __( 'Orders', 'woo_auction' ),
-            'downloads'        => __( 'Downloads', 'woo_auction' ),
-            'edit-address'     => __( 'Addresses', 'woo_auction' ),
-            'edit-account'     => __( 'Account details', 'woo_auction' ),
-            'customer-logout'  => __( 'Logout', 'woo_auction' ),
-        );
+	/**
+	 * Reorder my account menu items.
+	 *
+	 * @return array
+	 */
+	public function auction_software_my_account_menu_items() {
+		$auction_order = array(
+			'dashboard'       => __( 'Dashboard', 'woo_auction' ),
+			'auctions_list'   => __( 'Auctions', 'woo_auction' ),
+			'orders'          => __( 'Orders', 'woo_auction' ),
+			'downloads'       => __( 'Downloads', 'woo_auction' ),
+			'edit-address'    => __( 'Addresses', 'woo_auction' ),
+			'edit-account'    => __( 'Account details', 'woo_auction' ),
+			'customer-logout' => __( 'Logout', 'woo_auction' ),
+		);
 
-        return $auction_order;
-    }
+		return $auction_order;
+	}
 }

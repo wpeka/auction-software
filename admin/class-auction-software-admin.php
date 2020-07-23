@@ -955,13 +955,10 @@ class Auction_Software_Admin {
 		if ( ! is_user_logged_in() ) {
 			return;
 		}
-		$user_id = get_current_user_id();
-		$content = '';
-		$r       = WC_Auction_Software_Helper::get_auctions_list_products( $user_id );
-        global $wp;
-        $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-        $currentPageURL = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-        $content .= '<div id="auction_buy_bids">
+		$user_id  = get_current_user_id();
+		$content  = '';
+		$r        = WC_Auction_Software_Helper::get_auctions_list_products( $user_id );
+		$content .= '<div id="auction_buy_bids">
                                 <h3>' . esc_html__( 'My Auctions', 'auction-software' ) . '</h3>
                                 <form id="auctions_list_form" type="post" enctype="multipart/form-data" action="#">
                                     <table>
@@ -1006,32 +1003,31 @@ class Auction_Software_Admin {
 						if ( $winner && $reserve_price_met ) {
 							if ( 1 !== (int) $product->get_auction_is_sold() ) {
 
-							 	$content .= '<td><a class="button product_type_auction_simple add_to_cart_button" 
-                                                href ="'.$currentPageURL.'&add-to-cart='.$product->get_id().'" 
-                                                >'.$product->get_buy_it_now_cart_text().'</a>
+								$content .= '<td><a class="button product_type_auction_simple add_to_cart_button" 
+                                                href ="' . get_permalink() . '&add-to-cart=' . $product->get_id() . '" 
+                                                >' . $product->get_buy_it_now_cart_text() . '</a>
                                             </td>';
 							} else {
-                                   $content .= '<td>' . esc_html__('Won', 'auction-software') . '</td>';
-                                }
-						} else if ( 1 == (int) $product->get_auction_is_sold()){
-							$user = WC_Auction_Software_Helper::get_auction_user_by_status( $product->get_id() );
-                            $user_info = get_userdata( $user);
-                            $won_user = WC_Auction_Software_Helper::get_won_user_by_auction($product->get_id());
-                            $won_user_info = get_userdata( $won_user);
-                            if ( $user_id == $user ) {
+								$content .= '<td>' . esc_html__( 'Won', 'auction-software' ) . '</td>';
+							}
+						} elseif ( 1 === (int) $product->get_auction_is_sold() ) {
+							$user          = WC_Auction_Software_Helper::get_auction_user_by_status( $product->get_id() );
+							$user_info     = get_userdata( $user );
+							$won_user      = WC_Auction_Software_Helper::get_won_user_by_auction( $product->get_id() );
+							$won_user_info = get_userdata( $won_user );
+							if ( $user_id === $user ) {
 								$content .= '<td>' . esc_html__( 'Won', 'auction-software' ) . '</td>';
 							} else {
-                                if($reserve_price_met){
-                                    $content .= '<td>'.esc_html__('Won By '.$won_user_info->display_name).'</td>';
-                                } else {
-                                    $content .= '<td>'.esc_html__('Buy it Now Used By '.$user_info->display_name).'</td>';
-
-                                }
+								if ( $reserve_price_met ) {
+									$content .= '<td>' . esc_html__( 'Won by ', 'auction-software' ) . $won_user_info->display_name . '</td>';
+								} else {
+									$content .= '<td>' . esc_html__( 'Buy it Now Used by ', 'auction-software' ) . $user_info->display_name . '</td>';
+								}
 							}
 						} else {
-                            $content .= '<td>--</td>';
+							$content .= '<td>--</td>';
 
-                        }
+						}
 					} elseif ( false === $product->is_started( $product->get_id() ) ) {
 						$content .= '<td >--</td><td>--</td>';
 					} elseif ( ! $product->is_ended( $product->get_id() ) ) {
@@ -1040,7 +1036,6 @@ class Auction_Software_Admin {
                                         class="button product_type_auction_simple add_to_cart_button" data-product_id="' . $product->get_id() . '"
                                         data-product_sku="" aria-label="Read more about "' . get_the_title() . '" rel="nofollow">Bid Now</a></td>';
 					}
-
 				}
 				$content .= '</tr>';
 
@@ -1053,7 +1048,7 @@ class Auction_Software_Admin {
 
 		$content .= '</table></form></div>';
 
-		echo  $content;
+		echo $content;
 	}
 
 }

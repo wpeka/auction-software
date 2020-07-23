@@ -51,7 +51,7 @@ class WC_Auction_Software_Helper {
 				}
 			case 'select':
 				$options        = explode( ',', $options );
-				$select_options = [];
+				$select_options = array();
 				foreach ( $options as $option_value ) {
 					$select_options[ $option_value ] = self::get_id_title( $option_value );
 				}
