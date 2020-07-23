@@ -231,7 +231,11 @@ class Auction_Software {
 		$this->loader->add_action( 'woocommerce_process_product_meta', $plugin_admin, 'auction_software_save_product_auction_options' );
 
 		$this->loader->add_action( 'wp_ajax_auction_software_save_wc_classes', $plugin_admin, 'auction_software_save_wc_classes' );
-
+		// My Auctions List Code.
+		$this->loader->add_filter( 'query_vars', $plugin_admin, 'auction_software_query_vars', 0 );
+		$this->loader->add_filter( 'woocommerce_account_menu_items', $plugin_admin, 'auction_software_account_menu_items' );
+		$this->loader->add_action( 'woocommerce_account_auctions_list_endpoint', $plugin_admin, 'auction_software_auctions_list_endpoint' );
+		// #My Auctions List Code.
 	}
 
 	/**
@@ -274,6 +278,9 @@ class Auction_Software {
 
 		$this->loader->add_filter( 'woocommerce_add_to_cart_validation', $plugin_public, 'auction_software_wc_add_to_cart_validation', 10, 3 );
 		$this->loader->add_action( 'woocommerce_check_cart_items', $plugin_public, 'auction_software_wc_check_if_sold' );
+
+		// Add Auctions Menu in my Account.
+		$this->loader->add_filter( 'woocommerce_account_menu_items', $plugin_public, 'auction_software_my_account_menu_items' );
 
 	}
 

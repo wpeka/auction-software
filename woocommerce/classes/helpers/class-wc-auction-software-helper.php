@@ -338,4 +338,94 @@ class WC_Auction_Software_Helper {
 			return $return_arr;
 		}
 	}
+
+	/**
+	 * Returns my auctions list.
+	 *
+	 * @param int $user_id User id.
+	 * @return array|int
+	 */
+	public static function get_auctions_list_products( $user_id ) {
+		global $woocommerce,$wpdb;
+
+		if ( ! is_user_logged_in() ) {
+			return;
+		}
+		$post_ids      = array();
+		$user_auctions = $wpdb->get_results( $wpdb->prepare( 'SELECT  DISTINCT auction_id FROM ' . $wpdb->prefix . 'auction_software_logs WHERE user_id = %d', array( $user_id ) ), ARRAY_N ); // db call ok; no-cache ok.
+		if ( isset( $user_auctions ) && ! empty( $user_auctions ) ) {
+			foreach ( $user_auctions as $auction ) {
+				$post_ids[] = $auction[0];
+			}
+		} else {
+			return;
+		}
+
+		$auction_types = apply_filters(
+			'auction_software_auction_types',
+			array(
+				'auction_simple',
+				'auction_reverse',
+			)
+		);
+
+		$query_args               = array(
+			'posts_per_page' => 10,
+			'no_found_rows'  => 1,
+			'post_status'    => 'publish',
+			'post_type'      => 'product',
+		);
+		$query_args['post__in']   = $post_ids;
+		$query_args['meta_query'] = $woocommerce->query->get_meta_query(); // phpcs:ignore slow query
+		$query_args['tax_query']  = array( // phpcs:ignore slow query
+			array(
+				'taxonomy' => 'product_type',
+				'field'    => 'slug',
+				'terms'    => $auction_types,
+			),
+		);
+
+		$results = new WP_Query( $query_args );
+
+		if ( ! empty( $results ) ) {
+			return $results;
+		} else {
+			return 0;
+		}
+	}
+
+	/**
+	 * Get auction user by Status.
+	 *
+	 * @param int $post_id Product id.
+	 * @return array
+	 */
+	public static function get_auction_user_by_status( $post_id ) {
+		global $wpdb;
+		$user = $wpdb->get_results( $wpdb->prepare( 'SELECT user_id FROM ' . $wpdb->prefix . 'auction_software_logs WHERE auction_id = %d AND status = %s', array( $post_id, 'buyitnow' ) ), ARRAY_A ); // db call ok; no-cache ok.
+
+		if ( ! empty( $user ) ) {
+			return $user[0]['user_id'];
+		} else {
+			return '';
+		}
+	}
+	/**
+	 * Get Bid Won user by Auction.
+	 *
+	 * @param int $post_id Product id.
+	 * @return array
+	 */
+	public static function get_won_user_by_auction( $post_id ) {
+		global $wpdb;
+
+		$highest_bid = self::get_auction_post_meta( $post_id, 'auction_winning_bid' );
+		$user        = $wpdb->get_results( $wpdb->prepare( 'SELECT user_id FROM ' . $wpdb->prefix . 'auction_software_logs WHERE auction_id = %d AND bid = %d', array( $post_id, $highest_bid ) ), ARRAY_A ); // db call ok; no-cache ok.
+
+		if ( ! empty( $user ) ) {
+			return $user[0]['user_id'];
+		} else {
+			return '';
+		}
+	}
 }

@@ -925,4 +925,135 @@ class Auction_Software_Admin {
 		}
 		return $product_type_options;
 	}
+
+	/**
+	 * Add auctions list to query vars.
+	 *
+	 * @param array $vars Vars array.
+	 * @return array
+	 */
+	public function auction_software_query_vars( $vars ) {
+		$vars[] = 'auctions_list';
+		return $vars;
+	}
+
+	/**
+	 * Add auction list to my account.
+	 *
+	 * @param array $items My account menu items.
+	 * @return mixed
+	 */
+	public function auction_software_account_menu_items( $items ) {
+		$items['auctions_list'] = __( 'Auctions', 'auction-software' );
+		return $items;
+	}
+
+	/**
+	 * My Auctions List endpoint
+	 */
+	public function auction_software_auctions_list_endpoint() {
+		if ( ! is_user_logged_in() ) {
+			return;
+		}
+		$user_id = get_current_user_id();
+		$content = '';
+		$r       = WC_Auction_Software_Helper::get_auctions_list_products( $user_id );
+        global $wp;
+        $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+        $currentPageURL = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        $content .= '<div id="auction_buy_bids">
+                                <h3>' . esc_html__( 'My Auctions', 'auction-software' ) . '</h3>
+                                <form id="auctions_list_form" type="post" enctype="multipart/form-data" action="#">
+                                    <table>
+                                        <tr>
+                                            <td>' . esc_html__( 'Auctions', 'auction-software' ) . '</td>
+                                            <td>' . esc_html__( 'Current Bid', 'auction-software' ) . '</td>
+                                            <td>' . esc_html__( 'Item Condition', 'auction-software' ) . '</td>
+                                            <td>' . esc_html__( 'Time Left', 'auction-software' ) . '</td>
+                                            <td>' . esc_html__( 'Action', 'auction-software' ) . '</td>
+                                        </tr>';
+		if ( ! empty( $r ) ) {
+			if ( $r->have_posts() ) {
+				while ( $r->have_posts() ) {
+					$r->the_post();
+
+					global $product;
+					$item_condition = WC_Auction_Software_Helper::get_auction_post_meta( $product->get_id(), 'auction_item_condition' );
+
+					$content .= '<tr>
+                                  <td>' . get_the_title() . '</td>';
+					if ( true === $product->is_started( $product->get_id() ) ) {
+						if ( $product->is_ended( $product->get_id() ) ) {
+							$content .= '<td>' . wc_price( $product->get_auction_winning_bid() ) . '</td>';
+						} else {
+							$current_bid_value = $product->get_auction_current_bid();
+							if ( 0 === (int) $current_bid_value ) {
+								$content .= '<td>' . esc_html__( 'No bids yet', 'auction-software' ) . '</td>';
+							} else {
+								$content .= '<td>' . wc_price( $current_bid_value ) . '</td>';
+							}
+						}
+					} else {
+						$content .= '<td >' . esc_html__( 'No bids yet', 'auction-software' ) . '</td>';
+					}
+					$content .= '<td>' . ucfirst( $item_condition ) . '</td>';
+					if ( $product->is_ended( $product->get_id() ) ) {
+
+						$reserve_price_met = $product->check_if_reserve_price_met( $product->get_id() );
+						$content          .= '<td>' . esc_html__( 'Auction finished', 'auction-software' ) . '</td>';
+
+						$winner = $product->check_if_user_has_winning_bid( $product->get_auction_current_bid(), $user_id, $product->get_id() );
+						if ( $winner && $reserve_price_met ) {
+							if ( 1 !== (int) $product->get_auction_is_sold() ) {
+
+							 	$content .= '<td><a class="button product_type_auction_simple add_to_cart_button" 
+                                                href ="'.$currentPageURL.'&add-to-cart='.$product->get_id().'" 
+                                                >'.$product->get_buy_it_now_cart_text().'</a>
+                                            </td>';
+							} else {
+                                   $content .= '<td>' . esc_html__('Won', 'auction-software') . '</td>';
+                                }
+						} else if ( 1 == (int) $product->get_auction_is_sold()){
+							$user = WC_Auction_Software_Helper::get_auction_user_by_status( $product->get_id() );
+                            $user_info = get_userdata( $user);
+                            $won_user = WC_Auction_Software_Helper::get_won_user_by_auction($product->get_id());
+                            $won_user_info = get_userdata( $won_user);
+                            if ( $user_id == $user ) {
+								$content .= '<td>' . esc_html__( 'Won', 'auction-software' ) . '</td>';
+							} else {
+                                if($reserve_price_met){
+                                    $content .= '<td>'.esc_html__('Won By '.$won_user_info->display_name).'</td>';
+                                } else {
+                                    $content .= '<td>'.esc_html__('Buy it Now Used By '.$user_info->display_name).'</td>';
+
+                                }
+							}
+						} else {
+                            $content .= '<td>--</td>';
+
+                        }
+					} elseif ( false === $product->is_started( $product->get_id() ) ) {
+						$content .= '<td >--</td><td>--</td>';
+					} elseif ( ! $product->is_ended( $product->get_id() ) ) {
+						$content .= '<td ><span class="auctiontime-left timeLeft' . $product->get_id() . '"></span></td>
+                                        <td><a href="http://localhost/wooauction/?product=' . get_the_title() . '" data-quantity="1"
+                                        class="button product_type_auction_simple add_to_cart_button" data-product_id="' . $product->get_id() . '"
+                                        data-product_sku="" aria-label="Read more about "' . get_the_title() . '" rel="nofollow">Bid Now</a></td>';
+					}
+
+				}
+				$content .= '</tr>';
+
+			}
+		} else {
+			$content .= '<tr>
+                            <td colspan="5">' . esc_html__( 'You didn\'t have any Auctions.', 'auction-software' ) . '</td>
+                         </tr>';
+		}
+
+		$content .= '</table></form></div>';
+
+		echo  $content;
+	}
+
 }
