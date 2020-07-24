@@ -1042,7 +1042,7 @@ class Auction_Software_Admin {
 			}
 		} else {
 			$content .= '<tr>
-                            <td colspan="5">' . esc_html__( 'You didn\'t have any Auctions.', 'auction-software' ) . '</td>
+                            <td colspan="5">' . esc_html__( 'You didn\'t participated in any Auctions.', 'auction-software' ) . '</td>
                          </tr>';
 		}
 
