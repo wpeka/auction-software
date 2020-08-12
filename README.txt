@@ -5,7 +5,7 @@ Tags: auction, simple auction, reverse auction, auction plugin, auctions, wordpr
 Requires at least: 5.0
 Tested up to: 5.3.2
 Requires PHP: 7.0
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,9 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 4. Auction Widgets.
 
 == Changelog ==
+= 1.0.2 =
+Feature: Users can see the auctions participated in My Account area.
+
 = 1.0.1 =
 Fix: Fixed for broken cart and checkout pages.
 
@@ -99,6 +102,9 @@ Fix: Fixed for broken cart and checkout pages.
 Feature: Initial version.
 
 == Upgrade Notice ==
+= 1.0.2 =
+Feature: Users can see the auctions participated in My Account area.
+
 = 1.0.1 =
 Fix: Fixed for broken cart and checkout pages.
 

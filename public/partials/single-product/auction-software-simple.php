@@ -259,10 +259,10 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 		echo '<p id="auctionlogin_message" style="display:' . esc_attr( $logged_in ) . '">';
 		echo sprintf(
 			/* translators: %s: Login link */
-				esc_html__( 'Sorry, you must be logged in to add auction to watchlist. %s', 'auction-software' ),
+			esc_html__( 'Sorry, you must be logged in to add auction to watchlist. %s', 'auction-software' ),
 			sprintf(
 				/* translators: %s: Myaccount link */
-					'<a href="%s" class="button">Login &rarr;</a>',
+				'<a href="%s" class="button">Login &rarr;</a>',
 				esc_url( get_permalink( wc_get_page_id( 'myaccount' ) ) )
 			)
 		);
