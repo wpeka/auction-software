@@ -109,6 +109,13 @@ class Auction_Software_Public {
 			'seconds'  => __( ' seconds ', 'auction-software' ),
 
 		);
+		$wc_timezone_string = wc_timezone_string();
+		if ( strpos( $wc_timezone_string, ':' ) !== false ) {
+			$dt                            = new DateTime();
+			$tz_obj                        = $dt->getTimezone();
+			$tz                            = $tz_obj->getName();
+			$data_to_be_passed['timezone'] = $tz;
+		}
 
 		wp_localize_script( $this->plugin_name, 'php_vars', $data_to_be_passed );
 
@@ -676,5 +683,24 @@ class Auction_Software_Public {
 		echo wp_send_json( 'success' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		wp_die();
         // phpcs:enable WordPress.Security.NonceVerification.Missing
+	}
+
+	/**
+	 * Reorder my account menu items.
+	 *
+	 * @return array
+	 */
+	public function auction_software_my_account_menu_items() {
+		$auction_order = array(
+			'dashboard'       => __( 'Dashboard', 'auction-software' ),
+			'auctions_list'   => __( 'Auctions', 'auction-software' ),
+			'orders'          => __( 'Orders', 'auction-software' ),
+			'downloads'       => __( 'Downloads', 'auction-software' ),
+			'edit-address'    => __( 'Addresses', 'auction-software' ),
+			'edit-account'    => __( 'Account details', 'auction-software' ),
+			'customer-logout' => __( 'Logout', 'auction-software' ),
+		);
+
+		return $auction_order;
 	}
 }
