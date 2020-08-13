@@ -171,7 +171,7 @@ function auction_software_register_required_plugins() {
  * Rename this for your plugin and update it as you release new versions.
  */
 if ( ! defined( 'AUCTION_SOFTWARE_VERSION' ) ) {
-	define( 'AUCTION_SOFTWARE_VERSION', '1.0.1' );
+	define( 'AUCTION_SOFTWARE_VERSION', '1.0.2' );
 }
 if ( ! defined( 'AUCTION_SOFTWARE_SUFFIX' ) ) {
 	define( 'AUCTION_SOFTWARE_SUFFIX', ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min' );
@@ -205,7 +205,7 @@ if ( ! function_exists( 'as_fs' ) ) {
 					'slug'            => 'auction-software',
 					'product_name'    => 'Auction Software',
 					'module_type'     => 'plugin',
-					'version'         => '1.0.1',
+					'version'         => '1.0.2',
 					'plugin_basename' => 'auction-software/auction-software.php',
 					'plugin_url'      => AUCTION_SOFTWARE_PLUGIN_URL,
 				)

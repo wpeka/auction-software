@@ -69,7 +69,7 @@ class Auction_Software {
 		if ( defined( 'AUCTION_SOFTWARE_VERSION' ) ) {
 			$this->version = AUCTION_SOFTWARE_VERSION;
 		} else {
-			$this->version = '1.0.1';
+			$this->version = '1.0.2';
 		}
 		$this->plugin_name = 'auction-software';
 
@@ -280,7 +280,7 @@ class Auction_Software {
 		$this->loader->add_action( 'woocommerce_check_cart_items', $plugin_public, 'auction_software_wc_check_if_sold' );
 
 		// Add Auctions Menu in my Account.
-		$this->loader->add_filter( 'woocommerce_account_menu_items', $plugin_public, 'auction_software_my_account_menu_items' );
+		$this->loader->add_filter( 'woocommerce_account_menu_items', $plugin_public, 'auction_software_my_account_menu_items', 10, 1 );
 
 	}
 

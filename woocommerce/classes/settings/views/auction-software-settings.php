@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 echo sprintf(
 	/* translators: 1: Currency symbol, 2: Currency symbol, 3: Currency symbol, 4: Currency symbol, 5: Currency symbol, 6: Currency symbol*/
-		esc_html__( 'Next bid price will be determined by this. Here you can set a different increment for each range. For example, you can say that if the auction price is between %1$s1 and %2$s50, then bid increments need to be at least %3$s2. You can then add another range say between %4$s51 to %5$s100, the bid increment needs to be %6$s5.', 'auction-software' ),
+	esc_html__( 'Next bid price will be determined by this. Here you can set a different increment for each range. For example, you can say that if the auction price is between %1$s1 and %2$s50, then bid increments need to be at least %3$s2. You can then add another range say between %4$s51 to %5$s100, the bid increment needs to be %6$s5.', 'auction-software' ),
 	esc_attr( get_woocommerce_currency_symbol() ),
 	esc_attr( get_woocommerce_currency_symbol() ),
 	esc_attr( get_woocommerce_currency_symbol() ),

@@ -149,6 +149,11 @@ class Auction_Software_Admin {
 	 * @since 1.0.0
 	 */
 	public function auction_software_init() {
+		add_rewrite_endpoint( 'auctions_list', EP_ROOT | EP_PAGES );
+		if ( ! get_option( 'auction_flushed_rewrite_rules' ) ) {
+			flush_rewrite_rules();
+			add_option( 'auction_flushed_rewrite_rules', true );
+		}
 
 		if ( ! taxonomy_exists( 'product_auction_class' ) ) {
 			register_taxonomy(
@@ -1048,7 +1053,6 @@ class Auction_Software_Admin {
 
 		$content .= '</table></form></div>';
 
-		echo $content;
+		echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
-
 }

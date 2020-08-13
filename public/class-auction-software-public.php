@@ -688,19 +688,20 @@ class Auction_Software_Public {
 	/**
 	 * Reorder my account menu items.
 	 *
+	 * @param array $items Menu items.
 	 * @return array
 	 */
-	public function auction_software_my_account_menu_items() {
-		$auction_order = array(
-			'dashboard'       => __( 'Dashboard', 'auction-software' ),
-			'auctions_list'   => __( 'Auctions', 'auction-software' ),
-			'orders'          => __( 'Orders', 'auction-software' ),
-			'downloads'       => __( 'Downloads', 'auction-software' ),
-			'edit-address'    => __( 'Addresses', 'auction-software' ),
-			'edit-account'    => __( 'Account details', 'auction-software' ),
-			'customer-logout' => __( 'Logout', 'auction-software' ),
-		);
-
-		return $auction_order;
+	public function auction_software_my_account_menu_items( $items ) {
+		$ordered_items = array();
+		foreach ( $items as $key => $value ) {
+			if ( 'dashboard' === $key ) {
+				$ordered_items[ $key ] = $value;
+			}
+			if ( 'auctions_list' === $key ) {
+				$ordered_items[ $key ] = $value;
+			}
+		}
+		$ordered_items = array_merge( $ordered_items, $items );
+		return $ordered_items;
 	}
 }
