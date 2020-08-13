@@ -1036,8 +1036,13 @@ class Auction_Software_Admin {
 					} elseif ( false === $product->is_started( $product->get_id() ) ) {
 						$content .= '<td >--</td><td>--</td>';
 					} elseif ( ! $product->is_ended( $product->get_id() ) ) {
-						$content .= '<td ><span class="auctiontime-left timeLeft' . $product->get_id() . '"></span></td>
-                                        <td><a href="http://localhost/wooauction/?product=' . get_the_title() . '" data-quantity="1"
+                        $date_to_or_from = $product->get_auction_date_to();
+                        $content .= '<td ><span class="auctiontime-left timeLeft' . $product->get_id() . '"></span>
+                                          <input type="hidden" class="timeLeftId" name="timeLeftId" value="' . $product->get_id() . '">
+                                          <input type="hidden" class="timeLeftValue'. $product->get_id() .'"  value="' . $date_to_or_from . '" />
+
+                                     </td>
+                                        <td><a href="' . get_permalink() . '" data-quantity="1"
                                         class="button product_type_auction_simple add_to_cart_button" data-product_id="' . $product->get_id() . '"
                                         data-product_sku="" aria-label="Read more about "' . get_the_title() . '" rel="nofollow">Bid Now</a></td>';
 					}
