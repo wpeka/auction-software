@@ -116,7 +116,7 @@ class Auction_Software {
 		$like       = $wild . $wpdb->esc_like( $find ) . $wild;
 		$result     = $wpdb->get_results( $wpdb->prepare( 'SHOW TABLES LIKE %s', array( $like ) ), ARRAY_N ); // db call ok; no-cache ok.
 		if ( ! $result ) {
-			$create_table_sql = "CREATE TABLE `$table_name`(
+			$create_table_sql = "CREATE TABLE $table_name (
 			    `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
                 `user_id` bigint(20) unsigned NOT NULL,
                 `auction_id` bigint(20) unsigned DEFAULT NULL,

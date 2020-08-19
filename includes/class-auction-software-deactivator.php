@@ -30,7 +30,7 @@ class Auction_Software_Deactivator {
 	 */
 	public static function deactivate() {
 		delete_option( 'auction_software_active' );
-		add_option( 'auction_flushed_rewrite_rules', true );
+		delete_option( 'auction_flushed_rewrite_rules' );
 	}
 
 }
