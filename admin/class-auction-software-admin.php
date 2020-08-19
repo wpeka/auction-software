@@ -151,8 +151,8 @@ class Auction_Software_Admin {
 	public function auction_software_init() {
 		add_rewrite_endpoint( 'auctions_list', EP_ROOT | EP_PAGES );
 		if ( ! get_option( 'auction_flushed_rewrite_rules' ) ) {
+            add_option( 'auction_flushed_rewrite_rules', true );
 			flush_rewrite_rules();
-			add_option( 'auction_flushed_rewrite_rules', true );
 		}
 
 		if ( ! taxonomy_exists( 'product_auction_class' ) ) {
@@ -1009,7 +1009,7 @@ class Auction_Software_Admin {
 							if ( 1 !== (int) $product->get_auction_is_sold() ) {
 
 								$content .= '<td><a class="button" 
-                                                href ="' . get_permalink() . '&add-to-cart=' . $product->get_id() . '" 
+                                                href ="' . get_site_url() . '?add-to-cart=' . $product->get_id() . '" 
                                                 >' . $product->get_buy_it_now_cart_text() . '</a>
                                             </td>';
 							} else {
@@ -1036,10 +1036,10 @@ class Auction_Software_Admin {
 					} elseif ( false === $product->is_started( $product->get_id() ) ) {
 						$content .= '<td >--</td><td>--</td>';
 					} elseif ( ! $product->is_ended( $product->get_id() ) ) {
-                        $date_to_or_from = $product->get_auction_date_to();
-                        $content .= '<td ><span class="auctiontime-left timeLeft' . $product->get_id() . '"></span>
+						$date_to_or_from = $product->get_auction_date_to();
+						$content        .= '<td ><span class="auctiontime-left timeLeft' . $product->get_id() . '"></span>
                                           <input type="hidden" class="timeLeftId" name="timeLeftId" value="' . $product->get_id() . '">
-                                          <input type="hidden" class="timeLeftValue'. $product->get_id() .'"  value="' . $date_to_or_from . '" />
+                                          <input type="hidden" class="timeLeftValue' . $product->get_id() . '"  value="' . $date_to_or_from . '" />
 
                                      </td>
                                         <td><a href="' . get_permalink() . '" data-quantity="1"
