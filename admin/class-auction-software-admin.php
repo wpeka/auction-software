@@ -151,7 +151,7 @@ class Auction_Software_Admin {
 	public function auction_software_init() {
 		add_rewrite_endpoint( 'auctions_list', EP_ROOT | EP_PAGES );
 		if ( ! get_option( 'auction_flushed_rewrite_rules' ) ) {
-            add_option( 'auction_flushed_rewrite_rules', true );
+			add_option( 'auction_flushed_rewrite_rules', true );
 			flush_rewrite_rules();
 		}
 
