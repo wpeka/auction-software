@@ -641,6 +641,12 @@ class Auction_Software_Admin {
 		$get_bid_price_error = get_post_meta( get_the_ID(), 'auction_bid_price_error' );
 		isset( $get_bid_price_error[0] ) && ! empty( $get_bid_price_error[0] ) ? $auction_errors .= $get_bid_price_error[0] . '<br>' : '';
 
+		$get_simple_time_to_increase_error = get_post_meta( get_the_ID(), 'auction_simple_time_to_increase_after_bid_placed_(_seconds_)_error' );
+		isset( $get_simple_time_to_increase_error[0] ) && ! empty( $get_simple_time_to_increase_error[0] ) ? $auction_errors .= $get_simple_time_to_increase_error[0] . '<br>' : '';
+
+		$get_reverse_time_to_increase_error = get_post_meta( get_the_ID(), 'auction_reverse_time_to_increase_after_bid_placed_(_seconds_)_error' );
+		isset( $get_reverse_time_to_increase_error[0] ) && ! empty( $get_reverse_time_to_increase_error[0] ) ? $auction_errors .= $get_reverse_time_to_increase_error[0] . '<br>' : '';
+
 		return apply_filters( 'auction_software_product_auction_errors', $auction_errors );
 
 	}
@@ -880,10 +886,27 @@ class Auction_Software_Admin {
 			case 'bid_price':
 				update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
 				break;
+			case 'simple_time_to_increase_after_bid_placed_(_seconds_)':
+				if ( 'auction_simple' === $product_type ) {
+					if ( $value < 0 ) {
+						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Time should not be negative.', 'auction-software' ) );
+					} else {
+						update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
+					}
+				}
+				break;
+			case 'reverse_time_to_increase_after_bid_placed_(_seconds_)':
+				if ( 'auction_reverse' === $product_type ) {
+					if ( $value < 0 ) {
+						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Time should not be negative.', 'auction-software' ) );
+					} else {
+						update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
+					}
+				}
+				break;
 			default:
 				return 0;
 		}
-		return 0;
         // phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 

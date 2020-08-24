@@ -94,6 +94,7 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 ## Changelog ##
 ### 1.0.3 ###
 Feature: Proxy auction (auto bot) for Simple and Reverse auctions.
+Feature: Anti snipping feature.
 
 ### 1.0.2 ###
 Feature: Users can see the auctions participated in My Account area.

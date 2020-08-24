@@ -26,6 +26,12 @@ class WC_Product_Auction_Simple extends WC_Product_Auction {
 		),
 		array(
 			'type'     => 'text',
+			'id'       => 'simple_time_to_increase_after_bid_placed_(_seconds_)',
+			'currency' => false,
+			'options'  => '',
+		),
+		array(
+			'type'     => 'text',
 			'id'       => 'reserve_price',
 			'currency' => true,
 			'options'  => '',

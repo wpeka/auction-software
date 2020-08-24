@@ -268,6 +268,7 @@
 												$( ".auction_current_bid_simple" ).load( location.href + " .auction_current_bid_simple>*", "" );
 												$( ".auction_max_bid_simple" ).load( location.href + " .auction_max_bid_simple>*", "" );
 												$( "#auction_history_table" ).load( location.href + " #auction_history_table>*", "" );
+												endDate = response.seconds;
 
 											}
 										}
@@ -429,6 +430,7 @@
 												$( ".auction_current_bid_reverse" ).load( location.href + " .auction_current_bid_reverse>*", "" );
 												$( ".auction_max_bid_reverse" ).load( location.href + " .auction_max_bid_reverse>*", "" );
 												$( "#auction_history_table" ).load( location.href + " #auction_history_table>*", "" );
+												endDate = response.seconds;
 
 											}
 										}

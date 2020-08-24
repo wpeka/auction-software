@@ -502,6 +502,10 @@ class Auction_Software_Public {
 		$notice_message = '';
 		$current_bid    = $product->get_auction_current_bid();
 		$increment_bid  = $product->get_auction_bid_increment();
+		$seconds        = get_post_meta( $product_id, 'auction_simple_time_to_increase_after_bid_placed_(_seconds_)' );
+		$seconds        = isset( $seconds ) ? $seconds[0] : 0;
+		$date_to        = $product->get_auction_date_to();
+		$date_time_to   = datetime::createfromformat( 'Y-m-d H:i:s', $date_to );
 		$user_id        = get_current_user_id();
 		$flag           = 0;
 		$max_flag       = 0;
@@ -563,6 +567,10 @@ class Auction_Software_Public {
 		! empty( $notice_message ) ? $json_response['status'] = 'notice' : $json_response['status'] = '';
 		$json_response['notice_message']                      = $notice_message;
 		if ( 1 === $flag ) {
+			if ( $product->check_if_reserve_price_met( $product_id ) ) {
+				$date_time_to->add( new DateInterval( 'PT' . $seconds . 'S' ) );
+				update_post_meta( $product_id, 'auction_date_to', $date_time_to->format( 'Y-m-d H:i:s' ) );
+			}
 			$json_response['change_bid']          = 1;
 			$json_response['change_current_bid']  = wc_price( $change_current_bid );
 			$json_response['change_pricebox_bid'] = round( $change_price_box_bid, 2 );
@@ -580,6 +588,7 @@ class Auction_Software_Public {
 		} else {
 			$json_response['change_bid'] = 0;
 		}
+		$json_response['seconds'] = $date_time_to->format( 'Y-m-d H:i:s' );
 		echo wp_send_json( $json_response ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		wp_die();
         // phpcs:enable WordPress.Security.NonceVerification.Missing
@@ -598,6 +607,10 @@ class Auction_Software_Public {
 		$notice_message = '';
 		$current_bid    = $product->get_auction_current_bid();
 		$increment_bid  = $product->get_auction_bid_increment();
+		$seconds        = get_post_meta( $product_id, 'auction_reverse_time_to_increase_after_bid_placed_(_seconds_)' );
+		$seconds        = isset( $seconds ) ? $seconds[0] : 0;
+		$date_to        = $product->get_auction_date_to();
+		$date_time_to   = datetime::createfromformat( 'Y-m-d H:i:s', $date_to );
 		$user_id        = get_current_user_id();
 		$flag           = 0;
 		$max_flag       = 0;
@@ -666,6 +679,10 @@ class Auction_Software_Public {
 		! empty( $notice_message ) ? $json_response['status'] = 'notice' : $json_response['status'] = '';
 		$json_response['notice_message']                      = $notice_message;
 		if ( 1 === (int) $flag ) {
+			if ( $product->check_if_reserve_price_met( $product_id ) ) {
+				$date_time_to->add( new DateInterval( 'PT' . $seconds . 'S' ) );
+				update_post_meta( $product_id, 'auction_date_to', $date_time_to->format( 'Y-m-d H:i:s' ) );
+			}
 			$json_response['change_bid']          = 1;
 			$json_response['change_current_bid']  = wc_price( $change_current_bid );
 			$json_response['change_pricebox_bid'] = round( $change_price_box_bid, 2 );
@@ -683,6 +700,7 @@ class Auction_Software_Public {
 		} else {
 			$json_response['change_bid'] = 0;
 		}
+		$json_response['seconds'] = $date_time_to->format( 'Y-m-d H:i:s' );
 		echo wp_send_json( $json_response ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		wp_die();
         // phpcs:enable WordPress.Security.NonceVerification.Missing
