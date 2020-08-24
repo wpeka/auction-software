@@ -69,7 +69,7 @@ class Auction_Software {
 		if ( defined( 'AUCTION_SOFTWARE_VERSION' ) ) {
 			$this->version = AUCTION_SOFTWARE_VERSION;
 		} else {
-			$this->version = '1.0.2';
+			$this->version = '1.0.3';
 		}
 		$this->plugin_name = 'auction-software';
 
@@ -126,6 +126,13 @@ class Auction_Software {
                 PRIMARY KEY (`id`)
 			);";
 			dbDelta( $create_table_sql );
+		}
+		$search_query = "SHOW COLUMNS FROM `$table_name` LIKE 'proxy'";
+		$like         = 'proxy';
+		$result       = $wpdb->get_results( $wpdb->prepare( 'SHOW COLUMNS FROM ' . $wpdb->prefix . 'auction_software_logs LIKE %s', array( $like ) ), ARRAY_N ); // db call ok; no-cache ok.
+		if ( ! $result ) {
+			$alter_query = "ALTER TABLE $table_name ADD `proxy` bool default 0 AFTER `status`";
+			$wpdb->query( $alter_query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 		}
 	}
 

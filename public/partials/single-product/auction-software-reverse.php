@@ -111,21 +111,49 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 					<p id="time_left"></p>
 				</td>
 			</tr>
+			<?php
+			$max_bid_user = $product->get_auction_max_bid_user();
+			$max_bid      = $product->get_auction_max_bid();
+			if ( ! empty( $max_bid_user ) && $user_id === (int) $max_bid_user ) {
+				$style = 'display:table-row';
+			} else {
+				$style = 'display:none';
+			}
+			?>
+			<tr id="auction_max_bid" style="<?php echo $style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+				<td>
+					<label for="auction_max_bid"><?php esc_html_e( 'Your Maximum Bid: ', 'auction-software' ); ?></label>
+				</td>
+				<td class="title auction_max_bid_reverse">
+					<?php echo wc_price( $max_bid ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				</td>
+			</tr>
 			</tbody>
 		</table>
+			<?php
+			$reserve_price_met = $product->check_if_reserve_price_met( $postid );
+			if ( ! $reserve_price_met ) {
+				$reserve_price_text = esc_html__( 'Reserve price not met.', 'auction-software' );
+			} else {
+				$reserve_price_text = esc_html__( 'Reserve price met.', 'auction-software' );
+			}
+			?>
+			<p class="auction_reserve_price"><?php echo esc_attr( trim( $reserve_price_text ) ); ?></p>
 		<div class="container">
 			<div class="button-container">
-				<input type="text" name="price" class="price" maxlength="12" value="0" class="input-text price"
-					id="auction-price-incr-decr"/>
 				<button class="cart-price-plus" type="button" value="+">+</button>
+				<input type="text" name="price" class="price" maxlength="12" value="0" class="input-text price" id="auction-price-incr-decr"/>
 				<button class="cart-price-minus" type="button" value="-">-</button>
 			</div>
+			<br />
+			<div class="button-container">
+				<button type="submit" name="auction-bid" value="<?php echo esc_attr( $product->get_id() ); ?>"
+						class="auction-bid-reverse button alt"><?php echo esc_attr( $product->single_add_to_cart_text() ); ?></button>
+				<?php if ( ( $product->get_auction_current_bid() > $product->get_auction_buy_it_now_price() ) || 0 === (int) $product->get_auction_current_bid() ) { ?>
+					<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button button alt"><?php echo $product->get_buy_it_now_cart_text(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
+				<?php } ?>
+			</div>
 		</div>
-		<button type="submit" name="auction-bid" value="<?php echo esc_attr( $product->get_id() ); ?>"
-				class="auction-bid-reverse button alt"><?php echo esc_attr( $product->single_add_to_cart_text() ); ?></button>
-			<?php if ( ( $product->get_auction_current_bid() > $product->get_auction_buy_it_now_price() ) || 0 === (int) $product->get_auction_current_bid() ) { ?>
-			<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button button alt"><?php echo $product->get_buy_it_now_cart_text(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
-		<?php } ?>
 			<?php
 		} elseif ( true === $product->is_ended() ) {
 			$is_ended = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_is_ended' );

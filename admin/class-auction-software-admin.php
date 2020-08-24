@@ -708,6 +708,9 @@ class Auction_Software_Admin {
 				}
 				$this->auction_software_check_validations( $attribute['id'], $attribute_id, $post_id );
 				update_post_meta( $post_id, 'auction_' . $attribute['id'], $attribute_id );
+			} elseif ( 'checkbox' === $attribute['type'] ) {
+				$auction_checkbox = ! empty( $attribute_id ) ? 'yes' : 'no';
+				update_post_meta( $post_id, 'auction_' . $attribute['id'], sanitize_text_field( $auction_checkbox ) );
 			}
 		}
 
@@ -717,8 +720,7 @@ class Auction_Software_Admin {
 			if ( ! empty( $relist_attribute_id ) && 'checkbox' !== $relist_attribute['type'] ) {
 				$this->auction_software_check_validations( $relist_attribute['id'], $relist_attribute_id, $post_id );
 				update_post_meta( $post_id, 'auction_' . $relist_attribute['id'], $relist_attribute_id );
-			} elseif ( ! empty( $relist_attribute_id ) && 'checkbox' === $relist_attribute['type'] ) {
-				$this->auction_software_check_validations( $relist_attribute['id'], $relist_attribute_id, $post_id );
+			} elseif ( 'checkbox' === $relist_attribute['type'] ) {
 				$auction_checkbox = ! empty( $relist_attribute_id ) ? 'yes' : 'no';
 				update_post_meta( $post_id, 'auction_' . $relist_attribute['id'], sanitize_text_field( $auction_checkbox ) );
 			}

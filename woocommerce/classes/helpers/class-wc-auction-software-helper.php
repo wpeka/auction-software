@@ -119,6 +119,7 @@ class WC_Auction_Software_Helper {
                     <td>' . __( 'User', 'auction-software' ) . '</td>
                     <td>' . __( 'Bid', 'auction-software' ) . '</td>
                     <td>' . __( 'Date', 'auction-software' ) . '</td>
+                    <td>' . __( 'Auto', 'auction-software' ) . '</td>
                 </tr>
 			';
 			$previous_value         = null;
@@ -133,6 +134,7 @@ class WC_Auction_Software_Helper {
 		                    <td>' . __( 'Auction has ended.', 'auction-software' ) . '</td>
 		                    <td></td>
 		                    <td>' . $auction_history_item['date'] . '</td>
+		                    <td></td>
 	                	</tr>
 						';
 					}
@@ -142,6 +144,7 @@ class WC_Auction_Software_Helper {
                     <td>' . __( 'Auction is relisted.', 'auction-software' ) . '</td>
                     <td></td>
                     <td>' . $auction_history_item['date'] . '</td>
+                    <td></td>
                 </tr>
 				';
 				} elseif ( 'buyitnow' === $status ) {
@@ -151,15 +154,18 @@ class WC_Auction_Software_Helper {
 					<td>' . __( 'Buy it now used by ', 'auction-software' ) . $user_info->display_name . '.</td>
 		            <td>' . wc_price( $auction_history_item['bid'] ) . '</td>
                     <td>' . $auction_history_item['date'] . '</td>
+                    <td></td>
                 </tr>
 				';
 				} else {
 					$user_info                   = get_userdata( $auction_history_item['user_id'] );
+					$proxy_text                  = ( 1 === (int) $auction_history_item['proxy'] ) ? 'Auto' : '';
 					$auction_history_item_string = '
 					<tr>
                     <td>' . $user_info->display_name . '</td>
                     <td>' . wc_price( $auction_history_item['bid'] ) . '</td>
                     <td>' . $auction_history_item['date'] . '</td>
+                    <td>' . $proxy_text . '</td>
                 </tr>
 				';
 				}
@@ -181,6 +187,10 @@ class WC_Auction_Software_Helper {
                     <td>' . __( 'User', 'auction-software' ) . '</td>
                     <td>' . __( 'Bid', 'auction-software' ) . '</td>
                     <td>' . __( 'Date', 'auction-software' ) . '</td>
+                    <td>' . __( 'Auto', 'auction-software' ) . '</td>
+                </tr>
+                <tr>
+                    <td colspan="4">No bids yet</td>
                 </tr>
                 </table>
 			';
@@ -196,9 +206,10 @@ class WC_Auction_Software_Helper {
 	 * @param double $next_bid Next bid.
 	 * @param string $date Date.
 	 * @param null   $status Status.
+	 * @param int    $proxy Is proxy bid.
 	 * @return int
 	 */
-	public static function set_auction_bid_logs( $user_id, $post_id, $next_bid, $date, $status = null ) {
+	public static function set_auction_bid_logs( $user_id, $post_id, $next_bid, $date, $status = null, $proxy = 0 ) {
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'auction_software_logs';
 		$success    = $wpdb->insert(
@@ -209,6 +220,7 @@ class WC_Auction_Software_Helper {
 				'bid'        => $next_bid,
 				'date'       => $date,
 				'status'     => $status,
+				'proxy'      => $proxy,
 			)
 		); // db call ok; no-cache ok.
 

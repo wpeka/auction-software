@@ -124,10 +124,13 @@
 					setInterval(
 						function () {
 							// Refresh product attributes every 1 minute.
+							$( ".auction_reserve_price" ).load( location.href + " .auction_reserve_price", "" );
 							$( ".auction_bid_increment" ).load( location.href + " .auction_bid_increment>*", "" );
 							$( ".auction_current_bid_simple" ).load( location.href + " .auction_current_bid_simple>*", "" );
+							$( ".auction_max_bid_simple" ).load( location.href + " .auction_max_bid_simple>*", "" );
 							$( ".auction_current_bid_penny" ).load( location.href + " .auction_current_bid_penny>*", "" );
 							$( ".auction_current_bid_reverse" ).load( location.href + " .auction_current_bid_reverse>*", "" );
+							$( ".auction_max_bid_reverse" ).load( location.href + " .auction_max_bid_reverse>*", "" );
 							$( "#auction_history_table" ).load( location.href + " #auction_history_table>*", "" );
 						},
 						60000
@@ -234,8 +237,8 @@
 												$( ".woocommerce-message" ).remove();
 												var node = document.getElementsByClassName( 'product_title' );
 												$( response.notice_message ).insertAfter( node );
-
 												if (response.change_bid == 1) {
+
 													var curBid = document.getElementsByClassName( 'auction_current_bid_simple' );
 													$( curBid ).empty();
 													$( curBid ).append( response.change_current_bid );
@@ -250,9 +253,20 @@
 													}
 
 												}
+												var max_bid = document.getElementById( 'auction_max_bid' );
+												if (response.change_max_bid == 1) {
+													$( max_bid ).css( {'display':'table-row'} );
+													var max_bid_value = document.getElementsByClassName( 'auction_max_bid_simple' );
+													$( max_bid_value ).empty();
+													$( max_bid_value ).append( response.change_max_bid_value );
+												} else {
+													$( max_bid ).hide();
+												}
 
 												$( ".auction_bid_increment" ).load( location.href + " .auction_bid_increment>*", "" );
+												$( ".auction_reserve_price" ).load( location.href + " .auction_reserve_price", "" );
 												$( ".auction_current_bid_simple" ).load( location.href + " .auction_current_bid_simple>*", "" );
+												$( ".auction_max_bid_simple" ).load( location.href + " .auction_max_bid_simple>*", "" );
 												$( "#auction_history_table" ).load( location.href + " #auction_history_table>*", "" );
 
 											}
@@ -400,8 +414,20 @@
 
 												}
 
+												var max_bid = document.getElementById( 'auction_max_bid' );
+												if (response.change_max_bid == 1) {
+													$( max_bid ).css( {'display':'table-row'} );
+													var max_bid_value = document.getElementsByClassName( 'auction_max_bid_reverse' );
+													$( max_bid_value ).empty();
+													$( max_bid_value ).append( response.change_max_bid_value );
+												} else {
+													$( max_bid ).hide();
+												}
+
 												$( ".auction_bid_increment" ).load( location.href + " .auction_bid_increment>*", "" );
+												$( ".auction_reserve_price" ).load( location.href + " .auction_reserve_price", "" );
 												$( ".auction_current_bid_reverse" ).load( location.href + " .auction_current_bid_reverse>*", "" );
+												$( ".auction_max_bid_reverse" ).load( location.href + " .auction_max_bid_reverse>*", "" );
 												$( "#auction_history_table" ).load( location.href + " #auction_history_table>*", "" );
 
 											}

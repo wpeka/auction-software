@@ -204,6 +204,15 @@ class WC_Product_Auction extends WC_Product {
 	}
 
 	/**
+	 * Check if proxy bidding is enabled for auction.
+	 *
+	 * @return int
+	 */
+	public function is_proxy_bidding() {
+		return WC_Auction_Software_Helper::get_auction_post_meta( $this->id, 'auction_proxy_bidding' );
+	}
+
+	/**
 	 * Get auction start date.
 	 *
 	 * @return int
