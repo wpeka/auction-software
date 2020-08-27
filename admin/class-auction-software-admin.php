@@ -280,10 +280,16 @@ class Auction_Software_Admin {
 			$postid  = get_the_ID();
 			$product = wc_get_product( $postid );
 			if ( 'auction_simple' === $product->get_type() || 'auction_reverse' === $product->get_type() ) {
-				// Check if relisting is on.
-				$relist_auction = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_relist_auction' );
-				if ( 'yes' === $relist_auction ) {
-					// Relist logic goes here.
+				if ( $product->is_ended() ) {
+					$is_ended = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_is_ended' );
+					if ( 1 !== (int) $is_ended ) {
+						update_post_meta( $postid, 'auction_is_ended', 1 );
+						WC_Auction_Software_Helper::set_auction_bid_logs( '', $postid, $product->get_auction_current_bid(), current_time( 'mysql' ), 'ended' );
+						do_action( 'woocommerce_auction_software_end', $postid );
+					}
+				}
+				$extend_relist_auction = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_extend_or_relist_auction' );
+				if ( 'none' !== $extend_relist_auction ) {
 					$is_ended               = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_is_ended' );
 					$is_reserve_price_met   = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_reserve_price_met' );
 					$is_sold                = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_is_sold' );
@@ -291,77 +297,76 @@ class Auction_Software_Admin {
 					$date_time_from         = datetime::createfromformat( 'Y-m-d H:i:s', $date_from );
 					$date_to                = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_date_to' );
 					$date_time_to           = datetime::createfromformat( 'Y-m-d H:i:s', $date_to );
-					$if_fail_hrs            = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_relist_if_fail_(hours)' );
-					$if_not_paid_hrs        = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_relist_if_not_paid_(hours)' );
-					$relist_duration_hrs    = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_relist_duration_(hours)' );
+					$if_fail_hrs            = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_' . $extend_relist_auction . '_if_fail' );
+					$if_not_paid_hrs        = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_' . $extend_relist_auction . '_if_not_paid' );
+					$if_duration_hrs        = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_' . $extend_relist_auction . '_duration' );
 					$curdate                = current_time( 'mysql' );
 					$date_time_current_date = datetime::createfromformat( 'Y-m-d H:i:s', $curdate );
 					$interval               = date_diff( $date_time_from, $date_time_to );
-					// Check id auction ended.
 					if ( 1 === (int) $is_ended ) {
-						// Check if failed.
 						if ( 'yes' !== $is_reserve_price_met && 1 !== (int) $is_sold && '' !== $if_fail_hrs ) {
 							$date = $date_time_to;
 							$date->add( new DateInterval( 'PT' . $if_fail_hrs . 'H' ) );
 							if ( $date_time_current_date >= $date ) {
 								update_post_meta( $postid, 'auction_is_ended', 0 );
-								WC_Auction_Software_Helper::set_auction_bid_logs( '', $postid, 0, current_time( 'mysql' ), 'relisted' );
 								update_post_meta( $postid, 'auction_is_sold', 0 );
-								$from_date = current_time( 'mysql' );
-								$to_date   = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
+								$to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
 								$to_date->add( $interval );
-								update_post_meta( $postid, 'auction_date_from', $from_date );
 								update_post_meta( $postid, 'auction_date_to', $to_date->format( 'Y-m-d H:i:s' ) );
-								update_post_meta( $postid, 'auction_current_bid', 0 );
-								update_post_meta( $postid, 'auction_is_started_and_ended', 0 );
-								update_post_meta( $postid, $postid . '_start_mail_sent', 0 );
-								update_post_meta( $postid, 'auction_initial_bid_placed', 0 );
-								do_action( 'woocommerce_auction_software_start', $postid );
+								if ( 'relist' === $extend_relist_auction ) {
+									WC_Auction_Software_Helper::clear_auction_bid_logs( $postid );
+									WC_Auction_Software_Helper::set_auction_bid_logs( '', $postid, 0, current_time( 'mysql' ), 'relisted' );
+									$from_date = current_time( 'mysql' );
+									update_post_meta( $postid, 'auction_date_from', $from_date );
+									update_post_meta( $postid, 'auction_current_bid', 0 );
+									update_post_meta( $postid, 'auction_is_started_and_ended', 0 );
+									update_post_meta( $postid, $postid . '_start_mail_sent', 0 );
+									update_post_meta( $postid, 'auction_initial_bid_placed', 0 );
+									do_action( 'woocommerce_auction_software_start', $postid );
+								}
 							}
-						} elseif ( 'yes' === $is_reserve_price_met && 1 !== (int) $is_sold && '' !== $if_not_paid_hrs ) { // Check if sold.
+						} elseif ( 'yes' === $is_reserve_price_met && 1 !== (int) $is_sold && '' !== $if_not_paid_hrs ) {
 							$date = $date_time_to;
 							$date->add( new DateInterval( 'PT' . $if_not_paid_hrs . 'H' ) );
 							if ( $date_time_current_date >= $date ) {
 								update_post_meta( $postid, 'auction_is_ended', 0 );
-								WC_Auction_Software_Helper::set_auction_bid_logs( '', $postid, 0, current_time( 'mysql' ), 'relisted' );
-								$from_date = current_time( 'mysql' );
-								$to_date   = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
+								update_post_meta( $postid, 'auction_is_sold', 0 );
+								$to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
 								$to_date->add( $interval );
-								update_post_meta( $postid, 'auction_date_from', $from_date );
 								update_post_meta( $postid, 'auction_date_to', $to_date->format( 'Y-m-d H:i:s' ) );
-								update_post_meta( $postid, 'auction_current_bid', 0 );
-								update_post_meta( $postid, 'auction_is_started_and_ended', 0 );
-								update_post_meta( $postid, $postid . '_start_mail_sent', 0 );
-								update_post_meta( $postid, 'auction_initial_bid_placed', 0 );
-								do_action( 'woocommerce_auction_software_start', $postid );
+								if ( 'relist' === $extend_relist_auction ) {
+									WC_Auction_Software_Helper::clear_auction_bid_logs( $postid );
+									WC_Auction_Software_Helper::set_auction_bid_logs( '', $postid, 0, current_time( 'mysql' ), 'relisted' );
+									$from_date = current_time( 'mysql' );
+									update_post_meta( $postid, 'auction_date_from', $from_date );
+									update_post_meta( $postid, 'auction_current_bid', 0 );
+									update_post_meta( $postid, 'auction_is_started_and_ended', 0 );
+									update_post_meta( $postid, $postid . '_start_mail_sent', 0 );
+									update_post_meta( $postid, 'auction_initial_bid_placed', 0 );
+									do_action( 'woocommerce_auction_software_start', $postid );
+								}
 							}
-						} elseif ( '' !== $relist_duration_hrs ) {
+						} elseif ( '' !== $if_duration_hrs ) {
 							$date = $date_time_to;
-							$date->add( new DateInterval( 'PT' . $relist_duration_hrs . 'H' ) );
+							$date->add( new DateInterval( 'PT' . $if_duration_hrs . 'H' ) );
 							if ( $date_time_current_date >= $date ) {
 								update_post_meta( $postid, 'auction_is_ended', 0 );
-								WC_Auction_Software_Helper::set_auction_bid_logs( '', $postid, 0, current_time( 'mysql' ), 'relisted' );
 								update_post_meta( $postid, 'auction_is_sold', 0 );
-								$from_date = current_time( 'mysql' );
-								$to_date   = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
+								$to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
 								$to_date->add( $interval );
-								update_post_meta( $postid, 'auction_date_from', $from_date );
 								update_post_meta( $postid, 'auction_date_to', $to_date->format( 'Y-m-d H:i:s' ) );
-								update_post_meta( $postid, 'auction_current_bid', 0 );
-								update_post_meta( $postid, 'auction_is_started_and_ended', 0 );
-								update_post_meta( $postid, $postid . '_start_mail_sent', 0 );
-								update_post_meta( $postid, 'auction_initial_bid_placed', 0 );
-								do_action( 'woocommerce_auction_software_start', $postid );
+								if ( 'relist' === $extend_relist_auction ) {
+									WC_Auction_Software_Helper::clear_auction_bid_logs( $postid );
+									WC_Auction_Software_Helper::set_auction_bid_logs( '', $postid, 0, current_time( 'mysql' ), 'relisted' );
+									$from_date = current_time( 'mysql' );
+									update_post_meta( $postid, 'auction_date_from', $from_date );
+									update_post_meta( $postid, 'auction_current_bid', 0 );
+									update_post_meta( $postid, 'auction_is_started_and_ended', 0 );
+									update_post_meta( $postid, $postid . '_start_mail_sent', 0 );
+									update_post_meta( $postid, 'auction_initial_bid_placed', 0 );
+									do_action( 'woocommerce_auction_software_start', $postid );
+								}
 							}
-						}
-					}
-				} else {
-					if ( $product->is_ended() ) {
-						$is_ended = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_is_ended' );
-						if ( 1 !== (int) $is_ended ) {
-							update_post_meta( $postid, 'auction_is_ended', 1 );
-							WC_Auction_Software_Helper::set_auction_bid_logs( '', $postid, 0, current_time( 'mysql' ), 'ended' );
-							do_action( 'woocommerce_auction_software_end', $postid );
 						}
 					}
 				}
@@ -580,14 +585,18 @@ class Auction_Software_Admin {
 				}
 				?>
 				<?php
-				$relist_attribute_data = $auction->relist_attribute_data;
+				$relist_attribute_data = $auction->extend_relist_attribute_data;
 				$custom_attr           = array();
 				foreach ( $relist_attribute_data as $relist_attribute ) {
-					$class = '';
-					if ( 'relist_if_fail_(hours)' === $relist_attribute['id'] ) {
-						$class = 'show_if_auction_simple show_if_auction_reverse';
+					$wrapper_class = '';
+					if ( 'extend_or_relist_auction' !== $relist_attribute['id'] ) {
+						if ( false !== strpos( $relist_attribute['id'], 'extend' ) ) {
+							$wrapper_class .= 'auction_extend ';
+						} elseif ( false !== strpos( $relist_attribute['id'], 'relist' ) ) {
+							$wrapper_class .= 'auction_relist ';
+						}
 					}
-					WC_Auction_Software_Helper::get_product_tab_fields( $relist_attribute['type'], $relist_attribute['id'], $relist_attribute['currency'], $relist_attribute['options'], $custom_attr, $class );
+					WC_Auction_Software_Helper::get_product_tab_fields( $relist_attribute['type'], $relist_attribute['id'], $relist_attribute['currency'], $relist_attribute['options'], $custom_attr, '', $wrapper_class );
 				}
 				?>
 			</div>
@@ -629,23 +638,26 @@ class Auction_Software_Admin {
 		$get_buy_it_now_price_reverse_error = get_post_meta( get_the_ID(), 'auction_buy_it_now_price_reverse_error' );
 		isset( $get_buy_it_now_price_reverse_error[0] ) && ! empty( $get_buy_it_now_price_reverse_error[0] ) ? $auction_errors .= $get_buy_it_now_price_reverse_error[0] . '<br>' : '';
 
-		$get_relist_if_fail_error = get_post_meta( get_the_ID(), 'auction_relist_if_fail_(hours)_error' );
+		$get_relist_if_fail_error = get_post_meta( get_the_ID(), 'auction_relist_if_fail_error' );
 		isset( $get_relist_if_fail_error[0] ) && ! empty( $get_relist_if_fail_error[0] ) ? $auction_errors .= $get_relist_if_fail_error[0] . '<br>' : '';
 
-		$get_relist_if_not_paid_error = get_post_meta( get_the_ID(), 'auction_relist_if_not_paid_(hours)_error' );
+		$get_relist_if_not_paid_error = get_post_meta( get_the_ID(), 'auction_relist_if_not_paid_error' );
 		isset( $get_relist_if_not_paid_error[0] ) && ! empty( $get_relist_if_not_paid_error[0] ) ? $auction_errors .= $get_relist_if_not_paid_error[0] . '<br>' : '';
 
-		$get_relist_duration_error = get_post_meta( get_the_ID(), 'auction_relist_duration_(hours)_error' );
+		$get_relist_duration_error = get_post_meta( get_the_ID(), 'auction_relist_duration_error' );
 		isset( $get_relist_duration_error[0] ) && ! empty( $get_relist_duration_error[0] ) ? $auction_errors .= $get_relist_duration_error[0] . '<br>' : '';
+
+		$get_extend_if_fail_error = get_post_meta( get_the_ID(), 'auction_extend_if_fail_error' );
+		isset( $get_extend_if_fail_error[0] ) && ! empty( $get_extend_if_fail_error[0] ) ? $auction_errors .= $get_extend_if_fail_error[0] . '<br>' : '';
+
+		$get_extend_if_not_paid_error = get_post_meta( get_the_ID(), 'auction_extend_if_not_paid_error' );
+		isset( $get_extend_if_not_paid_error[0] ) && ! empty( $get_extend_if_not_paid_error[0] ) ? $auction_errors .= $get_extend_if_not_paid_error[0] . '<br>' : '';
+
+		$get_extend_duration_error = get_post_meta( get_the_ID(), 'auction_extend_duration_error' );
+		isset( $get_extend_duration_error[0] ) && ! empty( $get_extend_duration_error[0] ) ? $auction_errors .= $get_extend_duration_error[0] . '<br>' : '';
 
 		$get_bid_price_error = get_post_meta( get_the_ID(), 'auction_bid_price_error' );
 		isset( $get_bid_price_error[0] ) && ! empty( $get_bid_price_error[0] ) ? $auction_errors .= $get_bid_price_error[0] . '<br>' : '';
-
-		$get_simple_time_to_increase_error = get_post_meta( get_the_ID(), 'auction_simple_time_to_increase_after_bid_placed_(_seconds_)_error' );
-		isset( $get_simple_time_to_increase_error[0] ) && ! empty( $get_simple_time_to_increase_error[0] ) ? $auction_errors .= $get_simple_time_to_increase_error[0] . '<br>' : '';
-
-		$get_reverse_time_to_increase_error = get_post_meta( get_the_ID(), 'auction_reverse_time_to_increase_after_bid_placed_(_seconds_)_error' );
-		isset( $get_reverse_time_to_increase_error[0] ) && ! empty( $get_reverse_time_to_increase_error[0] ) ? $auction_errors .= $get_reverse_time_to_increase_error[0] . '<br>' : '';
 
 		return apply_filters( 'auction_software_product_auction_errors', $auction_errors );
 
@@ -703,33 +715,24 @@ class Auction_Software_Admin {
 	 */
 	public function auction_software_save_product_auction_options( $post_id ) {
         // phpcs:disable WordPress.Security.NonceVerification.Missing
+		$error_flag     = false;
 		$product_type   = isset( $_POST['product-type'] ) ? sanitize_text_field( wp_unslash( $_POST['product-type'] ) ) : '';
 		$auction        = new WC_Product_Auction();
 		$attribute_data = $auction->attribute_data;
 		foreach ( $attribute_data as $attribute ) {
 			$attribute_id = isset( $_POST[ 'auction_' . $attribute['id'] ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'auction_' . $attribute['id'] ] ) ) : '';
-			if ( ! empty( $attribute_id ) && 'date' !== $attribute['type'] ) {
-				if ( ( 'start_price' === $attribute['id'] ) || ( ( 'bid_increment' === $attribute['id'] ) && '' !== $attribute_id ) ) {
-					$attribute_id = round( $attribute_id, 2 );
-				}
-				$this->auction_software_check_validations( $attribute['id'], $attribute_id, $post_id );
-				update_post_meta( $post_id, 'auction_' . $attribute['id'], $attribute_id );
-			} elseif ( 'checkbox' === $attribute['type'] ) {
-				$auction_checkbox = ! empty( $attribute_id ) ? 'yes' : 'no';
-				update_post_meta( $post_id, 'auction_' . $attribute['id'], sanitize_text_field( $auction_checkbox ) );
+			if ( ( 'start_price' === $attribute['id'] ) || ( ( 'bid_increment' === $attribute['id'] ) && '' !== $attribute_id ) ) {
+				$attribute_id = round( $attribute_id, 2 );
 			}
+			$error_flag = $this->auction_software_check_validations( $attribute['id'], $attribute_id, $post_id, $error_flag );
+			update_post_meta( $post_id, 'auction_' . $attribute['id'], $attribute_id );
 		}
 
-		$relist_attribute_data = $auction->relist_attribute_data;
+		$relist_attribute_data = $auction->extend_relist_attribute_data;
 		foreach ( $relist_attribute_data as $relist_attribute ) {
 			$relist_attribute_id = isset( $_POST[ 'auction_' . $relist_attribute['id'] ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'auction_' . $relist_attribute['id'] ] ) ) : '';
-			if ( ! empty( $relist_attribute_id ) && 'checkbox' !== $relist_attribute['type'] ) {
-				$this->auction_software_check_validations( $relist_attribute['id'], $relist_attribute_id, $post_id );
-				update_post_meta( $post_id, 'auction_' . $relist_attribute['id'], $relist_attribute_id );
-			} elseif ( 'checkbox' === $relist_attribute['type'] ) {
-				$auction_checkbox = ! empty( $relist_attribute_id ) ? 'yes' : 'no';
-				update_post_meta( $post_id, 'auction_' . $relist_attribute['id'], sanitize_text_field( $auction_checkbox ) );
-			}
+			$error_flag          = $this->auction_software_check_validations( $relist_attribute['id'], $relist_attribute_id, $post_id, $error_flag );
+			update_post_meta( $post_id, 'auction_' . $relist_attribute['id'], $relist_attribute_id );
 		}
 
 		if ( 'auction_simple' === $product_type ) {
@@ -737,35 +740,32 @@ class Auction_Software_Admin {
 			$attribute_data_simple = $auction_simple->attribute_data;
 			foreach ( $attribute_data_simple as $attribute_simple ) {
 				$simple_attribute_id = isset( $_POST[ 'auction_' . $attribute_simple['id'] ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'auction_' . $attribute_simple['id'] ] ) ) : '';
-				if ( ! empty( $simple_attribute_id ) ) :
-					if ( ( 'reserve_price' === $attribute_simple['id'] ) || ( 'buy_it_now_price' === $attribute_simple['id'] ) ) {
-						$simple_attribute_id = round( $simple_attribute_id, 2 );
-					}
-					$this->auction_software_check_validations( $attribute_simple['id'], $simple_attribute_id, $post_id );
-					update_post_meta( $post_id, 'auction_' . $attribute_simple['id'], $simple_attribute_id );
-				endif;
+				if ( ( 'reserve_price' === $attribute_simple['id'] || 'buy_it_now_price' === $attribute_simple['id'] ) ) {
+					$simple_attribute_id = round( $simple_attribute_id, 2 );
+				}
+				$error_flag = $this->auction_software_check_validations( $attribute_simple['id'], $simple_attribute_id, $post_id, $error_flag );
+				update_post_meta( $post_id, 'auction_' . $attribute_simple['id'], $simple_attribute_id );
 			}
 		} elseif ( 'auction_reverse' === $product_type ) {
 			$auction_reverse        = new WC_Product_Auction_Reverse();
 			$attribute_data_reverse = $auction_reverse->attribute_data;
 			foreach ( $attribute_data_reverse as $attribute_reverse ) {
 				$reverse_attribute_id = isset( $_POST[ 'auction_' . $attribute_reverse['id'] ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'auction_' . $attribute_reverse['id'] ] ) ) : '';
-				if ( ! empty( $reverse_attribute_id ) ) :
-					if ( ( 'reserve_price_reverse' === $attribute_reverse['id'] ) || ( 'buy_it_now_price_reverse' === $attribute_reverse['id'] ) ) {
-						$reverse_attribute_id = round( $reverse_attribute_id, 2 );
-					}
-					$this->auction_software_check_validations( $attribute_reverse['id'], $reverse_attribute_id, $post_id );
-					update_post_meta( $post_id, 'auction_' . $attribute_reverse['id'], $reverse_attribute_id );
-				endif;
+				if ( ( 'reserve_price_reverse' === $attribute_reverse['id'] || 'buy_it_now_price_reverse' === $attribute_reverse['id'] ) ) {
+					$reverse_attribute_id = round( $reverse_attribute_id, 2 );
+				}
+				$error_flag = $this->auction_software_check_validations( $attribute_reverse['id'], $reverse_attribute_id, $post_id, $error_flag );
+				update_post_meta( $post_id, 'auction_' . $attribute_reverse['id'], $reverse_attribute_id );
 			}
 		}
 		do_action( 'auction_software_save_product_auction_options', $post_id );
-		$is_ended = get_post_meta( $post_id, 'auction_is_ended' );
-		if ( ! empty( $is_ended ) && 1 === (int) $is_ended[0] ) {
-			update_post_meta( $post_id, 'auction_is_started_and_ended', 1 );
+		if ( ! $error_flag ) {
+			$is_ended = get_post_meta( $post_id, 'auction_is_ended' );
+			if ( ! empty( $is_ended ) && 1 === (int) $is_ended[0] ) {
+				update_post_meta( $post_id, 'auction_is_started_and_ended', 1 );
+			}
+			update_post_meta( $post_id, 'auction_is_started', 1 );
 		}
-
-		update_post_meta( $post_id, 'auction_is_started', 1 );
         // phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
@@ -776,16 +776,18 @@ class Auction_Software_Admin {
 	 * @param string $key Meta key.
 	 * @param string $value Meta value.
 	 * @param int    $post_id Product post id.
+	 * @param bool   $error_flag Error flag.
 	 * @return int
 	 */
-	public function auction_software_check_validations( $key, $value, $post_id ) {
+	public function auction_software_check_validations( $key, $value, $post_id, $error_flag = false ) {
         // phpcs:disable WordPress.Security.NonceVerification.Missing
 		$product_type = isset( $_POST['product-type'] ) ? sanitize_text_field( wp_unslash( $_POST['product-type'] ) ) : '';
 		$date_to      = isset( $_POST['auction_date_to'] ) ? sanitize_text_field( wp_unslash( $_POST['auction_date_to'] ) ) : '';
 		$date_from    = isset( $_POST['auction_date_from'] ) ? sanitize_text_field( wp_unslash( $_POST['auction_date_from'] ) ) : '';
 		switch ( $key ) {
 			case 'start_price':
-				if ( $value < 0 ) {
+				if ( '' === $value || $value < 0 ) {
+					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Start Price should not be negative or empty.', 'auction-software' ) );
 				} else {
 					update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
@@ -793,6 +795,7 @@ class Auction_Software_Admin {
 				break;
 			case 'bid_increment':
 				if ( $value < 0 ) {
+					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Bid Increment should not be negative.', 'auction-software' ) );
 				} else {
 					update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
@@ -800,8 +803,10 @@ class Auction_Software_Admin {
 				break;
 			case 'date_from':
 				if ( '' === $value ) {
+					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Date From should not be empty.', 'auction-software' ) );
 				} elseif ( $value > $date_to ) {
+					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Date From should not be greater than Date To.', 'auction-software' ) );
 				} else {
 					update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
@@ -809,8 +814,10 @@ class Auction_Software_Admin {
 				break;
 			case 'date_to':
 				if ( '' === $value ) {
+					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Date To should not be empty.', 'auction-software' ) );
 				} elseif ( $value < $date_from ) {
+					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Date To should not be smaller than Date From.', 'auction-software' ) );
 				} else {
 					update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
@@ -820,11 +827,10 @@ class Auction_Software_Admin {
 				// Seller can lower but can not raise the reserve price.
 				if ( 'auction_simple' === $product_type ) {
 					if ( $value < 0 ) {
+						$error_flag = true;
 						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Reserve Price should not be negative.', 'auction-software' ) );
-					} elseif ( $value > 0 ) {
-						update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
 					} else {
-						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Reserve Price should not be zero or empty.', 'auction-software' ) );
+						update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
 					}
 				}
 				break;
@@ -832,53 +838,77 @@ class Auction_Software_Admin {
 				// Seller can lower but can not raise the reserve price.
 				if ( 'auction_reverse' === $product_type ) {
 					if ( $value < 0 ) {
+						$error_flag = true;
 						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Reserve Price should not be negative.', 'auction-software' ) );
-					} elseif ( $value > 0 ) {
-						update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
 					} else {
-						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Reserve Price should not be zero or empty.', 'auction-software' ) );
+						update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
 					}
 				}
 				break;
 			case 'buy_it_now_price':
 				if ( 'auction_simple' === $product_type ) {
 					if ( $value < 0 ) {
+						$error_flag = true;
 						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Buy It Now Price should not be negative.', 'auction-software' ) );
-					} elseif ( $value > 0 ) {
-						update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
 					} else {
-						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Buy It Now Price should not be zero or empty.', 'auction-software' ) );
+						update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
 					}
 				}
 				break;
 			case 'buy_it_now_price_reverse':
 				if ( 'auction_reverse' === $product_type ) {
 					if ( $value < 0 ) {
+						$error_flag = true;
 						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Buy It Now Price should not be negative.', 'auction-software' ) );
-					} elseif ( $value > 0 ) {
-						update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
 					} else {
-						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Buy It Now Price should not be zero or empty.', 'auction-software' ) );
+						update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
 					}
 				}
 				break;
-			case 'relist_if_fail_(hours)':
+			case 'relist_if_fail':
 				if ( $value < 0 ) {
+					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Relist If Fail should not be negative.', 'auction-software' ) );
 				} else {
 					update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
 				}
 				break;
-			case 'relist_if_not_paid_(hours)':
+			case 'relist_if_not_paid':
 				if ( $value < 0 ) {
+					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Relist If Not Paid should not be negative.', 'auction-software' ) );
 				} else {
 					update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
 				}
 				break;
-			case 'relist_duration_(hours)':
+			case 'relist_duration':
 				if ( $value < 0 ) {
+					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Relist Duration should not be negative.', 'auction-software' ) );
+				} else {
+					update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
+				}
+				break;
+			case 'extend_if_fail':
+				if ( $value < 0 ) {
+					$error_flag = true;
+					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Extend If Fail should not be negative.', 'auction-software' ) );
+				} else {
+					update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
+				}
+				break;
+			case 'extend_if_not_paid':
+				if ( $value < 0 ) {
+					$error_flag = true;
+					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Extend If Not Paid should not be negative.', 'auction-software' ) );
+				} else {
+					update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
+				}
+				break;
+			case 'extend_duration':
+				if ( $value < 0 ) {
+					$error_flag = true;
+					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Extend Duration should not be negative.', 'auction-software' ) );
 				} else {
 					update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
 				}
@@ -886,27 +916,10 @@ class Auction_Software_Admin {
 			case 'bid_price':
 				update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
 				break;
-			case 'simple_time_to_increase_after_bid_placed_(_seconds_)':
-				if ( 'auction_simple' === $product_type ) {
-					if ( $value < 0 ) {
-						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Time should not be negative.', 'auction-software' ) );
-					} else {
-						update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
-					}
-				}
-				break;
-			case 'reverse_time_to_increase_after_bid_placed_(_seconds_)':
-				if ( 'auction_reverse' === $product_type ) {
-					if ( $value < 0 ) {
-						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Time should not be negative.', 'auction-software' ) );
-					} else {
-						update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
-					}
-				}
-				break;
 			default:
-				return 0;
+				break;
 		}
+		return $error_flag;
         // phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 

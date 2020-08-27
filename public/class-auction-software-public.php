@@ -373,7 +373,7 @@ class Auction_Software_Public {
 						update_post_meta( $product_id, 'auction_is_ended', 1 );
 						update_post_meta( $product_id, 'auction_winning_bid', $auction_buy_it_now_price );
 						WC_Auction_Software_Helper::set_auction_bid_logs( $order->get_user_id(), $product_id, $auction_buy_it_now_price, current_time( 'mysql' ), 'buyitnow' );
-						WC_Auction_Software_Helper::set_auction_bid_logs( $order->get_user_id(), $product_id, 0, current_time( 'mysql' ), 'ended' );
+						WC_Auction_Software_Helper::set_auction_bid_logs( $order->get_user_id(), $product_id, $auction_buy_it_now_price, current_time( 'mysql' ), 'ended' );
 					}
 				}
 				do_action( 'auction_software_wc_payment_complete', $product_id, $product, $order_id, $order, $item );
@@ -502,8 +502,6 @@ class Auction_Software_Public {
 		$notice_message = '';
 		$current_bid    = $product->get_auction_current_bid();
 		$increment_bid  = $product->get_auction_bid_increment();
-		$seconds        = get_post_meta( $product_id, 'auction_simple_time_to_increase_after_bid_placed_(_seconds_)' );
-		$seconds        = isset( $seconds ) ? $seconds[0] : 0;
 		$date_to        = $product->get_auction_date_to();
 		$date_time_to   = datetime::createfromformat( 'Y-m-d H:i:s', $date_to );
 		$user_id        = get_current_user_id();
@@ -528,7 +526,7 @@ class Auction_Software_Public {
 									$max_bid = $product->get_auction_max_bid();
 									if ( $user_id !== (int) $max_bid_user ) {
 										$auto_current_bid   = $product->get_auction_current_bid();
-										$auto_increment_bid = $product->get_auction_bid_increment();
+										$auto_increment_bid = $increment_bid;
 										$auto_next_bid      = $auto_current_bid + $auto_increment_bid;
 										if ( $auto_next_bid > $max_bid ) {
 											$auto_next_bid = $max_bid;
@@ -567,9 +565,15 @@ class Auction_Software_Public {
 		! empty( $notice_message ) ? $json_response['status'] = 'notice' : $json_response['status'] = '';
 		$json_response['notice_message']                      = $notice_message;
 		if ( 1 === $flag ) {
-			if ( $product->check_if_reserve_price_met( $product_id ) ) {
-				$date_time_to->add( new DateInterval( 'PT' . $seconds . 'S' ) );
-				update_post_meta( $product_id, 'auction_date_to', $date_time_to->format( 'Y-m-d H:i:s' ) );
+			if ( 'yes' === $product->is_anti_snipping() ) {
+				$seconds      = get_option( 'auctions_anti_snipping_duration', 0 );
+				$trigger_time = get_option( 'auctions_anti_snipping_trigger_time', 5 );
+				$time         = current_time( 'timestamp' ); // phpcs:ignore
+				$timeplus     = gmdate( 'Y-m-d H:i:s', strtotime( '+' . $trigger_time . ' minutes', $time ) );
+				if ( $timeplus > $date_to ) {
+					$date_time_to->add( new DateInterval( 'PT' . $seconds . 'S' ) );
+					update_post_meta( $product_id, 'auction_date_to', $date_time_to->format( 'Y-m-d H:i:s' ) );
+				}
 			}
 			$json_response['change_bid']          = 1;
 			$json_response['change_current_bid']  = wc_price( $change_current_bid );
@@ -607,8 +611,6 @@ class Auction_Software_Public {
 		$notice_message = '';
 		$current_bid    = $product->get_auction_current_bid();
 		$increment_bid  = $product->get_auction_bid_increment();
-		$seconds        = get_post_meta( $product_id, 'auction_reverse_time_to_increase_after_bid_placed_(_seconds_)' );
-		$seconds        = isset( $seconds ) ? $seconds[0] : 0;
 		$date_to        = $product->get_auction_date_to();
 		$date_time_to   = datetime::createfromformat( 'Y-m-d H:i:s', $date_to );
 		$user_id        = get_current_user_id();
@@ -679,9 +681,15 @@ class Auction_Software_Public {
 		! empty( $notice_message ) ? $json_response['status'] = 'notice' : $json_response['status'] = '';
 		$json_response['notice_message']                      = $notice_message;
 		if ( 1 === (int) $flag ) {
-			if ( $product->check_if_reserve_price_met( $product_id ) ) {
-				$date_time_to->add( new DateInterval( 'PT' . $seconds . 'S' ) );
-				update_post_meta( $product_id, 'auction_date_to', $date_time_to->format( 'Y-m-d H:i:s' ) );
+			if ( 'yes' === $product->is_anti_snipping() ) {
+				$seconds      = get_option( 'auctions_anti_snipping_duration', 0 );
+				$trigger_time = get_option( 'auctions_anti_snipping_trigger_time', 5 );
+				$time         = current_time( 'timestamp' ); // phpcs:ignore
+				$timeplus     = gmdate( 'Y-m-d H:i:s', strtotime( '+' . $trigger_time . ' minutes', $time ) );
+				if ( $timeplus > $date_to ) {
+					$date_time_to->add( new DateInterval( 'PT' . $seconds . 'S' ) );
+					update_post_meta( $product_id, 'auction_date_to', $date_time_to->format( 'Y-m-d H:i:s' ) );
+				}
 			}
 			$json_response['change_bid']          = 1;
 			$json_response['change_current_bid']  = wc_price( $change_current_bid );

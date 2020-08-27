@@ -45,7 +45,7 @@ if ( isset( $_POST['auction-bid'] ) ) {
 do_action( 'auction_reverse_before_add_to_cart_form' );
 ?>
 <form action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>"
-		class="auction_reverse_cart" method="post" enctype='multipart/form-data'>
+		class="auction-software-form auction_reverse_cart" method="post" enctype='multipart/form-data'>
 	<?php if ( $product->is_started() ) { ?>
 		<input id="is_started" type="hidden" value="1" />
 	<?php } else { ?>
@@ -141,9 +141,9 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 			<p class="auction_reserve_price"><?php echo esc_attr( trim( $reserve_price_text ) ); ?></p>
 		<div class="container">
 			<div class="button-container">
-				<button class="cart-price-plus" type="button" value="+">+</button>
-				<input type="text" name="price" class="price" maxlength="12" value="0" class="input-text price" id="auction-price-incr-decr"/>
 				<button class="cart-price-minus" type="button" value="-">-</button>
+				<input type="text" name="price" class="price" value="0" class="input-text price" id="auction-price-incr-decr"/>
+				<button class="cart-price-plus" type="button" value="+">+</button>
 			</div>
 			<br />
 			<div class="button-container">

@@ -108,7 +108,7 @@
 							var hours   = Math.floor( (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) );
 							var minutes = Math.floor( (distance % (1000 * 60 * 60)) / (1000 * 60) );
 							var seconds = Math.floor( (distance % (1000 * 60)) / 1000 );
-							document.getElementById( "time_left" ) != null ? document.getElementById( "time_left" ).innerHTML = days + php_vars.days + hours + php_vars.hours + minutes + php_vars.minutes + seconds + php_vars.seconds : "";
+							document.getElementById( "time_left" ) != null ? document.getElementById( "time_left" ).innerHTML = days + ' : ' + hours + ' : ' + minutes + ' : ' + seconds : "";
 
 							if (distance < 0) {
 								clearInterval( x );
@@ -178,8 +178,8 @@
 										} else {
 											if (response.status === 'login_error') {
 												$( ".woocommerce-message" ).remove();
-												var node = document.getElementsByClassName( 'product_title' );
-												$( response.notice_message ).insertAfter( node );
+												var node = document.getElementsByClassName( 'auction-software-form' );
+												$( response.notice_message ).insertBefore( node );
 											} else {
 												$( document.body ).trigger( 'added_to_cart', [response.fragments, response.cart_hash, $thisbutton] );
 											}
@@ -235,8 +235,8 @@
 										} else {
 											if (response.status === 'notice') {
 												$( ".woocommerce-message" ).remove();
-												var node = document.getElementsByClassName( 'product_title' );
-												$( response.notice_message ).insertAfter( node );
+												var node = document.getElementsByClassName( 'auction-software-form' );
+												$( response.notice_message ).insertBefore( node );
 												if (response.change_bid == 1) {
 
 													var curBid = document.getElementsByClassName( 'auction_current_bid_simple' );
@@ -321,8 +321,8 @@
 										} else {
 											if (response.status === 'notice') {
 												$( ".woocommerce-message" ).remove();
-												var node = document.getElementsByClassName( 'product_title' );
-												$( response.notice_message ).insertAfter( node );
+												var node = document.getElementsByClassName( 'auction-software-form' );
+												$( response.notice_message ).insertBefore( node );
 
 												if (response.change_bid == 1) {
 													var curBid = document.getElementsByClassName( 'auction_current_bid_penny' );
@@ -396,8 +396,8 @@
 										} else {
 											if (response.status === 'notice') {
 												$( ".woocommerce-message" ).remove();
-												var node = document.getElementsByClassName( 'product_title' );
-												$( response.notice_message ).insertAfter( node );
+												var node = document.getElementsByClassName( 'auction-software-form' );
+												$( response.notice_message ).insertBefore( node );
 
 												if (response.change_bid == 1) {
 													var curBid = document.getElementsByClassName( 'auction_current_bid_reverse' );

@@ -19,18 +19,6 @@ class WC_Product_Auction_Reverse extends WC_Product_Auction {
 	 */
 	public $attribute_data = array(
 		array(
-			'type'     => 'checkbox',
-			'id'       => 'proxy_bidding',
-			'currency' => false,
-			'options'  => '',
-		),
-		array(
-			'type'     => 'text',
-			'id'       => 'reverse_time_to_increase_after_bid_placed_(_seconds_)',
-			'currency' => false,
-			'options'  => '',
-		),
-		array(
 			'type'     => 'text',
 			'id'       => 'reserve_price_reverse',
 			'currency' => true,
@@ -260,10 +248,9 @@ class WC_Product_Auction_Reverse extends WC_Product_Auction {
 				if ( $is_reserve_price_met ) {
 					if ( ! empty( $max_bid_user ) ) {
 						if ( $next_bid < $max_bid ) {
-							$result = WC_Auction_Software_Helper::set_auction_bid_logs( $max_bid_user, $post_id, $max_bid, current_time( 'mysql' ), null, $proxy );
 							update_post_meta( $post_id, 'auction_max_bid', $next_bid );
 							update_post_meta( $post_id, 'auction_max_bid_user', $user_id );
-							$next_bid = ( $next_bid < ( $max_bid - $bid_increment ) ) ? $next_bid : ( $max_bid - $bid_increment );
+							$next_bid = ( $next_bid > ( $max_bid - $bid_increment ) ) ? $next_bid : ( $max_bid - $bid_increment );
 						}
 					} else {
 						if ( $next_bid < ( $current_bid - $bid_increment ) ) {

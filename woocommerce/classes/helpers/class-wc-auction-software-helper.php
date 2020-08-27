@@ -25,9 +25,10 @@ class WC_Auction_Software_Helper {
 	 * @param string $options Options.
 	 * @param array  $custom_attributes Custom attributes.
 	 * @param string $class Class.
+	 * @param string $wrapper_class Wrapper class.
 	 * @return int|void
 	 */
-	public static function get_product_tab_fields( $input_type, $id, $currency = false, $options = '', $custom_attributes = array(), $class = '' ) {
+	public static function get_product_tab_fields( $input_type, $id, $currency = false, $options = '', $custom_attributes = array(), $class = '', $wrapper_class = '' ) {
 		switch ( $input_type ) {
 			case 'text':
 				if ( ( 'date_from' === $id || 'date_to' === $id ) ) {
@@ -46,6 +47,7 @@ class WC_Auction_Software_Helper {
 							'label'             => self::get_id_title( $id, $currency ),
 							'custom_attributes' => $custom_attributes,
 							'class'             => 'wc_input_price',
+							'wrapper_class'     => $wrapper_class,
 						)
 					);
 				}
@@ -99,6 +101,17 @@ class WC_Auction_Software_Helper {
 		$id_string = ucwords( str_replace( '_', ' ', $id ) );
 		if ( true === $currency ) {
 			$id_string .= ' (' . get_woocommerce_currency_symbol() . ')';
+		}
+		$extend_relist_array = array(
+			'relist_if_fail',
+			'relist_if_not_paid',
+			'relist_duration',
+			'extend_if_fail',
+			'extend_if_not_paid',
+			'extend_duration',
+		);
+		if ( in_array( $id, $extend_relist_array, true ) ) {
+			$id_string .= ' (in Hours)';
 		}
 		return $id_string;
 	}
@@ -196,6 +209,16 @@ class WC_Auction_Software_Helper {
 			';
 			return $auction_history_string;
 		}
+	}
+
+	/**
+	 * Clear auction logs in case of relisting auction.
+	 *
+	 * @param int $post_id Product ID.
+	 */
+	public static function clear_auction_bid_logs( $post_id ) {
+		global $wpdb;
+		$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . $wpdb->prefix . 'auction_software_logs WHERE auction_id = %d', array( $post_id ) ) ); // db call ok; no-cache ok.
 	}
 
 	/**

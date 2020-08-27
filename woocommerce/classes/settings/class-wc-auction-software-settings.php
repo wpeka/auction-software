@@ -40,7 +40,8 @@ class WC_Auction_Software_Settings extends WC_Settings_Page {
 	public function get_sections() {
 
 		$sections = array(
-			'' => __( 'Bid Increment', 'auction-software' ),
+			''     => __( 'Global Settings', 'auction-software' ),
+			'bids' => __( 'Bid Increment', 'auction-software' ),
 		);
 		return apply_filters( 'woocommerce_get_sections_' . $this->id, $sections );
 	}
@@ -51,6 +52,10 @@ class WC_Auction_Software_Settings extends WC_Settings_Page {
 	public function output() {
 		global $current_section;
 		if ( '' === $current_section ) {
+			$settings = $this->get_settings();
+
+			WC_Admin_Settings::output_fields( $settings );
+		} elseif ( 'bids' === $current_section ) {
 			$this->output_bid_range_increment_screen();
 		}
 		do_action( 'woocommerce_output_sections_' . $this->id, $current_section );
@@ -148,7 +153,48 @@ class WC_Auction_Software_Settings extends WC_Settings_Page {
 		if ( '' === $current_section ) {
 			$settings = apply_filters(
 				'woocommerce_auctions_settings',
-				array()
+				array(
+
+					array(
+						'title' => __( 'Global Settings', 'auction-software' ),
+						'type'  => 'title',
+						'desc'  => __( 'This is where you can set the global settings for the auction products', 'woocommerce' ),
+						'id'    => 'global_settings',
+					),
+					array(
+						'title'   => __( 'Enable proxy bidding', 'auction-software' ),
+						'type'    => 'checkbox',
+						'id'      => 'auctions_proxy_bidding_on',
+						'default' => 'no',
+					),
+					array(
+						'title'   => __( 'Enable anti sniping', 'auction-software' ),
+						'type'    => 'checkbox',
+						'id'      => 'auctions_anti_snipping_on',
+						'default' => 'no',
+					),
+					array(
+						'title'       => __( 'Anti sniping start time', 'auction-software' ),
+						'placeholder' => __( 'In Minutes', 'auction-software' ),
+						'desc'        => __( 'Time remaining for auction to end (in minutes)', 'auction-software' ),
+						'type'        => 'text',
+						'id'          => 'auctions_anti_snipping_trigger_time',
+						'default'     => '5',
+					),
+					array(
+						'title'       => __( 'Anti sniping duration', 'auction-software' ),
+						'placeholder' => __( 'In Seconds', 'auction-software' ),
+						'desc'        => __( 'Extend the auction end time by (in seconds)', 'auction-software' ),
+						'type'        => 'text',
+						'id'          => 'auctions_anti_snipping_duration',
+						'default'     => '60',
+					),
+					array(
+						'type' => 'sectionend',
+						'id'   => 'global_settings',
+					),
+
+				)
 			);
 		}
 

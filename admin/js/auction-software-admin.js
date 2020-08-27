@@ -57,6 +57,18 @@
 					}
 				);
 			}
+			$( '.form-field.auction_relist' ).hide();
+			$( '.form-field.auction_extend' ).hide();
+			$( '.form-field.auction_' + $( '#auction_extend_or_relist_auction' ).val() ).show();
+			$( document ).on(
+				'change',
+				'#auction_extend_or_relist_auction',
+				function(){
+					$( '.form-field.auction_relist' ).hide();
+					$( '.form-field.auction_extend' ).hide();
+					$( '.form-field.auction_' + $( this ).val() ).show();
+				}
+			);
 		}
 	);
 
