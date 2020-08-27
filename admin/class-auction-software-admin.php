@@ -306,7 +306,7 @@ class Auction_Software_Admin {
 					if ( 1 === (int) $is_ended ) {
 						if ( 'yes' !== $is_reserve_price_met && 1 !== (int) $is_sold && '' !== $if_fail_hrs ) {
 							$date = $date_time_to;
-							$date->add( new DateInterval( 'PT' . $if_fail_hrs . 'H' ) );
+							$date->add( new DateInterval( 'PT' . $if_fail_hrs . 'M' ) );
 							if ( $date_time_current_date >= $date ) {
 								update_post_meta( $postid, 'auction_is_ended', 0 );
 								update_post_meta( $postid, 'auction_is_sold', 0 );
@@ -327,7 +327,7 @@ class Auction_Software_Admin {
 							}
 						} elseif ( 'yes' === $is_reserve_price_met && 1 !== (int) $is_sold && '' !== $if_not_paid_hrs ) {
 							$date = $date_time_to;
-							$date->add( new DateInterval( 'PT' . $if_not_paid_hrs . 'H' ) );
+							$date->add( new DateInterval( 'PT' . $if_not_paid_hrs . 'M' ) );
 							if ( $date_time_current_date >= $date ) {
 								update_post_meta( $postid, 'auction_is_ended', 0 );
 								update_post_meta( $postid, 'auction_is_sold', 0 );
@@ -348,7 +348,7 @@ class Auction_Software_Admin {
 							}
 						} elseif ( '' !== $if_duration_hrs ) {
 							$date = $date_time_to;
-							$date->add( new DateInterval( 'PT' . $if_duration_hrs . 'H' ) );
+							$date->add( new DateInterval( 'PT' . $if_duration_hrs . 'M' ) );
 							if ( $date_time_current_date >= $date ) {
 								update_post_meta( $postid, 'auction_is_ended', 0 );
 								update_post_meta( $postid, 'auction_is_sold', 0 );

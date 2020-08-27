@@ -111,7 +111,7 @@ class WC_Auction_Software_Helper {
 			'extend_duration',
 		);
 		if ( in_array( $id, $extend_relist_array, true ) ) {
-			$id_string .= ' (in Hours)';
+			$id_string .= ' (in Minutes)';
 		}
 		return $id_string;
 	}
