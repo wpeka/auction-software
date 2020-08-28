@@ -305,16 +305,22 @@ class Auction_Software_Admin {
 					$interval               = date_diff( $date_time_from, $date_time_to );
 					if ( 1 === (int) $is_ended ) {
 						if ( 'yes' !== $is_reserve_price_met && 1 !== (int) $is_sold && '' !== $if_fail_hrs ) {
-							$date = $date_time_to;
-							$date->add( new DateInterval( 'PT' . $if_fail_hrs . 'M' ) );
-							if ( $date_time_current_date >= $date ) {
+							if ( 'extend' === $extend_relist_auction ) {
 								update_post_meta( $postid, 'auction_is_ended', 0 );
 								update_post_meta( $postid, 'auction_is_sold', 0 );
 								WC_Auction_Software_Helper::clear_auction_bid_logs( $postid, true );
 								$to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
 								$to_date->add( $interval );
 								update_post_meta( $postid, 'auction_date_to', $to_date->format( 'Y-m-d H:i:s' ) );
-								if ( 'relist' === $extend_relist_auction ) {
+							} elseif ( 'relist' === $extend_relist_auction ) {
+								$date = $date_time_to;
+								$date->add( new DateInterval( 'PT' . $if_fail_hrs . 'M' ) );
+								if ( $date_time_current_date >= $date ) {
+									update_post_meta( $postid, 'auction_is_ended', 0 );
+									update_post_meta( $postid, 'auction_is_sold', 0 );
+									$to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
+									$to_date->add( $interval );
+									update_post_meta( $postid, 'auction_date_to', $to_date->format( 'Y-m-d H:i:s' ) );
 									WC_Auction_Software_Helper::clear_auction_bid_logs( $postid );
 									WC_Auction_Software_Helper::set_auction_bid_logs( '', $postid, 0, current_time( 'mysql' ), 'relisted' );
 									$from_date = current_time( 'mysql' );
@@ -369,6 +375,19 @@ class Auction_Software_Admin {
 									update_post_meta( $postid, 'auction_initial_bid_placed', 0 );
 									do_action( 'woocommerce_auction_software_start', $postid );
 								}
+							}
+						}
+					} else {
+						if ( 'extend' === $extend_relist_auction ) {
+							$date = $date_time_current_date;
+							$date->add( new DateInterval( 'PT' . $if_fail_hrs . 'M' ) );
+							if ( $date >= $date_time_to ) {
+								update_post_meta( $postid, 'auction_is_ended', 0 );
+								update_post_meta( $postid, 'auction_is_sold', 0 );
+								WC_Auction_Software_Helper::clear_auction_bid_logs( $postid, true );
+								$to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
+								$to_date->add( $interval );
+								update_post_meta( $postid, 'auction_date_to', $to_date->format( 'Y-m-d H:i:s' ) );
 							}
 						}
 					}
