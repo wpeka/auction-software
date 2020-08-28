@@ -220,7 +220,7 @@ class WC_Auction_Software_Helper {
 	public static function clear_auction_bid_logs( $post_id, $flag = false ) {
 		global $wpdb;
 		if ( $flag ) {
-			$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . $wpdb->prefix . 'auction_software_logs WHERE auction_id = %d and status=%s', array( $post_id, 'ended' ) ) ); // db call ok; no-cache ok.
+			$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . $wpdb->prefix . 'auction_software_logs WHERE auction_id = %d and status IS NOT NULL', array( $post_id, 'ended' ) ) ); // db call ok; no-cache ok.
 		} else {
 			$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . $wpdb->prefix . 'auction_software_logs WHERE auction_id = %d', array( $post_id ) ) ); // db call ok; no-cache ok.
 		}
