@@ -25,9 +25,10 @@ class WC_Auction_Software_Helper {
 	 * @param string $options Options.
 	 * @param array  $custom_attributes Custom attributes.
 	 * @param string $class Class.
+	 * @param string $wrapper_class Wrapper class.
 	 * @return int|void
 	 */
-	public static function get_product_tab_fields( $input_type, $id, $currency = false, $options = '', $custom_attributes = array(), $class = '' ) {
+	public static function get_product_tab_fields( $input_type, $id, $currency = false, $options = '', $custom_attributes = array(), $class = '', $wrapper_class = '' ) {
 		switch ( $input_type ) {
 			case 'text':
 				if ( ( 'date_from' === $id || 'date_to' === $id ) ) {
@@ -46,6 +47,7 @@ class WC_Auction_Software_Helper {
 							'label'             => self::get_id_title( $id, $currency ),
 							'custom_attributes' => $custom_attributes,
 							'class'             => 'wc_input_price',
+							'wrapper_class'     => $wrapper_class,
 						)
 					);
 				}
@@ -100,6 +102,17 @@ class WC_Auction_Software_Helper {
 		if ( true === $currency ) {
 			$id_string .= ' (' . get_woocommerce_currency_symbol() . ')';
 		}
+		$extend_relist_array = array(
+			'relist_if_fail',
+			'relist_if_not_paid',
+			'relist_duration',
+			'extend_if_fail',
+			'extend_if_not_paid',
+			'extend_duration',
+		);
+		if ( in_array( $id, $extend_relist_array, true ) ) {
+			$id_string .= ' (in Minutes)';
+		}
 		return $id_string;
 	}
 
@@ -119,6 +132,7 @@ class WC_Auction_Software_Helper {
                     <td>' . __( 'User', 'auction-software' ) . '</td>
                     <td>' . __( 'Bid', 'auction-software' ) . '</td>
                     <td>' . __( 'Date', 'auction-software' ) . '</td>
+                    <td>' . __( 'Auto', 'auction-software' ) . '</td>
                 </tr>
 			';
 			$previous_value         = null;
@@ -133,6 +147,7 @@ class WC_Auction_Software_Helper {
 		                    <td>' . __( 'Auction has ended.', 'auction-software' ) . '</td>
 		                    <td></td>
 		                    <td>' . $auction_history_item['date'] . '</td>
+		                    <td></td>
 	                	</tr>
 						';
 					}
@@ -142,6 +157,7 @@ class WC_Auction_Software_Helper {
                     <td>' . __( 'Auction is relisted.', 'auction-software' ) . '</td>
                     <td></td>
                     <td>' . $auction_history_item['date'] . '</td>
+                    <td></td>
                 </tr>
 				';
 				} elseif ( 'buyitnow' === $status ) {
@@ -151,15 +167,18 @@ class WC_Auction_Software_Helper {
 					<td>' . __( 'Buy it now used by ', 'auction-software' ) . $user_info->display_name . '.</td>
 		            <td>' . wc_price( $auction_history_item['bid'] ) . '</td>
                     <td>' . $auction_history_item['date'] . '</td>
+                    <td></td>
                 </tr>
 				';
 				} else {
 					$user_info                   = get_userdata( $auction_history_item['user_id'] );
+					$proxy_text                  = ( 1 === (int) $auction_history_item['proxy'] ) ? 'Auto' : '';
 					$auction_history_item_string = '
 					<tr>
                     <td>' . $user_info->display_name . '</td>
                     <td>' . wc_price( $auction_history_item['bid'] ) . '</td>
                     <td>' . $auction_history_item['date'] . '</td>
+                    <td>' . $proxy_text . '</td>
                 </tr>
 				';
 				}
@@ -181,10 +200,29 @@ class WC_Auction_Software_Helper {
                     <td>' . __( 'User', 'auction-software' ) . '</td>
                     <td>' . __( 'Bid', 'auction-software' ) . '</td>
                     <td>' . __( 'Date', 'auction-software' ) . '</td>
+                    <td>' . __( 'Auto', 'auction-software' ) . '</td>
+                </tr>
+                <tr>
+                    <td colspan="4">No bids yet</td>
                 </tr>
                 </table>
 			';
 			return $auction_history_string;
+		}
+	}
+
+	/**
+	 * Clear auction logs in case of relisting auction.
+	 *
+	 * @param int  $post_id Product ID.
+	 * @param bool $flag Flag.
+	 */
+	public static function clear_auction_bid_logs( $post_id, $flag = false ) {
+		global $wpdb;
+		if ( $flag ) {
+			$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . $wpdb->prefix . 'auction_software_logs WHERE auction_id = %d and status IS NOT NULL', array( $post_id, 'ended' ) ) ); // db call ok; no-cache ok.
+		} else {
+			$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . $wpdb->prefix . 'auction_software_logs WHERE auction_id = %d', array( $post_id ) ) ); // db call ok; no-cache ok.
 		}
 	}
 
@@ -196,9 +234,10 @@ class WC_Auction_Software_Helper {
 	 * @param double $next_bid Next bid.
 	 * @param string $date Date.
 	 * @param null   $status Status.
+	 * @param int    $proxy Is proxy bid.
 	 * @return int
 	 */
-	public static function set_auction_bid_logs( $user_id, $post_id, $next_bid, $date, $status = null ) {
+	public static function set_auction_bid_logs( $user_id, $post_id, $next_bid, $date, $status = null, $proxy = 0 ) {
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'auction_software_logs';
 		$success    = $wpdb->insert(
@@ -209,6 +248,7 @@ class WC_Auction_Software_Helper {
 				'bid'        => $next_bid,
 				'date'       => $date,
 				'status'     => $status,
+				'proxy'      => $proxy,
 			)
 		); // db call ok; no-cache ok.
 

@@ -45,7 +45,7 @@ if ( isset( $_POST['auction-bid'] ) ) {
 do_action( 'auction_simple_before_add_to_cart_form' );
 ?>
 <form action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>"
-		class="auction_simple_cart" method="post" enctype='multipart/form-data'>
+		class="auction-software-form auction_simple_cart" method="post" enctype='multipart/form-data'>
 	<?php if ( $product->is_started() ) { ?>
 		<input id="is_started" type="hidden" value="1" />
 	<?php } else { ?>
@@ -72,17 +72,17 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 				</tr>
 				<tr>
 					<td>
-						<label for="auction_current_bid"><?php esc_html_e( 'Current Bid: ', 'auction-software' ); ?></label>
+						<label for="auction_current_bid"><?php esc_html_e( 'Current Bid:', 'auction-software' ); ?></label>
 					</td>
 					<td class="title auction_current_bid_simple">
-						<?php
-						$current_bid_value = $product->get_auction_current_bid();
-						if ( 0 === (int) $current_bid_value ) {
-							esc_html_e( 'No bids yet ', 'auction-software' );
-						} else {
-							echo wc_price( $product->get_auction_current_bid() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-						}
-						?>
+					<?php
+					$current_bid_value = $product->get_auction_current_bid();
+					if ( 0 === (int) $current_bid_value ) {
+						esc_html_e( 'No bids yet.', 'auction-software' );
+					} else {
+						echo wc_price( $product->get_auction_current_bid() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					}
+					?>
 					</td>
 				</tr>
 				<tr>
@@ -109,23 +109,50 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 						<p id="time_left"></p>
 					</td>
 				</tr>
+				<?php
+				$max_bid_user = $product->get_auction_max_bid_user();
+				$max_bid      = $product->get_auction_max_bid();
+				if ( ! empty( $max_bid_user ) && $user_id === (int) $max_bid_user ) {
+					$style = 'display:table-row';
+				} else {
+					$style = 'display:none';
+				}
+				?>
+				<tr id="auction_max_bid" style="<?php echo $style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+					<td>
+						<label for="auction_max_bid"><?php esc_html_e( 'Your Maximum Bid: ', 'auction-software' ); ?></label>
+					</td>
+					<td class="title auction_max_bid_simple">
+						<?php echo wc_price( $max_bid ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					</td>
+				</tr>
 				</tbody>
 			</table>
+			<?php
+			$reserve_price_met = $product->check_if_reserve_price_met( $postid );
+			if ( ! $reserve_price_met ) {
+				$reserve_price_text = esc_html__( 'Reserve price not met.', 'auction-software' );
+			} else {
+				$reserve_price_text = esc_html__( 'Reserve price met.', 'auction-software' );
+			}
+			?>
+			<p class="auction_reserve_price"><?php echo esc_attr( trim( $reserve_price_text ) ); ?></p>
 			<div class="container">
 				<div class="button-container">
-					<input type="text" name="price" class="price" maxlength="12" value="0" class="input-text price" id="auction-price-incr-decr"/>
-					<button class="cart-price-plus" type="button" value="+">+</button>
 					<button class="cart-price-minus" type="button" value="-">-</button>
+					<input type="text" name="price" class="price" value="0" class="input-text price" id="auction-price-incr-decr"/>
+					<button class="cart-price-plus" type="button" value="+">+</button>
+				</div>
+				<br />
+				<div class="button-container">
+					<button type="submit" name="auction-bid" value="<?php echo esc_attr( $product->get_id() ); ?>"
+							class="auction-bid-simple button alt"><?php echo esc_attr( $product->single_add_to_cart_text() ); ?></button>
+					<?php if ( $product->get_auction_current_bid() < $product->get_auction_buy_it_now_price() ) { ?>
+						<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>"
+								class="single_add_to_cart_button button alt"><?php echo $product->get_buy_it_now_cart_text(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
+					<?php } ?>
 				</div>
 			</div>
-			<button type="submit" name="auction-bid" value="<?php echo esc_attr( $product->get_id() ); ?>"
-					class="auction-bid-simple button alt"><?php echo esc_attr( $product->single_add_to_cart_text() ); ?></button>
-
-			<?php if ( $product->get_auction_current_bid() < $product->get_auction_buy_it_now_price() ) { ?>
-				<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>"
-						class="single_add_to_cart_button button alt"><?php echo $product->get_buy_it_now_cart_text(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
-			<?php } ?>
-
 			<?php
 		} elseif ( true === $product->is_ended() ) {
 			$is_ended = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_is_ended' );
@@ -136,25 +163,25 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 			?>
 			<?php $reserve_price_met = $product->check_if_reserve_price_met( $postid ); ?>
 			<div id="auction-expired">
-				<?php esc_html_e( 'Auction has ended.', 'auction-software' ); ?>
-				<?php
-				if ( ! $reserve_price_met ) {
-					esc_html_e( 'Reserve price not met.', 'auction-software' );
-				}
-				?>
+			<?php esc_html_e( 'Auction has ended.', 'auction-software' ); ?>
+			<?php
+			if ( ! $reserve_price_met ) {
+				esc_html_e( 'Reserve price not met.', 'auction-software' );
+			}
+			?>
 			</div>
 			<?php
 			$winner = $product->check_if_user_has_winning_bid( $current_bid, $user_id, $postid );
 			if ( $winner && $reserve_price_met ) {
-				?>
-				<?php if ( 1 !== (int) $product->get_auction_is_sold() ) { ?>
+				if ( 1 !== (int) $product->get_auction_is_sold() ) {
+					?>
 					<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>"
 							class="single_add_to_cart_button button alt"><?php echo $product->get_buy_it_now_cart_text(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
 					<?php
 				}
 			}
 			?>
-		<?php } else { ?>
+			<?php } else { ?>
 			<table cellspacing="0">
 				<tbody>
 				<tr>
@@ -191,33 +218,33 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 				</tr>
 				</tbody>
 			</table>
-			<?php
-		}
-		/**
-		 * Display history tabs.
-		 *
-		 * @param array $tabs Tabs.
-		 * @return mixed
-		 */
-		function auction_history_tab( $tabs ) {
-			$tabs['auction_history_tab'] = array(
-				'title'    => __( 'Auction History', 'auction-software' ),
-				'priority' => 1,
-				'callback' => 'auction_history_tab_content',
-			);
+				<?php
+			}
+			/**
+			 * Display history tabs.
+			 *
+			 * @param array $tabs Tabs.
+			 * @return mixed
+			 */
+			function auction_history_tab( $tabs ) {
+				$tabs['auction_history_tab'] = array(
+					'title'    => __( 'Auction History', 'auction-software' ),
+					'priority' => 1,
+					'callback' => 'auction_history_tab_content',
+				);
 
-			return $tabs;
-		}
+				return $tabs;
+			}
 
-		/**
-		 * History tab content.
-		 */
-		function auction_history_tab_content() {
-			echo '<h2>' . esc_html__( 'Auction History', 'auction-software' ) . '</h2>';
-			echo WC_Auction_Software_Helper::get_auction_history( get_the_ID() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		}
+			/**
+			 * History tab content.
+			 */
+			function auction_history_tab_content() {
+				echo '<h2>' . esc_html__( 'Auction History', 'auction-software' ) . '</h2>';
+				echo WC_Auction_Software_Helper::get_auction_history( get_the_ID() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			}
 
-		add_filter( 'woocommerce_product_tabs', 'auction_history_tab' );
+			add_filter( 'woocommerce_product_tabs', 'auction_history_tab' );
 
 	} else {
 		?>

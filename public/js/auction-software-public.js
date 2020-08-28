@@ -108,7 +108,7 @@
 							var hours   = Math.floor( (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) );
 							var minutes = Math.floor( (distance % (1000 * 60 * 60)) / (1000 * 60) );
 							var seconds = Math.floor( (distance % (1000 * 60)) / 1000 );
-							document.getElementById( "time_left" ) != null ? document.getElementById( "time_left" ).innerHTML = days + php_vars.days + hours + php_vars.hours + minutes + php_vars.minutes + seconds + php_vars.seconds : "";
+							document.getElementById( "time_left" ) != null ? document.getElementById( "time_left" ).innerHTML = days + ' : ' + hours + ' : ' + minutes + ' : ' + seconds : "";
 
 							if (distance < 0) {
 								clearInterval( x );
@@ -124,10 +124,13 @@
 					setInterval(
 						function () {
 							// Refresh product attributes every 1 minute.
+							$( ".auction_reserve_price" ).load( location.href + " .auction_reserve_price", "" );
 							$( ".auction_bid_increment" ).load( location.href + " .auction_bid_increment>*", "" );
 							$( ".auction_current_bid_simple" ).load( location.href + " .auction_current_bid_simple>*", "" );
+							$( ".auction_max_bid_simple" ).load( location.href + " .auction_max_bid_simple>*", "" );
 							$( ".auction_current_bid_penny" ).load( location.href + " .auction_current_bid_penny>*", "" );
 							$( ".auction_current_bid_reverse" ).load( location.href + " .auction_current_bid_reverse>*", "" );
+							$( ".auction_max_bid_reverse" ).load( location.href + " .auction_max_bid_reverse>*", "" );
 							$( "#auction_history_table" ).load( location.href + " #auction_history_table>*", "" );
 						},
 						60000
@@ -175,8 +178,8 @@
 										} else {
 											if (response.status === 'login_error') {
 												$( ".woocommerce-message" ).remove();
-												var node = document.getElementsByClassName( 'product_title' );
-												$( response.notice_message ).insertAfter( node );
+												var node = document.getElementsByClassName( 'auction-software-form' );
+												$( response.notice_message ).insertBefore( node );
 											} else {
 												$( document.body ).trigger( 'added_to_cart', [response.fragments, response.cart_hash, $thisbutton] );
 											}
@@ -232,10 +235,10 @@
 										} else {
 											if (response.status === 'notice') {
 												$( ".woocommerce-message" ).remove();
-												var node = document.getElementsByClassName( 'product_title' );
-												$( response.notice_message ).insertAfter( node );
-
+												var node = document.getElementsByClassName( 'auction-software-form' );
+												$( response.notice_message ).insertBefore( node );
 												if (response.change_bid == 1) {
+
 													var curBid = document.getElementsByClassName( 'auction_current_bid_simple' );
 													$( curBid ).empty();
 													$( curBid ).append( response.change_current_bid );
@@ -250,10 +253,22 @@
 													}
 
 												}
+												var max_bid = document.getElementById( 'auction_max_bid' );
+												if (response.change_max_bid == 1) {
+													$( max_bid ).css( {'display':'table-row'} );
+													var max_bid_value = document.getElementsByClassName( 'auction_max_bid_simple' );
+													$( max_bid_value ).empty();
+													$( max_bid_value ).append( response.change_max_bid_value );
+												} else {
+													$( max_bid ).hide();
+												}
 
 												$( ".auction_bid_increment" ).load( location.href + " .auction_bid_increment>*", "" );
+												$( ".auction_reserve_price" ).load( location.href + " .auction_reserve_price", "" );
 												$( ".auction_current_bid_simple" ).load( location.href + " .auction_current_bid_simple>*", "" );
+												$( ".auction_max_bid_simple" ).load( location.href + " .auction_max_bid_simple>*", "" );
 												$( "#auction_history_table" ).load( location.href + " #auction_history_table>*", "" );
+												endDate = response.seconds;
 
 											}
 										}
@@ -306,8 +321,8 @@
 										} else {
 											if (response.status === 'notice') {
 												$( ".woocommerce-message" ).remove();
-												var node = document.getElementsByClassName( 'product_title' );
-												$( response.notice_message ).insertAfter( node );
+												var node = document.getElementsByClassName( 'auction-software-form' );
+												$( response.notice_message ).insertBefore( node );
 
 												if (response.change_bid == 1) {
 													var curBid = document.getElementsByClassName( 'auction_current_bid_penny' );
@@ -381,8 +396,8 @@
 										} else {
 											if (response.status === 'notice') {
 												$( ".woocommerce-message" ).remove();
-												var node = document.getElementsByClassName( 'product_title' );
-												$( response.notice_message ).insertAfter( node );
+												var node = document.getElementsByClassName( 'auction-software-form' );
+												$( response.notice_message ).insertBefore( node );
 
 												if (response.change_bid == 1) {
 													var curBid = document.getElementsByClassName( 'auction_current_bid_reverse' );
@@ -400,9 +415,22 @@
 
 												}
 
+												var max_bid = document.getElementById( 'auction_max_bid' );
+												if (response.change_max_bid == 1) {
+													$( max_bid ).css( {'display':'table-row'} );
+													var max_bid_value = document.getElementsByClassName( 'auction_max_bid_reverse' );
+													$( max_bid_value ).empty();
+													$( max_bid_value ).append( response.change_max_bid_value );
+												} else {
+													$( max_bid ).hide();
+												}
+
 												$( ".auction_bid_increment" ).load( location.href + " .auction_bid_increment>*", "" );
+												$( ".auction_reserve_price" ).load( location.href + " .auction_reserve_price", "" );
 												$( ".auction_current_bid_reverse" ).load( location.href + " .auction_current_bid_reverse>*", "" );
+												$( ".auction_max_bid_reverse" ).load( location.href + " .auction_max_bid_reverse>*", "" );
 												$( "#auction_history_table" ).load( location.href + " #auction_history_table>*", "" );
+												endDate = response.seconds;
 
 											}
 										}

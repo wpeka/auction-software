@@ -56,28 +56,46 @@ class WC_Product_Auction extends WC_Product {
 	 * @access public
 	 * @var array $relist_attribute_data Product relist attributes data.
 	 */
-	public $relist_attribute_data = array(
+	public $extend_relist_attribute_data = array(
 		array(
-			'type'     => 'checkbox',
-			'id'       => 'relist_auction',
+			'type'     => 'select',
+			'id'       => 'extend_or_relist_auction',
+			'currency' => false,
+			'options'  => 'none,extend,relist',
+		),
+		array(
+			'type'     => 'text',
+			'id'       => 'relist_if_fail',
 			'currency' => false,
 			'options'  => '',
 		),
 		array(
 			'type'     => 'text',
-			'id'       => 'relist_if_fail_(hours)',
+			'id'       => 'relist_if_not_paid',
 			'currency' => false,
 			'options'  => '',
 		),
 		array(
 			'type'     => 'text',
-			'id'       => 'relist_if_not_paid_(hours)',
+			'id'       => 'relist_duration',
 			'currency' => false,
 			'options'  => '',
 		),
 		array(
 			'type'     => 'text',
-			'id'       => 'relist_duration_(hours)',
+			'id'       => 'extend_if_fail',
+			'currency' => false,
+			'options'  => '',
+		),
+		array(
+			'type'     => 'text',
+			'id'       => 'extend_if_not_paid',
+			'currency' => false,
+			'options'  => '',
+		),
+		array(
+			'type'     => 'text',
+			'id'       => 'extend_duration',
 			'currency' => false,
 			'options'  => '',
 		),
@@ -168,14 +186,34 @@ class WC_Product_Auction extends WC_Product {
 		if ( 1 === (int) $auction_is_ended || 1 === (int) $auction_is_started_and_ended ) {
 			return true;
 		}
-		$date1 = new DateTime( $this->get_auction_date_to() );
-		$date2 = new DateTime( current_time( 'mysql' ) );
-
-		if ( $date1 < $date2 ) {
-			return true;
-		} else {
-			return false;
+		if ( $this->get_auction_date_to() ) {
+			$date1 = new DateTime( $this->get_auction_date_to() );
+			$date2 = new DateTime( current_time( 'mysql' ) );
+			if ( $date1 < $date2 ) {
+				return true;
+			} else {
+				return false;
+			}
 		}
+		return false;
+	}
+
+	/**
+	 * Check if proxy bidding is enabled for auction.
+	 *
+	 * @return int
+	 */
+	public function is_proxy_bidding() {
+		return get_option( 'auctions_proxy_bidding_on', 'no' );
+	}
+
+	/**
+	 * Check if anti sniping is enabled for auction.
+	 *
+	 * @return int
+	 */
+	public function is_anti_snipping() {
+		return get_option( 'auctions_anti_snipping_on', 'no' );
 	}
 
 	/**

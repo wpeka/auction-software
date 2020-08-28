@@ -5,7 +5,7 @@
 **Requires at least:** 5.0  
 **Tested up to:** 5.3.2  
 **Requires PHP:** 7.0  
-**Stable tag:** 1.0.2  
+**Stable tag:** 1.0.3  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -92,6 +92,12 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 4. Auction Widgets.
 
 ## Changelog ##
+### 1.0.3 ###
+Feature: Proxy auction (auto bot) for Simple and Reverse auctions.
+Feature: Anti sniping feature.
+Feature: Added options to extend auction end time in case of failure auctions.
+Fix: Auction product template conflict with theme.
+
 ### 1.0.2 ###
 Feature: Users can see the auctions participated in My Account area.
 
@@ -102,6 +108,12 @@ Fix: Fixed for broken cart and checkout pages.
 Feature: Initial version.
 
 ## Upgrade Notice ##
+### 1.0.3 ###
+Feature: Proxy auction (auto bot) for Simple and Reverse auctions.
+Feature: Anti sniping feature.
+Feature: Added options to extend auction end time in case of failure auctions.
+Fix: Auction product template conflict with theme.
+
 ### 1.0.2 ###
 Feature: Users can see the auctions participated in My Account area.
 

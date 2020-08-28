@@ -373,7 +373,7 @@ class Auction_Software_Public {
 						update_post_meta( $product_id, 'auction_is_ended', 1 );
 						update_post_meta( $product_id, 'auction_winning_bid', $auction_buy_it_now_price );
 						WC_Auction_Software_Helper::set_auction_bid_logs( $order->get_user_id(), $product_id, $auction_buy_it_now_price, current_time( 'mysql' ), 'buyitnow' );
-						WC_Auction_Software_Helper::set_auction_bid_logs( $order->get_user_id(), $product_id, 0, current_time( 'mysql' ), 'ended' );
+						WC_Auction_Software_Helper::set_auction_bid_logs( $order->get_user_id(), $product_id, $auction_buy_it_now_price, current_time( 'mysql' ), 'ended' );
 					}
 				}
 				do_action( 'auction_software_wc_payment_complete', $product_id, $product, $order_id, $order, $item );
@@ -502,8 +502,11 @@ class Auction_Software_Public {
 		$notice_message = '';
 		$current_bid    = $product->get_auction_current_bid();
 		$increment_bid  = $product->get_auction_bid_increment();
+		$date_to        = $product->get_auction_date_to();
+		$date_time_to   = datetime::createfromformat( 'Y-m-d H:i:s', $date_to );
 		$user_id        = get_current_user_id();
 		$flag           = 0;
+		$max_flag       = 0;
 		if ( isset( $_POST['auction_bid'] ) ) {
 			if ( true === $product->is_started() ) {
 				if ( is_user_logged_in() ) {
@@ -515,13 +518,36 @@ class Auction_Software_Public {
 						} elseif ( 4 === (int) $set_auction_current_bid ) {
 							$notice_message = '<div class="woocommerce-message error auction-error" role="alert">' . __( 'Bid should be greater than or equal to bid increment.', 'auction-software' ) . '</div>';
 						} elseif ( 1 === (int) $set_auction_current_bid ) {
-							$change_current_bid   = (float) $next_bid;
-							$change_price_box_bid = (float) $next_bid + (float) $increment_bid;
-							$flag                 = 1;
 							$notice_message       = '<div class="woocommerce-message success auction-success" role="alert">' . __( 'Bid placed successfully.', 'auction-software' ) . '</div>';
-						} elseif ( 2 === (int) $product->set_auction_current_bid( $current_bid, $next_bid, $user_id, $product_id ) ) {
+							$is_reserve_price_met = $product->check_if_reserve_price_met( $product_id );
+							if ( 'yes' === $product->is_proxy_bidding() && $is_reserve_price_met ) {
+								$max_bid_user = $product->get_auction_max_bid_user();
+								if ( ! empty( $max_bid_user ) ) {
+									$max_bid = $product->get_auction_max_bid();
+									if ( $user_id !== (int) $max_bid_user ) {
+										$auto_current_bid   = $product->get_auction_current_bid();
+										$auto_increment_bid = $increment_bid;
+										$auto_next_bid      = $auto_current_bid + $auto_increment_bid;
+										if ( $auto_next_bid > $max_bid ) {
+											$auto_next_bid = $max_bid;
+										}
+										$set_auction_auto_bid = $product->set_auction_current_bid( $auto_current_bid, $auto_next_bid, $max_bid_user, $product_id, 1 );
+										if ( 1 === (int) $set_auction_auto_bid ) {
+											$notice_message = '<div class="woocommerce-message success auction-success" role="alert">' . __( 'Bid placed successfully, but you have been outbidded!', 'auction-software' ) . '</div>';
+										}
+									}
+									if ( $user_id === (int) $max_bid_user ) {
+										$max_flag       = 1;
+										$change_max_bid = (float) $max_bid;
+									}
+								}
+							}
+							$flag                 = 1;
+							$change_current_bid   = (float) $product->get_auction_current_bid();
+							$change_price_box_bid = (float) $product->get_auction_current_bid() + (float) $increment_bid;
+						} elseif ( 2 === (int) $set_auction_current_bid ) {
 							$notice_message = '<div class="woocommerce-message success auction-success" role="alert">' . __( 'Your bid is winning, no need to place again.', 'auction-software' ) . '</div>';
-						} elseif ( 3 === (int) $product->set_auction_current_bid( $current_bid, $next_bid, $user_id, $product_id ) ) {
+						} elseif ( 3 === (int) $set_auction_current_bid ) {
 							$notice_message = '<div class="woocommerce-message error auction-error" role="alert">' . __( 'Please enter a higher amount.', 'auction-software' ) . '</div>';
 						} else {
 							$notice_message = '<div class="woocommerce-message error auction-error" role="alert">' . __( 'Bid not placed successfully.', 'auction-software' ) . '</div>';
@@ -539,6 +565,16 @@ class Auction_Software_Public {
 		! empty( $notice_message ) ? $json_response['status'] = 'notice' : $json_response['status'] = '';
 		$json_response['notice_message']                      = $notice_message;
 		if ( 1 === $flag ) {
+			if ( 'yes' === $product->is_anti_snipping() ) {
+				$seconds      = get_option( 'auctions_anti_snipping_duration', 0 );
+				$trigger_time = get_option( 'auctions_anti_snipping_trigger_time', 5 );
+				$time         = current_time( 'timestamp' ); // phpcs:ignore
+				$timeplus     = gmdate( 'Y-m-d H:i:s', strtotime( '+' . $trigger_time . ' minutes', $time ) );
+				if ( $timeplus > $date_to ) {
+					$date_time_to->add( new DateInterval( 'PT' . $seconds . 'S' ) );
+					update_post_meta( $product_id, 'auction_date_to', $date_time_to->format( 'Y-m-d H:i:s' ) );
+				}
+			}
 			$json_response['change_bid']          = 1;
 			$json_response['change_current_bid']  = wc_price( $change_current_bid );
 			$json_response['change_pricebox_bid'] = round( $change_price_box_bid, 2 );
@@ -547,9 +583,16 @@ class Auction_Software_Public {
 			} else {
 				$json_response['remove_buy_it_now_cart_text'] = 1;
 			}
+			if ( 1 === $max_flag ) {
+				$json_response['change_max_bid']       = 1;
+				$json_response['change_max_bid_value'] = wc_price( $change_max_bid );
+			} else {
+				$json_response['change_max_bid'] = 0;
+			}
 		} else {
 			$json_response['change_bid'] = 0;
 		}
+		$json_response['seconds'] = $date_time_to->format( 'Y-m-d H:i:s' );
 		echo wp_send_json( $json_response ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		wp_die();
         // phpcs:enable WordPress.Security.NonceVerification.Missing
@@ -568,8 +611,11 @@ class Auction_Software_Public {
 		$notice_message = '';
 		$current_bid    = $product->get_auction_current_bid();
 		$increment_bid  = $product->get_auction_bid_increment();
+		$date_to        = $product->get_auction_date_to();
+		$date_time_to   = datetime::createfromformat( 'Y-m-d H:i:s', $date_to );
 		$user_id        = get_current_user_id();
 		$flag           = 0;
+		$max_flag       = 0;
 		$next_bid       = isset( $_POST['price'] ) ? sanitize_text_field( wp_unslash( $_POST['price'] ) ) : 0;
 		if ( $next_bid <= 0 ) {
 			$is_negative = 1;
@@ -586,13 +632,36 @@ class Auction_Software_Public {
 						} elseif ( 4 === (int) $set_auction_current_bid ) {
 							$notice_message = '<div class="woocommerce-message error auction-error" role="alert">' . __( 'Bid should be less than or equal to bid increment.', 'auction-software' ) . '</div>';
 						} elseif ( 1 === (int) $set_auction_current_bid ) {
-							$change_current_bid   = (float) $next_bid;
-							$change_price_box_bid = (float) $next_bid - (float) $increment_bid;
-							$flag                 = 1;
 							$notice_message       = '<div class="woocommerce-message success auction-success" role="alert">' . __( 'Bid placed successfully.', 'auction-software' ) . '</div>';
-						} elseif ( 2 === (int) $product->set_auction_current_bid( $current_bid, $next_bid, $user_id, $product_id ) ) {
+							$is_reserve_price_met = $product->check_if_reserve_price_met( $product_id );
+							if ( 'yes' === $product->is_proxy_bidding() && $is_reserve_price_met ) {
+								$max_bid_user = $product->get_auction_max_bid_user();
+								if ( ! empty( $max_bid_user ) ) {
+									$max_bid = $product->get_auction_max_bid();
+									if ( $user_id !== (int) $max_bid_user ) {
+										$auto_current_bid   = $product->get_auction_current_bid();
+										$auto_increment_bid = $product->get_auction_bid_increment();
+										$auto_next_bid      = $auto_current_bid - $auto_increment_bid;
+										if ( $auto_next_bid < $max_bid ) {
+											$auto_next_bid = $max_bid;
+										}
+										$set_auction_auto_bid = $product->set_auction_current_bid( $auto_current_bid, $auto_next_bid, $max_bid_user, $product_id, 1 );
+										if ( 1 === (int) $set_auction_auto_bid ) {
+											$notice_message = '<div class="woocommerce-message success auction-success" role="alert">' . __( 'Bid placed successfully, but you have been outbidded!', 'auction-software' ) . '</div>';
+										}
+									}
+									if ( $user_id === (int) $max_bid_user ) {
+										$max_flag       = 1;
+										$change_max_bid = (float) $max_bid;
+									}
+								}
+							}
+							$flag                 = 1;
+							$change_current_bid   = (float) $product->get_auction_current_bid();
+							$change_price_box_bid = (float) $product->get_auction_current_bid() - (float) $increment_bid;
+						} elseif ( 2 === (int) $set_auction_current_bid ) {
 							$notice_message = '<div class="woocommerce-message success auction-success" role="alert">' . __( 'Your bid is winning, no need to place again.', 'auction-software' ) . '</div>';
-						} elseif ( 3 === (int) $product->set_auction_current_bid( $current_bid, $next_bid, $user_id, $product_id ) ) {
+						} elseif ( 3 === (int) $set_auction_current_bid ) {
 							$notice_message = '<div class="woocommerce-message error auction-error" role="alert">' . __( 'Please enter a lower amount.', 'auction-software' ) . '</div>';
 						} else {
 							$notice_message = '<div class="woocommerce-message error auction-error" role="alert">' . __( 'Bid not placed successfully.', 'auction-software' ) . '</div>';
@@ -612,6 +681,16 @@ class Auction_Software_Public {
 		! empty( $notice_message ) ? $json_response['status'] = 'notice' : $json_response['status'] = '';
 		$json_response['notice_message']                      = $notice_message;
 		if ( 1 === (int) $flag ) {
+			if ( 'yes' === $product->is_anti_snipping() ) {
+				$seconds      = get_option( 'auctions_anti_snipping_duration', 0 );
+				$trigger_time = get_option( 'auctions_anti_snipping_trigger_time', 5 );
+				$time         = current_time( 'timestamp' ); // phpcs:ignore
+				$timeplus     = gmdate( 'Y-m-d H:i:s', strtotime( '+' . $trigger_time . ' minutes', $time ) );
+				if ( $timeplus > $date_to ) {
+					$date_time_to->add( new DateInterval( 'PT' . $seconds . 'S' ) );
+					update_post_meta( $product_id, 'auction_date_to', $date_time_to->format( 'Y-m-d H:i:s' ) );
+				}
+			}
 			$json_response['change_bid']          = 1;
 			$json_response['change_current_bid']  = wc_price( $change_current_bid );
 			$json_response['change_pricebox_bid'] = round( $change_price_box_bid, 2 );
@@ -620,9 +699,16 @@ class Auction_Software_Public {
 			} else {
 				$json_response['remove_buy_it_now_cart_text'] = 1;
 			}
+			if ( 1 === $max_flag ) {
+				$json_response['change_max_bid']       = 1;
+				$json_response['change_max_bid_value'] = wc_price( $change_max_bid );
+			} else {
+				$json_response['change_max_bid'] = 0;
+			}
 		} else {
 			$json_response['change_bid'] = 0;
 		}
+		$json_response['seconds'] = $date_time_to->format( 'Y-m-d H:i:s' );
 		echo wp_send_json( $json_response ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		wp_die();
         // phpcs:enable WordPress.Security.NonceVerification.Missing
