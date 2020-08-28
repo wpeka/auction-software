@@ -310,6 +310,7 @@ class Auction_Software_Admin {
 							if ( $date_time_current_date >= $date ) {
 								update_post_meta( $postid, 'auction_is_ended', 0 );
 								update_post_meta( $postid, 'auction_is_sold', 0 );
+								WC_Auction_Software_Helper::clear_auction_bid_logs( $postid, true );
 								$to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
 								$to_date->add( $interval );
 								update_post_meta( $postid, 'auction_date_to', $to_date->format( 'Y-m-d H:i:s' ) );
@@ -331,6 +332,7 @@ class Auction_Software_Admin {
 							if ( $date_time_current_date >= $date ) {
 								update_post_meta( $postid, 'auction_is_ended', 0 );
 								update_post_meta( $postid, 'auction_is_sold', 0 );
+								WC_Auction_Software_Helper::clear_auction_bid_logs( $postid, true );
 								$to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
 								$to_date->add( $interval );
 								update_post_meta( $postid, 'auction_date_to', $to_date->format( 'Y-m-d H:i:s' ) );
@@ -352,6 +354,7 @@ class Auction_Software_Admin {
 							if ( $date_time_current_date >= $date ) {
 								update_post_meta( $postid, 'auction_is_ended', 0 );
 								update_post_meta( $postid, 'auction_is_sold', 0 );
+								WC_Auction_Software_Helper::clear_auction_bid_logs( $postid, true );
 								$to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
 								$to_date->add( $interval );
 								update_post_meta( $postid, 'auction_date_to', $to_date->format( 'Y-m-d H:i:s' ) );

@@ -214,11 +214,16 @@ class WC_Auction_Software_Helper {
 	/**
 	 * Clear auction logs in case of relisting auction.
 	 *
-	 * @param int $post_id Product ID.
+	 * @param int  $post_id Product ID.
+	 * @param bool $flag Flag.
 	 */
-	public static function clear_auction_bid_logs( $post_id ) {
+	public static function clear_auction_bid_logs( $post_id, $flag = false ) {
 		global $wpdb;
-		$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . $wpdb->prefix . 'auction_software_logs WHERE auction_id = %d', array( $post_id ) ) ); // db call ok; no-cache ok.
+		if ( $flag ) {
+			$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . $wpdb->prefix . 'auction_software_logs WHERE auction_id = %d and status=%s', array( $post_id, 'ended' ) ) ); // db call ok; no-cache ok.
+		} else {
+			$wpdb->query( $wpdb->prepare( 'DELETE FROM ' . $wpdb->prefix . 'auction_software_logs WHERE auction_id = %d', array( $post_id ) ) ); // db call ok; no-cache ok.
+		}
 	}
 
 	/**
