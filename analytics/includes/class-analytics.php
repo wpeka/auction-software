@@ -657,7 +657,13 @@ class Analytics {
 			'is_anonymous'        => as_request_get_bool( 'is_anonymous' ),
 		);
 
-		$this->_uninstall_plugin_event( false, $reason );
+        $slug = as_request_get('slug');
+        if( '' !== $slug ) {
+            $slug_obj = self::$_instances[ 'm_' . $slug ];
+            $slug_obj->_uninstall_plugin_event( false, $reason );
+        } else {
+            $this->_uninstall_plugin_event( false, $reason );
+        }
 
 		// Print '1' for successful operation.
 		echo 1;

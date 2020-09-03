@@ -15,7 +15,7 @@
  * Plugin Name:       Auction Software
  * Plugin URI:        https://demo.wpeka.com/woo-auction-software/
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.0.3
+ * Version:           1.0.4
  * Author:            WPeka Club
  * Author URI:        https://club.wpeka.com/
  * License:           GPL-2.0+
@@ -171,7 +171,7 @@ function auction_software_register_required_plugins() {
  * Rename this for your plugin and update it as you release new versions.
  */
 if ( ! defined( 'AUCTION_SOFTWARE_VERSION' ) ) {
-	define( 'AUCTION_SOFTWARE_VERSION', '1.0.3' );
+	define( 'AUCTION_SOFTWARE_VERSION', '1.0.4' );
 }
 if ( ! defined( 'AUCTION_SOFTWARE_SUFFIX' ) ) {
 	define( 'AUCTION_SOFTWARE_SUFFIX', ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min' );
@@ -186,39 +186,39 @@ if ( ! defined( 'AUCTION_SOFTWARE_PLUGIN_URL' ) ) {
 	define( 'AUCTION_SOFTWARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 }
 
-if ( ! function_exists( 'as_fs' ) ) {
+if ( ! function_exists( 'was_fs' ) ) {
 	/**
 	 * Helper function to access SDK.
 	 *
 	 * @return Analytics
 	 */
-	function as_fs() {
-		global $as_fs;
+	function was_fs() {
+		global $was_fs;
 
-		if ( ! isset( $as_fs ) ) {
+		if ( ! isset( $was_fs ) ) {
 			// Include Analytics SDK.
 			require_once dirname( __FILE__ ) . '/analytics/start.php';
 
-			$as_fs = ras_dynamic_init(
+			$was_fs = ras_dynamic_init(
 				array(
 					'id'              => '20',
 					'slug'            => 'auction-software',
 					'product_name'    => 'Auction Software',
 					'module_type'     => 'plugin',
-					'version'         => '1.0.3',
+					'version'         => '1.0.4',
 					'plugin_basename' => 'auction-software/auction-software.php',
 					'plugin_url'      => AUCTION_SOFTWARE_PLUGIN_URL,
 				)
 			);
 		}
 
-		return $as_fs;
+		return $was_fs;
 	}
 
 	// Init Analytics.
-	as_fs();
+	was_fs();
 	// SDK initiated.
-	do_action( 'as_fs_loaded' );
+	do_action( 'was_fs_loaded' );
 }
 
 /**
