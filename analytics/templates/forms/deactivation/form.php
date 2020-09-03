@@ -57,6 +57,7 @@ if ( $show_deactivation_feedback_form ) {
 HTML;
 
 		$reasons_list_items_html .= $reason_list_item_html;
+		$reasons_list_items_html .= '<input type="hidden" name="slug" value="' . $as->get_slug() . '">';
 	}
 
 	if ( $is_anonymous ) {
@@ -190,6 +191,8 @@ as_enqueue_local_style( 'as_dialog_boxes', '/admin/dialog-boxes.css' );
 						return;
 					}
 
+					var slug = $modal.find('input[name="slug"]').val();
+
 					var $selected_reason = $radio.parents('li:first'),
 						$input = $selected_reason.find('textarea, input[type="text"]'),
 						userReason = ( 0 !== $input.length ) ? $input.val().trim() : '';
@@ -208,6 +211,7 @@ as_enqueue_local_style( 'as_dialog_boxes', '/admin/dialog-boxes.css' );
                             deactivation_reason : $deactivation_reason,
                             reason_info         : userReason,
                             is_anonymous        : isAnonymousFeedback(),
+                            slug                : slug,
                             security            : '<?php echo $uninstall_reason_nonce; ?>',
 						},
 						beforeSend: function () {

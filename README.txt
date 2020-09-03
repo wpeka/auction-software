@@ -5,7 +5,7 @@ Tags: auction, simple auction, reverse auction, auction plugin, auctions, wordpr
 Requires at least: 5.0
 Tested up to: 5.3.2
 Requires PHP: 7.0
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,10 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 4. Auction Widgets.
 
 == Changelog ==
+= 1.0.4 =
+Fix: Conflict issue in plugin deactivate feedback form.
+Fix: Minor plugin bugs.
+
 = 1.0.3 =
 Feature: Proxy auction (auto bot) for Simple and Reverse auctions.
 Feature: Anti sniping feature.
@@ -108,6 +112,10 @@ Fix: Fixed for broken cart and checkout pages.
 Feature: Initial version.
 
 == Upgrade Notice ==
+= 1.0.4 =
+Fix: Conflict issue in plugin deactivate feedback form.
+Fix: Minor plugin bugs.
+
 = 1.0.3 =
 Feature: Proxy auction (auto bot) for Simple and Reverse auctions.
 Feature: Anti sniping feature.

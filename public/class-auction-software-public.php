@@ -340,6 +340,16 @@ class Auction_Software_Public {
 	}
 
 	/**
+	 * WooCommerce order complete status from Admin dashboard.
+	 *
+	 * @param int    $order_id Order ID.
+	 * @param string $order_status Order status.
+	 */
+	public function auction_software_wc_order_edit_status( $order_id, $order_status ) {
+		$this->auction_software_wc_payment_complete( $order_status, $order_id );
+	}
+
+	/**
 	 * WooCommerce order complete status.
 	 *
 	 * @param string $order_status Order status.
@@ -347,36 +357,38 @@ class Auction_Software_Public {
 	 * @return mixed
 	 */
 	public function auction_software_wc_payment_complete( $order_status, $order_id ) {
-		global $wpdb;
-		$order = wc_get_order( $order_id );
-		$items = $order->get_items();
-		foreach ( $items as $item ) {
-			$product_id = $item['product_id'];
-			$product    = wc_get_product( $product_id );
-			if ( $product ) {
-				if ( $product->is_type( 'auction_simple' ) || $product->is_type( 'auction_reverse' ) ) {
-					if ( $product->is_type( 'auction_simple' ) ) {
-						$get_auction_buy_it_now_price = get_post_meta( $product_id, 'auction_buy_it_now_price' );
-					} elseif ( $product->is_type( 'auction_reverse' ) ) {
-						$get_auction_buy_it_now_price = get_post_meta( $product_id, 'auction_buy_it_now_price_reverse' );
+		if ( 'completed' === $order_status ) {
+			global $wpdb;
+			$order = wc_get_order( $order_id );
+			$items = $order->get_items();
+			foreach ( $items as $item ) {
+				$product_id = $item['product_id'];
+				$product    = wc_get_product( $product_id );
+				if ( $product ) {
+					if ( $product->is_type( 'auction_simple' ) || $product->is_type( 'auction_reverse' ) ) {
+						if ( $product->is_type( 'auction_simple' ) ) {
+							$get_auction_buy_it_now_price = get_post_meta( $product_id, 'auction_buy_it_now_price' );
+						} elseif ( $product->is_type( 'auction_reverse' ) ) {
+							$get_auction_buy_it_now_price = get_post_meta( $product_id, 'auction_buy_it_now_price_reverse' );
+						}
+						$auction_buy_it_now_price = '';
+						if ( isset( $get_auction_buy_it_now_price[0] ) ) {
+							$auction_buy_it_now_price = $get_auction_buy_it_now_price[0];
+						}
+						$is_ended = get_post_meta( $product_id, 'auction_is_ended' );
+						if ( 1 === (int) $is_ended[0] ) {
+							update_post_meta( $product_id, 'auction_is_sold', 1 );
+							update_post_meta( $product_id, 'auction_winning_bid', $product->get_price() );
+						} else {
+							update_post_meta( $product_id, 'auction_is_sold', 1 );
+							update_post_meta( $product_id, 'auction_is_ended', 1 );
+							update_post_meta( $product_id, 'auction_winning_bid', $auction_buy_it_now_price );
+							WC_Auction_Software_Helper::set_auction_bid_logs( $order->get_user_id(), $product_id, $auction_buy_it_now_price, current_time( 'mysql' ), 'buyitnow' );
+							WC_Auction_Software_Helper::set_auction_bid_logs( $order->get_user_id(), $product_id, $auction_buy_it_now_price, current_time( 'mysql' ), 'ended' );
+						}
 					}
-					$auction_buy_it_now_price = '';
-					if ( isset( $get_auction_buy_it_now_price[0] ) ) {
-						$auction_buy_it_now_price = $get_auction_buy_it_now_price[0];
-					}
-					$is_ended = get_post_meta( $product_id, 'auction_is_ended' );
-					if ( 1 === (int) $is_ended[0] ) {
-						update_post_meta( $product_id, 'auction_is_sold', 1 );
-						update_post_meta( $product_id, 'auction_winning_bid', $product->get_price() );
-					} else {
-						update_post_meta( $product_id, 'auction_is_sold', 1 );
-						update_post_meta( $product_id, 'auction_is_ended', 1 );
-						update_post_meta( $product_id, 'auction_winning_bid', $auction_buy_it_now_price );
-						WC_Auction_Software_Helper::set_auction_bid_logs( $order->get_user_id(), $product_id, $auction_buy_it_now_price, current_time( 'mysql' ), 'buyitnow' );
-						WC_Auction_Software_Helper::set_auction_bid_logs( $order->get_user_id(), $product_id, $auction_buy_it_now_price, current_time( 'mysql' ), 'ended' );
-					}
+					do_action( 'auction_software_wc_payment_complete', $product_id, $product, $order_id, $order, $item );
 				}
-				do_action( 'auction_software_wc_payment_complete', $product_id, $product, $order_id, $order, $item );
 			}
 		}
 		return $order_status;

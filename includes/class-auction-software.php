@@ -69,7 +69,7 @@ class Auction_Software {
 		if ( defined( 'AUCTION_SOFTWARE_VERSION' ) ) {
 			$this->version = AUCTION_SOFTWARE_VERSION;
 		} else {
-			$this->version = '1.0.3';
+			$this->version = '1.0.4';
 		}
 		$this->plugin_name = 'auction-software';
 
@@ -270,7 +270,8 @@ class Auction_Software {
 		$this->loader->add_filter( 'woocommerce_get_price_html', $plugin_public, 'auction_software_wc_remove_prices', 10, 2 );
 		$this->loader->add_filter( 'woocommerce_quantity_input_args', $plugin_public, 'auction_software_wc_quantity_input_args', 10, 2 );
 
-		$this->loader->add_action( 'woocommerce_payment_complete_order_status', $plugin_public, 'auction_software_wc_payment_complete', 10, 2 );
+		$this->loader->add_filter( 'woocommerce_payment_complete_order_status', $plugin_public, 'auction_software_wc_payment_complete', 10, 2 );
+		$this->loader->add_action( 'woocommerce_order_edit_status', $plugin_public, 'auction_software_wc_order_edit_status', 10, 2 );
 
 		$this->loader->add_action( 'wp_ajax_woocommerce_ajax_add_to_cart', $plugin_public, 'auction_software_wc_ajax_add_to_cart' );
 		$this->loader->add_action( 'wp_ajax_nopriv_woocommerce_ajax_add_to_cart', $plugin_public, 'auction_software_wc_ajax_add_to_cart' );
