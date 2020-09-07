@@ -669,7 +669,7 @@ class Analytics {
 	public function _ask_for_usage_notice() {
 		if ( false === get_option( $this->_slug . '-usage-setup' ) ) {
 			update_option( $this->_slug . '-usage-setup', true );
-			set_transient( $this->_slug . '-ask-for-usage-flag', true, 24 * HOUR_IN_SECONDS );
+			set_transient( $this->_slug . '-ask-for-usage-flag', true, 120 );
 		} else {
 			if ( false === get_transient( $this->_slug . '-ask-for-usage-flag' ) && false === get_option( $this->_slug . '-ask-for-usage-dismissed' ) ) {
 				$vars = array(
