@@ -5,7 +5,7 @@
 **Requires at least:** 5.0  
 **Tested up to:** 5.3.2  
 **Requires PHP:** 7.0  
-**Stable tag:** 1.0.4  
+**Stable tag:** 1.0.5  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -92,6 +92,9 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 4. Auction Widgets.
 
 ## Changelog ##
+### 1.0.5 ###
+Update: Added notice to track usage analytics for the plugin.
+
 ### 1.0.4 ###
 Fix: Conflict issue in plugin deactivate feedback form.
 Fix: Minor plugin bugs.
@@ -112,6 +115,9 @@ Fix: Fixed for broken cart and checkout pages.
 Feature: Initial version.
 
 ## Upgrade Notice ##
+### 1.0.5 ###
+Update: Added notice to track usage analytics for the plugin.
+
 ### 1.0.4 ###
 Fix: Conflict issue in plugin deactivate feedback form.
 Fix: Minor plugin bugs.
