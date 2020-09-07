@@ -24,7 +24,7 @@ class Analytics_Tracking {
 	 *
 	 * @var string
 	 */
-	protected $option_name = 'analytics_tracking_last_request';
+	protected $option_name = 'ask-for-usage-last-request';
 
 	/**
 	 * The limit for the option.
@@ -122,7 +122,7 @@ class Analytics_Tracking {
 		$response = wp_remote_post( $this->endpoint, $args );
 
 		if ( ! is_wp_error( $response ) ) {
-			update_option( $this->option_name, $this->current_time, 'yes' );
+			update_option( $this->slug . '-' . $this->option_name, $this->current_time, 'yes' );
 		}
 	}
 
@@ -298,7 +298,7 @@ class Analytics_Tracking {
 			return false;
 		}
 
-		$last_time = get_option( $this->option_name );
+		$last_time = get_option( $this->slug . '-' . $this->option_name );
 
 		// When tracking data haven't been sent yet or when sending data is forced.
 		if ( ! $last_time || $ignore_time_treshhold ) {
