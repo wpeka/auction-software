@@ -545,7 +545,7 @@ class Auction_Software_Public {
 										}
 										$set_auction_auto_bid = $product->set_auction_current_bid( $auto_current_bid, $auto_next_bid, $max_bid_user, $product_id, 1 );
 										if ( 1 === (int) $set_auction_auto_bid ) {
-											$notice_message = '<div class="woocommerce-message success auction-success" role="alert">' . __( 'Bid placed successfully, but you have been outbidded!', 'auction-software' ) . '</div>';
+											$notice_message = '<div class="woocommerce-message success auction-success" role="alert">' . __( 'Bid placed successfully, but you have been outbid!', 'auction-software' ) . '</div>';
 										}
 									}
 									if ( $user_id === (int) $max_bid_user ) {
@@ -659,7 +659,7 @@ class Auction_Software_Public {
 										}
 										$set_auction_auto_bid = $product->set_auction_current_bid( $auto_current_bid, $auto_next_bid, $max_bid_user, $product_id, 1 );
 										if ( 1 === (int) $set_auction_auto_bid ) {
-											$notice_message = '<div class="woocommerce-message success auction-success" role="alert">' . __( 'Bid placed successfully, but you have been outbidded!', 'auction-software' ) . '</div>';
+											$notice_message = '<div class="woocommerce-message success auction-success" role="alert">' . __( 'Bid placed successfully, but you have been outbid!', 'auction-software' ) . '</div>';
 										}
 									}
 									if ( $user_id === (int) $max_bid_user ) {

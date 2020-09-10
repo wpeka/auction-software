@@ -133,6 +133,7 @@ class Analytics_Tracking {
 			'wp_version'    => $this->analytics_tracking_get_wordpress_version(),
 			'home_url'      => home_url(),
 			'admin_url'     => admin_url(),
+			'admin_email'   => get_bloginfo( 'admin_email' ),
 			'is_multisite'  => is_multisite(),
 			'site_language' => get_bloginfo( 'language' ),
 		);
