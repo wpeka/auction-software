@@ -263,6 +263,24 @@ class Auction_Software_Admin {
 	}
 
 	/**
+	 * Returns plugin action links.
+	 *
+	 * @param array $links Plugin action links.
+	 * @return array
+	 */
+	public function auction_software_plugin_action_links( $links ) {
+		if ( ! get_option( 'auction_software_pro_installed' ) ) {
+			$links = array_merge(
+				array(
+					'<a href="' . esc_url( 'https://club.wpeka.com/product/woo-auction-software/?utm_source=plugins&utm_campaign=auctionsoftware&utm_content=upgrade-to-pro' ) . '" target="_blank" rel="noopener noreferrer"><strong style="color: #11967A; display: inline;">' . __( 'Upgrade to Pro', 'auction-software' ) . '</strong></a>',
+				),
+				$links
+			);
+		}
+		return $links;
+	}
+
+	/**
 	 * Every minute cron tasks.
 	 */
 	public function auction_software_every_minute_cron_tasks() {

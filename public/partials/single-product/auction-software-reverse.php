@@ -52,6 +52,7 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 		<input id="is_started" type="hidden" value="0" />
 	<?php } ?>
 	<input id="product_type" type="hidden" value="auction">
+	<input id="product_auction_type" type="hidden" value="<?php echo esc_attr( $product->get_type() ); ?>">
 	<input id="end_date" type="hidden" value="<?php echo esc_attr( $product->get_auction_date_to() ); ?>"/>
 	<input id="start_date" type="hidden" value="<?php echo esc_attr( $product->get_auction_date_from() ); ?>"/>
 	<input id="auction_start_price" type="hidden" value="<?php echo esc_attr( $product->get_auction_start_price() ); ?>"/>

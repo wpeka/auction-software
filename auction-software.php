@@ -185,6 +185,9 @@ if ( ! defined( 'AUCTION_SOFTWARE_PLUGIN_TEMPLATE_PATH' ) ) {
 if ( ! defined( 'AUCTION_SOFTWARE_PLUGIN_URL' ) ) {
 	define( 'AUCTION_SOFTWARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 }
+if ( ! defined( 'AUCTION_SOFTWARE_PLUGIN_BASENAME' ) ) {
+	define( 'AUCTION_SOFTWARE_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+}
 
 if ( ! function_exists( 'was_fs' ) ) {
 	/**
