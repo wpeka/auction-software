@@ -5,7 +5,7 @@
 **Requires at least:** 5.0  
 **Tested up to:** 5.3.2  
 **Requires PHP:** 7.0  
-**Stable tag:** 1.0.5  
+**Stable tag:** 1.0.6  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -92,6 +92,10 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 4. Auction Widgets.
 
 ## Changelog ##
+### 1.0.6 ###
+* Fix: Fixed vulnerability issue for analytics within the plugin.
+* Update: Added upgrade to pro link on plugins page.
+
 ### 1.0.5 ###
 Update: Added notice to track usage analytics for the plugin.
 
