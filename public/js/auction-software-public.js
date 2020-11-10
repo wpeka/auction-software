@@ -88,6 +88,19 @@
 
 			var isStarted = document.getElementById( 'is_started' ) != null ? document.getElementById( 'is_started' ).value : '';
 			if (isStarted == true) {
+				var productAuctionType = document.getElementById( 'product_auction_type' ) != null ? document.getElementById( 'product_auction_type' ).value : '';
+				var window_focus       = true;
+				$( window ).on(
+					'focusin' ,
+					function() {
+						window_focus = true;
+					}
+				).on(
+					'focusout',
+					function() {
+						window_focus = false;
+					}
+				);
 				var getEndDate = document.getElementById( 'end_date' );
 				var endDate    = getEndDate.value;
 				if ($( "#product_type" ).length) {
@@ -123,15 +136,21 @@
 
 					setInterval(
 						function () {
-							// Refresh product attributes every 1 minute.
-							$( ".auction_reserve_price" ).load( location.href + " .auction_reserve_price", "" );
-							$( ".auction_bid_increment" ).load( location.href + " .auction_bid_increment>*", "" );
-							$( ".auction_current_bid_simple" ).load( location.href + " .auction_current_bid_simple>*", "" );
-							$( ".auction_max_bid_simple" ).load( location.href + " .auction_max_bid_simple>*", "" );
-							$( ".auction_current_bid_penny" ).load( location.href + " .auction_current_bid_penny>*", "" );
-							$( ".auction_current_bid_reverse" ).load( location.href + " .auction_current_bid_reverse>*", "" );
-							$( ".auction_max_bid_reverse" ).load( location.href + " .auction_max_bid_reverse>*", "" );
-							$( "#auction_history_table" ).load( location.href + " #auction_history_table>*", "" );
+							if (window_focus == true) {
+								$( ".auction_reserve_price" ).load( location.href + " .auction_reserve_price", "" );
+								if (productAuctionType == 'auction_simple') {
+									$( ".auction_current_bid_simple" ).load( location.href + " .auction_current_bid_simple>*", "" );
+									$( ".auction_max_bid_simple" ).load( location.href + " .auction_max_bid_simple>*", "" );
+								}
+								if (productAuctionType == 'auction_reverse') {
+									$( ".auction_current_bid_reverse" ).load( location.href + " .auction_current_bid_reverse>*", "" );
+									$( ".auction_max_bid_reverse" ).load( location.href + " .auction_max_bid_reverse>*", "" );
+								}
+								if (productAuctionType == 'auction_penny') {
+									$( ".auction_current_bid_penny" ).load( location.href + " .auction_current_bid_penny>*", "" );
+								}
+								$( "#auction_history_table" ).load( location.href + " #auction_history_table>*", "" );
+							}
 						},
 						60000
 					);
@@ -263,7 +282,6 @@
 													$( max_bid ).hide();
 												}
 
-												$( ".auction_bid_increment" ).load( location.href + " .auction_bid_increment>*", "" );
 												$( ".auction_reserve_price" ).load( location.href + " .auction_reserve_price", "" );
 												$( ".auction_current_bid_simple" ).load( location.href + " .auction_current_bid_simple>*", "" );
 												$( ".auction_max_bid_simple" ).load( location.href + " .auction_max_bid_simple>*", "" );
@@ -338,8 +356,8 @@
 													}
 
 												}
-
-												$( ".auction_bid_increment" ).load( location.href + " .auction_bid_increment>*", "" );
+												$( ".auction_reserve_price" ).load( location.href + " .auction_reserve_price", "" );
+												$( ".auction_current_bid_penny" ).load( location.href + " .auction_current_bid_penny>*", "" );
 												$( "#auction_history_table" ).load( location.href + " #auction_history_table>*", "" );
 												endDate = response.seconds;
 
@@ -425,7 +443,6 @@
 													$( max_bid ).hide();
 												}
 
-												$( ".auction_bid_increment" ).load( location.href + " .auction_bid_increment>*", "" );
 												$( ".auction_reserve_price" ).load( location.href + " .auction_reserve_price", "" );
 												$( ".auction_current_bid_reverse" ).load( location.href + " .auction_current_bid_reverse>*", "" );
 												$( ".auction_max_bid_reverse" ).load( location.href + " .auction_max_bid_reverse>*", "" );
