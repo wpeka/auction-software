@@ -69,7 +69,7 @@ class Auction_Software {
 		if ( defined( 'AUCTION_SOFTWARE_VERSION' ) ) {
 			$this->version = AUCTION_SOFTWARE_VERSION;
 		} else {
-			$this->version = '1.0.6';
+			$this->version = '1.0.7';
 		}
 		$this->plugin_name = 'auction-software';
 
@@ -236,6 +236,7 @@ class Auction_Software {
 		$this->loader->add_action( 'admin_footer', $plugin_admin, 'auction_software_product_auction_inventory_section' );
 		$this->loader->add_filter( 'product_type_options', $plugin_admin, 'auction_software_product_auction_type_options' );
 		$this->loader->add_action( 'woocommerce_process_product_meta', $plugin_admin, 'auction_software_save_product_auction_options' );
+		$this->loader->add_action( 'woocommerce_product_import_inserted_product_object', $plugin_admin, 'auction_software_product_imported', 10, 2 );
 
 		$this->loader->add_action( 'wp_ajax_auction_software_save_wc_classes', $plugin_admin, 'auction_software_save_wc_classes' );
 		// My Auctions List Code.

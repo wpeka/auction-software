@@ -653,9 +653,7 @@ class Auction_Software_Admin {
 	 * @return string
 	 */
 	public function auction_software_get_product_auction_errors() {
-
-		$auction_errors = '';
-
+		$auction_errors        = '';
 		$get_start_price_error = get_post_meta( get_the_ID(), 'auction_start_price_error' );
 		isset( $get_start_price_error[0] ) && ! empty( $get_start_price_error[0] ) ? $auction_errors .= $get_start_price_error[0] . '<br>' : '';
 
@@ -700,7 +698,6 @@ class Auction_Software_Admin {
 
 		$get_bid_price_error = get_post_meta( get_the_ID(), 'auction_bid_price_error' );
 		isset( $get_bid_price_error[0] ) && ! empty( $get_bid_price_error[0] ) ? $auction_errors .= $get_bid_price_error[0] . '<br>' : '';
-
 		return apply_filters( 'auction_software_product_auction_errors', $auction_errors );
 
 	}
@@ -809,6 +806,244 @@ class Auction_Software_Admin {
 			update_post_meta( $post_id, 'auction_is_started', 1 );
 		}
         // phpcs:enable WordPress.Security.NonceVerification.Missing
+	}
+
+	/**
+	 * Process import for auction products.
+	 *
+	 * @param Object $object Product object.
+	 * @param Array  $data Product data.
+	 */
+	public function auction_software_product_imported( $object, $data ) {
+		$post_id       = $object->get_id();
+		$auction_types = apply_filters(
+			'auction_software_import_auction_types',
+			array(
+				'auction_simple',
+				'auction_reverse',
+			)
+		);
+		if ( ! in_array( $data['type'], $auction_types, true ) ) {
+			return;
+		}
+		if ( isset( $data['meta_data'] ) ) {
+			$auction_data      = array_reduce(
+				$data['meta_data'],
+				function( $reduced, $current ) {
+					$reduced[ $current['key'] ] = $current['value'];
+					return $reduced;
+				}
+			);
+			$auction_data_keys = apply_filters(
+				'auction_software_import_auction_data_keys',
+				array(
+					'auction_item_condition',
+					'auction_start_price',
+					'auction_bid_increment',
+					'auction_date_from',
+					'auction_date_to',
+					'auction_reserve_price',
+					'auction_reserve_price_reverse',
+					'auction_buy_it_now_price',
+					'auction_buy_it_now_price_reverse',
+					'auction_relist_if_fail',
+					'auction_relist_if_not_paid',
+					'auction_relist_duration',
+					'auction_extend_if_fail',
+					'auction_extend_if_not_paid',
+					'auction_extend_duration',
+				)
+			);
+			$date_from         = isset( $auction_data['auction_date_from'] ) ? $auction_data['auction_date_from'] : '';
+			$date_to           = isset( $auction_data['auction_date_to'] ) ? $auction_data['auction_date_to'] : '';
+			$flag              = false;
+			$auction_errors    = '';
+			foreach ( $auction_data as $key => $value ) {
+				if ( in_array( $key, $auction_data_keys, true ) ) {
+					switch ( $key ) {
+						case 'auction_start_price':
+							if ( '' === $value || $value < 0 ) {
+								$flag            = true;
+								$auction_errors .= __( 'Start Price should not be negative or empty.', 'auction-software' );
+								update_post_meta( $post_id, $key . '_error', __( 'Start Price should not be negative or empty.', 'auction-software' ) );
+							} else {
+								update_post_meta( $post_id, $key . '_error', '' );
+							}
+							break;
+						case 'auction_bid_increment':
+							if ( $value < 0 ) {
+								$flag            = true;
+								$auction_errors .= __( 'Bid Increment should not be negative.', 'auction-software' );
+								update_post_meta( $post_id, $key . '_error', __( 'Bid Increment should not be negative.', 'auction-software' ) );
+							} else {
+								update_post_meta( $post_id, $key . '_error', '' );
+							}
+							break;
+						case 'auction_date_from':
+							if ( '' === $value ) {
+								$flag            = true;
+								$auction_errors .= __( 'Date From should not be empty.', 'auction-software' );
+								update_post_meta( $post_id, $key . '_error', __( 'Date From should not be empty.', 'auction-software' ) );
+							} elseif ( $value > $date_to ) {
+								$flag            = true;
+								$auction_errors .= __( 'Date From should not be greater than Date To.', 'auction-software' );
+								update_post_meta( $post_id, $key . '_error', __( 'Date From should not be greater than Date To.', 'auction-software' ) );
+							} else {
+								update_post_meta( $post_id, $key . '_error', '' );
+							}
+							break;
+						case 'auction_date_to':
+							if ( '' === $value ) {
+								$flag            = true;
+								$auction_errors .= __( 'Date To should not be empty.', 'auction-software' );
+								update_post_meta( $post_id, $key . '_error', __( 'Date To should not be empty.', 'auction-software' ) );
+							} elseif ( $value < $date_from ) {
+								$flag            = true;
+								$auction_errors .= __( 'Date To should not be smaller than Date From.', 'auction-software' );
+								update_post_meta( $post_id, $key . '_error', __( 'Date To should not be smaller than Date From.', 'auction-software' ) );
+							} else {
+								update_post_meta( $post_id, $key . '_error', '' );
+							}
+							break;
+						case 'auction_reserve_price':
+							if ( 'auction_simple' === $data['type'] ) {
+								if ( $value < 0 ) {
+									$flag            = true;
+									$auction_errors .= __( 'Reserve Price should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Reserve Price should not be negative.', 'auction-software' ) );
+								} else {
+									update_post_meta( $post_id, $key . '_error', '' );
+								}
+							}
+							break;
+						case 'auction_reserve_price_reverse':
+							if ( 'auction_reverse' === $data['type'] ) {
+								if ( $value < 0 ) {
+									$flag            = true;
+									$auction_errors .= __( 'Reserve Price should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Reserve Price should not be negative.', 'auction-software' ) );
+								} else {
+									update_post_meta( $post_id, $key . '_error', '' );
+								}
+							}
+							break;
+						case 'auction_reserve_price_penny':
+							if ( 'auction_penny' === $data['type'] ) {
+								if ( $value < 0 ) {
+									$flag            = true;
+									$auction_errors .= __( 'Reserve Price should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Reserve Price should not be negative.', 'auction-software' ) );
+								} else {
+									update_post_meta( $post_id, $key . '_error', '' );
+								}
+							}
+							break;
+						case 'auction_buy_it_now_price':
+							if ( 'auction_simple' === $data['type'] ) {
+								if ( $value < 0 ) {
+									$flag            = true;
+									$auction_errors .= __( 'Buy It Now Price should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Buy It Now Price should not be negative.', 'auction-software' ) );
+								} else {
+									update_post_meta( $post_id, $key . '_error', '' );
+								}
+							}
+							break;
+						case 'auction_buy_it_now_price_reverse':
+							if ( 'auction_reverse' === $data['type'] ) {
+								if ( $value < 0 ) {
+									$flag            = true;
+									$auction_errors .= __( 'Buy It Now Price should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Buy It Now Price should not be negative.', 'auction-software' ) );
+								} else {
+									update_post_meta( $post_id, $key . '_error', '' );
+								}
+							}
+							break;
+						case 'auction_buy_it_now_price_penny':
+							if ( 'auction_penny' === $data['type'] ) {
+								if ( $value < 0 ) {
+									$flag            = true;
+									$auction_errors .= __( 'Buy It Now Price should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Buy It Now Price should not be negative.', 'auction-software' ) );
+								} else {
+									update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
+								}
+							}
+							break;
+						case 'auction_relist_if_fail':
+							if ( 'relist' === $auction_data['auction_extend_or_relist_auction'] ) {
+								if ( $value < 0 ) {
+									$flag            = true;
+									$auction_errors .= __( 'Relist If Fail should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Relist If Fail should not be negative.', 'auction-software' ) );
+								} else {
+									update_post_meta( $post_id, $key . '_error', '' );
+								}
+							}
+							break;
+						case 'auction_relist_if_not_paid':
+							if ( 'relist' === $auction_data['auction_extend_or_relist_auction'] ) {
+								if ( $value < 0 ) {
+									$flag            = true;
+									$auction_errors .= __( 'Relist If Not Paid should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Relist If Not Paid should not be negative.', 'auction-software' ) );
+								} else {
+									update_post_meta( $post_id, $key . '_error', '' );
+								}
+							}
+							break;
+						case 'auction_relist_duration':
+							if ( 'relist' === $auction_data['auction_extend_or_relist_auction'] ) {
+								if ( $value < 0 ) {
+									$flag            = true;
+									$auction_errors .= __( 'Relist Duration should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Relist Duration should not be negative.', 'auction-software' ) );
+								} else {
+									update_post_meta( $post_id, $key . '_error', '' );
+								}
+							}
+							break;
+						case 'auction_extend_if_fail':
+							if ( 'extend' === $auction_data['auction_extend_or_relist_auction'] ) {
+								if ( $value < 0 ) {
+									$flag            = true;
+									$auction_errors .= __( 'Extend If Fail should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Extend If Fail should not be negative.', 'auction-software' ) );
+								} else {
+									update_post_meta( $post_id, $key . '_error', '' );
+								}
+							}
+							break;
+						case 'auction_extend_if_not_paid':
+							if ( 'extend' === $auction_data['auction_extend_or_relist_auction'] ) {
+								if ( $value < 0 ) {
+									$flag            = true;
+									$auction_errors .= __( 'Extend If Not Paid should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Extend If Not Paid should not be negative.', 'auction-software' ) );
+								} else {
+									update_post_meta( $post_id, $key . '_error', '' );
+								}
+							}
+							break;
+						case 'auction_extend_duration':
+							if ( 'extend' === $auction_data['auction_extend_or_relist_auction'] ) {
+								if ( $value < 0 ) {
+									$flag            = true;
+									$auction_errors .= __( 'Extend Duration should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Extend Duration should not be negative.', 'auction-software' ) );
+								} else {
+									update_post_meta( $post_id, $key . '_error', '' );
+								}
+							}
+							break;
+					}
+				}
+			}
+			if ( $flag ) {
+				update_post_meta( $post_id, 'auction_errors', $auction_errors );
+			}
+		}
 	}
 
 	/**

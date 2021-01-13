@@ -125,6 +125,9 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 4. Auction Widgets.
 
 ## Changelog ##
+### 1.0.7 ###
+* Fix: Users can import auction products using the WooCommerce Importer.
+
 ### 1.0.6 ###
 * Fix: Fixed vulnerability issue for analytics within the plugin.
 * Update: Added upgrade to pro link on plugins page.
@@ -152,6 +155,9 @@ Fix: Fixed for broken cart and checkout pages.
 Feature: Initial version.
 
 ## Upgrade Notice ##
+### 1.0.7 ###
+* Fix: Users can import auction products using the WooCommerce Importer.
+
 ### 1.0.5 ###
 Update: Added notice to track usage analytics for the plugin.
 
