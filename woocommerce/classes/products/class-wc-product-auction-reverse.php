@@ -334,7 +334,10 @@ class WC_Product_Auction_Reverse extends WC_Product_Auction {
 	 * @return int
 	 */
 	public function check_if_reserve_price_met( $post_id ) {
-		if ( ! ( $this->is_ended() ) && $this->get_auction_reserve_price() >= $this->get_auction_current_bid() ) {
+		if ( empty( $this->get_auction_reserve_price() ) ) {
+			update_post_meta( $post_id, 'auction_reserve_price_met', 'yes' );
+			return 1;
+		} elseif ( ! ( $this->is_ended() ) && $this->get_auction_reserve_price() >= $this->get_auction_current_bid() && 0 !== (int) $this->get_auction_current_bid() ) {
 			update_post_meta( $post_id, 'auction_reserve_price_met', 'yes' );
 			return 1;
 		} elseif ( $this->is_ended() && $this->get_auction_reserve_price() >= WC_Auction_Software_Helper::get_auction_post_meta( $this->id, 'auction_highest_bid' ) ) {
