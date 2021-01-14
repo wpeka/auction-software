@@ -232,7 +232,7 @@ class Auction_Software_Public {
 		if ( in_array( $product->get_type(), $auction_types, true ) ) {
 			$return_arr = WC_Auction_Software_Helper::get_time_left_for_auction( $product_id );
 			$cur_bid    = WC_Auction_Software_Helper::get_auction_post_meta( $product_id, 'auction_current_bid' );
-			if ( ! empty( $return_arr ) && false === $product->is_ended() ) {
+			if ( ! empty( $return_arr ) && false === $product->is_ended() && '' === $product->get_auction_errors() ) {
 				echo "<p class='description'>" . esc_html__( 'Current Bid: ', 'auction-software' ) . esc_attr( get_woocommerce_currency_symbol() ) . esc_attr( $cur_bid ) . '</p>';
 				if ( isset( $return_arr[1] ) ) {
 					echo "<p class='description'><span class='startEndText" . esc_attr( $product_id ) . "'>" . esc_html__( 'Auction starts in: ', 'auction-software' ) . "</span><span class='timeLeft" . esc_attr( $product_id ) . "'></span></p>";
@@ -243,8 +243,15 @@ class Auction_Software_Public {
 					echo "<input type='hidden' class='timeLeftValue" . esc_attr( $product_id ) . "' value='" . esc_attr( $return_arr[0] ) . "' />";
 				}
 				echo "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . esc_attr( $product_id ) . "' />";
-			} else {
+			} elseif ( $product->is_ended() ) {
 				echo "<p class='description'>" . esc_html__( 'Auction has ended.', 'auction-software' ) . '</p>';
+			} else {
+				if ( ! empty( $product->get_auction_errors() ) ) { ?>
+					<p class="auction_error">
+					<?php esc_html_e( 'Please resolve the errors from Product admin.', 'auction-software' ); ?> <br>
+					</p>
+					<?php
+				}
 			}
 		}
 	}
@@ -267,7 +274,7 @@ class Auction_Software_Public {
 			);
 			if ( in_array( $product->get_type(), $auction_types, true ) ) {
 				$time_left = WC_Auction_Software_Helper::get_time_left_for_auction( $product->get_id() );
-				if ( $time_left ) {
+				if ( $time_left && '' === $product->get_auction_errors() ) {
 					$text = __( 'Bid Now', 'auction-software' );
 				} else {
 					$text = __( 'Read more', 'auction-software' );

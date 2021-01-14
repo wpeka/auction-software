@@ -779,7 +779,7 @@ class Auction_Software_Admin {
 			$attribute_data_simple = $auction_simple->attribute_data;
 			foreach ( $attribute_data_simple as $attribute_simple ) {
 				$simple_attribute_id = isset( $_POST[ 'auction_' . $attribute_simple['id'] ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'auction_' . $attribute_simple['id'] ] ) ) : '';
-				if ( ( 'reserve_price' === $attribute_simple['id'] || 'buy_it_now_price' === $attribute_simple['id'] ) ) {
+				if ( ! empty( $simple_attribute_id ) && ( 'reserve_price' === $attribute_simple['id'] || 'buy_it_now_price' === $attribute_simple['id'] ) ) {
 					$simple_attribute_id = round( $simple_attribute_id, 2 );
 				}
 				$error_flag = $this->auction_software_check_validations( $attribute_simple['id'], $simple_attribute_id, $post_id, $error_flag );
@@ -790,7 +790,7 @@ class Auction_Software_Admin {
 			$attribute_data_reverse = $auction_reverse->attribute_data;
 			foreach ( $attribute_data_reverse as $attribute_reverse ) {
 				$reverse_attribute_id = isset( $_POST[ 'auction_' . $attribute_reverse['id'] ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'auction_' . $attribute_reverse['id'] ] ) ) : '';
-				if ( ( 'reserve_price_reverse' === $attribute_reverse['id'] || 'buy_it_now_price_reverse' === $attribute_reverse['id'] ) ) {
+				if ( ! empty( $reverse_attribute_id ) && ( 'reserve_price_reverse' === $attribute_reverse['id'] || 'buy_it_now_price_reverse' === $attribute_reverse['id'] ) ) {
 					$reverse_attribute_id = round( $reverse_attribute_id, 2 );
 				}
 				$error_flag = $this->auction_software_check_validations( $attribute_reverse['id'], $reverse_attribute_id, $post_id, $error_flag );
