@@ -14,9 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $product;
-$current_bid = $product->get_auction_current_bid();
-$postid      = get_the_ID();
-$user_id     = get_current_user_id();
+$current_bid       = $product->get_auction_current_bid();
+$postid            = get_the_ID();
+$user_id           = get_current_user_id();
+$reserve_price_met = $product->check_if_reserve_price_met( $postid );
 // phpcs:disable WordPress.Security.NonceVerification.Missing
 if ( isset( $_POST['auction-bid'] ) ) {
 	if ( true === $product->is_started() ) {
@@ -62,32 +63,23 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 	<input id="auction_bid_increment" type="hidden"
 		value="<?php echo esc_attr( $product->get_auction_bid_increment() ); ?>"/>
 	<?php if ( '' === $product->get_auction_errors() ) { ?>
-		<?php if ( true === $product->is_started() && 1 !== (int) $product->get_auction_is_sold() && false === $product->is_ended() ) { ?>
+		<?php
+		if ( true === $product->is_started() && 1 !== (int) $product->get_auction_is_sold() && false === $product->is_ended() ) {
+			$date_to      = $product->get_auction_date_to();
+			$date_time_to = datetime::createfromformat( 'Y-m-d H:i:s', $date_to );
+			if ( 'yes' === $product->is_anti_snipping() && ! $reserve_price_met ) {
+				$seconds      = get_option( 'auctions_anti_snipping_duration', 0 );
+				$trigger_time = get_option( 'auctions_anti_snipping_trigger_time', 5 );
+                $time         = current_time( 'timestamp' ); // phpcs:ignore
+				$timeplus     = gmdate( 'Y-m-d H:i:s', strtotime( '+' . $trigger_time . ' minutes', $time ) );
+				if ( $timeplus > $date_to ) {
+					$date_time_to->add( new DateInterval( 'PT' . $seconds . 'S' ) );
+					update_post_meta( $postid, 'auction_date_to', $date_time_to->format( 'Y-m-d H:i:s' ) );
+				}
+			}
+			?>
 		<table cellspacing="0">
 			<tbody>
-			<tr>
-				<td>
-					<label for="auction_start_price"><?php esc_html_e( 'Start Price: ', 'auction-software' ); ?></label>
-				</td>
-				<td class="title">
-					<?php echo wc_price( $product->get_auction_start_price() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="auction_current_bid"><?php esc_html_e( 'Current Bid: ', 'auction-software' ); ?></label>
-				</td>
-				<td class="title auction_current_bid_reverse">
-					<?php
-					$current_bid_value = $product->get_auction_current_bid();
-					if ( 0 === (int) $current_bid_value ) {
-						esc_html_e( 'No bids yet ', 'auction-software' );
-					} else {
-						echo wc_price( $product->get_auction_current_bid() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					}
-					?>
-				</td>
-			</tr>
 			<tr>
 				<td>
 					<label for="auction_bid_increment"><?php esc_html_e( 'Bid Increment: ', 'auction-software' ); ?></label>
@@ -131,15 +123,6 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 			</tr>
 			</tbody>
 		</table>
-			<?php
-			$reserve_price_met = $product->check_if_reserve_price_met( $postid );
-			if ( ! $reserve_price_met ) {
-				$reserve_price_text = esc_html__( 'Reserve price not met.', 'auction-software' );
-			} else {
-				$reserve_price_text = esc_html__( 'Reserve price met.', 'auction-software' );
-			}
-			?>
-			<p class="auction_reserve_price"><?php echo esc_attr( trim( $reserve_price_text ) ); ?></p>
 		<div class="container">
 			<div class="button-container">
 				<button class="cart-price-minus" type="button" value="-">-</button>
@@ -150,7 +133,9 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 			<div class="button-container">
 				<button type="submit" name="auction-bid" value="<?php echo esc_attr( $product->get_id() ); ?>"
 						class="auction-bid-reverse button alt"><?php echo esc_attr( $product->single_add_to_cart_text() ); ?></button>
-				<?php if ( ( $product->get_auction_current_bid() > $product->get_auction_buy_it_now_price() ) || 0 === (int) $product->get_auction_current_bid() ) { ?>
+				<?php
+				if ( ( ( $product->get_auction_current_bid() > $product->get_auction_buy_it_now_price() ) || 0 === (int) $product->get_auction_current_bid() ) && 0 !== (int) $product->get_auction_buy_it_now_price() ) {
+					?>
 					<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button button alt"><?php echo $product->get_buy_it_now_cart_text(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
 				<?php } ?>
 			</div>
@@ -166,11 +151,6 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 			<?php $reserve_price_met = $product->check_if_reserve_price_met( $postid ); ?>
 	<div id="auction-expired">
 			<?php esc_html_e( 'Auction has ended.', 'auction-software' ); ?>
-			<?php
-			if ( ! $reserve_price_met ) {
-				esc_html_e( 'Reserve price not met.', 'auction-software' );
-			}
-			?>
 	</div>
 			<?php
 			$winner = $product->check_if_user_has_winning_bid( $current_bid, $user_id, $postid );
