@@ -26,10 +26,6 @@ table#auction_history_table {
 	color: red;
 }
 
-p.auctiontimezone_notice {
-	color: blue;
-}
-
 /* Timepicker CSS Start */
 
 .ui-timepicker-div .ui-widget-header {
