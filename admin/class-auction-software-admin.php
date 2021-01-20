@@ -431,6 +431,22 @@ class Auction_Software_Admin {
 						update_post_meta( $postid, $postid . '_start_mail_sent', 1 );
 					}
 				}
+				// Customisation for anti-sniping.
+				if ( true === $product->is_started() && 1 !== (int) $product->get_auction_is_sold() && false === $product->is_ended() ) {
+					$reserve_price_met = $product->check_if_reserve_price_met( $postid );
+					$date_to           = $product->get_auction_date_to();
+					$date_time_to      = datetime::createfromformat( 'Y-m-d H:i:s', $date_to );
+					if ( 'yes' === $product->is_anti_snipping() && ! $reserve_price_met ) {
+						$seconds      = get_option( 'auctions_anti_snipping_duration', 0 );
+						$trigger_time = get_option( 'auctions_anti_snipping_trigger_time', 5 );
+                        $time         = current_time( 'timestamp' ); // phpcs:ignore
+						$timeplus     = gmdate( 'Y-m-d H:i:s', strtotime( '+' . $trigger_time . ' minutes', $time ) );
+						if ( $timeplus > $date_to ) {
+							$date_time_to->add( new DateInterval( 'PT' . $seconds . 'S' ) );
+							update_post_meta( $postid, 'auction_date_to', $date_time_to->format( 'Y-m-d H:i:s' ) );
+						}
+					}
+				}
 			}
 
 			do_action( 'auction_software_every_minute_cron_tasks', $postid, $product );
@@ -594,22 +610,31 @@ class Auction_Software_Admin {
 				if ( ! empty( $auction_errors ) ) {
 					echo '<p class="auction_error">' . $auction_errors . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				}
-				?>
-				<p class="auctiontimezone_notice">
-					<?php
-					echo sprintf(
-						/* translators: 1: Timezone */
-						esc_html__( "Please choose date values according to your website's timezone. Your website's current timezone is %s.", 'auction-software' ),
-						esc_attr( wc_timezone_string() )
-					);
-					?>
-					</p>
-				<?php
 				$auction        = new WC_Product_Auction();
 				$attribute_data = $auction->attribute_data;
 				$custom_attr    = array();
 				foreach ( $attribute_data as $attribute ) {
 					WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['currency'], $attribute['options'], $custom_attr );
+					if ( 'date_to' === $attribute['id'] ) {
+						?>
+						<p class="auctiontimezone_notice">
+							<?php
+							echo sprintf(
+							/* translators: 1: Current time 2: Timezone 3: Link */
+								__( "Your website's current time is <strong>%1\$1s</strong> Timezone: <strong>%2\$2s</strong> %3\$3s" ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+								esc_attr( wp_date( 'Y-m-d H:i:s', time(), wp_timezone() ) ),
+								esc_attr( wp_timezone_string() ),
+								sprintf(
+								/* translators: 1: Link URL 2: Link text */
+									'<a href="%1s" target="_blank">%2s</a>',
+									esc_url( admin_url( 'options-general.php?#timezone_string' ) ),
+									esc_html__( 'Click here to change', 'auction-software' )
+								)
+							);
+							?>
+						</p>
+						<?php
+					}
 				}
 				?>
 			</div> <?php do_action( 'woocommerce_product_options_auction_product_data' ); ?>

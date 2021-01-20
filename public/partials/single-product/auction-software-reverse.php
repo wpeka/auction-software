@@ -65,18 +65,6 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 	<?php if ( '' === $product->get_auction_errors() ) { ?>
 		<?php
 		if ( true === $product->is_started() && 1 !== (int) $product->get_auction_is_sold() && false === $product->is_ended() ) {
-			$date_to      = $product->get_auction_date_to();
-			$date_time_to = datetime::createfromformat( 'Y-m-d H:i:s', $date_to );
-			if ( 'yes' === $product->is_anti_snipping() && ! $reserve_price_met ) {
-				$seconds      = get_option( 'auctions_anti_snipping_duration', 0 );
-				$trigger_time = get_option( 'auctions_anti_snipping_trigger_time', 5 );
-                $time         = current_time( 'timestamp' ); // phpcs:ignore
-				$timeplus     = gmdate( 'Y-m-d H:i:s', strtotime( '+' . $trigger_time . ' minutes', $time ) );
-				if ( $timeplus > $date_to ) {
-					$date_time_to->add( new DateInterval( 'PT' . $seconds . 'S' ) );
-					update_post_meta( $postid, 'auction_date_to', $date_time_to->format( 'Y-m-d H:i:s' ) );
-				}
-			}
 			?>
 		<table cellspacing="0">
 			<tbody>
