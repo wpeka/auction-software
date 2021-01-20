@@ -127,6 +127,8 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 == Changelog ==
 = 1.0.7 =
 * Fix: Users can import auction products using the WooCommerce Importer.
+* Fix: Fixed PHP warning for auctions Start and End dates.
+* Fix: Fixed reserve price not met issue on auctions.
 
 = 1.0.6 =
 * Fix: Fixed vulnerability issue for analytics within the plugin.
@@ -157,6 +159,8 @@ Feature: Initial version.
 == Upgrade Notice ==
 = 1.0.7 =
 * Fix: Users can import auction products using the WooCommerce Importer.
+* Fix: Fixed PHP warning for auctions Start and End dates.
+* Fix: Fixed reserve price not met issue on auctions.
 
 = 1.0.5 =
 Update: Added notice to track usage analytics for the plugin.

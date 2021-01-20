@@ -170,37 +170,41 @@ class Auction_Software_Widget_Watchlist_Auctions extends WP_Widget {
 					<a href="' . get_permalink() . '">
 						' . ( has_post_thumbnail() ? get_the_post_thumbnail( $r->post->ID, 'shop_thumbnail' ) : wc_placeholder_img( 'shop_thumbnail' ) ) . ' ' . get_the_title() . '
 					</a> ';
-					if ( true === $product->is_started() ) {
-						if ( $product->is_ended() ) {
-							$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $product->get_auction_winning_bid() ) . '</span>';
-						} else {
-							$current_bid_value = $product->get_auction_current_bid();
-							if ( 0 === (int) $current_bid_value ) {
-								$content .= '<span class="auction-current-bid">' . __( 'No bids yet', 'auction-software' ) . '</span>';
-							} else {
-								$content .= '<span class="auction-current-bid">' . __( 'Current Bid: ', 'auction-software' ) . wc_price( $current_bid_value ) . '</span>';
-							}
-						}
+					if ( ! empty( $product->get_auction_errors() ) ) {
+						$content .= '<span class="auction_error">' . __( 'Please resolve the errors from Product admin.', 'auction-software' ) . '</span>';
 					} else {
-						$content .= '<span class="auction-no-bid">' . __( 'No bids yet', 'auction-software' ) . '</span>';
+						if ( true === $product->is_started() ) {
+							if ( $product->is_ended() ) {
+								$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $product->get_auction_winning_bid() ) . '</span>';
+							} else {
+								$current_bid_value = $product->get_auction_current_bid();
+								if ( 0 === (int) $current_bid_value ) {
+									$content .= '<span class="auction-current-bid">' . __( 'No bids yet', 'auction-software' ) . '</span>';
+								} else {
+									$content .= '<span class="auction-current-bid">' . __( 'Current Bid: ', 'auction-software' ) . wc_price( $current_bid_value ) . '</span>';
+								}
+							}
+						} else {
+							$content .= '<span class="auction-no-bid">' . __( 'No bids yet', 'auction-software' ) . '</span>';
+						}
+
+						$date_to_or_from = '';
+						if ( false === $product->is_started() ) {
+							$content        .= '<span class="startEndText' . $product->get_id() . '">' . __( 'Auction Starts in ', 'auction-software' ) . '</span><span class="auctiontime-left timeLeft' . $product->get_id() . '"></span>';
+							$date_to_or_from = $product->get_auction_date_from();
+						} elseif ( 1 !== (int) $hide_time && ! $product->is_ended() ) {
+							$content        .= '<span class="startEndText' . $product->get_id() . '">' . __( 'Auction Ends in ', 'auction-software' ) . '</span><span class="auctiontime-left timeLeft' . $product->get_id() . '"></span>';
+							$date_to_or_from = $product->get_auction_date_to();
+						}
+						if ( $product->is_ended() ) {
+							$content .= '<span class="has-finished">' . __( 'Auction finished', 'auction-software' ) . '</span>';
+						}
+
+						$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . $product->get_id() . "' />";
+
+						$content .= "<input type='hidden' class='timeLeftValue" . $product->get_id() . "' value='" . $date_to_or_from . "' />";
+
 					}
-
-					$date_to_or_from = '';
-					if ( false === $product->is_started() ) {
-						$content        .= '<span class="startEndText' . $product->get_id() . '">' . __( 'Auction Starts in ', 'auction-software' ) . '</span><span class="auctiontime-left timeLeft' . $product->get_id() . '"></span>';
-						$date_to_or_from = $product->get_auction_date_from();
-					} elseif ( 1 !== (int) $hide_time && ! $product->is_ended() ) {
-						$content        .= '<span class="startEndText' . $product->get_id() . '">' . __( 'Auction Ends in ', 'auction-software' ) . '</span><span class="auctiontime-left timeLeft' . $product->get_id() . '"></span>';
-						$date_to_or_from = $product->get_auction_date_to();
-					}
-					if ( $product->is_ended() ) {
-						$content .= '<span class="has-finished">' . __( 'Auction finished', 'auction-software' ) . '</span>';
-					}
-
-					$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . $product->get_id() . "' />";
-
-					$content .= "<input type='hidden' class='timeLeftValue" . $product->get_id() . "' value='" . $date_to_or_from . "' />";
-
 					$content .= '</li>';
 				}
 			}
