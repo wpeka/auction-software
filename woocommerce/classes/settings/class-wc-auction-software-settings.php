@@ -182,6 +182,14 @@ class WC_Auction_Software_Settings extends WC_Settings_Page {
 						'default'     => '5',
 					),
 					array(
+						'title'       => __( 'Anti sniping system start time', 'auction-software' ),
+						'placeholder' => __( 'In Minutes', 'auction-software' ),
+						'desc'        => __( 'Time remaining for auction to end (in minutes). System will add time automatically.', 'auction-software' ),
+						'type'        => 'text',
+						'id'          => 'auctions_anti_snipping_system_trigger_time',
+						'default'     => '5',
+					),
+					array(
 						'title'       => __( 'Anti sniping duration', 'auction-software' ),
 						'placeholder' => __( 'In Seconds', 'auction-software' ),
 						'desc'        => __( 'Extend the auction end time by (in seconds)', 'auction-software' ),

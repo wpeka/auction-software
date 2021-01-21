@@ -438,7 +438,7 @@ class Auction_Software_Admin {
 					$date_time_to      = datetime::createfromformat( 'Y-m-d H:i:s', $date_to );
 					if ( 'yes' === $product->is_anti_snipping() && ! $reserve_price_met ) {
 						$seconds      = get_option( 'auctions_anti_snipping_duration', 0 );
-						$trigger_time = get_option( 'auctions_anti_snipping_trigger_time', 5 );
+						$trigger_time = get_option( 'auctions_anti_snipping_system_trigger_time', 5 );
                         $time         = current_time( 'timestamp' ); // phpcs:ignore
 						$timeplus     = gmdate( 'Y-m-d H:i:s', strtotime( '+' . $trigger_time . ' minutes', $time ) );
 						if ( $timeplus > $date_to ) {
