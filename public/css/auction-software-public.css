@@ -22,3 +22,67 @@
 	display: inline-flex;
 	align-items: center;
 }
+
+.auction_start_text {
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    opacity: 1;
+    margin: 4px;
+}
+
+.auction_input_price {
+    display: inline-block;
+    width: auto;
+    border: 0.5px solid rgba(0, 0, 0, 0.2);
+    margin-right: 15px;
+}
+
+.auction_input_currency_label {
+    padding-left: 7px;
+}
+
+#auction-price-incr-decr {
+    padding: 0.8em;
+    width: 160px;
+}
+
+#auction-bid-simple {
+    padding: 0.8em 1.41575em;
+}
+
+.box {
+	background: #dff0d7;
+}
+
+.auction_time {
+	margin: 0;
+	padding: 0;
+	margin-bottom: 10px;
+}
+
+.time-left {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.box {
+	text-align: center;
+	padding: 10px;
+	color: #013220;
+}
+
+.time-span {
+	font-size: 25px;
+	padding: 0;
+	margin: 0;
+	margin-bottom: 5px;
+}
+
+.label-span {
+	margin: 10px;
+	font-size: 14px;
+}

@@ -104,14 +104,6 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 					<?php echo esc_attr( $product->get_auction_item_condition() ); ?>
 				</td>
 			</tr>
-			<tr>
-				<td>
-					<label for="auction_time_left"><?php esc_html_e( 'Time Left:', 'auction-software' ); ?></label>
-				</td>
-				<td class="timer">
-					<p id="time_left"></p>
-				</td>
-			</tr>
 			<?php
 			$max_bid_user = $product->get_auction_max_bid_user();
 			$max_bid      = $product->get_auction_max_bid();
@@ -131,6 +123,8 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 			</tr>
 			</tbody>
 		</table>
+			<p for="auction_time_left" class="auction_time"><?php esc_html_e( 'Time Left:', 'auction-software' ); ?></p>
+			<p class="time-left" id="time_left"></p>
 			<?php
 			$reserve_price_met = $product->check_if_reserve_price_met( $postid );
 			if ( ! $reserve_price_met ) {
@@ -142,14 +136,16 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 			<p class="auction_reserve_price"><?php echo esc_attr( trim( $reserve_price_text ) ); ?></p>
 		<div class="container">
 			<div class="button-container">
-				<button class="cart-price-minus" type="button" value="-">-</button>
-				<input type="text" name="price" class="price" value="0" class="input-text price" id="auction-price-incr-decr"/>
-				<button class="cart-price-plus" type="button" value="+">+</button>
+				<div class="auction_input_price">
+				<label for="price" class="auction_input_currency_label"><?php echo get_woocommerce_currency_symbol(); ?></label>
+				<input type="number" name="price" class="price" value="0" class="input-text price" id="auction-price-incr-decr"></input>
+				</div>
+				<button type="submit" name="auction-bid" value="<?php echo esc_attr( $product->get_id() ); ?>"
+					class="auction-bid-simple button alt" id="auction-bid-simple"><?php echo esc_attr( $product->single_add_to_cart_text() ); ?></button>
+				<p class="auction_start_text">(Enter less than or equal to: <?php echo wc_price( $product->get_auction_start_price() ); ?>)</p> 
 			</div>
 			<br />
 			<div class="button-container">
-				<button type="submit" name="auction-bid" value="<?php echo esc_attr( $product->get_id() ); ?>"
-						class="auction-bid-reverse button alt"><?php echo esc_attr( $product->single_add_to_cart_text() ); ?></button>
 				<?php if ( ( $product->get_auction_current_bid() > $product->get_auction_buy_it_now_price() ) || 0 === (int) $product->get_auction_current_bid() ) { ?>
 					<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button button alt"><?php echo $product->get_buy_it_now_cart_text(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
 				<?php } ?>
