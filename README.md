@@ -5,7 +5,7 @@
 **Requires at least:** 4.6  
 **Tested up to:** 5.6  
 **Requires PHP:** 7.0  
-**Stable tag:** 1.0.7  
+**Stable tag:** 1.0.8  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.htm  
 
@@ -81,7 +81,7 @@ Penny Auction (PRO version): In Penny auction, the user needs to buy credits/bid
 
 ## Looking for the PRO Plugin ##
 
-Want to unlock our Pro version features? Visit our website – [Woo Auction] (https://club.wpeka.com/product/woo-auction-software/)
+Want to unlock our Pro version features? Visit our website – [Woo Auction](https://club.wpeka.com/product/woo-auction-software/)
 
 ## How to get started with Woo Auction Software##
 
@@ -125,6 +125,9 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 4. Auction Widgets.
 
 ## Changelog ##
+### 1.0.8 ###
+* Update: Frontend UI improvements for auction single product page.
+
 ### 1.0.7 ###
 * Fix: Users can import auction products using the WooCommerce Importer.
 * Fix: Fixed PHP warning for auctions Start and End dates.
@@ -157,6 +160,9 @@ Fix: Fixed for broken cart and checkout pages.
 Feature: Initial version.
 
 ## Upgrade Notice ##
+### 1.0.8 ###
+* Update: Frontend UI improvements for auction single product page.
+
 ### 1.0.7 ###
 * Fix: Users can import auction products using the WooCommerce Importer.
 * Fix: Fixed PHP warning for auctions Start and End dates.
