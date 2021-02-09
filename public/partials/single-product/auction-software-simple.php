@@ -12,11 +12,11 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-
 global $product;
-$current_bid = $product->get_auction_current_bid();
-$postid      = get_the_ID();
-$user_id     = get_current_user_id();
+$current_bid     = $product->get_auction_current_bid();
+$postid          = get_the_ID();
+$user_id         = get_current_user_id();
+$excluded_fields = get_option( 'auctions_excluded_fields', array() );
 // phpcs:disable WordPress.Security.NonceVerification.Missing
 if ( isset( $_POST['auction-bid'] ) ) {
 	if ( true === $product->is_started() ) {
@@ -63,6 +63,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 		<?php if ( true === $product->is_started() && 1 !== (int) $product->get_auction_is_sold() && false === $product->is_ended() ) { ?>
 			<table cellspacing="0">
 				<tbody>
+				<?php if ( ! in_array( 'start_price', $excluded_fields, true ) ) : ?>
 				<tr>
 					<td>
 						<label for="auction_start_price"><?php esc_html_e( 'Start Price: ', 'auction-software' ); ?></label>
@@ -71,6 +72,10 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 						<?php echo wc_price( $product->get_auction_start_price() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</td>
 				</tr>
+					<?php
+				endif;
+				if ( ! in_array( 'current_bid', $excluded_fields, true ) ) :
+					?>
 				<tr>
 					<td>
 						<label for="auction_current_bid"><?php esc_html_e( 'Current Bid:', 'auction-software' ); ?></label>
@@ -86,6 +91,10 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 					?>
 					</td>
 				</tr>
+					<?php
+				endif;
+				if ( ! in_array( 'bid_increment', $excluded_fields, true ) ) :
+					?>
 				<tr>
 					<td>
 						<label for="auction_bid_increment"><?php esc_html_e( 'Bid Increment: ', 'auction-software' ); ?></label>
@@ -94,6 +103,10 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 						<?php echo wc_price( $product->get_auction_bid_increment() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</td>
 				</tr>
+					<?php
+				endif;
+				if ( ! in_array( 'item_condition', $excluded_fields, true ) ) :
+					?>
 				<tr>
 					<td>
 						<label for="auction_item_condition"><?php esc_html_e( 'Item Condition: ', 'auction-software' ); ?></label>
@@ -102,10 +115,11 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 						<?php echo esc_attr( $product->get_auction_item_condition() ); ?>
 					</td>
 				</tr>
+				<?php endif; ?>
 				<?php
 				$max_bid_user = $product->get_auction_max_bid_user();
 				$max_bid      = $product->get_auction_max_bid();
-				if ( ! empty( $max_bid_user ) && $user_id === (int) $max_bid_user ) {
+				if ( ! empty( $max_bid_user ) && $user_id === (int) $max_bid_user && ! in_array( 'maximum_bid', $excluded_fields, true ) ) {
 					$style = 'display:table-row';
 				} else {
 					$style = 'display:none';
@@ -121,17 +135,30 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 				</tr>
 				</tbody>
 			</table>
+			<?php if ( ! in_array( 'time_left', $excluded_fields, true ) ) : ?>
 			<p for="auction_time_left" class="auction-time"><?php esc_html_e( 'Time Left:', 'auction-software' ); ?></p>
 			<p class="time-left" id="time_left"></p>
+			<?php endif; ?>
 			<?php
-			$reserve_price_met = $product->check_if_reserve_price_met( $postid );
-			if ( ! $reserve_price_met ) {
-				$reserve_price_text = esc_html__( 'Reserve price not met.', 'auction-software' );
-			} else {
-				$reserve_price_text = esc_html__( 'Reserve price met.', 'auction-software' );
-			}
-			?>
-			<p class="auction_reserve_price"><?php echo esc_attr( trim( $reserve_price_text ) ); ?></p>
+			if ( ! in_array( 'ending_on', $excluded_fields, true ) ) :
+				$auction_date_format = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
+				?>
+				<p for="auction_ending_time" class="auction-ending-time"><?php esc_html_e( 'Ending On: ', 'auction-software' ); ?><?php echo esc_attr( gmdate( $auction_date_format, strtotime( $product->get_auction_date_to() ) ) ); ?></p>
+			<?php endif; ?>
+			<?php
+			if ( ! in_array( 'reserve_price_text', $excluded_fields, true ) ) :
+				$reserve_price_met  = $product->check_if_reserve_price_met( $postid );
+				$reserve_text_style = '';
+				if ( ! $reserve_price_met ) {
+					$reserve_text_style = 'color:#e2401c;';
+					$reserve_price_text = esc_html__( 'Reserve price not met.', 'auction-software' );
+				} else {
+					$reserve_text_style = 'color:#0f834d';
+					$reserve_price_text = esc_html__( 'Reserve price met.', 'auction-software' );
+				}
+				?>
+			<p class="auction_reserve_price" style="<?php echo $reserve_text_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php echo esc_attr( trim( $reserve_price_text ) ); ?></p>
+			<?php endif; ?>
 			<div class="container">
 				<div class="button-container">
 					<div class="auction-price">
@@ -181,6 +208,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 			<?php } else { ?>
 			<table cellspacing="0">
 				<tbody>
+				<?php if ( ! in_array( 'start_price', $excluded_fields, true ) ) : ?>
 				<tr>
 					<td>
 						<label for="auction_start_price"><?php esc_html_e( 'Start Price: ', 'auction-software' ); ?></label>
@@ -189,6 +217,10 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 						<?php echo wc_price( $product->get_auction_start_price() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</td>
 				</tr>
+					<?php
+				endif;
+				if ( ! in_array( 'bid_increment', $excluded_fields, true ) ) :
+					?>
 				<tr>
 					<td>
 						<label for="auction_bid_increment"><?php esc_html_e( 'Bid Increment: ', 'auction-software' ); ?></label>
@@ -197,6 +229,10 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 						<?php echo wc_price( $product->get_auction_bid_increment() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</td>
 				</tr>
+					<?php
+				endif;
+				if ( ! in_array( 'item_condition', $excluded_fields, true ) ) :
+					?>
 				<tr>
 					<td>
 						<label for="auction_item_condition"><?php esc_html_e( 'Item Condition: ', 'auction-software' ); ?></label>
@@ -205,6 +241,10 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 						<?php echo esc_attr( $product->get_auction_item_condition() ); ?>
 					</td>
 				</tr>
+					<?php
+				endif;
+				if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
+					?>
 				<tr>
 					<td>
 						<label for="auction_starts_in"><?php esc_html_e( 'Auction starts in:', 'auction-software' ); ?></label>
@@ -213,6 +253,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 						<p id="time_start"></p>
 					</td>
 				</tr>
+				<?php endif; ?>
 				</tbody>
 			</table>
 				<?php
@@ -240,8 +281,9 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 				echo '<h2>' . esc_html__( 'Auction History', 'auction-software' ) . '</h2>';
 				echo WC_Auction_Software_Helper::get_auction_history( get_the_ID() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
-
-			add_filter( 'woocommerce_product_tabs', 'auction_history_tab' );
+			if ( ! in_array( 'auction_history', $excluded_fields, true ) ) :
+				add_filter( 'woocommerce_product_tabs', 'auction_history_tab' );
+			endif;
 
 	} else {
 		?>
@@ -253,7 +295,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 	<?php } ?>
 
 </form>
-<?php if ( false === $product->is_ended() ) { ?>
+<?php if ( false === $product->is_ended() && ! in_array( 'add_to_watchlist', $excluded_fields, true ) ) { ?>
 	<div class="auctionwatchlist">
 		<?php
 		if ( is_user_logged_in() ) {

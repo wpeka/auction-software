@@ -103,18 +103,25 @@ class Auction_Software_Public {
 			'ajaxurl'  => admin_url( 'admin-ajax.php' ),
 			'nonce'    => wp_create_nonce( 'ajax_nonce' ),
 			'timezone' => wc_timezone_string(),
+			'offset'   => wc_timezone_offset(),
 			'days'     => __( ' days ', 'auction-software' ),
 			'hours'    => __( ' hours ', 'auction-software' ),
 			'minutes'  => __( ' minutes ', 'auction-software' ),
 			'seconds'  => __( ' seconds ', 'auction-software' ),
-
+			'default'  => false,
 		);
-		$wc_timezone_string = wc_timezone_string();
-		if ( strpos( $wc_timezone_string, ':' ) !== false ) {
-			$dt                            = new DateTime();
-			$tz_obj                        = $dt->getTimezone();
-			$tz                            = $tz_obj->getName();
-			$data_to_be_passed['timezone'] = $tz;
+
+		$timezone_string = wc_timezone_string();
+		if ( strpos( $timezone_string, ':' ) !== false ) {
+			$data_to_be_passed['default'] = true;
+			if ( strpos( $timezone_string, ':3' ) !== false ) {
+				$timezone_string = str_replace( ':3', '.5', $timezone_string );
+			} elseif ( strpos( $timezone_string, ':4' ) !== false ) {
+				$timezone_string = str_replace( ':4', '.7', $timezone_string );
+			} else {
+				$timezone_string = str_replace( ':', '.', $timezone_string );
+			}
+			$data_to_be_passed['timezone'] = $timezone_string;
 		}
 
 		wp_localize_script( $this->plugin_name, 'php_vars', $data_to_be_passed );
