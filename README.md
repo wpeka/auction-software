@@ -127,6 +127,9 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 ## Changelog ##
 ### 1.0.8 ###
 * Update: Frontend UI improvements for auction single product page.
+* Feature: Admin can now hide frontend auction single product page fields via WooCommerce settings.
+* Feature: Added language support .pot file.
+* Fix: Time Left issue with respect to timezone for auction single product page.
 
 ### 1.0.7 ###
 * Fix: Users can import auction products using the WooCommerce Importer.
@@ -162,6 +165,9 @@ Feature: Initial version.
 ## Upgrade Notice ##
 ### 1.0.8 ###
 * Update: Frontend UI improvements for auction single product page.
+* Feature: Admin can now hide frontend auction single product page fields via WooCommerce settings.
+* Feature: Added language support .pot file.
+* Fix: Time Left issue with respect to timezone for auction single product page.
 
 ### 1.0.7 ###
 * Fix: Users can import auction products using the WooCommerce Importer.

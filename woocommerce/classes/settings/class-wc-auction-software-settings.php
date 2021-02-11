@@ -128,6 +128,30 @@ class WC_Auction_Software_Settings extends WC_Settings_Page {
 	}
 
 	/**
+	 * Returns excluded fields for single product page.
+	 *
+	 * @return mixed|void
+	 */
+	public function get_excluded_fields() {
+		$excluded_fields = array(
+			'add_to_watchlist'   => __( 'Add to Watchlist', 'auction-software' ),
+			'auction_history'    => __( 'Auction History', 'auction-software' ),
+			'available_bids'     => __( 'Available Bids', 'auction-software' ),
+			'bid_increment'      => __( 'Bid Increment', 'auction-software' ),
+			'current_bid'        => __( 'Current Bid', 'auction-software' ),
+			'ending_on'          => __( 'Ending On', 'auction-software' ),
+			'item_condition'     => __( 'Item Condition', 'auction-software' ),
+			'maximum_bid'        => __( 'Your Maximum Bid', 'auction-software' ),
+			'reserve_price_text' => __( 'Reserve Price Text', 'auction-software' ),
+			'starts_in'          => __( 'Auction Starts In', 'auction-software' ),
+			'start_price'        => __( 'Start Price', 'auction-software' ),
+			'time_left'          => __( 'Time Left', 'auction-software' ),
+		);
+		asort( $excluded_fields );
+		return apply_filters( 'woocommerce_auction_excluded_fields', $excluded_fields );
+	}
+
+	/**
 	 * Save settings.
 	 */
 	public function save() {
@@ -188,6 +212,18 @@ class WC_Auction_Software_Settings extends WC_Settings_Page {
 						'type'        => 'text',
 						'id'          => 'auctions_anti_snipping_duration',
 						'default'     => '60',
+					),
+					array(
+						'id'                => 'auctions_excluded_fields',
+						'title'             => __( 'Exclude auction fields on product page', 'auction-software' ),
+						'type'              => 'multiselect',
+						'class'             => 'wc-enhanced-select',
+						'css'               => 'width: 400px;',
+						'default'           => '',
+						'options'           => $this->get_excluded_fields(),
+						'custom_attributes' => array(
+							'data-placeholder' => __( 'Select some fields', 'auction-software' ),
+						),
 					),
 					array(
 						'type' => 'sectionend',
