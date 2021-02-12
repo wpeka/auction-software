@@ -558,7 +558,10 @@
 							var minutes = Math.floor( (distance % (1000 * 60 * 60)) / (1000 * 60) );
 							var seconds = Math.floor( (distance % (1000 * 60)) / 1000 );
 
-							document.getElementById( "time_start" ) != null ? document.getElementById( "time_start" ).innerHTML = days + php_vars.days + hours + php_vars.hours + minutes + php_vars.minutes + seconds + php_vars.seconds : "";
+							document.getElementById( "time_start" ) != null ? document.getElementById( "time_start" ).innerHTML = '<div class="time_left-box"><p class="time-span">' + days + '</p><span class="label-span">Days</span></div>' +
+																																  '<div class="time_left-box"><p class="time-span">' + hours + '</p><span class="label-span">Hours</span></div>' +
+																																  '<div class="time_left-box"><p class="time-span">' + minutes + '</p><span class="label-span">Minutes</span></div>' +
+																																  '<div class="time_left-box"><p class="time-span">' + seconds + '</p><span class="label-span">Seconds</span></div>' : "";
 
 							if (distance < 0) {
 								clearInterval( x );
