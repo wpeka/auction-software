@@ -243,19 +243,13 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 				</tr>
 					<?php
 				endif;
-				if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
-					?>
-				<tr>
-					<td>
-						<label for="auction_starts_in"><?php esc_html_e( 'Auction starts in:', 'auction-software' ); ?></label>
-					</td>
-					<td class="timer">
-						<p id="time_start"></p>
-					</td>
-				</tr>
-				<?php endif; ?>
+				?>
 				</tbody>
 			</table>
+			<?php if ( ! in_array( 'starts_in', $excluded_fields, true ) ) : ?>
+				<p for="auction_starts_in" class="auction-time"><?php esc_html_e( 'Auction starts in:', 'auction-software' ); ?></p>
+				<p class="time-left" id="time_start"></p>
+			<?php endif; ?>
 				<?php
 			}
 			/**
