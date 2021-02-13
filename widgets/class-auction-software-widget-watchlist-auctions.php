@@ -108,7 +108,9 @@ class Auction_Software_Widget_Watchlist_Auctions extends WP_Widget {
 				$number = 1;
 			} elseif ( $number > 15 ) {
 				$number = 15;
-			}
+			} else {
+                $number = $instance['number'];
+            }
 		}
 
 		if ( ! is_user_logged_in() ) {

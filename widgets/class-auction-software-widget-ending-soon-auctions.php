@@ -109,7 +109,9 @@ class Auction_Software_Widget_Ending_Soon_Auctions extends WP_Widget {
 				$number = 1;
 			} elseif ( $number > 15 ) {
 				$number = 15;
-			}
+			} else {
+                $number = $instance['number'];
+            }
 		}
 
 		$auction_types = apply_filters(

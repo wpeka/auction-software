@@ -101,6 +101,18 @@ class Auction_Software_Widget_Random_Auctions extends WP_Widget {
 		$after_title   = isset( $args['after_title'] ) ? $args['after_title'] : '';
 
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Random Auctions', 'auction-software' ) : $instance['title'], $instance, $this->id_base );
+        $number = 5;
+        if ( isset( $instance['number'] ) ) {
+            if ( ! is_numeric( $instance['number'] ) ) {
+                $number = 10;
+            } elseif ( $number < 1 ) {
+                $number = 1;
+            } elseif ( $number > 15 ) {
+                $number = 15;
+            } else {
+                $number = $instance['number'];
+            }
+        }
 
 		$auction_types = apply_filters(
 			'auction_software_auction_types',
@@ -113,7 +125,7 @@ class Auction_Software_Widget_Random_Auctions extends WP_Widget {
 		$query_args = array(
 			'post_type'      => 'product',
 			'post_status'    => 'publish',
-			'posts_per_page' => isset( $instance['number'] ) ? (int) $instance['number'] : 5,
+			'posts_per_page' => $number,
 			'orderby'        => 'rand',
 			'no_found_rows'  => 1,
 		);
