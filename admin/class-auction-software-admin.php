@@ -155,6 +155,9 @@ class Auction_Software_Admin {
 			flush_rewrite_rules();
 		}
 
+		add_filter( 'post_row_actions', array( $this, 'auction_software_remove_duplicate_link' ), 15, 2 );
+		add_filter( 'page_row_actions', array( $this, 'auction_software_remove_duplicate_link' ), 15, 2 );
+
 		if ( ! taxonomy_exists( 'product_auction_class' ) ) {
 			register_taxonomy(
 				'product_auction_class',
@@ -260,6 +263,36 @@ class Auction_Software_Admin {
 		register_widget( 'Auction_Software_Widget_Recent_Auctions' );
 		register_widget( 'Auction_Software_Widget_Recently_Viewed_Auctions' );
 		register_widget( 'Auction_Software_Widget_Watchlist_Auctions' );
+	}
+
+	/**
+	 * Remove duplicate action link for auction products.
+	 *
+	 * @param Array  $actions Page/post actions.
+	 * @param Object $post Post object.
+	 * @return mixed
+	 */
+	public function auction_software_remove_duplicate_link( $actions, $post ) {
+		$auction_types = apply_filters(
+			'auction_software_auction_types',
+			array(
+				'auction_simple',
+				'auction_reverse',
+			)
+		);
+
+		if ( 'product' !== $post->post_type ) {
+			return $actions;
+		}
+
+		$product = wc_get_product( $post->ID );
+
+		if ( ! in_array( $product->get_type(), $auction_types, true ) ) {
+			return $actions;
+		}
+
+		unset( $actions['duplicate'] );
+		return $actions;
 	}
 
 	/**
@@ -1297,7 +1330,7 @@ class Auction_Software_Admin {
                                             <td>' . esc_html__( 'Auctions', 'auction-software' ) . '</td>
                                             <td>' . esc_html__( 'Current Bid', 'auction-software' ) . '</td>
                                             <td>' . esc_html__( 'Item Condition', 'auction-software' ) . '</td>
-                                            <td>' . esc_html__( 'Time Left', 'auction-software' ) . '</td>
+                                            <td>' . esc_html__( 'Status', 'auction-software' ) . '</td>
                                             <td>' . esc_html__( 'Action', 'auction-software' ) . '</td>
                                         </tr>';
 		if ( ! empty( $r ) ) {
@@ -1362,12 +1395,7 @@ class Auction_Software_Admin {
 					} elseif ( false === $product->is_started( $product->get_id() ) ) {
 						$content .= '<td >--</td><td>--</td>';
 					} elseif ( ! $product->is_ended( $product->get_id() ) ) {
-						$date_to_or_from = $product->get_auction_date_to();
-						$content        .= '<td ><span class="auctiontime-left timeLeft' . $product->get_id() . '"></span>
-                                          <input type="hidden" class="timeLeftId" name="timeLeftId" value="' . $product->get_id() . '">
-                                          <input type="hidden" class="timeLeftValue' . $product->get_id() . '"  value="' . $date_to_or_from . '" />
-
-                                     </td>
+						$content .= '<td>' . esc_html__( 'Auction in progress', 'auction-software' ) . '</td>
                                         <td><a href="' . get_permalink() . '" data-quantity="1"
                                         class="button" data-product_id="' . $product->get_id() . '"
                                         data-product_sku="" aria-label="Read more about "' . get_the_title() . '" rel="nofollow">Bid Now</a></td>';

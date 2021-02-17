@@ -126,6 +126,11 @@ class WC_Auction_Software_Helper {
 		global $wpdb;
 		$auction_history = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'auction_software_logs WHERE auction_id = %d ORDER BY id DESC', array( $post_id ) ), ARRAY_A ); // db call ok; no-cache ok.
 		if ( ! empty( $auction_history ) ) {
+			$auction_date_format = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
+			$timezone_string     = get_option( 'timezone_string' );
+			if ( ! $timezone_string ) {
+				$timezone_string = 'UTC' . wp_timezone_string();
+			}
 			$auction_history_string = '
 				<table id="auction_history_table">
                 <tr id="auction_history_table_heading">
@@ -146,7 +151,7 @@ class WC_Auction_Software_Helper {
 						<tr>
 		                    <td>' . __( 'Auction has ended.', 'auction-software' ) . '</td>
 		                    <td></td>
-		                    <td>' . $auction_history_item['date'] . '</td>
+		                    <td>' . gmdate( $auction_date_format, strtotime( $auction_history_item['date'] ) ) . '</td>
 		                    <td></td>
 	                	</tr>
 						';
@@ -156,7 +161,7 @@ class WC_Auction_Software_Helper {
 					<tr>
                     <td>' . __( 'Auction is relisted.', 'auction-software' ) . '</td>
                     <td></td>
-                    <td>' . $auction_history_item['date'] . '</td>
+                    <td>' . gmdate( $auction_date_format, strtotime( $auction_history_item['date'] ) ) . '</td>
                     <td></td>
                 </tr>
 				';
@@ -166,7 +171,7 @@ class WC_Auction_Software_Helper {
 					<tr>
 					<td>' . __( 'Buy it now used by ', 'auction-software' ) . $user_info->display_name . '.</td>
 		            <td>' . wc_price( $auction_history_item['bid'] ) . '</td>
-                    <td>' . $auction_history_item['date'] . '</td>
+                    <td>' . gmdate( $auction_date_format, strtotime( $auction_history_item['date'] ) ) . '</td>
                     <td></td>
                 </tr>
 				';
@@ -177,7 +182,7 @@ class WC_Auction_Software_Helper {
 					<tr>
                     <td>' . $user_info->display_name . '</td>
                     <td>' . wc_price( $auction_history_item['bid'] ) . '</td>
-                    <td>' . $auction_history_item['date'] . '</td>
+                    <td>' . gmdate( $auction_date_format, strtotime( $auction_history_item['date'] ) ) . '</td>
                     <td>' . $proxy_text . '</td>
                 </tr>
 				';
@@ -191,7 +196,7 @@ class WC_Auction_Software_Helper {
 			if ( isset( $get_auction_date_from[0] ) ) {
 				$auction_date_from = $get_auction_date_from[0];
 			}
-			$auction_history_string .= '<br><p>' . __( 'Auction Started at ', 'auction-software' ) . $auction_date_from . '</p>';
+			$auction_history_string .= '<br><p>' . __( 'Started On ', 'auction-software' ) . gmdate( $auction_date_format, strtotime( $auction_date_from ) ) . ' (' . $timezone_string . ')</p>';
 			return $auction_history_string;
 		} else {
 			$auction_history_string = '

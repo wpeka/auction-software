@@ -139,13 +139,29 @@ class WC_Auction_Software_Settings extends WC_Settings_Page {
 			'available_bids'     => __( 'Available Bids', 'auction-software' ),
 			'bid_increment'      => __( 'Bid Increment', 'auction-software' ),
 			'current_bid'        => __( 'Current Bid', 'auction-software' ),
+			'ends_in'            => __( 'Auction Ends In', 'auction-software' ),
 			'ending_on'          => __( 'Ending On', 'auction-software' ),
 			'item_condition'     => __( 'Item Condition', 'auction-software' ),
 			'maximum_bid'        => __( 'Your Maximum Bid', 'auction-software' ),
 			'reserve_price_text' => __( 'Reserve Price Text', 'auction-software' ),
 			'starts_in'          => __( 'Auction Starts In', 'auction-software' ),
+			'starting_on'        => __( 'Starting On', 'auction-software' ),
 			'start_price'        => __( 'Start Price', 'auction-software' ),
-			'time_left'          => __( 'Time Left', 'auction-software' ),
+		);
+		asort( $excluded_fields );
+		return apply_filters( 'woocommerce_auction_excluded_fields', $excluded_fields );
+	}
+
+	/**
+	 * Returns excluded fields for product loop and widgets.
+	 *
+	 * @return mixed|void
+	 */
+	public function get_excluded_loop_fields() {
+		$excluded_fields = array(
+			'current_bid' => __( 'Current Bid', 'auction-software' ),
+			'ends_in'     => __( 'Auction Ends In', 'auction-software' ),
+			'starts_in'   => __( 'Auction Starts In', 'auction-software' ),
 		);
 		asort( $excluded_fields );
 		return apply_filters( 'woocommerce_auction_excluded_fields', $excluded_fields );
@@ -214,13 +230,45 @@ class WC_Auction_Software_Settings extends WC_Settings_Page {
 						'default'     => '60',
 					),
 					array(
+						'title'       => __( 'Bidding information update duration', 'auction-software' ),
+						'placeholder' => __( 'In Seconds', 'auction-software' ),
+						'desc'        => __( 'Time interval between two ajax requests in seconds (bigger intervals means less load for server)', 'auction-software' ),
+						'type'        => 'text',
+						'id'          => 'auctions_update_bidding_info_duration',
+						'default'     => '60',
+					),
+					array(
 						'id'                => 'auctions_excluded_fields',
-						'title'             => __( 'Exclude auction fields on product page', 'auction-software' ),
+						'title'             => __( 'Exclude auction fields on single product page', 'auction-software' ),
 						'type'              => 'multiselect',
 						'class'             => 'wc-enhanced-select',
 						'css'               => 'width: 400px;',
 						'default'           => '',
 						'options'           => $this->get_excluded_fields(),
+						'custom_attributes' => array(
+							'data-placeholder' => __( 'Select some fields', 'auction-software' ),
+						),
+					),
+					array(
+						'id'                => 'auctions_excluded_fields_product_shop',
+						'title'             => __( 'Exclude auction fields on product shop page', 'auction-software' ),
+						'type'              => 'multiselect',
+						'class'             => 'wc-enhanced-select',
+						'css'               => 'width: 400px;',
+						'default'           => '',
+						'options'           => $this->get_excluded_loop_fields(),
+						'custom_attributes' => array(
+							'data-placeholder' => __( 'Select some fields', 'auction-software' ),
+						),
+					),
+					array(
+						'id'                => 'auctions_excluded_fields_product_widget',
+						'title'             => __( 'Exclude auction fields in auction widgets', 'auction-software' ),
+						'type'              => 'multiselect',
+						'class'             => 'wc-enhanced-select',
+						'css'               => 'width: 400px;',
+						'default'           => '',
+						'options'           => $this->get_excluded_loop_fields(),
 						'custom_attributes' => array(
 							'data-placeholder' => __( 'Select some fields', 'auction-software' ),
 						),

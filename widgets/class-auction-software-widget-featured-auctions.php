@@ -109,8 +109,8 @@ class Auction_Software_Widget_Featured_Auctions extends WP_Widget {
 			} elseif ( $number > 15 ) {
 				$number = 15;
 			} else {
-                $number = $instance['number'];
-            }
+				$number = $instance['number'];
+			}
 		}
 
 		$auction_types = apply_filters(
@@ -120,6 +120,8 @@ class Auction_Software_Widget_Featured_Auctions extends WP_Widget {
 				'auction_reverse',
 			)
 		);
+
+		$excluded_fields = get_option( 'auctions_excluded_fields_product_widget', array() );
 
 		$query_args               = array(
 			'posts_per_page' => $number,
@@ -177,28 +179,36 @@ class Auction_Software_Widget_Featured_Auctions extends WP_Widget {
 				if ( ! empty( $product->get_auction_errors() ) ) {
 					$content .= '<span class="auction_error">' . __( 'Please resolve the errors from Product admin.', 'auction-software' ) . '</span>';
 				} else {
-					if ( true === $product->is_started() ) {
-						if ( $product->is_ended() ) {
-							$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $product->get_auction_winning_bid() ) . '</span>';
-						} else {
-							$current_bid_value = $product->get_auction_current_bid();
-							if ( 0 === (int) $current_bid_value ) {
-								$content .= '<span class="auction-current-bid">' . __( 'No bids yet', 'auction-software' ) . '</span>';
+					if ( ! in_array( 'current_bid', $excluded_fields, true ) ) :
+						if ( true === $product->is_started() ) {
+							if ( $product->is_ended() ) {
+								$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $product->get_auction_winning_bid() ) . '</span>';
 							} else {
-								$content .= '<span class="auction-current-bid">' . __( 'Current Bid: ', 'auction-software' ) . wc_price( $current_bid_value ) . '</span>';
+								$current_bid_value = $product->get_auction_current_bid();
+								if ( 0 === (int) $current_bid_value ) {
+									$content .= '<span class="auction-current-bid">' . __( 'No bids yet', 'auction-software' ) . '</span>';
+								} else {
+									$content .= '<span class="auction-current-bid">' . __( 'Current Bid: ', 'auction-software' ) . wc_price( $current_bid_value ) . '</span>';
+								}
 							}
+						} else {
+							$content .= '<span class="auction-no-bid">' . __( 'No bids yet', 'auction-software' ) . '</span>';
 						}
-					} else {
-						$content .= '<span class="auction-no-bid">' . __( 'No bids yet', 'auction-software' ) . '</span>';
-					}
+					endif;
 
 					$date_to_or_from = '';
 					if ( false === $product->is_started() ) {
-						$content        .= '<span class="startEndText' . $product->get_id() . '">' . __( 'Auction Starts in ', 'auction-software' ) . '</span><span class="auctiontime-left timeLeft' . $product->get_id() . '"></span>';
-						$date_to_or_from = $product->get_auction_date_from();
+						if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
+							$content        .= '<p class="auction_starts_in startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Starts In:', 'auction-software' ) . '</p>';
+							$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
+							$date_to_or_from = $product->get_auction_date_from();
+						endif;
 					} elseif ( 1 !== (int) $hide_time && ! $product->is_ended() ) {
-						$content        .= '<span class="startEndText' . $product->get_id() . '">' . __( 'Auction Ends in ', 'auction-software' ) . '</span><span class="auctiontime-left timeLeft' . $product->get_id() . '"></span>';
-						$date_to_or_from = $product->get_auction_date_to();
+						if ( ! in_array( 'ends_in', $excluded_fields, true ) ) :
+							$content        .= '<p class="auction_time_left startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Ends In:', 'auction-software' ) . '</p>';
+							$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
+							$date_to_or_from = $product->get_auction_date_to();
+						endif;
 					}
 					if ( $product->is_ended() ) {
 						$content .= '<span class="has-finished">' . __( 'Auction finished', 'auction-software' ) . '</span>';

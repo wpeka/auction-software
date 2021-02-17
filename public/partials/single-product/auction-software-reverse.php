@@ -14,10 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $product;
-$current_bid     = $product->get_auction_current_bid();
-$postid          = get_the_ID();
-$user_id         = get_current_user_id();
-$excluded_fields = get_option( 'auctions_excluded_fields', array() );
+$current_bid         = $product->get_auction_current_bid();
+$postid              = get_the_ID();
+$user_id             = get_current_user_id();
+$excluded_fields     = get_option( 'auctions_excluded_fields', array() );
+$auction_date_format = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
+$timezone_string     = get_option( 'timezone_string' );
+if ( ! $timezone_string ) {
+	$timezone_string = 'UTC' . wp_timezone_string();
+}
 // phpcs:disable WordPress.Security.NonceVerification.Missing
 if ( isset( $_POST['auction-bid'] ) ) {
 	if ( true === $product->is_started() ) {
@@ -139,14 +144,11 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 			</tbody>
 		</table>
 			<?php if ( ! in_array( 'time_left', $excluded_fields, true ) ) : ?>
-			<p for="auction_time_left" class="auction-time	"><?php esc_html_e( 'Time Left:', 'auction-software' ); ?></p>
+			<p for="auction_time_left" class="auction-time	"><?php esc_html_e( 'Auction Ends In:', 'auction-software' ); ?></p>
 			<p class="time-left" id="time_left"></p>
 			<?php endif; ?>
-			<?php
-			if ( ! in_array( 'ending_on', $excluded_fields, true ) ) :
-				$auction_date_format = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
-				?>
-				<p for="auction_ending_time" class="auction-ending-time"><?php esc_html_e( 'Ending On: ', 'auction-software' ); ?><?php echo esc_attr( gmdate( $auction_date_format, strtotime( $product->get_auction_date_to() ) ) ); ?></p>
+			<?php if ( ! in_array( 'ending_on', $excluded_fields, true ) ) : ?>
+				<p for="auction_ending_time" class="auction-ending-time"><?php esc_html_e( 'Ending On: ', 'auction-software' ); ?><?php echo esc_attr( gmdate( $auction_date_format, strtotime( $product->get_auction_date_to() ) ) . ' (' . $timezone_string . ')' ); ?></p>
 			<?php endif; ?>
 			<?php
 			if ( ! in_array( 'reserve_price_text', $excluded_fields, true ) ) :
@@ -253,6 +255,11 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 				<p class="time-left" id="time_start"></p>
 			<?php endif; ?>
 			<?php
+			if ( ! in_array( 'starting_on', $excluded_fields, true ) ) :
+				?>
+				<p for="auction_starting_time" class="auction-starting-time"><?php esc_html_e( 'Starting On: ', 'auction-software' ); ?><?php echo esc_attr( gmdate( $auction_date_format, strtotime( $product->get_auction_date_from() ) ) . ' (' . $timezone_string . ')' ); ?></p>
+				<?php
+			endif;
 			}
 			/**
 			 * Display history tabs.

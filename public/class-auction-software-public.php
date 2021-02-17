@@ -123,6 +123,8 @@ class Auction_Software_Public {
 			}
 			$data_to_be_passed['timezone'] = $timezone_string;
 		}
+		$time_interval                     = get_option( 'auctions_update_bidding_info_duration', 60 );
+		$data_to_be_passed['timeinterval'] = $time_interval;
 
 		wp_localize_script( $this->plugin_name, 'php_vars', $data_to_be_passed );
 
@@ -237,14 +239,23 @@ class Auction_Software_Public {
 			)
 		);
 		if ( in_array( $product->get_type(), $auction_types, true ) ) {
-			$return_arr = WC_Auction_Software_Helper::get_time_left_for_auction( $product_id );
-			$cur_bid    = WC_Auction_Software_Helper::get_auction_post_meta( $product_id, 'auction_current_bid' );
+			$excluded_fields = get_option( 'auctions_excluded_fields_product_shop', array() );
+			$return_arr      = WC_Auction_Software_Helper::get_time_left_for_auction( $product_id );
+			$cur_bid         = WC_Auction_Software_Helper::get_auction_post_meta( $product_id, 'auction_current_bid' );
 			if ( ! empty( $return_arr ) && false === $product->is_ended() && '' === $product->get_auction_errors() ) {
-				echo "<p class='description'>" . esc_html__( 'Current Bid: ', 'auction-software' ) . esc_attr( get_woocommerce_currency_symbol() ) . esc_attr( $cur_bid ) . '</p>';
+				if ( ! in_array( 'current_bid', $excluded_fields, true ) ) :
+					echo "<p class='description'>" . esc_html__( 'Current Bid: ', 'auction-software' ) . esc_attr( get_woocommerce_currency_symbol() ) . esc_attr( $cur_bid ) . '</p>';
+				endif;
 				if ( isset( $return_arr[1] ) ) {
-					echo "<p class='description'><span class='startEndText" . esc_attr( $product_id ) . "'>" . esc_html__( 'Auction starts in: ', 'auction-software' ) . "</span><span class='timeLeft" . esc_attr( $product_id ) . "'></span></p>";
+					if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
+						echo '<p class="auction_starts_in startEndText' . esc_attr( $product_id ) . '">' . esc_html_e( 'Auction Starts In:', 'auction-software' ) . '</p>';
+						echo '<p class="timeLeft timeLeft' . esc_attr( $product_id ) . '" id="timeLeft' . esc_attr( $product_id ) . '"></p>';
+					endif;
 				} else {
-					echo "<p class='description'><span class='startEndText" . esc_attr( $product_id ) . "'>" . esc_html__( 'Auction ends in: ', 'auction-software' ) . "</span><span class='timeLeft" . esc_attr( $product_id ) . "'></span></p>";
+					if ( ! in_array( 'ends_in', $excluded_fields, true ) ) :
+						echo '<p class="auction_time_left startEndText' . esc_attr( $product_id ) . '">' . esc_html_e( 'Auction Ends In:', 'auction-software' ) . '</p>';
+						echo '<p class="timeLeft timeLeft' . esc_attr( $product_id ) . '" id="timeLeft' . esc_attr( $product_id ) . '"></p>';
+					endif;
 				}
 				if ( isset( $return_arr[0] ) ) {
 					echo "<input type='hidden' class='timeLeftValue" . esc_attr( $product_id ) . "' value='" . esc_attr( $return_arr[0] ) . "' />";

@@ -82,8 +82,16 @@
 								var hours   = Math.floor( (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) );
 								var minutes = Math.floor( (distance % (1000 * 60 * 60)) / (1000 * 60) );
 								var seconds = Math.floor( (distance % (1000 * 60)) / 1000 );
-
-								document.getElementsByClassName( "timeLeft" + newIndex ) != null ? $( ".timeLeft" + newIndex ).text( days + php_vars.days + hours + php_vars.hours + minutes + php_vars.minutes + seconds + php_vars.seconds ) : "";
+								if (document.getElementsByClassName( "timeLeft" + newIndex ) != null) {
+									var timeLefts       = document.getElementsByClassName( "timeLeft" + newIndex );
+									var timeLeftsLength = timeLefts.length;
+									for (var index = 0;index < timeLeftsLength;index++) {
+										timeLefts[index].innerHTML = '<div class="time_left-box"><p class="time-span">' + days + '</p><span class="label-span">Days</span></div>' +
+											'<div class="time_left-box"><p class="time-span">' + hours + '</p><span class="label-span">Hours</span></div>' +
+											'<div class="time_left-box"><p class="time-span">' + minutes + '</p><span class="label-span">Minutes</span></div>' +
+											'<div class="time_left-box"><p class="time-span">' + seconds + '</p><span class="label-span">Seconds</span></div>';
+									}
+								}
 							}
 
 						},
@@ -149,27 +157,6 @@
 						1000
 					);
 
-					setInterval(
-						function () {
-							if (window_focus == true) {
-								$( ".auction_reserve_price" ).load( location.href + " .auction_reserve_price", "" );
-								if (productAuctionType == 'auction_simple') {
-									$( ".auction_current_bid_simple" ).load( location.href + " .auction_current_bid_simple>*", "" );
-									$( ".auction_max_bid_simple" ).load( location.href + " .auction_max_bid_simple>*", "" );
-								}
-								if (productAuctionType == 'auction_reverse') {
-									$( ".auction_current_bid_reverse" ).load( location.href + " .auction_current_bid_reverse>*", "" );
-									$( ".auction_max_bid_reverse" ).load( location.href + " .auction_max_bid_reverse>*", "" );
-								}
-								if (productAuctionType == 'auction_penny') {
-									$( ".auction_current_bid_penny" ).load( location.href + " .auction_current_bid_penny>*", "" );
-								}
-								$( "#auction_history_table" ).load( location.href + " #auction_history_table>*", "" );
-							}
-						},
-						60000
-					);
-
 					$( document ).on(
 						'click',
 						'.single_add_to_cart_button',
@@ -224,6 +211,27 @@
 
 							return false;
 						}
+					);
+
+					setInterval(
+						function () {
+							if (window_focus == true) {
+								$( ".auction_reserve_price" ).load( location.href + " .auction_reserve_price", "" );
+								if (productAuctionType == 'auction_simple') {
+									$( ".auction_current_bid_simple" ).load( location.href + " .auction_current_bid_simple>*", "" );
+									$( ".auction_max_bid_simple" ).load( location.href + " .auction_max_bid_simple>*", "" );
+								}
+								if (productAuctionType == 'auction_reverse') {
+									$( ".auction_current_bid_reverse" ).load( location.href + " .auction_current_bid_reverse>*", "" );
+									$( ".auction_max_bid_reverse" ).load( location.href + " .auction_max_bid_reverse>*", "" );
+								}
+								if (productAuctionType == 'auction_penny') {
+									$( ".auction_current_bid_penny" ).load( location.href + " .auction_current_bid_penny>*", "" );
+								}
+								$( "#auction_history_table" ).load( location.href + " #auction_history_table>*", "" );
+							}
+						},
+						php_vars.timeinterval * 1000
 					);
 
 					$( document ).on(
@@ -559,9 +567,9 @@
 							var seconds = Math.floor( (distance % (1000 * 60)) / 1000 );
 
 							document.getElementById( "time_start" ) != null ? document.getElementById( "time_start" ).innerHTML = '<div class="time_left-box"><p class="time-span">' + days + '</p><span class="label-span">Days</span></div>' +
-																																  '<div class="time_left-box"><p class="time-span">' + hours + '</p><span class="label-span">Hours</span></div>' +
-																																  '<div class="time_left-box"><p class="time-span">' + minutes + '</p><span class="label-span">Minutes</span></div>' +
-																																  '<div class="time_left-box"><p class="time-span">' + seconds + '</p><span class="label-span">Seconds</span></div>' : "";
+																																'<div class="time_left-box"><p class="time-span">' + hours + '</p><span class="label-span">Hours</span></div>' +
+																																'<div class="time_left-box"><p class="time-span">' + minutes + '</p><span class="label-span">Minutes</span></div>' +
+																																'<div class="time_left-box"><p class="time-span">' + seconds + '</p><span class="label-span">Seconds</span></div>' : "";
 
 							if (distance < 0) {
 								clearInterval( x );
