@@ -64,9 +64,16 @@
 }
 
 .auction-time,
-p.time-left {
+p.time-left,
+p.auction_starts_in,
+p.auction_time_left {
 	margin: 0;
 	padding: 0;
+}
+
+.timeLeft {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .time-left {
@@ -87,8 +94,21 @@ p.time-left {
 	margin: 0;
 	margin-bottom: 5px;
 }
+.timeLeft .time_left-box {
+	padding: 0;
+	margin: 0;
+}
+.timeLeft .time-span {
+	font-size: 12px;
+	margin: 0;
+	padding: 0;
+}
 
 .label-span {
 	margin: 10px;
 	font-size: 14px;
+}
+.timeLeft .label-span {
+	margin: 0;
+	font-size: 12px;
 }
