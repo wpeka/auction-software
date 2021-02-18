@@ -5,7 +5,7 @@
 **Requires at least:** 4.6  
 **Tested up to:** 5.6  
 **Requires PHP:** 7.0  
-**Stable tag:** 1.0.8  
+**Stable tag:** 1.0.9  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.htm  
 
@@ -125,6 +125,12 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 4. Auction Widgets.
 
 ## Changelog ##
+### 1.0.9 ###
+* Update: Consistent UI for auction products.
+* Feature: Admin can now hide frontend auction fields on Shop page and in widgets.
+* Fix: Fixed duplicate product issue with Auction products by disabling the ability to duplicate auction products.
+* Fix: Minor bugs fixed related to number of auctions displayed in widget.
+
 ### 1.0.8 ###
 * Update: Frontend UI improvements for auction single product page.
 * Feature: Admin can now hide frontend auction single product page fields via WooCommerce settings.
@@ -163,6 +169,12 @@ Fix: Fixed for broken cart and checkout pages.
 Feature: Initial version.
 
 ## Upgrade Notice ##
+### 1.0.9 ###
+* Update: Consistent UI for auction products.
+* Feature: Admin can now hide frontend auction fields on Shop page and in widgets.
+* Fix: Fixed duplicate product issue with Auction products by disabling the ability to duplicate auction products.
+* Fix: Minor bugs fixed related to number of auctions displayed in widget.
+
 ### 1.0.8 ###
 * Update: Frontend UI improvements for auction single product page.
 * Feature: Admin can now hide frontend auction single product page fields via WooCommerce settings.
