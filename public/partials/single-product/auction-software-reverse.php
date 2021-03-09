@@ -143,7 +143,7 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 			</tr>
 			</tbody>
 		</table>
-			<?php if ( ! in_array( 'time_left', $excluded_fields, true ) ) : ?>
+			<?php if ( ! in_array( 'ends_in', $excluded_fields, true ) ) : ?>
 			<p for="auction_time_left" class="auction-time	"><?php esc_html_e( 'Auction Ends In:', 'auction-software' ); ?></p>
 			<p class="time-left" id="time_left"></p>
 			<?php endif; ?>
