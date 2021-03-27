@@ -13,11 +13,11 @@ Woo Auction Software is one of the flexible and intuitive Wordpress Auction Plug
 
 ## Description ##
 
-Woo Auction Software is an advanced and powerful auction plugin for WordPress. It allows you to host auctions on your website. With the ease of WordPress and power of WooCommerce it is easy to set up your first auction.
+Woo Auction Software is an advanced and powerful auction plugin for WordPress. It allows you to host auctions on your website. With the ease of WordPress and the power of WooCommerce, it is easy to set up your first auction.
 
 ## About the Plugin ##
 
-In a few easy steps, you can install and set up the plugin to start your first online auction. This feature rich plugin is easy to configure.
+In a few easy steps, you can install and set up the plugin to start your first online auction. This feature rich-plugin is easy to configure.
 
 The plugin also offers multi-vendor options. With this, you can create an eBay style vendor auction marketplace on your site. It allows other users to place their auctions on your site. This way you can easily monetize your website.
 
@@ -29,7 +29,7 @@ The various types of WooCommerce Auctions supported by this plugin are:
 
 Simple Auction: It’s the most common type of auction. Auction starts from a specific price, and users bid for the product. At the end of the auction, if the reserve price is met the user with the highest bid can buy the product.
 
-Reverse Auction: This auction is the reverse of Simple auction. The auction will start from a specific price, and users place bids to lower the bid price. The user with the lowest bid wins. This auction is suitable for government contracts, service contracts, work to be awarded to lower bidders.
+Reverse Auction: This auction is the reverse of a Simple auction. The auction will start from a specific price, and users place bids to lower the bid price. The user with the lowest bid wins. This auction is suitable for government contracts, service contracts, work to be awarded to lower bidders.
 
 Penny Auction (PRO version): In Penny auction, the user needs to buy credits/bids. Once the user places a bid, the amount set (usually a penny) gets deducted. This amount is not refundable. The bidder with the highest bid after the auction has the right to buy the product at the start price.
 
@@ -59,7 +59,7 @@ Penny Auction (PRO version): In Penny auction, the user needs to buy credits/bid
 ### Email notifications ###
 
 - Start - Email to bidders to start placing bids.
-- End - Email to all bidders that auction has ended
+- End - Email to all bidders that the auction has ended
 - Win - Email to the auction winner and admin.
 - Outbid - Email to all bidders who have been outbid.
 
@@ -72,7 +72,7 @@ Penny Auction (PRO version): In Penny auction, the user needs to buy credits/bid
 - Random auctions
 - Recent auctions
 - Recently viewed auctions: All interested or past visited auctions easily accessible.
-- Watchlist: Bidders can add products to watchlist and view anywhere on the site, including My-Auction Area.
+- Watchlist: Bidders can add products to the watchlist and view them anywhere on the site, including My-Auction Area.
 
 ***See what Thomas is saying about Woo Auction Software:***
 
@@ -89,6 +89,14 @@ Want to unlock our Pro version features? Visit our website – [Woo Auction](htt
 
 
 Check our [auction demo](https://demo.wpeka.com/woo-auction-software/) website (demo runs on latest WordPress, WooCommerce and Auction Software)
+
+## WHAT NEXT? ##
+
+If you like this plugin, then consider checking out our other projects:
+
+- [WP Cookie Notice & Consent Banner for GDPR, CCPA & privacy](https://wplegalpages.com/wordpress-cookie-notice-plugin/?&utm_source=wporg&utm_medium=referral&utm_campaign=wpauction) – WP Cookie Notice for GDPR, CCPA & ePrivacy Consent.
+- [WPLegalPages](https://wplegalpages.com/?&utm_source=wporg&utm_medium=referral&utm_campaign=wpauction) – Generate WordPress privacy policy, terms of use, terms & conditions, eCommerce returns, refunds policy, affiliate disclaimers & more.
+- [WP AdCenter](https://wpadcenter.com/?&utm_source=wporg&utm_medium=referral&utm_campaign=wpauction) – Easily Manage Ads on WordPress – Banner, Amazon, Google Adsense Ads.
 
 
 ## Installation ##
