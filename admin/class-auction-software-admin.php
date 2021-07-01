@@ -241,6 +241,55 @@ class Auction_Software_Admin {
 		}
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'woocommerce/classes/emails/class-wc-auction-software-email-manager.php';
 
+		// Update settings for existing products.
+		$auction_extend_relist_settings_updated = get_option( 'auction_extend_relist_settings_updated' );
+		if ( '1' !== $auction_extend_relist_settings_updated ) {
+			$query = new WP_Query(
+				array(
+					'post_type'      => 'product',
+					'post_status'    => 'publish',
+					'posts_per_page' => - 1,
+				)
+			);
+			while ( $query->have_posts() ) {
+				$query->the_post();
+				$postid  = get_the_ID();
+				$product = wc_get_product( $postid );
+				if ( 'auction_simple' === $product->get_type() || 'auction_reverse' === $product->get_type() ) {
+					$extend_relist_auction = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_extend_or_relist_auction' );
+					if ( 'none' !== $extend_relist_auction ) {
+						$date_from       = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_date_from' );
+						$date_time_from  = datetime::createfromformat( 'Y-m-d H:i:s', $date_from );
+						$date_to         = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_date_to' );
+						$date_time_to    = datetime::createfromformat( 'Y-m-d H:i:s', $date_to );
+						$diff            = intval( ( $date_time_to->getTimestamp() - $date_time_from->getTimestamp() ) / 60 );
+						$if_fail_hrs     = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_' . $extend_relist_auction . '_if_fail' );
+						$if_not_paid_hrs = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_' . $extend_relist_auction . '_if_not_paid' );
+						$if_duration_hrs = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_' . $extend_relist_auction . '_duration' );
+						$always          = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_' . $extend_relist_auction . '_always' );
+						if ( 'yes' !== $if_fail_hrs && '' !== $if_fail_hrs ) {
+							update_post_meta( $postid, 'auction_' . $extend_relist_auction . '_if_fail', 'yes' );
+							update_post_meta( $postid, 'auction_wait_time_before_' . $extend_relist_auction . '_if_fail', $if_fail_hrs );
+							update_post_meta( $postid, 'auction_' . $extend_relist_auction . '_duration_if_fail', $diff );
+						}
+						if ( 'yes' !== $if_not_paid_hrs && '' !== $if_not_paid_hrs ) {
+							update_post_meta( $postid, 'auction_' . $extend_relist_auction . '_if_not_paid', 'yes' );
+							update_post_meta( $postid, 'auction_wait_time_before_' . $extend_relist_auction . '_if_not_paid', $if_not_paid_hrs );
+							update_post_meta( $postid, 'auction_' . $extend_relist_auction . '_duration_if_not_paid', $diff );
+						}
+
+						if ( 'yes' !== $always && '' !== $if_duration_hrs ) {
+							update_post_meta( $postid, 'auction_' . $extend_relist_auction . '_always', 'yes' );
+							update_post_meta( $postid, 'auction_wait_time_before_' . $extend_relist_auction . '_always', $if_duration_hrs );
+							update_post_meta( $postid, 'auction_' . $extend_relist_auction . '_duration_always', $diff );
+						}
+					}
+				}
+			}
+			wp_reset_postdata();
+			add_option( 'auction_extend_relist_settings_updated', true );
+		}
+
 	}
 
 	/**
@@ -344,54 +393,32 @@ class Auction_Software_Admin {
 					$is_ended               = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_is_ended' );
 					$is_reserve_price_met   = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_reserve_price_met' );
 					$is_sold                = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_is_sold' );
-					$date_from              = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_date_from' );
-					$date_time_from         = datetime::createfromformat( 'Y-m-d H:i:s', $date_from );
 					$date_to                = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_date_to' );
 					$date_time_to           = datetime::createfromformat( 'Y-m-d H:i:s', $date_to );
-					$if_fail_hrs            = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_' . $extend_relist_auction . '_if_fail' );
-					$if_not_paid_hrs        = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_' . $extend_relist_auction . '_if_not_paid' );
-					$if_duration_hrs        = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_' . $extend_relist_auction . '_duration' );
 					$curdate                = current_time( 'mysql' );
 					$date_time_current_date = datetime::createfromformat( 'Y-m-d H:i:s', $curdate );
-					$interval               = date_diff( $date_time_from, $date_time_to );
+					$if_fail                = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_' . $extend_relist_auction . '_if_fail' );
+					$if_not_paid            = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_' . $extend_relist_auction . '_if_not_paid' );
+					$always                 = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_' . $extend_relist_auction . '_always' );
+
+					$wait_time_before_if_fail     = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_wait_time_before_' . $extend_relist_auction . '_if_fail' );
+					$wait_time_before_if_not_paid = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_wait_time_before_' . $extend_relist_auction . '_if_not_paid' );
+					$wait_time_before_always      = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_wait_time_before_' . $extend_relist_auction . '_always' );
+
+					$duration_if_fail     = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_' . $extend_relist_auction . '_duration_if_fail' );
+					$duration_if_not_paid = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_' . $extend_relist_auction . '_duration_if_not_paid' );
+					$duration_always      = WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_' . $extend_relist_auction . '_duration_always' );
+
 					if ( 1 === (int) $is_ended ) {
-						if ( 'yes' !== $is_reserve_price_met && 1 !== (int) $is_sold && '' !== $if_fail_hrs ) {
-							if ( 'extend' === $extend_relist_auction ) {
-								update_post_meta( $postid, 'auction_is_ended', 0 );
-								update_post_meta( $postid, 'auction_is_sold', 0 );
-								WC_Auction_Software_Helper::clear_auction_bid_logs( $postid, true );
-								$to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
-								$to_date->add( $interval );
-								update_post_meta( $postid, 'auction_date_to', $to_date->format( 'Y-m-d H:i:s' ) );
-							} elseif ( 'relist' === $extend_relist_auction ) {
+						if ( 'yes' !== $is_reserve_price_met && 1 !== (int) $is_sold && 'yes' === $if_fail ) {
 								$date = $date_time_to;
-								$date->add( new DateInterval( 'PT' . $if_fail_hrs . 'M' ) );
-								if ( $date_time_current_date >= $date ) {
-									update_post_meta( $postid, 'auction_is_ended', 0 );
-									update_post_meta( $postid, 'auction_is_sold', 0 );
-									$to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
-									$to_date->add( $interval );
-									update_post_meta( $postid, 'auction_date_to', $to_date->format( 'Y-m-d H:i:s' ) );
-									WC_Auction_Software_Helper::clear_auction_bid_logs( $postid );
-									WC_Auction_Software_Helper::set_auction_bid_logs( '', $postid, 0, current_time( 'mysql' ), 'relisted' );
-									$from_date = current_time( 'mysql' );
-									update_post_meta( $postid, 'auction_date_from', $from_date );
-									update_post_meta( $postid, 'auction_current_bid', 0 );
-									update_post_meta( $postid, 'auction_is_started_and_ended', 0 );
-									update_post_meta( $postid, $postid . '_start_mail_sent', 0 );
-									update_post_meta( $postid, 'auction_initial_bid_placed', 0 );
-									do_action( 'woocommerce_auction_software_start', $postid );
-								}
-							}
-						} elseif ( 'yes' === $is_reserve_price_met && 1 !== (int) $is_sold && '' !== $if_not_paid_hrs ) {
-							$date = $date_time_to;
-							$date->add( new DateInterval( 'PT' . $if_not_paid_hrs . 'M' ) );
+								$date->add( new DateInterval( 'PT' . $wait_time_before_if_fail . 'M' ) );
 							if ( $date_time_current_date >= $date ) {
 								update_post_meta( $postid, 'auction_is_ended', 0 );
 								update_post_meta( $postid, 'auction_is_sold', 0 );
 								WC_Auction_Software_Helper::clear_auction_bid_logs( $postid, true );
 								$to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
-								$to_date->add( $interval );
+								$to_date->add( new DateInterval( ( 'PT' . $duration_if_fail . 'M' ) ) );
 								update_post_meta( $postid, 'auction_date_to', $to_date->format( 'Y-m-d H:i:s' ) );
 								if ( 'relist' === $extend_relist_auction ) {
 									WC_Auction_Software_Helper::clear_auction_bid_logs( $postid );
@@ -405,15 +432,37 @@ class Auction_Software_Admin {
 									do_action( 'woocommerce_auction_software_start', $postid );
 								}
 							}
-						} elseif ( '' !== $if_duration_hrs ) {
+						} elseif ( 'yes' === $is_reserve_price_met && 1 !== (int) $is_sold && 'yes' === $if_not_paid ) {
 							$date = $date_time_to;
-							$date->add( new DateInterval( 'PT' . $if_duration_hrs . 'M' ) );
+							$date->add( new DateInterval( 'PT' . $wait_time_before_if_not_paid . 'M' ) );
 							if ( $date_time_current_date >= $date ) {
 								update_post_meta( $postid, 'auction_is_ended', 0 );
 								update_post_meta( $postid, 'auction_is_sold', 0 );
 								WC_Auction_Software_Helper::clear_auction_bid_logs( $postid, true );
 								$to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
-								$to_date->add( $interval );
+								$to_date->add( new DateInterval( ( 'PT' . $duration_if_not_paid . 'M' ) ) );
+								update_post_meta( $postid, 'auction_date_to', $to_date->format( 'Y-m-d H:i:s' ) );
+								if ( 'relist' === $extend_relist_auction ) {
+									WC_Auction_Software_Helper::clear_auction_bid_logs( $postid );
+									WC_Auction_Software_Helper::set_auction_bid_logs( '', $postid, 0, current_time( 'mysql' ), 'relisted' );
+									$from_date = current_time( 'mysql' );
+									update_post_meta( $postid, 'auction_date_from', $from_date );
+									update_post_meta( $postid, 'auction_current_bid', 0 );
+									update_post_meta( $postid, 'auction_is_started_and_ended', 0 );
+									update_post_meta( $postid, $postid . '_start_mail_sent', 0 );
+									update_post_meta( $postid, 'auction_initial_bid_placed', 0 );
+									do_action( 'woocommerce_auction_software_start', $postid );
+								}
+							}
+						} elseif ( 'yes' === $always ) {
+							$date = $date_time_to;
+							$date->add( new DateInterval( 'PT' . $wait_time_before_always . 'M' ) );
+							if ( $date_time_current_date >= $date ) {
+								update_post_meta( $postid, 'auction_is_ended', 0 );
+								update_post_meta( $postid, 'auction_is_sold', 0 );
+								WC_Auction_Software_Helper::clear_auction_bid_logs( $postid, true );
+								$to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
+								$to_date->add( new DateInterval( ( 'PT' . $duration_always . 'M' ) ) );
 								update_post_meta( $postid, 'auction_date_to', $to_date->format( 'Y-m-d H:i:s' ) );
 								if ( 'relist' === $extend_relist_auction ) {
 									WC_Auction_Software_Helper::clear_auction_bid_logs( $postid );
@@ -430,15 +479,15 @@ class Auction_Software_Admin {
 						}
 					} else {
 						if ( 'extend' === $extend_relist_auction ) {
-							if ( 'yes' !== $is_reserve_price_met && 1 !== (int) $is_sold && '' !== $if_fail_hrs ) {
-								$date = $date_time_current_date;
-								$date->add( new DateInterval( 'PT' . $if_fail_hrs . 'M' ) );
-								if ( $date >= $date_time_to ) {
+							if ( 'yes' !== $is_reserve_price_met && 1 !== (int) $is_sold && 'yes' === $if_fail ) {
+								$date = $date_time_to;
+								$date->add( new DateInterval( 'PT' . $wait_time_before_if_fail . 'M' ) );
+								if ( $date_time_current_date >= $date ) {
 									update_post_meta( $postid, 'auction_is_ended', 0 );
 									update_post_meta( $postid, 'auction_is_sold', 0 );
 									WC_Auction_Software_Helper::clear_auction_bid_logs( $postid, true );
 									$to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
-									$to_date->add( $interval );
+									$to_date->add( new DateInterval( ( 'PT' . $duration_if_fail . 'M' ) ) );
 									update_post_meta( $postid, 'auction_date_to', $to_date->format( 'Y-m-d H:i:s' ) );
 								}
 							}
@@ -633,7 +682,7 @@ class Auction_Software_Admin {
 				$attribute_data = $auction->attribute_data;
 				$custom_attr    = array();
 				foreach ( $attribute_data as $attribute ) {
-					WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['currency'], $attribute['options'], $custom_attr );
+					WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['label'], $attribute['desc_tip'], $attribute['description'], $attribute['currency'], $attribute['options'], $custom_attr );
 					if ( 'date_to' === $attribute['id'] ) {
 						?>
 						<p class="auctiontimezone_notice">
@@ -678,11 +727,33 @@ class Auction_Software_Admin {
 					if ( 'extend_or_relist_auction' !== $relist_attribute['id'] ) {
 						if ( false !== strpos( $relist_attribute['id'], 'extend' ) ) {
 							$wrapper_class .= 'auction_extend ';
+							if ( 'checkbox' !== $relist_attribute['type'] ) {
+								if ( false !== strpos( $relist_attribute['id'], 'if_fail' ) ) {
+									$wrapper_class .= 'auction_extend_if_fail ';
+								}
+								if ( false !== strpos( $relist_attribute['id'], 'if_not_paid' ) ) {
+									$wrapper_class .= 'auction_extend_if_not_paid ';
+								}
+								if ( false !== strpos( $relist_attribute['id'], 'always' ) ) {
+									$wrapper_class .= 'auction_extend_always ';
+								}
+							}
 						} elseif ( false !== strpos( $relist_attribute['id'], 'relist' ) ) {
 							$wrapper_class .= 'auction_relist ';
+							if ( 'checkbox' !== $relist_attribute['type'] ) {
+								if ( false !== strpos( $relist_attribute['id'], 'if_fail' ) ) {
+									$wrapper_class .= 'auction_relist_if_fail ';
+								}
+								if ( false !== strpos( $relist_attribute['id'], 'if_not_paid' ) ) {
+									$wrapper_class .= 'auction_relist_if_not_paid ';
+								}
+								if ( false !== strpos( $relist_attribute['id'], 'always' ) ) {
+									$wrapper_class .= 'auction_relist_always ';
+								}
+							}
 						}
 					}
-					WC_Auction_Software_Helper::get_product_tab_fields( $relist_attribute['type'], $relist_attribute['id'], $relist_attribute['currency'], $relist_attribute['options'], $custom_attr, '', $wrapper_class );
+					WC_Auction_Software_Helper::get_product_tab_fields( $relist_attribute['type'], $relist_attribute['id'], $relist_attribute['label'], $relist_attribute['desc_tip'], $relist_attribute['description'], $relist_attribute['currency'], $relist_attribute['options'], $custom_attr, '', $wrapper_class );
 				}
 				?>
 			</div>
@@ -722,26 +793,45 @@ class Auction_Software_Admin {
 		$get_buy_it_now_price_reverse_error = get_post_meta( get_the_ID(), 'auction_buy_it_now_price_reverse_error' );
 		isset( $get_buy_it_now_price_reverse_error[0] ) && ! empty( $get_buy_it_now_price_reverse_error[0] ) ? $auction_errors .= $get_buy_it_now_price_reverse_error[0] . '<br>' : '';
 
-		$get_relist_if_fail_error = get_post_meta( get_the_ID(), 'auction_relist_if_fail_error' );
-		isset( $get_relist_if_fail_error[0] ) && ! empty( $get_relist_if_fail_error[0] ) ? $auction_errors .= $get_relist_if_fail_error[0] . '<br>' : '';
+		$get_wait_time_before_relist_if_fail_error = get_post_meta( get_the_ID(), 'auction_wait_time_before_relist_if_fail_error' );
+		isset( $get_wait_time_before_relist_if_fail_error[0] ) && ! empty( $get_wait_time_before_relist_if_fail_error[0] ) ? $auction_errors .= $get_wait_time_before_relist_if_fail_error[0] . '<br>' : '';
 
-		$get_relist_if_not_paid_error = get_post_meta( get_the_ID(), 'auction_relist_if_not_paid_error' );
-		isset( $get_relist_if_not_paid_error[0] ) && ! empty( $get_relist_if_not_paid_error[0] ) ? $auction_errors .= $get_relist_if_not_paid_error[0] . '<br>' : '';
+		$get_wait_time_before_relist_if_not_paid_error = get_post_meta( get_the_ID(), 'auction_wait_time_before_relist_if_not_paid_error' );
+		isset( $get_wait_time_before_relist_if_not_paid_error[0] ) && ! empty( $get_wait_time_before_relist_if_not_paid_error[0] ) ? $auction_errors .= $get_wait_time_before_relist_if_not_paid_error[0] . '<br>' : '';
 
-		$get_relist_duration_error = get_post_meta( get_the_ID(), 'auction_relist_duration_error' );
-		isset( $get_relist_duration_error[0] ) && ! empty( $get_relist_duration_error[0] ) ? $auction_errors .= $get_relist_duration_error[0] . '<br>' : '';
+		$get_wait_time_before_relist_always_error = get_post_meta( get_the_ID(), 'auction_wait_time_before_relist_always_error' );
+		isset( $get_wait_time_before_relist_always_error[0] ) && ! empty( $get_wait_time_before_relist_always_error[0] ) ? $auction_errors .= $get_wait_time_before_relist_always_error[0] . '<br>' : '';
 
-		$get_extend_if_fail_error = get_post_meta( get_the_ID(), 'auction_extend_if_fail_error' );
-		isset( $get_extend_if_fail_error[0] ) && ! empty( $get_extend_if_fail_error[0] ) ? $auction_errors .= $get_extend_if_fail_error[0] . '<br>' : '';
+		$get_relist_duration_if_fail_error = get_post_meta( get_the_ID(), 'auction_relist_duration_if_fail_error' );
+		isset( $get_relist_duration_if_fail_error[0] ) && ! empty( $get_relist_duration_if_fail_error[0] ) ? $auction_errors .= $get_relist_duration_if_fail_error[0] . '<br>' : '';
 
-		$get_extend_if_not_paid_error = get_post_meta( get_the_ID(), 'auction_extend_if_not_paid_error' );
-		isset( $get_extend_if_not_paid_error[0] ) && ! empty( $get_extend_if_not_paid_error[0] ) ? $auction_errors .= $get_extend_if_not_paid_error[0] . '<br>' : '';
+		$get_relist_duration_if_not_paid_error = get_post_meta( get_the_ID(), 'auction_relist_duration_if_not_paid_error' );
+		isset( $get_relist_duration_if_not_paid_error[0] ) && ! empty( $get_relist_duration_if_not_paid_error[0] ) ? $auction_errors .= $get_relist_duration_if_not_paid_error[0] . '<br>' : '';
 
-		$get_extend_duration_error = get_post_meta( get_the_ID(), 'auction_extend_duration_error' );
-		isset( $get_extend_duration_error[0] ) && ! empty( $get_extend_duration_error[0] ) ? $auction_errors .= $get_extend_duration_error[0] . '<br>' : '';
+		$get_relist_duration_always_error = get_post_meta( get_the_ID(), 'auction_relist_duration_always_error' );
+		isset( $get_relist_duration_always_error[0] ) && ! empty( $get_relist_duration_always_error[0] ) ? $auction_errors .= $get_relist_duration_always_error[0] . '<br>' : '';
+
+		$get_wait_time_before_extend_if_fail_error = get_post_meta( get_the_ID(), 'auction_wait_time_before_extend_if_fail_error' );
+		isset( $get_wait_time_before_extend_if_fail_error[0] ) && ! empty( $get_wait_time_before_extend_if_fail_error[0] ) ? $auction_errors .= $get_wait_time_before_extend_if_fail_error[0] . '<br>' : '';
+
+		$get_wait_time_before_extend_if_not_paid_error = get_post_meta( get_the_ID(), 'auction_wait_time_before_extend_if_not_paid_error' );
+		isset( $get_wait_time_before_extend_if_not_paid_error[0] ) && ! empty( $get_wait_time_before_extend_if_not_paid_error[0] ) ? $auction_errors .= $get_wait_time_before_extend_if_not_paid_error[0] . '<br>' : '';
+
+		$get_wait_time_before_extend_always_error = get_post_meta( get_the_ID(), 'auction_wait_time_before_extend_always_error' );
+		isset( $get_wait_time_before_extend_always_error[0] ) && ! empty( $get_wait_time_before_extend_always_error[0] ) ? $auction_errors .= $get_wait_time_before_extend_always_error[0] . '<br>' : '';
+
+		$get_extend_duration_if_fail_error = get_post_meta( get_the_ID(), 'auction_extend_duration_if_fail_error' );
+		isset( $get_extend_duration_if_fail_error[0] ) && ! empty( $get_extend_duration_if_fail_error[0] ) ? $auction_errors .= $get_extend_duration_if_fail_error[0] . '<br>' : '';
+
+		$get_extend_duration_if_not_paid_error = get_post_meta( get_the_ID(), 'auction_extend_duration_if_not_paid_error' );
+		isset( $get_extend_duration_if_not_paid_error[0] ) && ! empty( $get_extend_duration_if_not_paid_error[0] ) ? $auction_errors .= $get_extend_duration_if_not_paid_error[0] . '<br>' : '';
+
+		$get_extend_duration_always_error = get_post_meta( get_the_ID(), 'auction_extend_duration_always_error' );
+		isset( $get_extend_duration_always_error[0] ) && ! empty( $get_extend_duration_always_error[0] ) ? $auction_errors .= $get_extend_duration_always_error[0] . '<br>' : '';
 
 		$get_bid_price_error = get_post_meta( get_the_ID(), 'auction_bid_price_error' );
 		isset( $get_bid_price_error[0] ) && ! empty( $get_bid_price_error[0] ) ? $auction_errors .= $get_bid_price_error[0] . '<br>' : '';
+
 		return apply_filters( 'auction_software_product_auction_errors', $auction_errors );
 
 	}
@@ -772,7 +862,7 @@ class Auction_Software_Admin {
 			$attribute_data = $auction_simple->attribute_data;
 			foreach ( $attribute_data as $attribute ) {
 				$custom_attr = array();
-				WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['currency'], $attribute['options'], $custom_attr );
+				WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['label'], $attribute['desc_tip'], $attribute['description'], $attribute['currency'], $attribute['options'], $custom_attr );
 			}
 			?>
 		</div>
@@ -782,7 +872,7 @@ class Auction_Software_Admin {
 			$attribute_data  = $auction_reverse->attribute_data;
 			foreach ( $attribute_data as $attribute ) {
 				$custom_attr = array();
-				WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['currency'], $attribute['options'], $custom_attr );
+				WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['label'], $attribute['desc_tip'], $attribute['description'], $attribute['currency'], $attribute['options'], $custom_attr );
 			}
 			?>
 		</div>
@@ -890,12 +980,18 @@ class Auction_Software_Admin {
 					'auction_reserve_price_reverse',
 					'auction_buy_it_now_price',
 					'auction_buy_it_now_price_reverse',
-					'auction_relist_if_fail',
-					'auction_relist_if_not_paid',
-					'auction_relist_duration',
-					'auction_extend_if_fail',
-					'auction_extend_if_not_paid',
-					'auction_extend_duration',
+					'auction_wait_time_before_relist_if_fail',
+					'auction_relist_duration_if_fail',
+					'auction_wait_time_before_relist_if_not_paid',
+					'auction_relist_duration_if_not_paid',
+					'auction_wait_time_before_relist_always',
+					'auction_relist_duration_always',
+					'auction_wait_time_before_extend_if_fail',
+					'auction_extend_duration_if_fail',
+					'auction_wait_time_before_extend_if_not_paid',
+					'auction_extend_duration_if_not_paid',
+					'auction_wait_time_before_extend_always',
+					'auction_extend_duration_always',
 				)
 			);
 			$date_from         = isset( $auction_data['auction_date_from'] ) ? $auction_data['auction_date_from'] : '';
@@ -1015,67 +1111,133 @@ class Auction_Software_Admin {
 								}
 							}
 							break;
-						case 'auction_relist_if_fail':
+						case 'auction_wait_time_before_relist_if_fail':
 							if ( 'relist' === $auction_data['auction_extend_or_relist_auction'] ) {
 								if ( $value < 0 ) {
 									$flag            = true;
-									$auction_errors .= __( 'Relist If Fail should not be negative.', 'auction-software' );
-									update_post_meta( $post_id, $key . '_error', __( 'Relist If Fail should not be negative.', 'auction-software' ) );
+									$auction_errors .= __( 'Wait time before relist should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Wait time before relist should not be negative.', 'auction-software' ) );
 								} else {
 									update_post_meta( $post_id, $key . '_error', '' );
 								}
 							}
 							break;
-						case 'auction_relist_if_not_paid':
+						case 'auction_relist_duration_if_fail':
 							if ( 'relist' === $auction_data['auction_extend_or_relist_auction'] ) {
 								if ( $value < 0 ) {
 									$flag            = true;
-									$auction_errors .= __( 'Relist If Not Paid should not be negative.', 'auction-software' );
-									update_post_meta( $post_id, $key . '_error', __( 'Relist If Not Paid should not be negative.', 'auction-software' ) );
+									$auction_errors .= __( 'Relist duration should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Relist duration should not be negative.', 'auction-software' ) );
 								} else {
 									update_post_meta( $post_id, $key . '_error', '' );
 								}
 							}
 							break;
-						case 'auction_relist_duration':
+						case 'auction_wait_time_before_relist_if_not_paid':
 							if ( 'relist' === $auction_data['auction_extend_or_relist_auction'] ) {
 								if ( $value < 0 ) {
 									$flag            = true;
-									$auction_errors .= __( 'Relist Duration should not be negative.', 'auction-software' );
-									update_post_meta( $post_id, $key . '_error', __( 'Relist Duration should not be negative.', 'auction-software' ) );
+									$auction_errors .= __( 'Wait time before relist should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Wait time before relist should not be negative.', 'auction-software' ) );
 								} else {
 									update_post_meta( $post_id, $key . '_error', '' );
 								}
 							}
 							break;
-						case 'auction_extend_if_fail':
-							if ( 'extend' === $auction_data['auction_extend_or_relist_auction'] ) {
+						case 'auction_relist_duration_if_not_paid':
+							if ( 'relist' === $auction_data['auction_extend_or_relist_auction'] ) {
 								if ( $value < 0 ) {
 									$flag            = true;
-									$auction_errors .= __( 'Extend If Fail should not be negative.', 'auction-software' );
-									update_post_meta( $post_id, $key . '_error', __( 'Extend If Fail should not be negative.', 'auction-software' ) );
+									$auction_errors .= __( 'Relist duration should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Relist duration should not be negative.', 'auction-software' ) );
 								} else {
 									update_post_meta( $post_id, $key . '_error', '' );
 								}
 							}
 							break;
-						case 'auction_extend_if_not_paid':
-							if ( 'extend' === $auction_data['auction_extend_or_relist_auction'] ) {
+						case 'auction_wait_time_before_relist_always':
+							if ( 'relist' === $auction_data['auction_extend_or_relist_auction'] ) {
 								if ( $value < 0 ) {
 									$flag            = true;
-									$auction_errors .= __( 'Extend If Not Paid should not be negative.', 'auction-software' );
-									update_post_meta( $post_id, $key . '_error', __( 'Extend If Not Paid should not be negative.', 'auction-software' ) );
+									$auction_errors .= __( 'Wait time before relist should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Wait time before relist should not be negative.', 'auction-software' ) );
 								} else {
 									update_post_meta( $post_id, $key . '_error', '' );
 								}
 							}
 							break;
-						case 'auction_extend_duration':
+						case 'auction_relist_duration_always':
+							if ( 'relist' === $auction_data['auction_extend_or_relist_auction'] ) {
+								if ( $value < 0 ) {
+									$flag            = true;
+									$auction_errors .= __( 'Relist duration should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Relist duration should not be negative.', 'auction-software' ) );
+								} else {
+									update_post_meta( $post_id, $key . '_error', '' );
+								}
+							}
+							break;
+						case 'auction_wait_time_before_extend_if_fail':
 							if ( 'extend' === $auction_data['auction_extend_or_relist_auction'] ) {
 								if ( $value < 0 ) {
 									$flag            = true;
-									$auction_errors .= __( 'Extend Duration should not be negative.', 'auction-software' );
-									update_post_meta( $post_id, $key . '_error', __( 'Extend Duration should not be negative.', 'auction-software' ) );
+									$auction_errors .= __( 'Wait time before extend should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Wait time before extend should not be negative.', 'auction-software' ) );
+								} else {
+									update_post_meta( $post_id, $key . '_error', '' );
+								}
+							}
+							break;
+						case 'auction_extend_duration_if_fail':
+							if ( 'extend' === $auction_data['auction_extend_or_relist_auction'] ) {
+								if ( $value < 0 ) {
+									$flag            = true;
+									$auction_errors .= __( 'Extend duration should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Extend duration should not be negative.', 'auction-software' ) );
+								} else {
+									update_post_meta( $post_id, $key . '_error', '' );
+								}
+							}
+							break;
+						case 'auction_wait_time_before_extend_if_not_paid':
+							if ( 'extend' === $auction_data['auction_extend_or_relist_auction'] ) {
+								if ( $value < 0 ) {
+									$flag            = true;
+									$auction_errors .= __( 'Wait time before extend should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Wait time before extend should not be negative.', 'auction-software' ) );
+								} else {
+									update_post_meta( $post_id, $key . '_error', '' );
+								}
+							}
+							break;
+						case 'auction_extend_duration_if_not_paid':
+							if ( 'extend' === $auction_data['auction_extend_or_relist_auction'] ) {
+								if ( $value < 0 ) {
+									$flag            = true;
+									$auction_errors .= __( 'Extend duration should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Extend duration should not be negative.', 'auction-software' ) );
+								} else {
+									update_post_meta( $post_id, $key . '_error', '' );
+								}
+							}
+							break;
+						case 'auction_wait_time_before_extend_always':
+							if ( 'extend' === $auction_data['auction_extend_or_relist_auction'] ) {
+								if ( $value < 0 ) {
+									$flag            = true;
+									$auction_errors .= __( 'Wait time before extend should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Wait time before extend should not be negative.', 'auction-software' ) );
+								} else {
+									update_post_meta( $post_id, $key . '_error', '' );
+								}
+							}
+							break;
+						case 'auction_extend_duration_always':
+							if ( 'extend' === $auction_data['auction_extend_or_relist_auction'] ) {
+								if ( $value < 0 ) {
+									$flag            = true;
+									$auction_errors .= __( 'Extend duration should not be negative.', 'auction-software' );
+									update_post_meta( $post_id, $key . '_error', __( 'Extend duration should not be negative.', 'auction-software' ) );
 								} else {
 									update_post_meta( $post_id, $key . '_error', '' );
 								}
@@ -1186,23 +1348,19 @@ class Auction_Software_Admin {
 					}
 				}
 				break;
-			case 'relist_if_fail':
+			case 'wait_time_before_relist_if_fail':
+			case 'wait_time_before_relist_if_not_paid':
+			case 'wait_time_before_relist_always':
 				if ( $value < 0 ) {
 					$error_flag = true;
-					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Relist If Fail should not be negative.', 'auction-software' ) );
+					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Wait time before relist should not be negative.', 'auction-software' ) );
 				} else {
 					update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
 				}
 				break;
-			case 'relist_if_not_paid':
-				if ( $value < 0 ) {
-					$error_flag = true;
-					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Relist If Not Paid should not be negative.', 'auction-software' ) );
-				} else {
-					update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
-				}
-				break;
-			case 'relist_duration':
+			case 'relist_duration_if_fail':
+			case 'relist_duration_if_not_paid':
+			case 'relist_duration_always':
 				if ( $value < 0 ) {
 					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Relist Duration should not be negative.', 'auction-software' ) );
@@ -1210,23 +1368,19 @@ class Auction_Software_Admin {
 					update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
 				}
 				break;
-			case 'extend_if_fail':
+			case 'wait_time_before_extend_if_fail':
+			case 'wait_time_before_extend_if_not_paid':
+			case 'wait_time_before_extend_always':
 				if ( $value < 0 ) {
 					$error_flag = true;
-					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Extend If Fail should not be negative.', 'auction-software' ) );
+					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Wait time before extend should not be negative.', 'auction-software' ) );
 				} else {
 					update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
 				}
 				break;
-			case 'extend_if_not_paid':
-				if ( $value < 0 ) {
-					$error_flag = true;
-					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Extend If Not Paid should not be negative.', 'auction-software' ) );
-				} else {
-					update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
-				}
-				break;
-			case 'extend_duration':
+			case 'extend_duration_if_fail':
+			case 'extend_duration_if_not_paid':
+			case 'extend_duration_always':
 				if ( $value < 0 ) {
 					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Extend Duration should not be negative.', 'auction-software' ) );
@@ -1348,7 +1502,7 @@ class Auction_Software_Admin {
 							$content .= '<td>' . wc_price( $product->get_auction_winning_bid() ) . '</td>';
 						} else {
 							$current_bid_value = $product->get_auction_current_bid();
-							if ( 0 === (int) $current_bid_value ) {
+							if ( 0.00 === (float) $current_bid_value ) {
 								$content .= '<td>' . esc_html__( 'No bids yet', 'auction-software' ) . '</td>';
 							} else {
 								$content .= '<td>' . wc_price( $current_bid_value ) . '</td>';

@@ -189,7 +189,7 @@ class Auction_Software_Widget_Ending_Soon_Auctions extends WP_Widget {
 								$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $product->get_auction_winning_bid() ) . '</span>';
 							} else {
 								$current_bid_value = $product->get_auction_current_bid();
-								if ( 0 === (int) $current_bid_value ) {
+								if ( 0.00 === (float) $current_bid_value ) {
 									$content .= '<span class="auction-current-bid">' . __( 'No bids yet', 'auction-software' ) . '</span>';
 								} else {
 									$content .= '<span class="auction-current-bid">' . __( 'Current Bid: ', 'auction-software' ) . wc_price( $current_bid_value ) . '</span>';

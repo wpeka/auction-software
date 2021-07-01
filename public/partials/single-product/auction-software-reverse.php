@@ -91,7 +91,7 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 				<td class="title auction_current_bid_reverse">
 					<?php
 					$current_bid_value = $product->get_auction_current_bid();
-					if ( 0 === (int) $current_bid_value ) {
+					if ( 0.00 === (float) $current_bid_value ) {
 						esc_html_e( 'No bids yet ', 'auction-software' );
 					} else {
 						echo wc_price( $product->get_auction_current_bid() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

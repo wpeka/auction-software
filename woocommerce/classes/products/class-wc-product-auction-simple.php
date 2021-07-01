@@ -19,16 +19,22 @@ class WC_Product_Auction_Simple extends WC_Product_Auction {
 	 */
 	public $attribute_data = array(
 		array(
-			'type'     => 'text',
-			'id'       => 'reserve_price',
-			'currency' => true,
-			'options'  => '',
+			'type'        => 'text',
+			'id'          => 'reserve_price',
+			'label'       => 'Reserve price',
+			'currency'    => true,
+			'options'     => '',
+			'desc_tip'    => true,
+			'description' => 'Minimum amount seller accepts as winning bid',
 		),
 		array(
-			'type'     => 'text',
-			'id'       => 'buy_it_now_price',
-			'currency' => true,
-			'options'  => '',
+			'type'        => 'text',
+			'id'          => 'buy_it_now_price',
+			'label'       => 'Buy it now price',
+			'currency'    => true,
+			'options'     => '',
+			'desc_tip'    => true,
+			'description' => 'Buyers will be able to purchase the item right away at this price',
 		),
 	);
 

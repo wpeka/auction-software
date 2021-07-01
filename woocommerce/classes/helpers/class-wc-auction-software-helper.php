@@ -21,6 +21,9 @@ class WC_Auction_Software_Helper {
 	 *
 	 * @param string $input_type Input type.
 	 * @param string $id Field id.
+	 * @param string $label Field label.
+	 * @param bool   $desc_tip Help tip.
+	 * @param string $description Help tip description.
 	 * @param bool   $currency Currency.
 	 * @param string $options Options.
 	 * @param array  $custom_attributes Custom attributes.
@@ -28,26 +31,30 @@ class WC_Auction_Software_Helper {
 	 * @param string $wrapper_class Wrapper class.
 	 * @return int|void
 	 */
-	public static function get_product_tab_fields( $input_type, $id, $currency = false, $options = '', $custom_attributes = array(), $class = '', $wrapper_class = '' ) {
+	public static function get_product_tab_fields( $input_type, $id, $label, $desc_tip, $description, $currency = false, $options = '', $custom_attributes = array(), $class = '', $wrapper_class = '' ) {
 		switch ( $input_type ) {
 			case 'text':
 				if ( ( 'date_from' === $id || 'date_to' === $id ) ) {
 					return woocommerce_wp_text_input(
 						array(
 							'id'                => 'auction_' . $id,
-							'label'             => self::get_id_title( $id, $currency ),
+							'label'             => self::get_id_title( $id, $label, $currency ),
 							'custom_attributes' => $custom_attributes,
 							'class'             => $class,
+							'desc_tip'          => $desc_tip,
+							'description'       => $description,
 						)
 					);
 				} else {
 					return woocommerce_wp_text_input(
 						array(
 							'id'                => 'auction_' . $id,
-							'label'             => self::get_id_title( $id, $currency ),
+							'label'             => self::get_id_title( $id, $label, $currency ),
 							'custom_attributes' => $custom_attributes,
 							'class'             => 'wc_input_price',
 							'wrapper_class'     => $wrapper_class,
+							'desc_tip'          => $desc_tip,
+							'description'       => $description,
 						)
 					);
 				}
@@ -61,28 +68,35 @@ class WC_Auction_Software_Helper {
 					array(
 						'id'                => 'auction_' . $id,
 						'options'           => $select_options,
-						'label'             => self::get_id_title( $id ),
+						'label'             => self::get_id_title( $id, $label ),
 						'custom_attributes' => $custom_attributes,
 						'class'             => $class,
+						'desc_tip'          => $desc_tip,
+						'description'       => $description,
 					)
 				);
 			case 'date':
 				return woocommerce_wp_text_input(
 					array(
 						'id'                => 'auction_' . $id,
-						'label'             => self::get_id_title( $id, $currency ),
+						'label'             => self::get_id_title( $id, $label, $currency ),
 						'custom_attributes' => $custom_attributes,
 						'type'              => 'date',
 						'date-type'         => 'years',
 						'class'             => $class,
+						'desc_tip'          => $desc_tip,
+						'description'       => $description,
 					)
 				);
 			case 'checkbox':
 				return woocommerce_wp_checkbox(
 					array(
-						'id'    => 'auction_' . $id,
-						'label' => self::get_id_title( $id, $currency ),
-						'class' => $class,
+						'id'            => 'auction_' . $id,
+						'label'         => self::get_id_title( $id, $label, $currency ),
+						'class'         => $class,
+						'wrapper_class' => $wrapper_class,
+						'desc_tip'      => $desc_tip,
+						'description'   => $description,
 					)
 				);
 			default:
@@ -93,25 +107,17 @@ class WC_Auction_Software_Helper {
 	/**
 	 * Get product field label with currency symbol.
 	 *
-	 * @param int  $id ID.
-	 * @param bool $currency Currency.
-	 * @return string|void
+	 * @param int    $id ID.
+	 * @param string $label Field label.
+	 * @param bool   $currency Currency.
+	 * @return string
 	 */
-	public static function get_id_title( $id, $currency = false ) {
+	public static function get_id_title( $id, $label = '', $currency = false ) {
 		$id_string = ucwords( str_replace( '_', ' ', $id ) );
 		if ( true === $currency ) {
 			$id_string .= ' (' . get_woocommerce_currency_symbol() . ')';
-		}
-		$extend_relist_array = array(
-			'relist_if_fail',
-			'relist_if_not_paid',
-			'relist_duration',
-			'extend_if_fail',
-			'extend_if_not_paid',
-			'extend_duration',
-		);
-		if ( in_array( $id, $extend_relist_array, true ) ) {
-			$id_string .= ' (in Minutes)';
+		} elseif ( ! empty( $label ) ) {
+			$id_string = $label;
 		}
 		return $id_string;
 	}
