@@ -5,7 +5,7 @@
 **Requires at least:** 4.6  
 **Tested up to:** 5.6  
 **Requires PHP:** 7.0  
-**Stable tag:** 1.0.9  
+**Stable tag:** 1.1.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.htm  
 
@@ -177,6 +177,10 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 4. Auction Widgets.
 
 ## Changelog ##
+### 1.1.0 ###
+* Update: Restructured auction extend/relist feature.
+* Fix: Bug fix related to start price less than 1.
+
 ### 1.0.9 ###
 * Update: Consistent UI for auction products.
 * Feature: Admin can now hide frontend auction fields on Shop page and in widgets.
@@ -221,6 +225,10 @@ Fix: Fixed for broken cart and checkout pages.
 Feature: Initial version.
 
 ## Upgrade Notice ##
+### 1.1.0 ###
+* Update: Restructured auction extend/relist feature.
+* Fix: Bug fix related to start price less than 1.
+
 ### 1.0.9 ###
 * Update: Consistent UI for auction products.
 * Feature: Admin can now hide frontend auction fields on Shop page and in widgets.

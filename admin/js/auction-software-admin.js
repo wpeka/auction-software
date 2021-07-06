@@ -57,6 +57,7 @@
 					}
 				);
 			}
+
 			$( '.form-field.auction_relist' ).hide();
 			$( '.form-field.auction_extend' ).hide();
 			$( '.form-field.auction_' + $( '#auction_extend_or_relist_auction' ).val() ).show();
@@ -67,6 +68,70 @@
 					$( '.form-field.auction_relist' ).hide();
 					$( '.form-field.auction_extend' ).hide();
 					$( '.form-field.auction_' + $( this ).val() ).show();
+					if ($( this ).val() == 'extend') {
+						$( '.form-field.auction_extend' ).find( ':checkbox' ).each(
+							function() {
+								if (this.checked) {
+									$( '.form-field.' + this.id ).show();
+								} else {
+									$( '.form-field.' + this.id ).hide();
+								}
+							}
+						);
+					} else if ($( this ).val() == 'relist') {
+						$( '.form-field.auction_relist' ).find( ':checkbox' ).each(
+							function() {
+								if (this.checked) {
+									$( '.form-field.' + this.id ).show();
+								} else {
+									$( '.form-field.' + this.id ).hide();
+								}
+							}
+						);
+					}
+				}
+			);
+			var extend_relist = $( '#auction_extend_or_relist_auction' ).val();
+			console.log( extend_relist );
+
+			if ('extend' == extend_relist) {
+				$( '.form-field.auction_extend' ).find( ':checkbox' ).each(
+					function() {
+						if (this.checked) {
+							$( '.form-field.' + this.id ).show();
+						} else {
+							$( '.form-field.' + this.id ).hide();
+						}
+					}
+				);
+			} else if ('relist' == extend_relist) {
+				$( '.form-field.auction_relist' ).find( ':checkbox' ).each(
+					function() {
+						if (this.checked) {
+							$( '.form-field.' + this.id ).show();
+						} else {
+							$( '.form-field.' + this.id ).hide();
+						}
+					}
+				);
+			}
+
+			$( '.form-field.auction_extend :checkbox' ).change(
+				function() {
+					if (this.checked) {
+						$( '.form-field.' + this.id ).show();
+					} else {
+						$( '.form-field.' + this.id ).hide();
+					}
+				}
+			);
+			$( '.form-field.auction_relist :checkbox' ).change(
+				function() {
+					if (this.checked) {
+						$( '.form-field.' + this.id ).show();
+					} else {
+						$( '.form-field.' + this.id ).hide();
+					}
 				}
 			);
 		}
