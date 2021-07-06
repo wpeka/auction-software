@@ -74,8 +74,14 @@
 								clearInterval( x );
 								if ($( ".timeLeft" + newIndex ).length) {
 									var startEndText = document.getElementsByClassName( 'startEndText' + newIndex );
+									var endText      = 'Auction has ended';
+									if ($( '.startEndText' + newIndex ).hasClass( 'auction_starts_in' )) {
+										endText = 'Auction has started. Please refresh the page.';
+									}
 									$( startEndText ).remove();
-									$( ".timeLeft" + newIndex ).text( "Auction has ended." );
+									$( '.timeLeft' + newIndex ).text( endText );
+									$( '.timeLeft' + newIndex ).css( 'display','inline-block' );
+
 								}
 							} else {
 								var days    = Math.floor( distance / (1000 * 60 * 60 * 24) );
@@ -227,6 +233,7 @@
 								}
 								if (productAuctionType == 'auction_penny') {
 									$( ".auction_current_bid_penny" ).load( location.href + " .auction_current_bid_penny>*", "" );
+									$( ".auction_remaining_bids" ).load( location.href + " .auction_remaining_bids", "" );
 								}
 								$( "#auction_history_table" ).load( location.href + " #auction_history_table>*", "" );
 							}
@@ -382,6 +389,7 @@
 												$( ".auction_reserve_price" ).load( location.href + " .auction_reserve_price", "" );
 												$( ".auction_current_bid_penny" ).load( location.href + " .auction_current_bid_penny>*", "" );
 												$( "#auction_history_table" ).load( location.href + " #auction_history_table>*", "" );
+												$( ".auction_remaining_bids" ).load( location.href + " .auction_remaining_bids", "" );
 												endDate = response.seconds;
 
 											}

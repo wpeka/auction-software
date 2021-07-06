@@ -299,6 +299,9 @@ class WC_Product_Auction_Reverse extends WC_Product_Auction {
 	 * @return int
 	 */
 	public function check_if_user_has_winning_bid( $next_bid, $user_id, $post_id ) {
+		if ( 0 === $user_id ) {
+			return 0;
+		}
 		$highest_bid      = WC_Auction_Software_Helper::get_auction_post_meta( $post_id, 'auction_highest_bid' );
 		$highest_bid_user = WC_Auction_Software_Helper::get_auction_post_meta( $post_id, 'auction_highest_bid_user' );
 		if ( ! ( $this->is_ended() ) && $next_bid <= $highest_bid && $user_id === (int) $highest_bid_user ) {
