@@ -435,5 +435,13 @@ class Auction_Software_Admin_Test extends WP_UnitTestCase {
 
 		self::$auction_software_admin->auction_software_init();
 		$this->assertEquals( 'yes', get_post_meta( self::$product_ids[0], 'auction_extend_if_fail', true ) );
+		$this->assertEquals( 'no', get_post_meta( self::$product_ids[0], 'auction_wait_time_before_extend_if_fail', true ) );
+		$this->assertEquals( '7200', get_post_meta( self::$product_ids[0], 'auction_extend_duration_if_fail', true ) );
+		$this->assertEquals( 'yes', get_post_meta( self::$product_ids[0], 'auction_extend_if_not_paid', true ) );
+		$this->assertEquals( 'no', get_post_meta( self::$product_ids[0], 'auction_wait_time_before_extend_if_not_paid', true ) );
+		$this->assertEquals( '7200', get_post_meta( self::$product_ids[0], 'auction_extend_duration_if_not_paid', true ) );
+		$this->assertEquals( 'yes', get_post_meta( self::$product_ids[0], 'auction_extend_always', true ) );
+		$this->assertEquals( '10', get_post_meta( self::$product_ids[0], 'auction_wait_time_before_extend_always', true ) );
+		$this->assertEquals( '7200', get_post_meta( self::$product_ids[0], 'auction_extend_duration_always', true ) );
 	}
 }
