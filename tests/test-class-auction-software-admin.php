@@ -1,4 +1,4 @@
-_<?php
+<?php
 /**
  * Class Auction_Software_Admin_Test
  *
@@ -9,7 +9,7 @@ _<?php
  */
 
 /**
- * Require Wpadcenter_Admin class.
+ * Require Auction_Software_Admin class.
  */
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-auction-software-admin.php';
 
@@ -21,7 +21,7 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-auction-softw
 class Auction_Software_Admin_Test extends WP_UnitTestCase {
 
 	/**
-	 * Auction_Software_Admin class instance craeted
+	 * Auction_Software_Admin class instance created
 	 *
 	 * @since 1.1.0
 	 * @var class Auction_Software_Admin class instance $auction_software_admin
@@ -49,6 +49,15 @@ class Auction_Software_Admin_Test extends WP_UnitTestCase {
 	public static $simple_auction_post;
 
 	/**
+	 * Created term group
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 * @var int $auctiom_term_group term ids
+	 */
+	public static $auctiom_term_group;
+
+	/**
 	 * Set up function.
 	 *
 	 * @since 1.1.0
@@ -57,9 +66,25 @@ class Auction_Software_Admin_Test extends WP_UnitTestCase {
 	 */
 	public static function wpSetUpBeforeClass( WP_UnitTest_Factory $factory ) {
 		self::$product_ids         = $factory->post->create_many( 3, array( 'post_type' => 'product' ) );
+		self::$auctiom_term_group  = $factory->term->create_many( 2, array( 'taxonomy' => 'product_auction_class' ) );
 		self::$simple_auction_post = get_post( self::$product_ids[0] );
 		wp_set_object_terms( self::$product_ids[0], 'auction_simple', 'product_type' );
 		wp_set_object_terms( self::$product_ids[1], 'auction_reverse', 'product_type' );
+
+		update_post_meta( self::$product_ids[0], 'auction_extend_or_relist_auction', 'extend' );
+		update_post_meta( self::$product_ids[0], 'auction_extend_if_fail', 'no' );
+		update_post_meta( self::$product_ids[0], 'auction_extend_if_not_paid', 'no' );
+		update_post_meta( self::$product_ids[0], 'auction_extend_duration', 10 );
+		update_post_meta( self::$product_ids[0], 'auction_date_from', gmdate( 'Y-m-d H:i:s' ) );
+		update_post_meta( self::$product_ids[0], 'auction_date_to', gmdate( 'Y-m-d H:i:s', strtotime( '+5 days' ) ) );
+
+		update_post_meta( self::$product_ids[0], 'auction_wait_time_before_extend_if_fail', 10 );
+		update_post_meta( self::$product_ids[0], 'auction_wait_time_before_extend_if_not_paid', 10 );
+		update_post_meta( self::$product_ids[0], 'auction_wait_time_before_extend_always', 10 );
+
+		update_post_meta( self::$product_ids[0], 'auction_extend_duration_if_fail', 10 );
+		update_post_meta( self::$product_ids[0], 'auction_extend_duration_if_not_paid', 10 );
+		update_post_meta( self::$product_ids[0], 'auction_extend_duration_always', 10 );
 
 	}
 
@@ -425,13 +450,6 @@ class Auction_Software_Admin_Test extends WP_UnitTestCase {
 	public function test_auction_software_init() {
 		wp_delete_post( self::$product_ids[1] );
 		update_option( 'auction_extend_relist_settings_updated', '0' );
-		update_post_meta( self::$product_ids[0], 'auction_extend_or_relist_auction', 'extend' );
-		update_post_meta( self::$product_ids[0], 'auction_extend_if_fail', 'no' );
-		update_post_meta( self::$product_ids[0], 'auction_extend_if_not_paid', 'no' );
-		update_post_meta( self::$product_ids[0], 'auction_extend_duration', 10 );
-		update_post_meta( self::$product_ids[0], 'auction_extend_always', 10 );
-		update_post_meta( self::$product_ids[0], 'auction_date_from', gmdate( 'Y-m-d H:i:s' ) );
-		update_post_meta( self::$product_ids[0], 'auction_date_to', gmdate( 'Y-m-d H:i:s', strtotime( '+5 days' ) ) );
 
 		self::$auction_software_admin->auction_software_init();
 		$this->assertEquals( 'yes', get_post_meta( self::$product_ids[0], 'auction_extend_if_fail', true ) );
@@ -443,5 +461,56 @@ class Auction_Software_Admin_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'yes', get_post_meta( self::$product_ids[0], 'auction_extend_always', true ) );
 		$this->assertEquals( '10', get_post_meta( self::$product_ids[0], 'auction_wait_time_before_extend_always', true ) );
 		$this->assertEquals( '7200', get_post_meta( self::$product_ids[0], 'auction_extend_duration_always', true ) );
+	}
+
+	/**
+	 * Test for auction_software_every_minute_cron_tasks function
+	 */
+	public function test_auction_software_every_minute_cron_tasks() {
+		wp_delete_post( self::$product_ids[1] );
+		update_post_meta( self::$product_ids[0], 'auction_date_from', gmdate( 'Y-m-d H:i:s', strtotime( '-5 days' ) ) );
+		update_post_meta( self::$product_ids[0], 'auction_date_to', gmdate( 'Y-m-d H:i:s', strtotime( '-1 days' ) ) );
+		update_post_meta( self::$product_ids[0], 'auction_reserve_price_met', 'no' );
+		update_post_meta( self::$product_ids[0], 'auction_is_sold', 'no' );
+		update_post_meta( self::$product_ids[0], 'auction_extend_if_fail', 'yes' );
+		update_post_meta( self::$product_ids[0], 'auction_errors', '' );
+
+		// Test for auction_extend_if_fail is true.
+		self::$auction_software_admin->auction_software_every_minute_cron_tasks();
+		$this->assertFalse( (bool) get_post_meta( self::$product_ids[0], 'auction_is_ended', true ) );
+		$this->assertFalse( (bool) get_post_meta( self::$product_ids[0], 'auction_is_sold', true ) );
+		$new_to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
+		$new_to_date->add( new DateInterval( ( 'PT10M' ) ) );
+		$this->assertEquals( $new_to_date->format( 'Y-m-d H:i:s' ), get_post_meta( self::$product_ids[0], 'auction_date_to', true ) );
+		$this->assertTrue( (bool) get_post_meta( self::$product_ids[0], self::$product_ids[0] . '_start_mail_sent', true ) );
+		update_post_meta( self::$product_ids[0], 'auction_is_ended', 1 );
+
+		// Test for auction_extend_if_fail is false.
+		update_post_meta( self::$product_ids[0], 'auction_extend_if_fail', 'no' );
+		update_post_meta( self::$product_ids[0], 'auction_extend_if_not_paid', 'yes' );
+		update_post_meta( self::$product_ids[0], 'auction_reserve_price_met', 'yes' );
+		update_post_meta( self::$product_ids[0], 'auction_date_to', gmdate( 'Y-m-d H:i:s', strtotime( '-1 days' ) ) );
+
+		self::$auction_software_admin->auction_software_every_minute_cron_tasks();
+		$this->assertFalse( (bool) get_post_meta( self::$product_ids[0], 'auction_is_ended', true ) );
+		$this->assertFalse( (bool) get_post_meta( self::$product_ids[0], 'auction_is_sold', true ) );
+		$new_to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
+		$new_to_date->add( new DateInterval( ( 'PT10M' ) ) );
+		$this->assertEquals( $new_to_date->format( 'Y-m-d H:i:s' ), get_post_meta( self::$product_ids[0], 'auction_date_to', true ) );
+		$this->assertTrue( (bool) get_post_meta( self::$product_ids[0], self::$product_ids[0] . '_start_mail_sent', true ) );
+		update_post_meta( self::$product_ids[0], 'auction_is_ended', 1 );
+
+		// Test for auction_reserve_price_met is no and auction_extend_always is yes.
+		update_post_meta( self::$product_ids[0], 'auction_reserve_price_met', 'no' );
+		update_post_meta( self::$product_ids[0], 'auction_extend_always', 'yes' );
+		update_post_meta( self::$product_ids[0], 'auction_date_to', gmdate( 'Y-m-d H:i:s', strtotime( '-1 days' ) ) );
+
+		self::$auction_software_admin->auction_software_every_minute_cron_tasks();
+		$this->assertFalse( (bool) get_post_meta( self::$product_ids[0], 'auction_is_ended', true ) );
+		$this->assertFalse( (bool) get_post_meta( self::$product_ids[0], 'auction_is_sold', true ) );
+		$new_to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
+		$new_to_date->add( new DateInterval( ( 'PT10M' ) ) );
+		$this->assertEquals( $new_to_date->format( 'Y-m-d H:i:s' ), get_post_meta( self::$product_ids[0], 'auction_date_to', true ) );
+		$this->assertTrue( (bool) get_post_meta( self::$product_ids[0], self::$product_ids[0] . '_start_mail_sent', true ) );
 	}
 }
