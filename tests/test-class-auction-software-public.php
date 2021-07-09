@@ -66,7 +66,6 @@ class Auction_Software_Public_Test extends WP_UnitTestCase {
 		update_post_meta( self::$product_ids[0], 'auction_date_to', gmdate( 'Y-m-d H:i:s', strtotime( '+5 days' ) ) );
 		update_post_meta( self::$product_ids[1], 'auction_date_from', gmdate( 'Y-m-d H:i:s' ) );
 		update_post_meta( self::$product_ids[1], 'auction_date_to', gmdate( 'Y-m-d H:i:s', strtotime( '+5 days' ) ) );
-
 	}
 
 	/**
@@ -161,8 +160,9 @@ class Auction_Software_Public_Test extends WP_UnitTestCase {
 
 		update_post_meta( self::$product_ids[0], 'auction_date_from', gmdate( 'Y-m-d H:i:s', strtotime( '-2 days' ) ) );
 		update_post_meta( self::$product_ids[0], 'auction_date_to', gmdate( 'Y-m-d H:i:s', strtotime( '+2 days' ) ) );
+		update_post_meta( self::$product_ids[0], 'auction_current_bid', '11000' );
+		update_post_meta( self::$product_ids[0], 'auction_is_ended', '0' );
 		update_post_meta( self::$product_ids[0], 'auction_errors', '' );
-
 		$text = self::$auction_software_public->auction_software_wc_product_add_to_cart_text( '', wc_get_product( self::$product_ids[0] ) );
 		$this->assertEquals( __( 'Bid Now', 'auction-software' ), $text );
 	}
@@ -222,4 +222,61 @@ class Auction_Software_Public_Test extends WP_UnitTestCase {
 		);
 	}
 
+	/**
+	 * Test for auction_software_wc_after_shop_loop_item function
+	 */
+	public function test_auction_software_wc_after_shop_loop_item() {
+		update_post_meta( self::$product_ids[0], 'auction_current_bid', '11000' );
+		update_post_meta( self::$product_ids[0], 'auction_is_ended', '0' );
+		update_post_meta( self::$product_ids[0], 'auction_errors', '' );
+		$url = get_permalink( self::$product_ids[0] );
+		$this->go_to( $url );
+		ob_start();
+		self::$auction_software_public->auction_software_wc_after_shop_loop_item();
+		$output = ob_get_clean();
+		$this->assertTrue( is_string( $output ) && wp_strip_all_tags( $output ) !== $output );
+	}
+
+	/**
+	 * Test for auction_software_wc_add_to_cart_validation function
+	 */
+	public function test_auction_software_wc_add_to_cart_validation() {
+		WC()->cart->add_to_cart( self::$product_ids[0] );
+		$this->assertFalse( empty( WC()->cart->get_cart() ) );
+		$passed = self::$auction_software_public->auction_software_wc_add_to_cart_validation( true, self::$product_ids[0], 5 );
+		$this->assertTrue( $passed );
+		$this->assertTrue( empty( WC()->cart->get_cart() ) );
+	}
+
+	/**
+	 * Test for auction_software_wc_payment_complete function
+	 */
+	public function test_auction_software_wc_payment_complete() {
+		update_post_meta( self::$product_ids[0], 'auction_is_ended', '0' );
+		update_post_meta( self::$product_ids[0], 'auction_buy_it_now_price', '12000' );
+		$order   = wc_create_order();
+		$address = array(
+			'first_name' => '111Joe',
+			'last_name'  => 'Conlin',
+			'company'    => 'Speed Society',
+			'email'      => 'joe@testing.com',
+			'phone'      => '760-555-1212',
+			'address_1'  => '123 Main st.',
+			'address_2'  => '104',
+			'city'       => 'San Diego',
+			'state'      => 'Ca',
+			'postcode'   => '92121',
+			'country'    => 'US',
+		);
+
+		// Add products to order.
+		$order->add_product( wc_get_product( self::$product_ids[0] ) );
+		$order->set_address( $address, 'billing' );
+		$order->calculate_totals();
+		$order->update_status( 'Completed', 'Imported order', true );
+		self::$auction_software_public->auction_software_wc_payment_complete( 'completed', $order->get_id() );
+		$this->assertTrue( (bool) get_post_meta( self::$product_ids[0], 'auction_is_sold', true ) );
+		$this->assertTrue( (bool) get_post_meta( self::$product_ids[0], 'auction_is_ended', true ) );
+		$this->assertEquals( '12000', get_post_meta( self::$product_ids[0], 'auction_winning_bid', true ) );
+	}
 }
