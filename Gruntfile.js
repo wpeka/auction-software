@@ -88,6 +88,7 @@ module.exports = function (grunt) {
 					'!vendor/**',
 					'!release/**',
 					'!build/**',
+					'!tests/**',
 					'!.git/**',
 					'!Gruntfile.js',
 					'!package.json',
