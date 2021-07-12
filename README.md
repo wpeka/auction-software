@@ -1,4 +1,9 @@
-[![codecov](https://codecov.io/gh/wpeka/auction-software/branch/master/graph/badge.svg?token=HSEO9SM6JN)](https://codecov.io/gh/wpeka/auction-software)
+<p align="center">
+<a href="https://wordpress.org/plugins/auction-software/"><img src="https://img.shields.io/wordpress/plugin/v/wpadcenter" alt="Latest Stable Version"></a>
+<img src="https://img.shields.io/wordpress/plugin/dt/auction-software" alt="WordPress.org downloads">
+<a href="https://github.com/wpeka/auction-software/actions/workflows/pr-code-coverage.yml"><img src="https://github.com/wpeka/auction-software/actions/workflows/pr-code-coverage.yml/badge.svg" alt="Github Actions"></a>
+<a href="https://codecov.io/gh/wpeka/auction-software"><img src="https://codecov.io/gh/wpeka/auction-software/branch/master/graph/badge.svg?token=HSEO9SM6JN" alt="codecov"></a>
+</p>
 
 Woo Auction Software is one of the flexible and intuitive WordPress Auction Plugin to host your online auctions.
 

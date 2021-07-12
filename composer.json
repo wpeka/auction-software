@@ -1,0 +1,9 @@
+{
+  "name": "wpeka/auction-software",
+  "description": "Auction Software",
+  "homepage": "https://club.wpeka.com/",
+  "type": "wordpress-plugin",
+  "license": "GPL-3.0-or-later",
+  "prefer-stable": true,
+  "minimum-stability": "dev"
+}
