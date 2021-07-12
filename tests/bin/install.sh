@@ -64,10 +64,8 @@ install_wp() {
 		download https://wordpress.org/nightly-builds/wordpress-latest.zip  $TMPDIR/wordpress-nightly/wordpress-nightly.zip
 		unzip -q $TMPDIR/wordpress-nightly/wordpress-nightly.zip -d $TMPDIR/wordpress-nightly/
 		mv $TMPDIR/wordpress-nightly/wordpress/* $WP_CORE_DIR
-		mkdir -p $TMPDIR/elementor
-		download https://downloads.wordpress.org/plugin/elementor.3.2.4.zip $TMPDIR/elementor.zip
-		unzip -q $TMPDIR/elementor.zip -d $TMPDIR/elementor/
-		mv $TMPDIR/elementor/* $WP_CORE_DIR/wp-content/plugins/elementor/
+
+		install_dependancy_plugins
 	else
 		if [ $WP_VERSION == 'latest' ]; then
 			local ARCHIVE_NAME='latest'
@@ -95,10 +93,8 @@ install_wp() {
 	fi
 
 	download https://raw.github.com/markoheijnen/wp-mysqli/master/db.php $WP_CORE_DIR/wp-content/db.php
-	mkdir -p $TMPDIR/elementor
-	download https://downloads.wordpress.org/plugin/elementor.3.2.4.zip $TMPDIR/elementor.zip
-	unzip -q $TMPDIR/elementor.zip -d $TMPDIR/elementor/
-	mv $TMPDIR/elementor/* $WP_CORE_DIR/wp-content/plugins/elementor/
+
+	install_dependancy_plugins
 }
 
 install_test_suite() {
@@ -152,6 +148,13 @@ install_db() {
 		# create database
 		mysqladmin create $DB_NAME --user="$DB_USER" --password="$DB_PASS"$EXTRA
 	fi
+}
+
+install_dependancy_plugins() {
+		mkdir -p $TMPDIR/woocommerce
+		download https://downloads.wordpress.org/plugin/woocommerce.5.4.1.zip $TMPDIR/woocommerce.zip
+		unzip -q $TMPDIR/woocommerce.zip -d $TMPDIR/woocommerce/
+		mv $TMPDIR/woocommerce/* $WP_CORE_DIR/wp-content/plugins/woocommerce/
 }
 
 install_wp

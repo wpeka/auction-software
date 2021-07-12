@@ -1,15 +1,9 @@
-# Woo Auction Software: WordPress Auction Plugin #
-**Contributors:** [WPeka Club](https://profiles.wordpress.org/WPeka Club)  
-**Donate link:** https://club.wpeka.com/  
-**Tags:** auction, woocommerce auction, WordPress auction, auction plugin, proxy bidding, penny auction, eBay auction, simple auction, reverse auction, penny auction, eBay, bidding, auction script, wp auctions  
-**Requires at least:** 4.6  
-**Tested up to:** 5.6  
-**Requires PHP:** 7.0  
-**Stable tag:** 1.1.0  
-**License:** GPLv2 or later  
-**License URI:** http://www.gnu.org/licenses/gpl-2.0.htm  
-
-[![codecov](https://codecov.io/gh/wpeka/auction-software/branch/master/graph/badge.svg?token=HSEO9SM6JN)](https://codecov.io/gh/wpeka/auction-software)
+<p align="center">
+<a href="https://wordpress.org/plugins/auction-software/"><img src="https://img.shields.io/wordpress/plugin/v/wpadcenter" alt="Latest Stable Version"></a>
+<img src="https://img.shields.io/wordpress/plugin/dt/auction-software" alt="WordPress.org downloads">
+<a href="https://github.com/wpeka/auction-software/actions/workflows/pr-code-coverage.yml"><img src="https://github.com/wpeka/auction-software/actions/workflows/pr-code-coverage.yml/badge.svg" alt="Github Actions"></a>
+<a href="https://codecov.io/gh/wpeka/auction-software"><img src="https://codecov.io/gh/wpeka/auction-software/branch/master/graph/badge.svg?token=HSEO9SM6JN" alt="codecov"></a>
+</p>
 
 Woo Auction Software is one of the flexible and intuitive WordPress Auction Plugin to host your online auctions.
 
