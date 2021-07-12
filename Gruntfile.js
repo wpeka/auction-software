@@ -89,6 +89,7 @@ module.exports = function (grunt) {
 					'!release/**',
 					'!build/**',
 					'!tests/**',
+					'!bin/**',
 					'!.git/**',
 					'!Gruntfile.js',
 					'!package.json',
@@ -96,7 +97,11 @@ module.exports = function (grunt) {
 					'!.gitignore',
 					'!.gitmodules',
 					'!composer.lock',
-					'!composer.json'
+					'!composer.json',
+					'!*.yml',
+					'!*.xml',
+					'!*.config.*',
+					'!phpunit.xml.dist'
 					],
 					dest: 'release/<%= pkg.version %>/'
 				}
