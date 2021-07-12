@@ -1,7 +1,5 @@
 [![codecov](https://codecov.io/gh/wpeka/auction-software/branch/master/graph/badge.svg?token=HSEO9SM6JN)](https://codecov.io/gh/wpeka/auction-software)
 
-[![codecov](https://codecov.io/gh/wpeka/auction-software/branch/master/graph/badge.svg?token=HSEO9SM6JN)](https://codecov.io/gh/wpeka/auction-software)
-
 Woo Auction Software is one of the flexible and intuitive WordPress Auction Plugin to host your online auctions.
 
 ## Description ##
