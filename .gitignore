@@ -3,6 +3,7 @@ phpcs.xml
 phpunit.xml
 Thumbs.db
 node_modules/
+vendor/
 release/
 package-lock.json
 composer.lock
