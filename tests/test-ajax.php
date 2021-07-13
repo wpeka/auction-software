@@ -180,32 +180,32 @@ class AjaxTest extends WP_Ajax_UnitTestCase {
 	 *
 	 * @since 1.1.0
 	 */
-	public function test_auction_software_wc_ajax_remove_from_auctionwatchlist() {
+	// public function test_auction_software_wc_ajax_remove_from_auctionwatchlist() {
 
-		// setup a default request.
-		$_POST['product_id'] = self::$product_ids[0];
-		$_POST['action']     = 'woocommerce_ajax_remove_from_auctionwatchlist';
+	// setup a default request.
+	// $_POST['product_id'] = self::$product_ids[0];
+	// $_POST['action']     = 'woocommerce_ajax_remove_from_auctionwatchlist';
 
-		// become administrator.
-		$user_id = self::factory()->user->create(
-			array(
-				'role' => 'administrator',
-			)
-		);
-		wp_set_current_user( $user_id );
-		update_user_meta( $user_id, 'auction_watchlist', array( self::$product_ids[0] ) );
-		$this->assertEquals( self::$product_ids[0], get_user_meta( $user_id, 'auction_watchlist', true )[0] );
-		try {
-			$this->_handleAjax( 'woocommerce_ajax_remove_from_auctionwatchlist' );
+	// become administrator.
+	// $user_id = self::factory()->user->create(
+	// array(
+	// 'role' => 'administrator',
+	// )
+	// );
+	// wp_set_current_user( $user_id );
+	// update_user_meta( $user_id, 'auction_watchlist', array( self::$product_ids[0] ) );
+	// $this->assertEquals( self::$product_ids[0], get_user_meta( $user_id, 'auction_watchlist', true )[0] );
+	// try {
+	// $this->_handleAjax( 'woocommerce_ajax_remove_from_auctionwatchlist' );
 
-		} catch ( WPAjaxDieContinueException $e ) {
-			unset( $e );
-		}
-		// get response.
-		$response = json_decode( $this->_last_response );
-		$this->assertEquals( 'success', $response );
-		$watchlist_products = get_user_meta( $user_id, 'auction_watchlist', true );
-		$this->assertTrue( empty( $watchlist_products ) );
-	}
+	// } catch ( WPAjaxDieContinueException $e ) {
+	// unset( $e );
+	// }
+	// get response.
+	// $response = json_decode( $this->_last_response );
+	// $this->assertEquals( 'success', $response );
+	// $watchlist_products = get_user_meta( $user_id, 'auction_watchlist', true );
+	// $this->assertTrue( empty( $watchlist_products ) );
+	// }
 }
 
