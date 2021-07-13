@@ -1,6 +1,4 @@
 .DS_Store
-phpcs.xml
-phpunit.xml
 Thumbs.db
 node_modules/
 release/
