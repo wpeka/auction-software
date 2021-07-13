@@ -513,4 +513,31 @@ class Auction_Software_Admin_Test extends WP_UnitTestCase {
 		$this->assertEquals( $new_to_date->format( 'Y-m-d H:i:s' ), get_post_meta( self::$product_ids[0], 'auction_date_to', true ) );
 		$this->assertTrue( (bool) get_post_meta( self::$product_ids[0], self::$product_ids[0] . '_start_mail_sent', true ) );
 	}
+
+	/**
+	 * Test for auction_software_product_auction_tab_fields function
+	 */
+	public function test_auction_software_product_auction_tab_fields() {
+		$url = get_permalink( self::$product_ids[0] );
+		$this->go_to( $url );
+		if ( ! function_exists( 'woocommerce_wp_text_input' ) ) {
+			include_once WC()->plugin_path() . '/includes/admin/wc-meta-box-functions.php';
+		}
+		ob_start();
+		self::$auction_software_admin->auction_software_product_auction_tab_fields();
+		$output = ob_get_clean();
+		$this->assertTrue( is_string( $output ) && wp_strip_all_Tags( $output ) !== $output );
+	}
+
+	/**
+	 * Test for auction_software_product_auction_tab_content function
+	 */
+	public function test_auction_software_product_auction_tab_content() {
+		$url = get_permalink( self::$product_ids[0] );
+		$this->go_to( $url );
+		ob_start();
+		self::$auction_software_admin->auction_software_product_auction_tab_content();
+		$output = ob_get_clean();
+		$this->assertTrue( is_string( $output ) && wp_strip_all_Tags( $output ) !== $output );
+	}
 }
