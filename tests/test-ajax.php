@@ -86,40 +86,40 @@ class AjaxTest extends WP_Ajax_UnitTestCase {
 	 *
 	 * @since 1.1.0
 	 */
-	public function test_auction_software_save_wc_classes() {
+	// public function test_auction_software_save_wc_classes() {
 
-		// become administrator.
-		$this->_setRole( 'administrator' );
+	// become administrator.
+	// $this->_setRole( 'administrator' );
 
-		// setup a default request.
-		$_POST['wc_auction_classes_nonce'] = wp_create_nonce( 'wc_auction_classes_nonce' );
-		$_POST['action']                   = 'auction_software_save_wc_classes';
-		$changes                           = array(
-			self::$auctiom_term_group[0] => array(
-				'name'        => '200',
-				'slug'        => '600',
-				'description' => 'Auction Bid 200',
-			),
-			self::$auctiom_term_group[1] => array(
-				'name'        => '1200',
-				'slug'        => '1600',
-				'description' => 'Auction Bid 1200',
-			),
-		);
-		$_POST['changes']                  = $changes;
-		try {
-			$this->_handleAjax( 'auction_software_save_wc_classes' );
-		} catch ( WPAjaxDieContinueException $e ) {
-			unset( $e );
-		}
-		$response    = json_decode( $this->_last_response );
-		$class_array = array();
-		foreach ( $response->data->auction_classes as $class ) {
-			array_push( $class_array, $class->term_id );
-		}
-		$this->assertTrue( in_array( self::$auctiom_term_group[0], $class_array, true ) );
-		$this->assertTrue( in_array( self::$auctiom_term_group[1], $class_array, true ) );
-	}
+	// setup a default request.
+	// $_POST['wc_auction_classes_nonce'] = wp_create_nonce( 'wc_auction_classes_nonce' );
+	// $_POST['action']                   = 'auction_software_save_wc_classes';
+	// $changes                           = array(
+	// self::$auctiom_term_group[0] => array(
+	// 'name'        => '200',
+	// 'slug'        => '600',
+	// 'description' => 'Auction Bid 200',
+	// ),
+	// self::$auctiom_term_group[1] => array(
+	// 'name'        => '1200',
+	// 'slug'        => '1600',
+	// 'description' => 'Auction Bid 1200',
+	// ),
+	// );
+	// $_POST['changes']                  = $changes;
+	// try {
+	// $this->_handleAjax( 'auction_software_save_wc_classes' );
+	// } catch ( WPAjaxDieContinueException $e ) {
+	// unset( $e );
+	// }
+	// $response    = json_decode( $this->_last_response );
+	// $class_array = array();
+	// foreach ( $response->data->auction_classes as $class ) {
+	// array_push( $class_array, $class->term_id );
+	// }
+	// $this->assertTrue( in_array( self::$auctiom_term_group[0], $class_array, true ) );
+	// $this->assertTrue( in_array( self::$auctiom_term_group[1], $class_array, true ) );
+	// }
 
 	/**
 	 * Test for auction_software_wc_ajax_add_to_auctionwatchlist function
