@@ -28,7 +28,7 @@ function _manually_load_plugin() {
 	// activate the plugin to get ads_statistics table on activation for testing.
 	do_action( 'activate_' . trim( $string, '/' ) ); //phpcs:ignore
 
-	// Activate elementor plugin.
+	// Activate woocommerce plugin.
 	$plugins_dir = ABSPATH . str_replace( site_url() . '/', '', plugins_url() ) . '/';
 	$woocommerce = $plugins_dir . 'woocommerce/woocommerce.php';
 	require $woocommerce;
