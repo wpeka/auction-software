@@ -481,7 +481,9 @@ class Auction_Software_Admin_Test extends WP_UnitTestCase {
 		$this->assertFalse( (bool) get_post_meta( self::$product_ids[0], 'auction_is_sold', true ) );
 		$new_to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
 		$new_to_date->add( new DateInterval( ( 'PT10M' ) ) );
-		$this->assertEquals( $new_to_date->format( 'Y-m-d H:i:s' ), get_post_meta( self::$product_ids[0], 'auction_date_to', true ) );
+		$expected_date = $new_to_date->format( 'Y-m-d' );
+		$actual_date   = gmdate( 'Y-m-d', strtotime( get_post_meta( self::$product_ids[0], 'auction_date_to', true ) ) );
+		$this->assertEquals( $expected_date, $actual_date );
 		$this->assertTrue( (bool) get_post_meta( self::$product_ids[0], self::$product_ids[0] . '_start_mail_sent', true ) );
 		update_post_meta( self::$product_ids[0], 'auction_is_ended', 1 );
 
@@ -496,7 +498,9 @@ class Auction_Software_Admin_Test extends WP_UnitTestCase {
 		$this->assertFalse( (bool) get_post_meta( self::$product_ids[0], 'auction_is_sold', true ) );
 		$new_to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
 		$new_to_date->add( new DateInterval( ( 'PT10M' ) ) );
-		$this->assertEquals( $new_to_date->format( 'Y-m-d H:i:s' ), get_post_meta( self::$product_ids[0], 'auction_date_to', true ) );
+		$expected_date = $new_to_date->format( 'Y-m-d' );
+		$actual_date   = gmdate( 'Y-m-d', strtotime( get_post_meta( self::$product_ids[0], 'auction_date_to', true ) ) );
+		$this->assertEquals( $expected_date, $actual_date );
 		$this->assertTrue( (bool) get_post_meta( self::$product_ids[0], self::$product_ids[0] . '_start_mail_sent', true ) );
 		update_post_meta( self::$product_ids[0], 'auction_is_ended', 1 );
 
@@ -510,7 +514,9 @@ class Auction_Software_Admin_Test extends WP_UnitTestCase {
 		$this->assertFalse( (bool) get_post_meta( self::$product_ids[0], 'auction_is_sold', true ) );
 		$new_to_date = datetime::createfromformat( 'Y-m-d H:i:s', current_time( 'mysql' ) );
 		$new_to_date->add( new DateInterval( ( 'PT10M' ) ) );
-		$this->assertEquals( $new_to_date->format( 'Y-m-d H:i:s' ), get_post_meta( self::$product_ids[0], 'auction_date_to', true ) );
+		$expected_date = $new_to_date->format( 'Y-m-d' );
+		$actual_date   = gmdate( 'Y-m-d', strtotime( get_post_meta( self::$product_ids[0], 'auction_date_to', true ) ) );
+		$this->assertEquals( $expected_date, $actual_date );
 		$this->assertTrue( (bool) get_post_meta( self::$product_ids[0], self::$product_ids[0] . '_start_mail_sent', true ) );
 	}
 
