@@ -637,27 +637,30 @@ class Auction_Software_Admin {
 	 * @return mixed
 	 */
 	public function auction_software_product_auction_tabs( $tabs ) {
-		$classes         = 'show_if_auction_simple show_if_auction_reverse';
-		$classes         = apply_filters( 'auction_software_auction_tabs_classes', $classes );
+		$classes = 'show_if_auction_simple show_if_auction_reverse';
+		$classes = apply_filters( 'auction_software_auction_tabs_classes', $classes );
+
+		$tabs['general']['priority'] = 1;
+
 		$tabs['auction'] = array(
 			'label'    => __( 'Auction Settings', 'auction-software' ),
 			'target'   => 'auction_options',
 			'class'    => $classes,
-			'priority' => 1,
+			'priority' => 2,
 		);
 
 		$tabs['auction_history'] = array(
 			'label'    => __( 'Auction History', 'auction-software' ),
 			'target'   => 'auction_history',
 			'class'    => $classes,
-			'priority' => 2,
+			'priority' => 3,
 		);
 
 		$tabs['auction_relist'] = array(
 			'label'    => __( 'Auction Relist Settings', 'auction-software' ),
 			'target'   => 'auction_relist',
 			'class'    => $classes,
-			'priority' => 3,
+			'priority' => 4,
 		);
 		return $tabs;
 	}
@@ -1411,6 +1414,12 @@ class Auction_Software_Admin {
 		?>
 		<script type='text/javascript'>
 			jQuery(document).ready(function ($) {
+
+				// General tab for auction products.
+				jQuery('.product_data_tabs .general_tab').addClass('show_if_simple show_if_external show_if_affiliate show_if_variable show_if_auction_simple show_if_auction_reverse show_if_auction_penny').show();
+				jQuery('#general_product_data .pricing').addClass('show_if_simple show_if_external show_if_affiliate').show();
+				jQuery('._tax_status_field').parent().addClass('show_if_simple show_if_external show_if_affiliate show_if_variable show_if_auction_simple show_if_auction_reverse show_if_auction_penny');
+				
 				// For Inventory tab.
 				$('.inventory_options').addClass('show_if_auction_simple show_if_auction_reverse').show();
 				$('#inventory_product_data ._manage_stock_field').addClass('show_if_auction_simple show_if_auction_reverse').show();
