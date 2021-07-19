@@ -68,7 +68,7 @@ class AjaxTest extends WP_Ajax_UnitTestCase {
 	 * @param class WP_UnitTest_Factory $factory class instance.
 	 */
 	public static function wpSetUpBeforeClass( WP_UnitTest_Factory $factory ) {
-		self::$auction_software_admin = new Auction_Software_Admin( 'Auction-software', '1.1.0' );
+		self::$auction_software_admin = new Auction_Software_Admin( 'Auction-software', '1.1.1' );
 		self::$product_ids            = $factory->post->create_many( 3, array( 'post_type' => 'product' ) );
 		self::$auctiom_term_group     = $factory->term->create_many( 2, array( 'taxonomy' => 'product_auction_class' ) );
 		wp_set_object_terms( self::$product_ids[0], 'auction_simple', 'product_type' );

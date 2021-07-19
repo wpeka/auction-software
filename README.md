@@ -1,9 +1,13 @@
-<p align="center">
-<a href="https://wordpress.org/plugins/auction-software/"><img src="https://img.shields.io/wordpress/plugin/v/wpadcenter" alt="Latest Stable Version"></a>
-<img src="https://img.shields.io/wordpress/plugin/dt/auction-software" alt="WordPress.org downloads">
-<a href="https://github.com/wpeka/auction-software/actions/workflows/pr-code-coverage.yml"><img src="https://github.com/wpeka/auction-software/actions/workflows/pr-code-coverage.yml/badge.svg" alt="Github Actions"></a>
-<a href="https://codecov.io/gh/wpeka/auction-software"><img src="https://codecov.io/gh/wpeka/auction-software/branch/master/graph/badge.svg?token=HSEO9SM6JN" alt="codecov"></a>
-</p>
+# Woo Auction Software: WordPress Auction Plugin #
+**Contributors:** [WPeka Club](https://profiles.wordpress.org/WPeka Club)  
+**Donate link:** https://club.wpeka.com/  
+**Tags:** auction, woocommerce auction, WordPress auction, auction plugin, proxy bidding, penny auction, eBay auction, simple auction, reverse auction, penny auction, eBay, bidding, auction script, wp auctions  
+**Requires at least:** 4.6  
+**Tested up to:** 5.6  
+**Requires PHP:** 7.0  
+**Stable tag:** 1.1.1  
+**License:** GPLv2 or later  
+**License URI:** http://www.gnu.org/licenses/gpl-2.0.htm  
 
 Woo Auction Software is one of the flexible and intuitive WordPress Auction Plugin to host your online auctions.
 
@@ -173,6 +177,9 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 4. Auction Widgets.
 
 ## Changelog ##
+### 1.1.1 ###
+* Update: Add editable tax fields for auction products.
+
 ### 1.1.0 ###
 * Update: Restructured auction extend/relist feature.
 * Fix: Bug fix related to start price less than 1.
@@ -221,6 +228,9 @@ Fix: Fixed for broken cart and checkout pages.
 Feature: Initial version.
 
 ## Upgrade Notice ##
+### 1.1.1 ###
+* Update: Add editable tax fields for auction products.
+
 ### 1.1.0 ###
 * Update: Restructured auction extend/relist feature.
 * Fix: Bug fix related to start price less than 1.
