@@ -1414,12 +1414,11 @@ class Auction_Software_Admin {
 		?>
 		<script type='text/javascript'>
 			jQuery(document).ready(function ($) {
-
-				// General tab for auction products.
-				jQuery('.product_data_tabs .general_tab').addClass('show_if_simple show_if_external show_if_affiliate show_if_variable show_if_auction_simple show_if_auction_reverse show_if_auction_penny').show();
-				jQuery('#general_product_data .pricing').addClass('show_if_simple show_if_external show_if_affiliate').show();
-				jQuery('._tax_status_field').parent().addClass('show_if_simple show_if_external show_if_affiliate show_if_variable show_if_auction_simple show_if_auction_reverse show_if_auction_penny');
 				
+				// General tab for auction products.
+				jQuery('.general_options').addClass('show_if_simple show_if_external show_if_affiliate show_if_variable show_if_auction_simple show_if_auction_reverse show_if_auction_penny').show();
+				jQuery('#general_product_data ._tax_status_field').parent().addClass('show_if_auction_simple show_if_auction_reverse show_if_auction_penny').show();
+
 				// For Inventory tab.
 				$('.inventory_options').addClass('show_if_auction_simple show_if_auction_reverse').show();
 				$('#inventory_product_data ._manage_stock_field').addClass('show_if_auction_simple show_if_auction_reverse').show();
