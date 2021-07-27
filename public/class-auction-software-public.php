@@ -97,6 +97,9 @@ class Auction_Software_Public {
 		 * class.
 		 */
 
+		// Script for WCFM compatibilty.
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/auction-software-wcfm-public' . AUCTION_SOFTWARE_SUFFIX . '.js', array( 'jquery' ), $this->version, false );
+
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/auction-software-public' . AUCTION_SOFTWARE_SUFFIX . '.js', array( 'jquery' ), $this->version, false );
 		$data_to_be_passed = array(
 			'adminUrl' => get_admin_url(),

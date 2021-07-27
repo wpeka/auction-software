@@ -411,8 +411,8 @@ class Auction_Software_Admin {
 
 					if ( 1 === (int) $is_ended ) {
 						if ( 'yes' !== $is_reserve_price_met && 1 !== (int) $is_sold && 'yes' === $if_fail ) {
-								$date = $date_time_to;
-								$date->add( new DateInterval( 'PT' . $wait_time_before_if_fail . 'M' ) );
+							$date = $date_time_to;
+							$date->add( new DateInterval( 'PT' . $wait_time_before_if_fail . 'M' ) );
 							if ( $date_time_current_date >= $date ) {
 								update_post_meta( $postid, 'auction_is_ended', 0 );
 								update_post_meta( $postid, 'auction_is_sold', 0 );
@@ -675,93 +675,93 @@ class Auction_Software_Admin {
 		update_post_meta( get_the_ID(), 'auction_errors', $auction_errors );
 		?>
 		<div id='auction_options' class='panel woocommerce_options_panel'>		<div class='options_group'>
-				<?php
-				if ( ! empty( $auction_errors ) ) {
-					echo '<p class="auction_error">' . $auction_errors . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				}
+		<?php
+		if ( ! empty( $auction_errors ) ) {
+			echo '<p class="auction_error">' . $auction_errors . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		}
+		?>
+		<?php
+		$auction        = new WC_Product_Auction();
+		$attribute_data = $auction->attribute_data;
+		$custom_attr    = array();
+		foreach ( $attribute_data as $attribute ) {
+			WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['label'], $attribute['desc_tip'], $attribute['description'], $attribute['currency'], $attribute['options'], $custom_attr );
+			if ( 'date_to' === $attribute['id'] ) {
 				?>
-				<?php
-				$auction        = new WC_Product_Auction();
-				$attribute_data = $auction->attribute_data;
-				$custom_attr    = array();
-				foreach ( $attribute_data as $attribute ) {
-					WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['label'], $attribute['desc_tip'], $attribute['description'], $attribute['currency'], $attribute['options'], $custom_attr );
-					if ( 'date_to' === $attribute['id'] ) {
-						?>
 						<p class="auctiontimezone_notice">
-							<?php
-							echo sprintf(
-							/* translators: 1: Current time 2: Timezone 3: Link */
-								__( "Your website's current time is <strong>%1\$1s</strong> Timezone: <strong>%2\$2s</strong> %3\$3s" ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-								esc_attr( wp_date( 'Y-m-d H:i:s', time(), wp_timezone() ) ),
-								esc_attr( wp_timezone_string() ),
-								sprintf(
-								/* translators: 1: Link URL 2: Link text */
-									'<a href="%1s" target="_blank">%2s</a>',
-									esc_url( admin_url( 'options-general.php?#timezone_string' ) ),
-									esc_html__( 'Click here to change', 'auction-software' )
-								)
-							);
-							?>
+					<?php
+					echo sprintf(
+					/* translators: 1: Current time 2: Timezone 3: Link */
+						__( "Your website's current time is <strong>%1\$1s</strong> Timezone: <strong>%2\$2s</strong> %3\$3s" ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						esc_attr( wp_date( 'Y-m-d H:i:s', time(), wp_timezone() ) ),
+						esc_attr( wp_timezone_string() ),
+						sprintf(
+						/* translators: 1: Link URL 2: Link text */
+							'<a href="%1s" target="_blank">%2s</a>',
+							esc_url( admin_url( 'options-general.php?#timezone_string' ) ),
+							esc_html__( 'Click here to change', 'auction-software' )
+						)
+					);
+					?>
 						</p>
-						<?php
-					}
-				}
-				?>
+					<?php
+			}
+		}
+		?>
 			</div> <?php do_action( 'woocommerce_product_options_auction_product_data' ); ?>
 		</div>		<div id='auction_history' class='panel woocommerce_options_panel'>			<div class='options_group'>
-				<?php
-					echo WC_Auction_Software_Helper::get_auction_history( get_the_ID() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				?>
+			<?php
+			echo WC_Auction_Software_Helper::get_auction_history( get_the_ID() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			?>
 			</div>
 		</div>
 
 		<div id='auction_relist' class='panel woocommerce_options_panel'>		<div class='options_group'>
-				<?php
-				if ( ! empty( $auction_errors ) ) {
-					echo '<p class="auction_error">' . $auction_errors . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				}
-				?>
-				<?php
-				$relist_attribute_data = $auction->extend_relist_attribute_data;
-				$custom_attr           = array();
-				foreach ( $relist_attribute_data as $relist_attribute ) {
-					$wrapper_class = '';
-					if ( 'extend_or_relist_auction' !== $relist_attribute['id'] ) {
-						if ( false !== strpos( $relist_attribute['id'], 'extend' ) ) {
-							$wrapper_class .= 'auction_extend ';
-							if ( 'checkbox' !== $relist_attribute['type'] ) {
-								if ( false !== strpos( $relist_attribute['id'], 'if_fail' ) ) {
-									$wrapper_class .= 'auction_extend_if_fail ';
-								}
-								if ( false !== strpos( $relist_attribute['id'], 'if_not_paid' ) ) {
-									$wrapper_class .= 'auction_extend_if_not_paid ';
-								}
-								if ( false !== strpos( $relist_attribute['id'], 'always' ) ) {
-									$wrapper_class .= 'auction_extend_always ';
-								}
+			<?php
+			if ( ! empty( $auction_errors ) ) {
+				echo '<p class="auction_error">' . $auction_errors . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			}
+			?>
+			<?php
+			$relist_attribute_data = $auction->extend_relist_attribute_data;
+			$custom_attr           = array();
+			foreach ( $relist_attribute_data as $relist_attribute ) {
+				$wrapper_class = '';
+				if ( 'extend_or_relist_auction' !== $relist_attribute['id'] ) {
+					if ( false !== strpos( $relist_attribute['id'], 'extend' ) ) {
+						$wrapper_class .= 'auction_extend ';
+						if ( 'checkbox' !== $relist_attribute['type'] ) {
+							if ( false !== strpos( $relist_attribute['id'], 'if_fail' ) ) {
+								$wrapper_class .= 'auction_extend_if_fail ';
 							}
-						} elseif ( false !== strpos( $relist_attribute['id'], 'relist' ) ) {
-							$wrapper_class .= 'auction_relist ';
-							if ( 'checkbox' !== $relist_attribute['type'] ) {
-								if ( false !== strpos( $relist_attribute['id'], 'if_fail' ) ) {
-									$wrapper_class .= 'auction_relist_if_fail ';
-								}
-								if ( false !== strpos( $relist_attribute['id'], 'if_not_paid' ) ) {
-									$wrapper_class .= 'auction_relist_if_not_paid ';
-								}
-								if ( false !== strpos( $relist_attribute['id'], 'always' ) ) {
-									$wrapper_class .= 'auction_relist_always ';
-								}
+							if ( false !== strpos( $relist_attribute['id'], 'if_not_paid' ) ) {
+								$wrapper_class .= 'auction_extend_if_not_paid ';
+							}
+							if ( false !== strpos( $relist_attribute['id'], 'always' ) ) {
+								$wrapper_class .= 'auction_extend_always ';
+							}
+						}
+					} elseif ( false !== strpos( $relist_attribute['id'], 'relist' ) ) {
+						$wrapper_class .= 'auction_relist ';
+						if ( 'checkbox' !== $relist_attribute['type'] ) {
+							if ( false !== strpos( $relist_attribute['id'], 'if_fail' ) ) {
+								$wrapper_class .= 'auction_relist_if_fail ';
+							}
+							if ( false !== strpos( $relist_attribute['id'], 'if_not_paid' ) ) {
+								$wrapper_class .= 'auction_relist_if_not_paid ';
+							}
+							if ( false !== strpos( $relist_attribute['id'], 'always' ) ) {
+								$wrapper_class .= 'auction_relist_always ';
 							}
 						}
 					}
-					WC_Auction_Software_Helper::get_product_tab_fields( $relist_attribute['type'], $relist_attribute['id'], $relist_attribute['label'], $relist_attribute['desc_tip'], $relist_attribute['description'], $relist_attribute['currency'], $relist_attribute['options'], $custom_attr, '', $wrapper_class );
 				}
-				?>
+				WC_Auction_Software_Helper::get_product_tab_fields( $relist_attribute['type'], $relist_attribute['id'], $relist_attribute['label'], $relist_attribute['desc_tip'], $relist_attribute['description'], $relist_attribute['currency'], $relist_attribute['options'], $custom_attr, '', $wrapper_class );
+			}
+			?>
 			</div>
 		</div>
-		<?php
+			<?php
 	}
 
 	/**
@@ -860,24 +860,24 @@ class Auction_Software_Admin {
 	public function auction_software_product_auction_tab_fields() {
 		?>
 		<div class='options_group show_if_auction_simple'>
-			<?php
-			$auction_simple = new WC_Product_Auction_Simple();
-			$attribute_data = $auction_simple->attribute_data;
-			foreach ( $attribute_data as $attribute ) {
-				$custom_attr = array();
-				WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['label'], $attribute['desc_tip'], $attribute['description'], $attribute['currency'], $attribute['options'], $custom_attr );
-			}
-			?>
+		<?php
+		$auction_simple = new WC_Product_Auction_Simple();
+		$attribute_data = $auction_simple->attribute_data;
+		foreach ( $attribute_data as $attribute ) {
+			$custom_attr = array();
+			WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['label'], $attribute['desc_tip'], $attribute['description'], $attribute['currency'], $attribute['options'], $custom_attr );
+		}
+		?>
 		</div>
 		<div class='options_group show_if_auction_reverse'>
-			<?php
-			$auction_reverse = new WC_Product_Auction_Reverse();
-			$attribute_data  = $auction_reverse->attribute_data;
-			foreach ( $attribute_data as $attribute ) {
-				$custom_attr = array();
-				WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['label'], $attribute['desc_tip'], $attribute['description'], $attribute['currency'], $attribute['options'], $custom_attr );
-			}
-			?>
+		<?php
+		$auction_reverse = new WC_Product_Auction_Reverse();
+		$attribute_data  = $auction_reverse->attribute_data;
+		foreach ( $attribute_data as $attribute ) {
+			$custom_attr = array();
+			WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['label'], $attribute['desc_tip'], $attribute['description'], $attribute['currency'], $attribute['options'], $custom_attr );
+		}
+		?>
 		</div>
 		<?php
 		do_action( 'auction_software_product_auction_tab_fields' );
@@ -890,7 +890,7 @@ class Auction_Software_Admin {
 	 * @param int $post_id Product post id.
 	 */
 	public function auction_software_save_product_auction_options( $post_id ) {
-        // phpcs:disable WordPress.Security.NonceVerification.Missing
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		$error_flag     = false;
 		$product_type   = isset( $_POST['product-type'] ) ? sanitize_text_field( wp_unslash( $_POST['product-type'] ) ) : '';
 		$auction        = new WC_Product_Auction();
@@ -942,7 +942,7 @@ class Auction_Software_Admin {
 			}
 			update_post_meta( $post_id, 'auction_is_started', 1 );
 		}
-        // phpcs:enable WordPress.Security.NonceVerification.Missing
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
@@ -1266,7 +1266,7 @@ class Auction_Software_Admin {
 	 * @return int
 	 */
 	public function auction_software_check_validations( $key, $value, $post_id, $error_flag = false ) {
-        // phpcs:disable WordPress.Security.NonceVerification.Missing
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		$product_type = isset( $_POST['product-type'] ) ? sanitize_text_field( wp_unslash( $_POST['product-type'] ) ) : '';
 		$date_to      = isset( $_POST['auction_date_to'] ) ? sanitize_text_field( wp_unslash( $_POST['auction_date_to'] ) ) : '';
 		$date_from    = isset( $_POST['auction_date_from'] ) ? sanitize_text_field( wp_unslash( $_POST['auction_date_from'] ) ) : '';
@@ -1398,7 +1398,7 @@ class Auction_Software_Admin {
 				break;
 		}
 		return $error_flag;
-        // phpcs:enable WordPress.Security.NonceVerification.Missing
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
@@ -1409,7 +1409,7 @@ class Auction_Software_Admin {
 	public function auction_software_product_auction_inventory_section() {
 		if ( 'product' !== get_post_type() ) :
 			return;
-		endif;
+			endif;
 
 		?>
 		<script type='text/javascript'>
@@ -1575,5 +1575,201 @@ class Auction_Software_Admin {
 		$content .= '</table></form></div>';
 
 		echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Display auction_settings product tabs in WCFM product page
+	 *
+	 * @param int    $product_id product id.
+	 * @param string $product_type product type.
+	 * @param bool   $is_translatable_plugin plugin is translatable or not.
+	 * @param string $is_disable_elements elemnt disable or not.
+	 */
+	public function wcfm_auction_software_product_auction_tabs( $product_id, $product_type, $is_translatable_plugin = false, $is_disable_elements = '' ) {
+		// Auction Settings tab.
+		$auction_errors = $this->auction_software_get_product_auction_errors();
+		update_post_meta( get_the_ID(), 'auction_errors', $auction_errors );
+		?>
+		<div id='auction_options' class='panel woocommerce_options_panel'>		<div class='options_group'>
+		<?php
+		if ( ! empty( $auction_errors ) ) {
+			echo '<p class="auction_error">' . $auction_errors . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		}
+		?>
+		<?php
+		$auction        = new WC_Product_Auction();
+		$attribute_data = $auction->attribute_data;
+		$custom_attr    = array();
+		$args           = array();
+		foreach ( $attribute_data as $attribute ) {
+			$argument = WCFM_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['label'], $attribute['desc_tip'], $attribute['description'], $attribute['currency'], $attribute['options'], $custom_attr );
+			$args     = $args ? array_merge( $args, $argument ) : $argument;
+		}
+
+		global $wp, $WCFM, $wc_product_attributes;
+		$wcfm_pm_block_class_auction_settings = apply_filters( 'wcfm_pm_block_class_auction_settings', 'auction_simple auction_reverse auction_penny' );
+		?>
+		<!-- collapsible 1 - Auction Settings -->
+				<div class="page_collapsible products_manage_auction_settings <?php echo esc_attr( $wcfm_pm_block_class_auction_settings ); ?> <?php echo esc_attr( apply_filters( 'wcfm_pm_block_custom_class_auction_settings', '' ) ); ?>" id="wcfm_products_manage_form_auction_settings_head"><label class="wcfmfa fa-link"></label><?php _e( 'Auction Settings', 'auction-software' ); ?><span></span></div>
+				<div class="wcfm-container <?php echo esc_attr( $wcfm_pm_block_class_auction_settings ); ?> <?php echo esc_attr( apply_filters( 'wcfm_pm_block_custom_class_auction_settings', '' ) ); ?>">
+					<div id="wcfm_products_manage_form_auction_setting_expander" class="wcfm-content">
+				  <?php do_action( 'wcfm_products_manage_auction_settings_start', $product_id, $product_type ); ?>
+					<?php
+
+					$WCFM->wcfm_fields->wcfm_generate_form_field(
+						apply_filters(
+							'wcfm_product_manage_fields_auction_settings',
+							$args,
+							$product_id
+						)
+					);
+
+						// Form fields for simple auction.
+						$auction_simple = new WC_Product_Auction_Simple();
+						$attribute_data = $auction_simple->attribute_data;
+						$args           = array();
+					foreach ( $attribute_data as $attribute ) {
+						$custom_attr = array();
+						$argument    = WCFM_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['label'], $attribute['desc_tip'], $attribute['description'], $attribute['currency'], $attribute['options'], $custom_attr );
+						$args        = $args ? array_merge( $args, $argument ) : $argument;
+					}
+
+						$WCFM->wcfm_fields->wcfm_generate_form_field(
+							apply_filters(
+								'wcfm_product_manage_fields_auction_settings',
+								$args,
+								$product_id
+							)
+						);
+
+						// Form fields for reverse auction.
+						$auction_simple = new WC_Product_Auction_Reverse();
+						$attribute_data = $auction_simple->attribute_data;
+						$args           = array();
+					foreach ( $attribute_data as $attribute ) {
+						$custom_attr = array();
+						$argument    = WCFM_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['label'], $attribute['desc_tip'], $attribute['description'], $attribute['currency'], $attribute['options'], $custom_attr );
+						$args        = $args ? array_merge( $args, $argument ) : $argument;
+					}
+
+						$WCFM->wcfm_fields->wcfm_generate_form_field(
+							apply_filters(
+								'wcfm_product_manage_fields_auction_settings',
+								$args,
+								$product_id
+							)
+						);
+
+					?>
+						<?php
+						do_action( 'wcfm_products_manage_auction_settings_end', $product_id, $product_type );
+						?>
+					</div>
+				</div>
+			</div>
+				<!-- end collapsible -->
+				<div class="wcfm_clearfix"></div>
+				
+					<?php
+					do_action( 'after_wcfm_products_manage_auction_settings', $product_id, $product_type );
+					$wcfm_pm_block_class_auction_history = apply_filters( 'wcfm_pm_block_class_auction_history', 'auction_simple auction_reverse auction_penny' );
+					?>
+
+				<!-- collapsible 2 - Auction History -->
+			<div class="page_collapsible products_manage_auction_history <?php echo esc_attr( $wcfm_pm_block_class_auction_history ); ?> <?php echo esc_attr( apply_filters( 'wcfm_pm_block_custom_class_auction_history', '' ) ); ?>" id="wcfm_products_manage_form_auction_history_head"><label class="wcfmfa fa-link"></label><?php _e( 'Auction History', 'auction-software' ); ?><span></span></div>
+			<div class="wcfm-container <?php echo esc_attr( $wcfm_pm_block_class_auction_history ); ?> <?php echo esc_attr( apply_filters( 'wcfm_pm_block_custom_class_auction_history', '' ) ); ?>">
+				<div id="wcfm_products_manage_form_auction_history_expander" class="wcfm-content">
+					  <?php do_action( 'wcfm_products_manage_auction_history_start', $product_id, $product_type ); ?>
+						<div id='auction_history' class='panel woocommerce_options_panel wcfm_text'>			
+							<div class='options_group'>
+						<?php
+						echo WC_Auction_Software_Helper::get_auction_history( get_the_ID() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						?>
+						</div>
+					</div>
+					<?php
+					do_action( 'wcfm_products_manage_auction_history_end', $product_id, $product_type );
+					?>
+				</div>
+			</div>
+		</div>
+			<!-- end collapsible -->
+			<div class="wcfm_clearfix"></div>
+				
+					<?php
+					do_action( 'after_wcfm_products_manage_auction_history', $product_id, $product_type );
+					$wcfm_pm_block_class_auction_relist_settings = apply_filters( 'wcfm_pm_block_class_auction_relist_settings', 'auction_simple auction_reverse auction_penny' );
+					?>
+						<!-- collapsible 3 - Auction Relist Settings -->
+			<div class="page_collapsible products_manage_auction_relist_settings <?php echo esc_attr( $wcfm_pm_block_class_auction_relist_settings ); ?> <?php echo esc_attr( apply_filters( 'wcfm_pm_block_custom_class_auction_relist_settings', '' ) ); ?>" id="wcfm_products_manage_form_auction_relist_settings_head"><label class="wcfmfa fa-link"></label><?php _e( 'Auction Relist Settings', 'auction-software' ); ?><span></span></div>
+			<div class="wcfm-container <?php echo esc_attr( $wcfm_pm_block_class_auction_relist_settings ); ?> <?php echo esc_attr( apply_filters( 'wcfm_pm_block_custom_class_auction_relist', '' ) ); ?>">
+				<div id="wcfm_products_manage_form_auction_relist_settings_expander" class="wcfm-content">
+					  <?php do_action( 'wcfm_products_manage_auction_relist_settings_start', $product_id, $product_type ); ?>
+					  <div id='auction_relist' class='panel woocommerce_options_panel wcfm_text'>		
+						  <div class='options_group'>
+			<?php
+			if ( ! empty( $auction_errors ) ) {
+				echo '<p class="auction_error">' . $auction_errors . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			}
+			?>
+			<?php
+			$relist_attribute_data = $auction->extend_relist_attribute_data;
+			$custom_attr           = array();
+			$args                  = array();
+			foreach ( $relist_attribute_data as $relist_attribute ) {
+				$wrapper_class = '';
+				if ( 'extend_or_relist_auction' !== $relist_attribute['id'] ) {
+					if ( false !== strpos( $relist_attribute['id'], 'extend' ) ) {
+						$wrapper_class .= 'auction_extend ';
+						if ( 'checkbox' !== $relist_attribute['type'] ) {
+							if ( false !== strpos( $relist_attribute['id'], 'if_fail' ) ) {
+								$wrapper_class .= 'auction_extend_if_fail ';
+							}
+							if ( false !== strpos( $relist_attribute['id'], 'if_not_paid' ) ) {
+								$wrapper_class .= 'auction_extend_if_not_paid ';
+							}
+							if ( false !== strpos( $relist_attribute['id'], 'always' ) ) {
+								$wrapper_class .= 'auction_extend_always ';
+							}
+						}
+					} elseif ( false !== strpos( $relist_attribute['id'], 'relist' ) ) {
+						$wrapper_class .= 'auction_relist ';
+						if ( 'checkbox' !== $relist_attribute['type'] ) {
+							if ( false !== strpos( $relist_attribute['id'], 'if_fail' ) ) {
+								$wrapper_class .= 'auction_relist_if_fail ';
+							}
+							if ( false !== strpos( $relist_attribute['id'], 'if_not_paid' ) ) {
+								$wrapper_class .= 'auction_relist_if_not_paid ';
+							}
+							if ( false !== strpos( $relist_attribute['id'], 'always' ) ) {
+								$wrapper_class .= 'auction_relist_always ';
+							}
+						}
+					}
+				}
+				$argument = WCFM_Auction_Software_Helper::get_product_tab_fields( $relist_attribute['type'], $relist_attribute['id'], $relist_attribute['label'], $relist_attribute['desc_tip'], $relist_attribute['description'], $relist_attribute['currency'], $relist_attribute['options'], $custom_attr, '', $wrapper_class );
+				$args     = $args ? array_merge( $args, $argument ) : $argument;
+			}
+
+			$WCFM->wcfm_fields->wcfm_generate_form_field(
+				apply_filters(
+					'wcfm_product_manage_fields_auction_relist_settings',
+					$args,
+					$product_id
+				)
+			);
+			error_log( print_r( $args, true ) );
+
+			?>
+			</div>
+		</div>
+					<?php
+					do_action( 'wcfm_products_manage_auction_relist_settings_end', $product_id, $product_type );
+					?>
+				</div>
+			</div>
+		</div>
+			<!-- end collapsible -->
+				<?php
 	}
 }
