@@ -98,7 +98,29 @@ class Auction_Software_Public {
 		 */
 
 		// Script for WCFM compatibilty.
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/auction-software-wcfm-public' . AUCTION_SOFTWARE_SUFFIX . '.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script(
+			$this->plugin_name,
+			plugin_dir_url( __FILE__ ) . 'js/auction-software-wcfm-public' . AUCTION_SOFTWARE_SUFFIX . '.js',
+			array(
+				'jquery',
+				'jquery-ui-core',
+				'jquery-ui-datepicker',
+				$this->plugin_name . '-timepicker-addon',
+			),
+			$this->version,
+			false
+		);
+		wp_enqueue_script(
+			$this->plugin_name . '-timepicker-addon',
+			dirname( plugin_dir_url( __FILE__ ) ) . '/admin/js/timepicker-addon.js',
+			array(
+				'jquery',
+				'jquery-ui-core',
+				'jquery-ui-datepicker',
+			),
+			$this->version,
+			true
+		);
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/auction-software-public' . AUCTION_SOFTWARE_SUFFIX . '.js', array( 'jquery' ), $this->version, false );
 		$data_to_be_passed = array(

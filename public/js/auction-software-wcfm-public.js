@@ -1,12 +1,12 @@
 /**
- * Admin JavaScript.
+ * Public JavaScript.
  *
  * @package    Auction_Software
- * @subpackage Auction_Software/admin
+ * @subpackage Auction_Software/public
  * @author     WPeka Club <support@wpeka.com>
  */
 
-(function( $ ) {
+(function ($) {
 	'use strict';
 
 	/**
@@ -37,10 +37,10 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
-	$( window ).load(
+	$(window).load(
 		function () {
-			if ($( "#auction_date_from" ).length || $( "#auction_date_to" ).length) {
-				$( '#auction_date_from' ).datetimepicker(
+			if ( $("#auction_date_from").length || $("#auction_date_to").length ) {
+				$('#auction_date_from').datetimepicker(
 					{
 						defaultDate: "",
 						dateFormat: "yy-mm-dd",
@@ -48,7 +48,7 @@
 						numberOfMonths: 1,
 					}
 				);
-				$( '#auction_date_to' ).datetimepicker(
+				$('#auction_date_to').datetimepicker(
 					{
 						defaultDate: "",
 						dateFormat: "yy-mm-dd",
@@ -58,83 +58,83 @@
 				);
 			}
 
-			$( '.form-field.auction_relist' ).hide();
-			$( '.form-field.auction_extend' ).hide();
-			$( '.form-field.auction_' + $( '#auction_extend_or_relist_auction' ).val() ).show();
-			$( document ).on(
+			$('.options_group_auction_relist_settings .auction_relist').hide();
+			$('.options_group_auction_relist_settings .auction_extend').hide();
+
+			// When auction extend or relist option is selected
+			$(document).on(
 				'change',
 				'#auction_extend_or_relist_auction',
-				function(){
-					$( '.form-field.auction_relist' ).hide();
-					$( '.form-field.auction_extend' ).hide();
-					$( '.form-field.auction_' + $( this ).val() ).show();
-					if ($( this ).val() == 'extend') {
-						$( '.form-field.auction_extend' ).find( ':checkbox' ).each(
-							function() {
-								if (this.checked) {
-									$( '.form-field.' + this.id ).show();
-								} else {
-									$( '.form-field.' + this.id ).hide();
-								}
+				function () {
+					if ($(this).val() == 'extend') {
+						$('.auction_extend.wcfm-checkbox').each(
+							function () {
+								$('.auction_relist.wcfm-checkbox').hide();
+								$(this).show();
 							}
 						);
-					} else if ($( this ).val() == 'relist') {
-						$( '.form-field.auction_relist' ).find( ':checkbox' ).each(
-							function() {
-								if (this.checked) {
-									$( '.form-field.' + this.id ).show();
-								} else {
-									$( '.form-field.' + this.id ).hide();
-								}
+					} else if ($(this).val() == 'relist') {
+						$('.auction_relist.wcfm-checkbox').each(
+							function () {
+								$('.auction_extend.wcfm-checkbox').hide();
+								$(this).show();
 							}
 						);
 					}
 				}
 			);
-			var extend_relist = $( '#auction_extend_or_relist_auction' ).val();
-			console.log( extend_relist );
+
+			// On load
+			var extend_relist = $('#auction_extend_or_relist_auction').val();
 
 			if ('extend' == extend_relist) {
-				$( '.form-field.auction_extend' ).find( ':checkbox' ).each(
-					function() {
+				$('.auction_extend.wcfm-checkbox').each(
+					function () {
 						if (this.checked) {
-							$( '.form-field.' + this.id ).show();
+							$('.options_group_auction_relist_settings .' + this.id).show();
 						} else {
-							$( '.form-field.' + this.id ).hide();
+							$('.wcfm-checkbox').removeClass('options_group_auction_relist_settings ' + this.id);
+							$('.options_group_auction_relist_settings .' + this.id).hide();
 						}
 					}
 				);
 			} else if ('relist' == extend_relist) {
-				$( '.form-field.auction_relist' ).find( ':checkbox' ).each(
-					function() {
+				$('.auction_relist.wcfm-checkbox').each(
+					function () {
 						if (this.checked) {
-							$( '.form-field.' + this.id ).show();
+							$('.options_group_auction_relist_settings .' + this.id).show();
 						} else {
-							$( '.form-field.' + this.id ).hide();
+							$('.wcfm-checkbox').removeClass('options_group_auction_relist_settings ' + this.id);
+							$('.options_group_auction_relist_settings .' + this.id).hide();
 						}
 					}
 				);
 			}
 
-			$( '.form-field.auction_extend :checkbox' ).change(
-				function() {
+			// When one of the 3 checkboxes of extend is checked
+			$('.auction_extend.wcfm-checkbox').change(
+				function () {
 					if (this.checked) {
-						$( '.form-field.' + this.id ).show();
+						$('.options_group_auction_relist_settings .' + this.id).show();
 					} else {
-						$( '.form-field.' + this.id ).hide();
+						$('.wcfm-checkbox').removeClass('options_group_auction_relist_settings ' + this.id);
+						$('.options_group_auction_relist_settings .' + this.id).hide();
 					}
 				}
 			);
-			$( '.form-field.auction_relist :checkbox' ).change(
-				function() {
+
+			// When one of the 3 checkboxes of relist is checked
+			$('.auction_relist.wcfm-checkbox').change(
+				function () {
 					if (this.checked) {
-						$( '.form-field.' + this.id ).show();
+						$('.options_group_auction_relist_settings .' + this.id).show();
 					} else {
-						$( '.form-field.' + this.id ).hide();
+						$('.wcfm-checkbox').removeClass('options_group_auction_relist_settings ' + this.id);
+						$('.options_group_auction_relist_settings .' + this.id).hide();
 					}
 				}
 			);
 		}
 	);
 
-})( jQuery );
+})(jQuery);

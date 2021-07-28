@@ -1590,7 +1590,8 @@ class Auction_Software_Admin {
 		$auction_errors = $this->auction_software_get_product_auction_errors();
 		update_post_meta( get_the_ID(), 'auction_errors', $auction_errors );
 		?>
-		<div id='auction_options' class='panel woocommerce_options_panel'>		<div class='options_group'>
+		<div id='auction_options' class='panel woocommerce_options_panel'>		
+			<div class='options_group'>
 		<?php
 		if ( ! empty( $auction_errors ) ) {
 			echo '<p class="auction_error">' . $auction_errors . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -1706,7 +1707,7 @@ class Auction_Software_Admin {
 				<div id="wcfm_products_manage_form_auction_relist_settings_expander" class="wcfm-content">
 					  <?php do_action( 'wcfm_products_manage_auction_relist_settings_start', $product_id, $product_type ); ?>
 					  <div id='auction_relist' class='panel woocommerce_options_panel wcfm_text'>		
-						  <div class='options_group'>
+						  <div class='options_group_auction_relist_settings'>
 			<?php
 			if ( ! empty( $auction_errors ) ) {
 				echo '<p class="auction_error">' . $auction_errors . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -1717,7 +1718,7 @@ class Auction_Software_Admin {
 			$custom_attr           = array();
 			$args                  = array();
 			foreach ( $relist_attribute_data as $relist_attribute ) {
-				$wrapper_class = '';
+				$wrapper_class = '';	
 				if ( 'extend_or_relist_auction' !== $relist_attribute['id'] ) {
 					if ( false !== strpos( $relist_attribute['id'], 'extend' ) ) {
 						$wrapper_class .= 'auction_extend ';
@@ -1748,18 +1749,14 @@ class Auction_Software_Admin {
 					}
 				}
 				$argument = WCFM_Auction_Software_Helper::get_product_tab_fields( $relist_attribute['type'], $relist_attribute['id'], $relist_attribute['label'], $relist_attribute['desc_tip'], $relist_attribute['description'], $relist_attribute['currency'], $relist_attribute['options'], $custom_attr, '', $wrapper_class );
-				$args     = $args ? array_merge( $args, $argument ) : $argument;
+				$WCFM->wcfm_fields->wcfm_generate_form_field(
+					apply_filters(
+						'wcfm_product_manage_fields_auction_relist_settings',
+						$argument,
+						$product_id
+					)
+				);
 			}
-
-			$WCFM->wcfm_fields->wcfm_generate_form_field(
-				apply_filters(
-					'wcfm_product_manage_fields_auction_relist_settings',
-					$args,
-					$product_id
-				)
-			);
-			error_log( print_r( $args, true ) );
-
 			?>
 			</div>
 		</div>
