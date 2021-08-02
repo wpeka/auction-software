@@ -266,11 +266,13 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 			 * @return mixed
 			 */
 			function auction_history_tab( $tabs ) {
-				$tabs['auction_history_tab'] = array(
-					'title'    => __( 'Auction History', 'auction-software' ),
-					'priority' => 1,
-					'callback' => 'auction_history_tab_content',
-				);
+				if ( ! isset( $tabs['auction_history_tab'] ) ) {
+					$tabs['auction_history_tab'] = array(
+						'title'    => __( 'Auction History', 'auction-software' ),
+						'priority' => 1,
+						'callback' => 'auction_history_tab_content',
+					);
+				}
 
 				return $tabs;
 			}
@@ -278,6 +280,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 			/**
 			 * History tab content.
 			 */
+
 			function auction_history_tab_content() {
 				echo '<h2>' . esc_html__( 'Auction History', 'auction-software' ) . '</h2>';
 				echo WC_Auction_Software_Helper::get_auction_history( get_the_ID() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

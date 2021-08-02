@@ -175,29 +175,29 @@ class Auction_Software_Admin_Test extends WP_UnitTestCase {
 	/**
 	 * Test for auction_software_product_auction_tabs function
 	 */
-	// public function test_auction_software_product_auction_tabs() {
-	// 	$tabs          = array(
-	// 		'auction'         => '',
-	// 		'auction_history' => '',
-	// 		'auction_relist'  => '',
-	// 	);
-	// 	$returned_tabs = self::$auction_software_admin->auction_software_product_auction_tabs( $tabs );
-	// 	$this->assertTrue(
-	// 		is_array( $returned_tabs['auction'] ) && is_array( $returned_tabs['auction_history'] ) && is_array( $returned_tabs['auction_relist'] )
-	// 	);
-	// 	$this->assertTrue(
-	// 		__( 'Auction Settings', 'auction-software' ) === $returned_tabs['auction']['label']
-	// 		&& 'auction_options' === $returned_tabs['auction']['target']
-	// 	);
-	// 	$this->assertTrue(
-	// 		__( 'Auction History', 'auction-software' ) === $returned_tabs['auction_history']['label']
-	// 		&& 'auction_history' === $returned_tabs['auction_history']['target']
-	// 	);
-	// 	$this->assertTrue(
-	// 		__( 'Auction Relist Settings', 'auction-software' ) === $returned_tabs['auction_relist']['label']
-	// 		&& 'auction_relist' === $returned_tabs['auction_relist']['target']
-	// 	);
-	// }
+	public function test_auction_software_product_auction_tabs() {
+		$tabs          = array(
+			'auction'         => '',
+			'auction_history' => '',
+			'auction_relist'  => '',
+		);
+		$returned_tabs = self::$auction_software_admin->auction_software_product_auction_tabs( $tabs );
+		$this->assertTrue(
+			is_array( $returned_tabs['auction'] ) && is_array( $returned_tabs['auction_history'] ) && is_array( $returned_tabs['auction_relist'] )
+		);
+		$this->assertTrue(
+			__( 'Auction Settings', 'auction-software' ) === $returned_tabs['auction']['label']
+			&& 'auction_options' === $returned_tabs['auction']['target']
+		);
+		$this->assertTrue(
+			__( 'Auction History', 'auction-software' ) === $returned_tabs['auction_history']['label']
+			&& 'auction_history' === $returned_tabs['auction_history']['target']
+		);
+		$this->assertTrue(
+			__( 'Auction Relist Settings', 'auction-software' ) === $returned_tabs['auction_relist']['label']
+			&& 'auction_relist' === $returned_tabs['auction_relist']['target']
+		);
+	}
 
 	/**
 	 * Test for auction_software_product_auction_types function
