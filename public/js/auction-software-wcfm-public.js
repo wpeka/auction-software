@@ -57,6 +57,19 @@
 					}
 				);
 			}
+			if ($('#product_type').val() === 'auction_simple' || $('#product_type').val() === 'auction_reverse' || $('#product_type').val() === 'auction_penny') {
+				$('.regular_price').hide();
+				$('#regular_price').hide();
+				$('.sale_price').hide();
+				$('#sale_price').hide();
+			}
+			else {
+				$('.regular_price').show();
+				$('#regular_price').show();
+				$('.sale_price').show();
+				$('#sale_price').show();
+			}
+			
 			$('.options_group_auction_relist_settings .auction_relist').hide();
 			$('.options_group_auction_relist_settings .auction_extend').hide();
 
@@ -72,6 +85,7 @@
 								$(this).show();
 							}
 						);
+						$('.options_group_auction_relist_settings .auction_relist').hide();
 					} else if ($(this).val() == 'relist') {
 						$('.auction_relist.wcfm-checkbox').each(
 							function () {
@@ -79,6 +93,8 @@
 								$(this).show();
 							}
 						);
+						$('.options_group_auction_relist_settings .auction_extend').hide();
+
 					}
 					else {
 						$('.options_group_auction_relist_settings .auction_relist').hide();
@@ -148,7 +164,7 @@
 						$('.regular_price').hide();
 						$('#regular_price').hide();
 						$('.sale_price').hide();
-						$('#sale_price').hide();	
+						$('#sale_price').hide();
 					}
 					else {
 						$('.regular_price').show();
@@ -172,6 +188,304 @@
 				var ticket_content = getWCFMEditorContent('_ticket_content');
 
 				var ticket_email_html = getWCFMEditorContent('_ticket_email_html');
+
+				$is_valid = wcfm_products_manage_form_validate();
+				$is_valid = is_valid(true);
+
+				function is_valid($is_publish) {
+					if ($is_publish) {
+						$(document.body).trigger('wcfm_products_manage_form_validate', $('#wcfm_products_manage_form'));
+						$wcfm_is_valid_form = product_form_is_valid;
+					}
+					return product_form_is_valid;
+				}
+
+				function wcfm_products_manage_form_validate() {
+					product_form_is_valid = true;
+					$('.wcfm-message').html('').removeClass('wcfm-error').removeClass('wcfm-success').slideUp();
+
+					//Title field
+					var title = $.trim($('#wcfm_products_manage_form').find('#pro_title').val());
+					$('#wcfm_products_manage_form').find('#pro_title').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+					if (title.length == 0) {
+						$('#wcfm_products_manage_form').find('#pro_title').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+						product_form_is_valid = false;
+						$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + wcfm_products_manage_messages.no_title).addClass('wcfm-error').slideDown();
+						wcfm_notification_sound.play();
+						return;
+					}
+
+					// Start price field
+					var start_price = $.trim($('#wcfm_products_manage_form').find('#auction_start_price').val());
+					$('#wcfm_products_manage_form').find('#auction_start_price').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+					if (start_price < 0 || start_price === '' || start_price === null) {
+						$('#wcfm_products_manage_form').find('#auction_start_price').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+						product_form_is_valid = false;
+						$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'Start Price should not be negative or empty.').addClass('wcfm-error').slideDown();
+						wcfm_notification_sound.play();
+						return;
+					}
+
+					// Bid Increment field
+					var bid_incr = $.trim($('#wcfm_products_manage_form').find('#auction_bid_increment').val());
+					$('#wcfm_products_manage_form').find('#auction_bid_increment').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+					if (bid_incr < 0) {
+						$('#wcfm_products_manage_form').find('#auction_bid_increment').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+						product_form_is_valid = false;
+						$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'Start Price should not be negative or empty.').addClass('wcfm-error').slideDown();
+						wcfm_notification_sound.play();
+						return;
+					}
+
+
+					// Date from and date to field 
+					var auction_date_from = $.trim($('#wcfm_products_manage_form').find('#auction_date_from').val());
+					var auction_date_to = $.trim($('#wcfm_products_manage_form').find('#auction_date_to').val());
+					$('#wcfm_products_manage_form').find('#auction_date_from').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+					$('#wcfm_products_manage_form').find('#auction_date_to').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+					if (auction_date_from === '') {
+						$('#wcfm_products_manage_form').find('#auction_date_from').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+						product_form_is_valid = false;
+						$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'Date From should not be empty.').addClass('wcfm-error').slideDown();
+						wcfm_notification_sound.play();
+						return;
+					}
+
+					if (auction_date_to === '') {
+						$('#wcfm_products_manage_form').find('#auction_date_to').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+						product_form_is_valid = false;
+						$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'Date To should not be empty.').addClass('wcfm-error').slideDown();
+						wcfm_notification_sound.play();
+						return;
+					}
+
+
+					if (auction_date_from > auction_date_to) {
+						$('#wcfm_products_manage_form').find('#auction_date_from').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+						product_form_is_valid = false;
+						$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'Date From should not be greater than Date To.').addClass('wcfm-error').slideDown();
+						wcfm_notification_sound.play();
+						return;
+					}
+
+					if ($('#product_type').val() === 'auction_simple') {
+						// Reserve price field 
+						var reserve_price = $.trim($('#wcfm_products_manage_form').find('#auction_reserve_price').val());
+						$('#wcfm_products_manage_form').find('#auction_reserve_price').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+						if (reserve_price < 0 || reserve_price === '' || reserve_price === null) {
+							$('#wcfm_products_manage_form').find('#auction_reserve_price').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+							product_form_is_valid = false;
+							$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'Reserve Price should not be negative or empty.').addClass('wcfm-error').slideDown();
+							wcfm_notification_sound.play();
+							return;
+						}
+
+						// By it now price field 
+						var buy_it_now_price = $.trim($('#wcfm_products_manage_form').find('#auction_buy_it_now_price').val());
+						$('#wcfm_products_manage_form').find('#auction_buy_it_now_price').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+						if (buy_it_now_price < 0 || buy_it_now_price === '' || buy_it_now_price === null) {
+							$('#wcfm_products_manage_form').find('#auction_buy_it_now_price').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+							product_form_is_valid = false;
+							$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'Buy It Now Price should not be negative or empty.').addClass('wcfm-error').slideDown();
+							wcfm_notification_sound.play();
+							return;
+						}
+					}
+
+					if ($('#product_type').val() === 'auction_reverse') {
+						// Reserve reverse price field
+						var reserve_price = $.trim($('#wcfm_products_manage_form').find('#auction_reserve_price_reverse').val());
+						$('#wcfm_products_manage_form').find('#auction_reserve_price_reverse').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+						if (reserve_price < 0 || reserve_price === '' || reserve_price === null) {
+							$('#wcfm_products_manage_form').find('#auction_reserve_price_reverse').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+							product_form_is_valid = false;
+							$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'Reserve Price should not be negative or empty.').addClass('wcfm-error').slideDown();
+							wcfm_notification_sound.play();
+							return;
+						}
+
+						// By it now reverse price field 
+						var buy_it_now_price = $.trim($('#wcfm_products_manage_form').find('#auction_buy_it_now_price_reverse').val());
+						$('#wcfm_products_manage_form').find('#auction_buy_it_now_price_reverse').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+						if (buy_it_now_price < 0 || buy_it_now_price === '' || buy_it_now_price === null) {
+							$('#wcfm_products_manage_form').find('#auction_buy_it_now_price_reverse').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+							product_form_is_valid = false;
+							$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'Buy It Now Price should not be negative or empty.').addClass('wcfm-error').slideDown();
+							wcfm_notification_sound.play();
+							return;
+						}
+					}
+
+
+					if ($('#auction_extend_if_fail').prop('checked') === true) {
+						// Wait time before extend duration
+						var auction_wait_time_before_extend_if_fail = $.trim($('#wcfm_products_manage_form').find('#auction_wait_time_before_extend_if_fail').val());
+						$('#wcfm_products_manage_form').find('#auction_wait_time_before_extend_if_fail').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+						if ( auction_wait_time_before_extend_if_fail < 0) {
+							$('#wcfm_products_manage_form').find('#auction_wait_time_before_extend_if_fail').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+							product_form_is_valid = false;
+							$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'Wait time before extend should not be negative.').addClass('wcfm-error').slideDown();
+							wcfm_notification_sound.play();
+							return;
+						}
+
+						// auction_extend_duration_if_fail duration
+						var auction_extend_duration_if_fail = $.trim($('#wcfm_products_manage_form').find('#auction_extend_duration_if_fail').val());
+						$('#wcfm_products_manage_form').find('#auction_extend_duration_if_fail').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+						if (auction_extend_duration_if_fail < 0) {
+							$('#wcfm_products_manage_form').find('#auction_extend_duration_if_fail').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+							product_form_is_valid = false;
+							$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'Extend duration should not be negative.').addClass('wcfm-error').slideDown();
+							wcfm_notification_sound.play();
+							return;
+						}
+					}
+
+					if ($('#auction_extend_if_not_paid').prop('checked') === true) {
+						// auction_wait_time_before_extend_if_not_paid duration
+						var auction_wait_time_before_extend_if_not_paid = $.trim($('#wcfm_products_manage_form').find('#auction_wait_time_before_extend_if_not_paid').val());
+						$('#wcfm_products_manage_form').find('#auction_wait_time_before_extend_if_not_paid').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+						if (auction_wait_time_before_extend_if_not_paid < 0) {
+							$('#wcfm_products_manage_form').find('#auction_wait_time_before_extend_if_not_paid').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+							product_form_is_valid = false;
+							$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'Wait time before extend should not be negative.').addClass('wcfm-error').slideDown();
+							wcfm_notification_sound.play();
+							return;
+						}
+
+						// auction_extend_duration_if_not_paid duration
+						var auction_extend_duration_if_not_paid = $.trim($('#wcfm_products_manage_form').find('#auction_extend_duration_if_not_paid').val());
+						$('#wcfm_products_manage_form').find('#auction_extend_duration_if_not_paid').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+						if (auction_extend_duration_if_not_paid < 0) {
+							$('#wcfm_products_manage_form').find('#auction_extend_duration_if_not_paid').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+							product_form_is_valid = false;
+							$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'Extend duration should not be negative.').addClass('wcfm-error').slideDown();
+							wcfm_notification_sound.play();
+							return;
+						}
+					}
+
+					if ($('#auction_extend_always').prop('checked') === true) {
+						// auction_wait_time_before_extend_always duration
+						var auction_wait_time_before_extend_always = $.trim($('#wcfm_products_manage_form').find('#auction_wait_time_before_extend_always').val());
+						$('#wcfm_products_manage_form').find('#auction_wait_time_before_extend_always').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+						if (auction_wait_time_before_extend_always < 0) {
+							$('#wcfm_products_manage_form').find('#auction_wait_time_before_extend_always').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+							product_form_is_valid = false;
+							$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'Wait time before extend should not be negative.').addClass('wcfm-error').slideDown();
+							wcfm_notification_sound.play();
+							return;
+						}
+
+						// auction_extend_duration_always duration
+						var auction_extend_duration_always = $.trim($('#wcfm_products_manage_form').find('#auction_extend_duration_always').val());
+						$('#wcfm_products_manage_form').find('#auction_extend_duration_always').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+						if (auction_extend_duration_always < 0) {
+							$('#wcfm_products_manage_form').find('#auction_extend_duration_always').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+							product_form_is_valid = false;
+							$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'Extend duration should not be negative.').addClass('wcfm-error').slideDown();
+							wcfm_notification_sound.play();
+							return;
+						}
+					}
+
+
+					//For relist 
+					if ($('#auction_relist_if_fail').prop('checked') === true) {
+						// Wait time before duration
+						var auction_wait_time_before_relist_if_fail = $.trim($('#wcfm_products_manage_form').find('#auction_wait_time_before_relist_if_fail').val());
+						$('#wcfm_products_manage_form').find('#auction_wait_time_before_relist_if_fail').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+						if (auction_wait_time_before_relist_if_fail < 0) {
+							$('#wcfm_products_manage_form').find('#auction_wait_time_before_relist_if_fail').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+							product_form_is_valid = false;
+							$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'Wait time before relist should not be negative.').addClass('wcfm-error').slideDown();
+							wcfm_notification_sound.play();
+							return;
+						}
+
+						// auction_relist_duration_if_fail duration
+						var auction_relist_duration_if_fail = $.trim($('#wcfm_products_manage_form').find('#auction_relist_duration_if_fail').val());
+						$('#wcfm_products_manage_form').find('#auction_relist_duration_if_fail').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+						if (auction_relist_duration_if_fail < 0) {
+							$('#wcfm_products_manage_form').find('#auction_relist_duration_if_fail').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+							product_form_is_valid = false;
+							$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'relist duration should not be negative.').addClass('wcfm-error').slideDown();
+							wcfm_notification_sound.play();
+							return;
+						}
+					}
+
+					if ($('#auction_relist_if_not_paid').prop('checked') === true) {
+
+						// auction_wait_time_before_relist_if_not_paid duration
+						var auction_wait_time_before_relist_if_not_paid = $.trim($('#wcfm_products_manage_form').find('#auction_wait_time_before_relist_if_not_paid').val());
+						$('#wcfm_products_manage_form').find('#auction_wait_time_before_relist_if_not_paid').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+						if (auction_wait_time_before_relist_if_not_paid < 0) {
+							$('#wcfm_products_manage_form').find('#auction_wait_time_before_relist_if_not_paid').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+							product_form_is_valid = false;
+							$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'Wait time before relist should not be negative.').addClass('wcfm-error').slideDown();
+							wcfm_notification_sound.play(); return;
+
+						}
+
+						// auction_relist_duration_if_not_paid duration
+						var auction_relist_duration_if_not_paid = $.trim($('#wcfm_products_manage_form').find('#auction_relist_duration_if_not_paid').val());
+						$('#wcfm_products_manage_form').find('#auction_relist_duration_if_not_paid').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+						if (auction_relist_duration_if_not_paid < 0) {
+							$('#wcfm_products_manage_form').find('#auction_relist_duration_if_not_paid').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+							product_form_is_valid = false;
+							$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'relist duration should not be negative.').addClass('wcfm-error').slideDown();
+							wcfm_notification_sound.play();
+							return;
+						}
+					}
+					if ($('#auction_relist_always').prop('checked') === true) {
+
+						// auction_wait_time_before_relist_always duration
+						var auction_wait_time_before_relist_always = $.trim($('#wcfm_products_manage_form').find('#auction_wait_time_before_relist_always').val());
+						$('#wcfm_products_manage_form').find('#auction_wait_time_before_relist_always').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+						if (auction_wait_time_before_relist_always < 0) {
+							$('#wcfm_products_manage_form').find('#auction_wait_time_before_relist_always').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+							product_form_is_valid = false;
+							$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'Wait time before relist should not be negative.').addClass('wcfm-error').slideDown();
+							wcfm_notification_sound.play();
+							return;
+						}
+
+						// auction_relist_duration_always duration
+						var auction_relist_duration_always = $.trim($('#wcfm_products_manage_form').find('#auction_relist_duration_always').val());
+						$('#wcfm_products_manage_form').find('#auction_relist_duration_always').removeClass('wcfm_validation_failed').addClass('wcfm_validation_success');
+
+						if (auction_relist_duration_always < 0) {
+							$('#wcfm_products_manage_form').find('#auction_relist_duration_always').removeClass('wcfm_validation_success').addClass('wcfm_validation_failed');
+							product_form_is_valid = false;
+							$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + 'relist duration should not be negative.').addClass('wcfm-error').slideDown();
+							wcfm_notification_sound.play();
+							return;
+						}
+					}
+				}
+
+
+				if ($is_valid) {
 				$('#wcfm_products_manage_form').block({
 					message: null,
 					overlayCSS: {
@@ -206,13 +520,17 @@
 						}
 						if (response_json.id) $('#pro_id').val(response_json.id);
 						$('#wcfm_products_manage_form').unblock();
-						$('.wcfm_submit_button').show();
 					}
 				});
-			});
+
+			}
+			else {
+				$('.wcfm_submit_button').show();
+			}
+		});
 
 
-		}
-	);
+}
+);
 
-})(jQuery);
+}) (jQuery);

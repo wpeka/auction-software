@@ -266,15 +266,13 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 			 * @return mixed
 			 */
 			function auction_history_tab( $tabs ) {
-				if ( ! class_exists( 'WCFM' ) && ! array_key_exists( 'auction_history_tab', $tabs ) ) {
 					$tabs['auction_history_tab'] = array(
 						'title'    => __( 'Auction History', 'auction-software' ),
 						'priority' => 1,
 						'callback' => 'auction_history_tab_content',
 					);
-				}
 
-				return $tabs;
+					return $tabs;
 			}
 
 			/**
