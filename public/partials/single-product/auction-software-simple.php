@@ -266,7 +266,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 			 * @return mixed
 			 */
 			function auction_history_tab( $tabs ) {
-				if ( ! array_key_exists( 'auction_history_tab', $tabs ) ) {
+				if ( ! class_exists( 'WCFM' ) ) {
 					$tabs['auction_history_tab'] = array(
 						'title'    => __( 'Auction History', 'auction-software' ),
 						'priority' => 1,

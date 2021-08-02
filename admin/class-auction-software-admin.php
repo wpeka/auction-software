@@ -1673,35 +1673,9 @@ class Auction_Software_Admin {
 				
 					<?php
 					do_action( 'after_wcfm_products_manage_auction_settings', $product_id, $product_type );
-					$wcfm_pm_block_class_auction_history = apply_filters( 'wcfm_pm_block_class_auction_history', 'auction_simple auction_reverse auction_penny' );
-					?>
-
-				<!-- collapsible 2 - Auction History -->
-			<div class="page_collapsible products_manage_auction_history <?php echo esc_attr( $wcfm_pm_block_class_auction_history ); ?> <?php echo esc_attr( apply_filters( 'wcfm_pm_block_custom_class_auction_history', '' ) ); ?>" id="wcfm_products_manage_form_auction_history_head"><label class="wcfmfa fa-link"></label><?php _e( 'Auction History', 'auction-software' ); ?><span></span></div>
-			<div class="wcfm-container <?php echo esc_attr( $wcfm_pm_block_class_auction_history ); ?> <?php echo esc_attr( apply_filters( 'wcfm_pm_block_custom_class_auction_history', '' ) ); ?>">
-				<div id="wcfm_products_manage_form_auction_history_expander" class="wcfm-content">
-					  <?php do_action( 'wcfm_products_manage_auction_history_start', $product_id, $product_type ); ?>
-						<div id='auction_history' class='panel woocommerce_options_panel wcfm_text'>			
-							<div class='options_group'>
-						<?php
-						echo WC_Auction_Software_Helper::get_auction_history( get_the_ID() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-						?>
-						</div>
-					</div>
-					<?php
-					do_action( 'wcfm_products_manage_auction_history_end', $product_id, $product_type );
-					?>
-				</div>
-			</div>
-		</div>
-			<!-- end collapsible -->
-			<div class="wcfm_clearfix"></div>
-				
-					<?php
-					do_action( 'after_wcfm_products_manage_auction_history', $product_id, $product_type );
 					$wcfm_pm_block_class_auction_relist_settings = apply_filters( 'wcfm_pm_block_class_auction_relist_settings', 'auction_simple auction_reverse auction_penny' );
 					?>
-						<!-- collapsible 3 - Auction Relist Settings -->
+						<!-- collapsible 2 - Auction Relist Settings -->
 			<div class="page_collapsible products_manage_auction_relist_settings <?php echo esc_attr( $wcfm_pm_block_class_auction_relist_settings ); ?> <?php echo esc_attr( apply_filters( 'wcfm_pm_block_custom_class_auction_relist_settings', '' ) ); ?>" id="wcfm_products_manage_form_auction_relist_settings_head"><label class="wcfmfa fa-link"></label><?php _e( 'Auction Relist Settings', 'auction-software' ); ?><span></span></div>
 			<div class="wcfm-container <?php echo esc_attr( $wcfm_pm_block_class_auction_relist_settings ); ?> <?php echo esc_attr( apply_filters( 'wcfm_pm_block_custom_class_auction_relist', '' ) ); ?>">
 				<div id="wcfm_products_manage_form_auction_relist_settings_expander" class="wcfm-content">
