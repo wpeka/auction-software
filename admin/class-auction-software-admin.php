@@ -1718,7 +1718,7 @@ class Auction_Software_Admin {
 			$custom_attr           = array();
 			$args                  = array();
 			foreach ( $relist_attribute_data as $relist_attribute ) {
-				$wrapper_class = '';	
+				$wrapper_class = '';
 				if ( 'extend_or_relist_auction' !== $relist_attribute['id'] ) {
 					if ( false !== strpos( $relist_attribute['id'], 'extend' ) ) {
 						$wrapper_class .= 'auction_extend ';
@@ -1768,5 +1768,26 @@ class Auction_Software_Admin {
 		</div>
 			<!-- end collapsible -->
 				<?php
+	}
+
+	/**
+	 * Display catalog.
+	 *
+	 * @param bool $allow decides to show catalog or not.
+	 */
+	public function wcfm_is_allow_catalog( $allow ) {
+		return false;
+	}
+
+	/**
+	 * Save product data from WCFM
+	 *
+	 * @param int $new_product_id newly product id
+	 * @param array $wcfm_products_manage_form_data form data
+	 */
+	public function after_wcfm_products_manage_meta_save( $new_product_id, $wcfm_products_manage_form_data  ) {
+		$wcfm_product_custom_fields = get_option( 'wcfm_product_custom_fields', array() );
+		error_log( print_r( $wcfm_product_custom_fields , true ) );
+		//return $args;
 	}
 }
