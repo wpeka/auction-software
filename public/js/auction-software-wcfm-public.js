@@ -143,67 +143,73 @@
 				'change',
 				'#product_type',
 				function () {
-					console.log( wcfm_params );
+					console.log(wcfm_params);
 					if ($(this).val() === 'auction_simple' || $(this).val() === 'auction_reverse' || $(this).val() === 'auction_penny') {
 						$('.regular_price').hide();
 						$('#regular_price').hide();
 						$('.sale_price').hide();
-						$('#sale_price').hide();
+						$('#sale_price').hide();	
+					}
+					else {
+						$('.regular_price').show();
+						$('#regular_price').show();
+						$('.sale_price').show();
+						$('#sale_price').show();
 					}
 				});
 
-	// Submit Product
-	$('#wcfm_products_simple_submit_button').click(function(event) {
-		event.preventDefault();
-		
-		$('.wcfm_submit_button').hide();
-		
-		var excerpt = getWCFMEditorContent( 'excerpt' );
-		  
-		  var description = getWCFMEditorContent( 'description' );
-		  
-		  // WC Box Office Support
-		  var ticket_content = getWCFMEditorContent( '_ticket_content' );
-		  
-		  var ticket_email_html = getWCFMEditorContent( '_ticket_email_html' );
-			  $('#wcfm_products_manage_form').block({
-				  message: null,
-				  overlayCSS: {
-					  background: '#fff',
-					  opacity: 0.6
-				  }
-			  });
-			  
-			  var data = {
-				  action : 'wcfm_ajax_controller',
-				  controller : 'wcfm-products-manage',
-				  wcfm_products_manage_form : $('#wcfm_products_manage_form').serialize(),
-				  excerpt     : excerpt,
-				  description : description,
-				  status : 'submit',
-				  ticket_content : ticket_content,
-				  ticket_email_html : ticket_email_html,
-			  }	
-			  $.post(wcfm_params.ajax_url, data, function(response) {
-				
-				  if(response) {
-					  const response_json = $.parseJSON(response);
-					  console.log( response_json )
-					  $('.wcfm-message').html('').removeClass('wcfm-error').removeClass('wcfm-success').slideUp();
-					  wcfm_notification_sound.play();
-					  if(response_json.status) {
-						  $('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-completed"></span>' + response_json.message).addClass('wcfm-success').slideDown( "slow", function() {
-							if( response_json.redirect ) window.location = response_json.redirect;	
-						  } );
-					  } else {
-						  $('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + response_json.message).addClass('wcfm-error').slideDown();
-					  }
-					  if( response_json.id) $('#pro_id').val( response_json.id);
-					  $('#wcfm_products_manage_form').unblock();
-					  $('.wcfm_submit_button').show();
-				  }
-			  });
-	  });
+			// Submit Product
+			$('#wcfm_products_simple_submit_button').click(function (event) {
+				event.preventDefault();
+
+				$('.wcfm_submit_button').hide();
+
+				var excerpt = getWCFMEditorContent('excerpt');
+
+				var description = getWCFMEditorContent('description');
+
+				// WC Box Office Support
+				var ticket_content = getWCFMEditorContent('_ticket_content');
+
+				var ticket_email_html = getWCFMEditorContent('_ticket_email_html');
+				$('#wcfm_products_manage_form').block({
+					message: null,
+					overlayCSS: {
+						background: '#fff',
+						opacity: 0.6
+					}
+				});
+
+				var data = {
+					action: 'wcfm_ajax_controller',
+					controller: 'wcfm-products-manage',
+					wcfm_products_manage_form: $('#wcfm_products_manage_form').serialize(),
+					excerpt: excerpt,
+					description: description,
+					status: 'submit',
+					ticket_content: ticket_content,
+					ticket_email_html: ticket_email_html,
+				}
+				$.post(wcfm_params.ajax_url, data, function (response) {
+
+					if (response) {
+						const response_json = $.parseJSON(response);
+						console.log(response_json)
+						$('.wcfm-message').html('').removeClass('wcfm-error').removeClass('wcfm-success').slideUp();
+						wcfm_notification_sound.play();
+						if (response_json.status) {
+							$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-completed"></span>' + response_json.message).addClass('wcfm-success').slideDown("slow", function () {
+								if (response_json.redirect) window.location = response_json.redirect;
+							});
+						} else {
+							$('#wcfm_products_manage_form .wcfm-message').html('<span class="wcicon-status-cancelled"></span>' + response_json.message).addClass('wcfm-error').slideDown();
+						}
+						if (response_json.id) $('#pro_id').val(response_json.id);
+						$('#wcfm_products_manage_form').unblock();
+						$('.wcfm_submit_button').show();
+					}
+				});
+			});
 
 
 		}

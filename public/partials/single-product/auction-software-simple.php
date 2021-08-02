@@ -64,7 +64,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 	<input id="auction_current_bid" type="hidden" value="<?php echo esc_attr( $product->get_auction_current_bid() ); ?>"/>
 	<input id="auction_initial_bid_placed" type="hidden" value="<?php echo esc_attr( WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_initial_bid_placed' ) ); ?>"/>
 	<input id="auction_bid_increment" type="hidden" value="<?php echo esc_attr( $product->get_auction_bid_increment() ); ?>"/>
-	<?php if ( '' === $product->get_auction_errors() ) { ?>
+	<?php if ( '' === $product->get_auction_errors() || 0 === $product->get_auction_errors() ) { ?>
 		<?php if ( true === $product->is_started() && 1 !== (int) $product->get_auction_is_sold() && false === $product->is_ended() ) { ?>
 			<table cellspacing="0">
 				<tbody>

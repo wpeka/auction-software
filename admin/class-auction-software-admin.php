@@ -1782,12 +1782,65 @@ class Auction_Software_Admin {
 	/**
 	 * Save product data from WCFM
 	 *
-	 * @param int $new_product_id newly product id
-	 * @param array $wcfm_products_manage_form_data form data
+	 * @param array  $args array of products attributes.
+	 * @param int    $new_product_id newly product id.
+	 * @param object $product product.
+	 * @param array  $wcfm_products_manage_form_data form data.
 	 */
-	public function after_wcfm_products_manage_meta_save( $new_product_id, $wcfm_products_manage_form_data  ) {
-		$wcfm_product_custom_fields = get_option( 'wcfm_product_custom_fields', array() );
-		error_log( print_r( $wcfm_product_custom_fields , true ) );
-		//return $args;
+	public function wcfm_product_data_factory( $args, $new_product_id,
+	$product,
+	$wcfm_products_manage_form_data ) {
+		$arr = array(
+			'auction_item_condition'                      => isset( $wcfm_products_manage_form_data['auction_item_condition'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_item_condition'] ) : null,
+			'auction_start_price'                         => isset( $wcfm_products_manage_form_data['auction_start_price'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_start_price'] ) : 0,
+			'auction_bid_increment'                       => isset( $wcfm_products_manage_form_data['auction_bid_increment'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_bid_increment'] ) : 0,
+			'auction_date_from'                           => isset( $wcfm_products_manage_form_data['auction_date_from'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_date_from'] ) : null,
+			'auction_date_to'                             => isset( $wcfm_products_manage_form_data['auction_date_to'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_date_to'] ) : null,
+			'auction_reserve_price'                       => isset( $wcfm_products_manage_form_data['auction_reserve_price'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_reserve_price'] ) : '',
+			'auction_buy_it_now_price'                    => isset( $wcfm_products_manage_form_data['auction_buy_it_now_price'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_buy_it_now_price'] ) : '',
+			'auction_reserve_price_reverse'               => isset( $wcfm_products_manage_form_data['auction_reserve_price_reverse'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_reserve_price_reverse'] ) : '',
+			'auction_buy_it_now_price_reverse'            => isset( $wcfm_products_manage_form_data['auction_buy_it_now_price_reverse'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_buy_it_now_price_reverse'] ) : '',
+			'auction_extend_or_relist_auction'            => isset( $wcfm_products_manage_form_data['auction_extend_or_relist_auction'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_extend_or_relist_auction'] ) : 'none',
+			'auction_wait_time_before_relist_if_fail'     => isset( $wcfm_products_manage_form_data['auction_wait_time_before_relist_if_fail'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_wait_time_before_relist_if_fail'] ) : '',
+			'auction_relist_duration_if_fail'             => isset( $wcfm_products_manage_form_data['auction_relist_duration_if_fail'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_relist_duration_if_fail'] ) : '',
+			'auction_wait_time_before_relist_if_not_paid' => isset( $wcfm_products_manage_form_data['auction_wait_time_before_relist_if_not_paid'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_wait_time_before_relist_if_not_paid'] ) : '',
+			'auction_relist_duration_if_not_paid'         => isset( $wcfm_products_manage_form_data['auction_relist_duration_if_not_paid'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_relist_duration_if_not_paid'] ) : '',
+			'auction_wait_time_before_relist_always'      => isset( $wcfm_products_manage_form_data['auction_wait_time_before_relist_always'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_wait_time_before_relist_always'] ) : '',
+			'auction_relist_duration_always'              => isset( $wcfm_products_manage_form_data['auction_relist_duration_always'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_relist_duration_always'] ) : '',
+			'auction_wait_time_before_extend_if_fail'     => isset( $wcfm_products_manage_form_data['auction_wait_time_before_extend_if_fail'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_wait_time_before_extend_if_fail'] ) : '',
+			'auction_extend_duration_if_fail'             => isset( $wcfm_products_manage_form_data['auction_extend_duration_if_fail'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_extend_duration_if_fail'] ) : '',
+			'auction_wait_time_before_extend_if_not_paid' => isset( $wcfm_products_manage_form_data['auction_wait_time_before_extend_if_not_paid'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_wait_time_before_extend_if_not_paid'] ) : '',
+			'auction_extend_duration_if_not_paid'         => isset( $wcfm_products_manage_form_data['auction_extend_duration_if_not_paid'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_extend_duration_if_not_paid'] ) : '',
+			'auction_wait_time_before_extend_always'      => isset( $wcfm_products_manage_form_data['auction_wait_time_before_extend_always'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_wait_time_before_extend_always'] ) : '',
+			'auction_extend_duration_always'              => isset( $wcfm_products_manage_form_data['auction_extend_duration_always'] ) ? wc_clean( $wcfm_products_manage_form_data['auction_extend_duration_always'] ) : '',
+		);
+		$arr = array_merge( $arr, $args );
+		update_post_meta( $new_product_id, 'auction_item_condition', $arr['auction_item_condition'] );
+		update_post_meta( $new_product_id, 'auction_start_price', round( $arr['auction_start_price'], 2 ) );
+		update_post_meta( $new_product_id, 'auction_bid_increment', $arr['auction_bid_increment'] );
+		update_post_meta( $new_product_id, 'auction_date_from', $arr['auction_date_from'] );
+		update_post_meta( $new_product_id, 'auction_date_to', $arr['auction_date_to'] );
+		update_post_meta( $new_product_id, 'auction_reserve_price', round( $arr['auction_reserve_price'], 2 ) );
+		update_post_meta( $new_product_id, 'auction_buy_it_now_price', round( $arr['auction_buy_it_now_price'], 2 ) );
+		update_post_meta( $new_product_id, 'auction_reserve_price_reverse', round( $arr['auction_reserve_price_reverse'], 2 ) );
+		update_post_meta( $new_product_id, 'auction_buy_it_now_price_reverse', round( $arr['auction_buy_it_now_price_reverse'], 2 ) );
+
+		update_post_meta( $new_product_id, 'auction_extend_or_relist_auction', $arr['auction_extend_or_relist_auction'] );
+
+		update_post_meta( $new_product_id, 'auction_wait_time_before_relist_if_fail', $arr['auction_wait_time_before_relist_if_fail'] );
+		update_post_meta( $new_product_id, 'auction_relist_duration_if_fail', $arr['auction_relist_duration_if_fail'] );
+		update_post_meta( $new_product_id, 'auction_wait_time_before_relist_if_not_paid', $arr['auction_wait_time_before_relist_if_not_paid'] );
+		update_post_meta( $new_product_id, 'auction_relist_duration_if_not_paid', $arr['auction_relist_duration_if_not_paid'] );
+		update_post_meta( $new_product_id, 'auction_wait_time_before_relist_always', $arr['auction_wait_time_before_relist_always'] );
+		update_post_meta( $new_product_id, 'auction_relist_duration_always', $arr['auction_relist_duration_always'] );
+
+		update_post_meta( $new_product_id, 'auction_wait_time_before_extend_if_fail', $arr['auction_wait_time_before_extend_if_fail'] );
+		update_post_meta( $new_product_id, 'auction_extend_duration_if_fail', $arr['auction_extend_duration_if_fail'] );
+		update_post_meta( $new_product_id, 'auction_wait_time_before_extend_if_not_paid', $arr['auction_wait_time_before_extend_if_not_paid'] );
+		update_post_meta( $new_product_id, 'auction_extend_duration_if_not_paid', $arr['auction_extend_duration_if_not_paid'] );
+		update_post_meta( $new_product_id, 'auction_wait_time_before_extend_always', $arr['auction_wait_time_before_extend_always'] );
+		update_post_meta( $new_product_id, 'auction_extend_duration_always', $arr['auction_extend_duration_always'] );
+
+		return $arr;
 	}
 }
