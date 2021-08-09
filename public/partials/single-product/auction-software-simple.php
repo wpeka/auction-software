@@ -142,7 +142,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 			</table>
 			<?php if ( ! in_array( 'ends_in', $excluded_fields, true ) ) : ?>
 			<p for="auction_time_left" class="auction-time"><?php esc_html_e( 'Auction Ends In:', 'auction-software' ); ?></p>
-			<p class="time-left" id="time_left"></p>
+			<p class="time-left" id="time_left">Auction Ends In</p>
 			<?php endif; ?>
 			<?php if ( ! in_array( 'ending_on', $excluded_fields, true ) ) : ?>
 				<p for="auction_ending_time" class="auction-ending-time"><?php esc_html_e( 'Ending On: ', 'auction-software' ); ?><?php echo esc_attr( gmdate( $auction_date_format, strtotime( $product->get_auction_date_to() ) ) . ' (' . $timezone_string . ')' ); ?></p>
@@ -250,7 +250,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 			</table>
 			<?php if ( ! in_array( 'starts_in', $excluded_fields, true ) ) : ?>
 				<p for="auction_starts_in" class="auction-time"><?php esc_html_e( 'Auction Starts In:', 'auction-software' ); ?></p>
-				<p class="time-left" id="time_start"></p>
+				<p class="time-left" id="time_start">Auction Starts In</p>
 			<?php endif; ?>
 				<?php
 				if ( ! in_array( 'starting_on', $excluded_fields, true ) ) :
