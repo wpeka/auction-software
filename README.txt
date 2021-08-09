@@ -3,9 +3,9 @@ Contributors: WPeka Club
 Donate link: https://club.wpeka.com/
 Tags: auction, woocommerce auction, WordPress auction, auction plugin, proxy bidding, penny auction, eBay auction, simple auction, reverse auction, penny auction, eBay, bidding, auction script, wp auctions
 Requires at least: 4.6
-Tested up to: 5.6
+Tested up to: 5.8
 Requires PHP: 7.0
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.htm
 
@@ -134,9 +134,9 @@ Visit – ➡️[Woo Auction Software Pro](https://club.wpeka.com/product/woo-au
 
 If you like this plugin, then consider checking out our other projects:
 
-- ➡️[WP Legal Pages](https://wplegalpages.com/?utm_source=wporg&utm_medium=referral&utm_campaign=wpadcenter)⬅️: Generate 25+ legal policy pages for your WordPress website in just a few minutes, including, Privacy Policy, Terms & Conditions, Cookie Policy, and many more.
+- ➡️[WP Legal Pages](https://wplegalpages.com/?utm_source=wporg&utm_medium=referral&utm_campaign=wpauction)⬅️: Generate 25+ legal policy pages for your WordPress website in just a few minutes, including, Privacy Policy, Terms & Conditions, Cookie Policy, and many more.
 
-- ➡️[WP Cookie Consent](https://wplegalpages.com/cookie-consent-banner-on-your-website/?utm_source=wporg&utm_medium=referral&utm_campaign=wpadcenter)⬅️: Display a customized cookie consent notice (for GDPR), and "Do Not Sell" opt-out notice (for CCPA). Get granular consent and record a consent log.
+- ➡️[WP Cookie Consent](https://wplegalpages.com/cookie-consent-banner-on-your-website/?utm_source=wporg&utm_medium=referral&utm_campaign=wpauction)⬅️: Display a customized cookie consent notice (for GDPR), and "Do Not Sell" opt-out notice (for CCPA). Get granular consent and record a consent log.
 
 - ➡️[WP AdCenter](https://wpadcenter.com/?&utm_source=wporg&utm_medium=referral&utm_campaign=wpauction)⬅️: Insert and manage Google AdSense, Amazon Ads, Media.net, ads.txt, banner ads, location-specific ads, random ads & rotating ads.
 
@@ -177,6 +177,10 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 4. Auction Widgets.
 
 == Changelog ==
+= 1.1.2 =
+* Update: WCFM compatibility.
+* Update: WordPress 5.8 compatibility.
+
 = 1.1.1 =
 * Update: Add editable tax fields for auction products.
 
@@ -228,6 +232,10 @@ Fix: Fixed for broken cart and checkout pages.
 Feature: Initial version.
 
 == Upgrade Notice ==
+= 1.1.2 =
+* Update: WCFM compatibility.
+* Update: WordPress 5.8 compatibility.
+
 = 1.1.1 =
 * Update: Add editable tax fields for auction products.
 
