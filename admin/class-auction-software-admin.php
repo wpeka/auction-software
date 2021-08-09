@@ -296,6 +296,14 @@ class Auction_Software_Admin {
 	 * Register widgets.
 	 */
 	public function auction_software_widgets_init() {
+
+		// No widgets will be register for WordPress version >= 5.8.
+		global $wp_version;
+
+		if ( version_compare( $wp_version, '5.8' ) >= 0 ) {
+			return;
+		}
+
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'widgets/class-auction-software-widget-ending-soon-auctions.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'widgets/class-auction-software-widget-featured-auctions.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'widgets/class-auction-software-widget-future-auctions.php';
