@@ -268,11 +268,14 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 			 * @return mixed
 			 */
 			function auction_history_tab( $tabs ) {
-				$tabs['auction_history_tab'] = array(
-					'title'    => __( 'Auction History', 'auction-software' ),
-					'priority' => 1,
-					'callback' => 'auction_history_tab_content',
-				);
+				if ( ! array_key_exists( 'auction_history_tab', $tabs ) ) {
+					$tabs['auction_history_tab'] = array(
+						'title'    => __( 'Auction History', 'auction-software' ),
+						'priority' => 1,
+						'callback' => 'auction_history_tab_content',
+					);
+				}
+
 				return $tabs;
 			}
 
