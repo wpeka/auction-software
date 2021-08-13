@@ -195,6 +195,7 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 == Changelog ==
 = 1.1.2 =
 * Update: WordPress 5.8 compatibility.
+* Fix: PHP 8 compatibility issues fixed.
 
 = 1.1.1 =
 * Update: Add editable tax fields for auction products.
@@ -248,8 +249,8 @@ Feature: Initial version.
 
 == Upgrade Notice ==
 = 1.1.2 =
-* Update: WCFM compatibility.
 * Update: WordPress 5.8 compatibility.
+* Fix: PHP 8 compatibility issues fixed.
 
 = 1.1.1 =
 * Update: Add editable tax fields for auction products.
