@@ -375,19 +375,14 @@ class WC_Product_Auction extends WC_Product {
 	 * @return bool
 	 */
 	public function is_started() {
-		if ( $this->get_auction_date_from() && $this->get_auction_date_to() ) {
 			$date1 = new DateTime( $this->get_auction_date_from() );
 			$date2 = new DateTime( $this->get_auction_date_to() );
 			$date3 = new DateTime( current_time( 'mysql' ) );
-			if ( $date1 <= $date3 && $date2 >= $date3 ) {
-				return true;
-			} else {
-				return false;
-			}
+		if ( $date1 <= $date3 && $date2 >= $date3 ) {
+			return true;
 		} else {
 			return false;
 		}
-
 	}
 
 	/**
