@@ -194,7 +194,6 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 
 == Changelog ==
 = 1.1.2 =
-* Update: WCFM compatibility.
 * Update: WordPress 5.8 compatibility.
 
 = 1.1.1 =
