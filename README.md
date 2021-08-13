@@ -1,13 +1,11 @@
 # Woo Auction Software: WordPress Auction Plugin #
-**Contributors:** [WPeka Club](https://profiles.wordpress.org/WPeka Club)  
-**Donate link:** https://club.wpeka.com/  
-**Tags:** auction, woocommerce auction, WordPress auction, auction plugin, proxy bidding, penny auction, eBay auction, simple auction, reverse auction, penny auction, eBay, bidding, auction script, wp auctions  
-**Requires at least:** 4.6  
-**Tested up to:** 5.6  
-**Requires PHP:** 7.0  
-**Stable tag:** 1.1.1  
-**License:** GPLv2 or later  
-**License URI:** http://www.gnu.org/licenses/gpl-2.0.htm  
+
+<p align="center">
+<a href="https://wordpress.org/plugins/auction-software/"><img src="https://img.shields.io/wordpress/plugin/v/auction-software" alt="Latest Stable Version"></a>
+<img src="https://img.shields.io/wordpress/plugin/dt/auction-software" alt="WordPress.org downloads">
+<a href="https://github.com/wpeka/auction-software/actions/workflows/pr-code-coverage.yml"><img src="https://github.com/wpeka/auction-software/actions/workflows/pr-code-coverage.yml/badge.svg" alt="Github Actions"></a>
+<a href="https://codecov.io/gh/wpeka/auction-software"><img src="https://codecov.io/gh/wpeka/auction-software/branch/master/graph/badge.svg?token=HSEO9SM6JN" alt="codecov"></a>
+</p>
 
 Woo Auction Software is one of the flexible and intuitive WordPress Auction Plugin to host your online auctions.
 
@@ -134,9 +132,9 @@ Visit – ➡️[Woo Auction Software Pro](https://club.wpeka.com/product/woo-au
 
 If you like this plugin, then consider checking out our other projects:
 
-- ➡️[WP Legal Pages](https://wplegalpages.com/?utm_source=wporg&utm_medium=referral&utm_campaign=wpadcenter)⬅️: Generate 25+ legal policy pages for your WordPress website in just a few minutes, including, Privacy Policy, Terms & Conditions, Cookie Policy, and many more.
+- ➡️[WP Legal Pages](https://wplegalpages.com/?utm_source=wporg&utm_medium=referral&utm_campaign=wpauction)⬅️: Generate 25+ legal policy pages for your WordPress website in just a few minutes, including, Privacy Policy, Terms & Conditions, Cookie Policy, and many more.
 
-- ➡️[WP Cookie Consent](https://wplegalpages.com/cookie-consent-banner-on-your-website/?utm_source=wporg&utm_medium=referral&utm_campaign=wpadcenter)⬅️: Display a customized cookie consent notice (for GDPR), and "Do Not Sell" opt-out notice (for CCPA). Get granular consent and record a consent log.
+- ➡️[WP Cookie Consent](https://wplegalpages.com/cookie-consent-banner-on-your-website/?utm_source=wporg&utm_medium=referral&utm_campaign=-wpauction)⬅️: Display a customized cookie consent notice (for GDPR), and "Do Not Sell" opt-out notice (for CCPA). Get granular consent and record a consent log.
 
 - ➡️[WP AdCenter](https://wpadcenter.com/?&utm_source=wporg&utm_medium=referral&utm_campaign=wpauction)⬅️: Insert and manage Google AdSense, Amazon Ads, Media.net, ads.txt, banner ads, location-specific ads, random ads & rotating ads.
 
@@ -144,13 +142,6 @@ If you like this plugin, then consider checking out our other projects:
 
 - ➡️[Elementor & Gutenberg Website Templates For Responsive](https://wordpress.org/plugins/responsive-add-ons/)⬅️: These are ready-to-use websites built for the Elementor page builder and the new WordPress blocks editor (Gutenberg).
 
-## Installation ##
-
-1. Download the zip file.
-2. Log in as the WordPress Admin of your website.
-3. Navigate to Plugins > Add New to upload plugin
-4. Choose the plugin file to upload.
-5. Activate the plugin.
 
 ## Frequently Asked Questions ##
 
@@ -168,108 +159,3 @@ You can use any multi-vendor plugin to enable end-users to submit auctions. You 
 ###
 ### Is it compatible with Escrow Payments? ###
 Yes. To know more about setting up escrow payments click [here](https://docs.wpeka.com/woo-auction/integration-with-escrow-payments).
-
-## Screenshots ##
-
-1. Simple Auction.
-2. Reverse Auction
-3. Penny Auction.
-4. Auction Widgets.
-
-## Changelog ##
-### 1.1.1 ###
-* Update: Add editable tax fields for auction products.
-
-### 1.1.0 ###
-* Update: Restructured auction extend/relist feature.
-* Fix: Bug fix related to start price less than 1.
-
-### 1.0.9 ###
-* Update: Consistent UI for auction products.
-* Feature: Admin can now hide frontend auction fields on Shop page and in widgets.
-* Fix: Fixed duplicate product issue with Auction products by disabling the ability to duplicate auction products.
-* Fix: Minor bugs fixed related to number of auctions displayed in widget.
-
-### 1.0.8 ###
-* Update: Frontend UI improvements for auction single product page.
-* Feature: Admin can now hide frontend auction single product page fields via WooCommerce settings.
-* Feature: Added language support .pot file.
-* Fix: Time Left issue with respect to timezone for auction single product page.
-
-### 1.0.7 ###
-* Fix: Users can import auction products using the WooCommerce Importer.
-* Fix: Fixed PHP warning for auctions Start and End dates.
-* Fix: Fixed reserve price not met issue on auctions.
-
-### 1.0.6 ###
-* Fix: Fixed vulnerability issue for analytics within the plugin.
-* Update: Added upgrade to pro link on plugins page.
-
-### 1.0.5 ###
-Update: Added notice to track usage analytics for the plugin.
-
-### 1.0.4 ###
-Fix: Conflict issue in plugin deactivate feedback form.
-Fix: Minor plugin bugs.
-
-### 1.0.3 ###
-Feature: Proxy auction (auto bot) for Simple and Reverse auctions.
-Feature: Anti sniping feature.
-Feature: Added options to extend auction end time in case of failure auctions.
-Fix: Auction product template conflict with theme.
-
-### 1.0.2 ###
-Feature: Users can see the auctions participated in My Account area.
-
-### 1.0.1 ###
-Fix: Fixed for broken cart and checkout pages.
-
-### 1.0.0 ###
-Feature: Initial version.
-
-## Upgrade Notice ##
-### 1.1.1 ###
-* Update: Add editable tax fields for auction products.
-
-### 1.1.0 ###
-* Update: Restructured auction extend/relist feature.
-* Fix: Bug fix related to start price less than 1.
-
-### 1.0.9 ###
-* Update: Consistent UI for auction products.
-* Feature: Admin can now hide frontend auction fields on Shop page and in widgets.
-* Fix: Fixed duplicate product issue with Auction products by disabling the ability to duplicate auction products.
-* Fix: Minor bugs fixed related to number of auctions displayed in widget.
-
-### 1.0.8 ###
-* Update: Frontend UI improvements for auction single product page.
-* Feature: Admin can now hide frontend auction single product page fields via WooCommerce settings.
-* Feature: Added language support .pot file.
-* Fix: Time Left issue with respect to timezone for auction single product page.
-
-### 1.0.7 ###
-* Fix: Users can import auction products using the WooCommerce Importer.
-* Fix: Fixed PHP warning for auctions Start and End dates.
-* Fix: Fixed reserve price not met issue on auctions.
-
-### 1.0.5 ###
-Update: Added notice to track usage analytics for the plugin.
-
-### 1.0.4 ###
-Fix: Conflict issue in plugin deactivate feedback form.
-Fix: Minor plugin bugs.
-
-### 1.0.3 ###
-Feature: Proxy auction (auto bot) for Simple and Reverse auctions.
-Feature: Anti sniping feature.
-Feature: Added options to extend auction end time in case of failure auctions.
-Fix: Auction product template conflict with theme.
-
-### 1.0.2 ###
-Feature: Users can see the auctions participated in My Account area.
-
-### 1.0.1 ###
-Fix: Fixed for broken cart and checkout pages.
-
-### 1.0.0 ###
-Feature: Initial version.
