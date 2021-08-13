@@ -189,8 +189,6 @@ class Auction_Software {
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'woocommerce/classes/products/class-wc-product-auction-reverse.php';
 
-		// wcfm helper file
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'wcfm/class-wcfm-auction-software-helper.php';
 		$this->loader = new Auction_Software_Loader();
 
 	}
@@ -247,14 +245,6 @@ class Auction_Software {
 		$this->loader->add_action( 'woocommerce_account_auctions_list_endpoint', $plugin_admin, 'auction_software_auctions_list_endpoint' );
 		// #My Auctions List Code.
 		$this->loader->add_filter( 'plugin_action_links_' . AUCTION_SOFTWARE_PLUGIN_BASENAME, $plugin_admin, 'auction_software_plugin_action_links' );
-
-		// WCFM plugin hooks and filters.
-		if ( class_exists( 'WCFM' ) ) {
-			$this->loader->add_filter( 'wcfm_product_types', $plugin_admin, 'auction_software_product_auction_types' );
-			$this->loader->add_action( 'after_wcfm_products_manage_general', $plugin_admin, 'wcfm_auction_software_product_auction_tabs', 10, 2 );
-			$this->loader->add_filter( 'wcfm_is_allow_catalog', $plugin_admin, 'wcfm_is_allow_catalog' );
-			$this->loader->add_filter( 'wcfm_product_data_factory', $plugin_admin, 'wcfm_product_data_factory', 13, 4 );
-		}
 	}
 
 	/**
