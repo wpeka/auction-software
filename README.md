@@ -49,7 +49,7 @@ This plugin can be used to host auctions in any language with the help of local 
 
 ## How to get started with Woo Auction Software ##
 
-[youtube https://www.youtube.com/watch?v=wDojKIpaf7s]
+[youtube https://www.youtube.com/watch?v=hREy6K8PsOU]
 
 It is effortless to set up Woo Auction Software in different auction modes. You can use these auctions to create professional auction websites, eBay-type auctions, and many more. The plugin comes with pre-designed email templates that make it easy for you to customize the email notifications. The plugin works with all modern WordPress themes available.
 
