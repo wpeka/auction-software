@@ -1288,9 +1288,9 @@ class Auction_Software_Admin {
 				}
 				break;
 			case 'bid_increment':
-				if ( $value < 0 ) {
+				if ( '' === $value || $value < 0 ) {
 					$error_flag = true;
-					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Bid Increment should not be negative.', 'auction-software' ) );
+					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Bid Increment should not be negative or empty.', 'auction-software' ) );
 				} else {
 					update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
 				}
@@ -1320,7 +1320,7 @@ class Auction_Software_Admin {
 			case 'reserve_price':
 				// Seller can lower but can not raise the reserve price.
 				if ( 'auction_simple' === $product_type ) {
-					if ( $value < 0 ) {
+					if ( '' !== $value && $value < 0 ) {
 						$error_flag = true;
 						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Reserve Price should not be negative.', 'auction-software' ) );
 					} else {
@@ -1331,7 +1331,7 @@ class Auction_Software_Admin {
 			case 'reserve_price_reverse':
 				// Seller can lower but can not raise the reserve price.
 				if ( 'auction_reverse' === $product_type ) {
-					if ( $value < 0 ) {
+					if ( '' !== $value && $value < 0 ) {
 						$error_flag = true;
 						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Reserve Price should not be negative.', 'auction-software' ) );
 					} else {
@@ -1341,7 +1341,7 @@ class Auction_Software_Admin {
 				break;
 			case 'buy_it_now_price':
 				if ( 'auction_simple' === $product_type ) {
-					if ( $value < 0 ) {
+					if ( '' !== $value && $value < 0 ) {
 						$error_flag = true;
 						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Buy It Now Price should not be negative.', 'auction-software' ) );
 					} else {
@@ -1351,7 +1351,7 @@ class Auction_Software_Admin {
 				break;
 			case 'buy_it_now_price_reverse':
 				if ( 'auction_reverse' === $product_type ) {
-					if ( $value < 0 ) {
+					if ( '' !== $value && $value < 0 ) {
 						$error_flag = true;
 						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Buy It Now Price should not be negative.', 'auction-software' ) );
 					} else {
@@ -1362,7 +1362,7 @@ class Auction_Software_Admin {
 			case 'wait_time_before_relist_if_fail':
 			case 'wait_time_before_relist_if_not_paid':
 			case 'wait_time_before_relist_always':
-				if ( $value < 0 ) {
+				if ( '' !== $value && $value < 0 ) {
 					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Wait time before relist should not be negative.', 'auction-software' ) );
 				} else {
@@ -1372,7 +1372,7 @@ class Auction_Software_Admin {
 			case 'relist_duration_if_fail':
 			case 'relist_duration_if_not_paid':
 			case 'relist_duration_always':
-				if ( $value < 0 ) {
+				if ( '' !== $value && $value < 0 ) {
 					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Relist Duration should not be negative.', 'auction-software' ) );
 				} else {
@@ -1382,7 +1382,7 @@ class Auction_Software_Admin {
 			case 'wait_time_before_extend_if_fail':
 			case 'wait_time_before_extend_if_not_paid':
 			case 'wait_time_before_extend_always':
-				if ( $value < 0 ) {
+				if ( '' !== $value && $value < 0 ) {
 					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Wait time before extend should not be negative.', 'auction-software' ) );
 				} else {
@@ -1392,7 +1392,7 @@ class Auction_Software_Admin {
 			case 'extend_duration_if_fail':
 			case 'extend_duration_if_not_paid':
 			case 'extend_duration_always':
-				if ( $value < 0 ) {
+				if ( '' !== $value && $value < 0 ) {
 					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Extend Duration should not be negative.', 'auction-software' ) );
 				} else {
