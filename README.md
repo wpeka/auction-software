@@ -9,7 +9,7 @@
 
 Welcome to the Auction Software repository on GitHub. Here you can browse the source, look at open issues and keep track of development.
 
-If you are not a developer, please use the [WPAdcenter plugin](https://wordpress.org/plugins/auction-software/) page on WordPress.org.
+If you are not a developer, please use the [Auction Software plugin](https://wordpress.org/plugins/auction-software/) page on WordPress.org.
 
 ## Documentation
 * [Auction Software Documentation](https://docs.wpeka.com/woo-auction/)
