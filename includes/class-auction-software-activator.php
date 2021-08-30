@@ -29,7 +29,7 @@ class Auction_Software_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-		add_option( 'auction_software_active', true );
+		 add_option( 'auction_software_active', true );
 	}
 
 }
