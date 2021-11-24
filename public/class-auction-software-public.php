@@ -793,7 +793,8 @@ class Auction_Software_Public {
 		$watchlist = get_user_meta( $user_id, 'auction_watchlist' );
 		if ( isset( $watchlist[0] ) && ! empty( $watchlist[0] ) ) {
 			$watchlist = explode( ',', $watchlist[0] );
-			$key       = array_search( $product_id, $watchlist, true );
+			array_shift( $watchlist );
+			$key = array_search( $product_id, $watchlist ); //phpcs:ignore
 			if ( false !== $key ) {
 				unset( $watchlist[ $key ] );
 			}
