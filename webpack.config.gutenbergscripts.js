@@ -10,7 +10,8 @@ const defaultConfig = require("@wordpress/scripts/config/webpack.config");
 module.exports = {
     ...defaultConfig,
     entry: {
-		'ending-soon-auctions': './src/gutenberg-blocks/ending-soon-auctions'
+		'ending-soon-auctions': './src/gutenberg-blocks/ending-soon-auctions',
+		'coming-soon-auctions': './src/gutenberg-blocks/coming-soon-auctions'
 	},
     output: {
         path: path.resolve(__dirname, "admin/js/gutenberg-blocks"),
