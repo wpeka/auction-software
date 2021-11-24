@@ -50,6 +50,15 @@ class Auction_Software_Admin {
 	private $auction_classes;
 
 	/**
+	 * instance of callback functions of all block-based widgets.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 * @var array $auction_classes Auction increment classes.
+	 */
+	private $block_callbacks;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -58,8 +67,9 @@ class Auction_Software_Admin {
 	 */
 	public function __construct( $plugin_name, $version ) {
 
-		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
+		$this->plugin_name     = $plugin_name;
+		$this->version         = $version;
+		$this->block_callbacks = new Auction_Software_Blocks_Callback();
 
 	}
 
@@ -1584,4 +1594,43 @@ class Auction_Software_Admin {
 
 		echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
+
+	/**
+	 * Register gutenberg blocks / block-based widgets.
+	 */
+	public function auction_software_register_gutenberg_blocks() {
+
+		wp_register_script(
+			'auction-software-ending-soon-auctions',
+			plugin_dir_url( __DIR__ ) . 'admin/js/gutenberg-blocks/auction-software-ending-soon-auctions.js',
+			array( 'wp-blocks', 'wp-components', 'wp-i18n' ),
+			$this->version,
+			false
+		);
+		// wp_localize_script( 'auction-software-ending-soon-auctions', 'data', array( 'singlead_nonce' => wp_create_nonce( 'singlead_nonce' ) ) );.
+		if ( function_exists( 'register_block_type' ) ) {
+			register_block_type(
+				'auction-software/ending-soon-auctions',
+				array(
+					'editor_script'   => 'auction-software-ending-soon-auctions',
+					'attributes'      => array(
+						'title'           => array(
+							'type'    => 'string',
+							'default' => 'Auction Ending Soon',
+						),
+						'num_of_auctions' => array(
+							'type'    => 'string',
+							'default' => 5,
+						),
+						'hide_time_left'  => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
+					),
+					'render_callback' => array( $this->block_callbacks, 'auction_software_ending_soon_callback' ),
+				)
+			);
+		}
+	}
+
 }

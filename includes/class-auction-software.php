@@ -167,6 +167,11 @@ class Auction_Software {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-auction-software-i18n.php';
 
 		/**
+		 * The class responsible for defining all callback methods for auction software
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-auction-software-blocks-callback.php';
+
+		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-auction-software-admin.php';
@@ -245,6 +250,9 @@ class Auction_Software {
 		$this->loader->add_action( 'woocommerce_account_auctions_list_endpoint', $plugin_admin, 'auction_software_auctions_list_endpoint' );
 		// #My Auctions List Code.
 		$this->loader->add_filter( 'plugin_action_links_' . AUCTION_SOFTWARE_PLUGIN_BASENAME, $plugin_admin, 'auction_software_plugin_action_links' );
+
+		// block based widgets
+		$this->loader->add_action( 'init', $plugin_admin, 'auction_software_register_gutenberg_blocks' );
 	}
 
 	/**
