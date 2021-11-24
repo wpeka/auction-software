@@ -11,7 +11,8 @@ module.exports = {
     ...defaultConfig,
     entry: {
 		'ending-soon-auctions': './src/gutenberg-blocks/ending-soon-auctions',
-		'coming-soon-auctions': './src/gutenberg-blocks/coming-soon-auctions'
+		'coming-soon-auctions': './src/gutenberg-blocks/coming-soon-auctions',
+		'random-auctions': './src/gutenberg-blocks/random-auctions'
 	},
     output: {
         path: path.resolve(__dirname, "admin/js/gutenberg-blocks"),
