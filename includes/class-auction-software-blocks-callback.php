@@ -160,9 +160,15 @@ class Auction_Software_Blocks_Callback {
 
 		$user_id   = get_current_user_id();
 		$watchlist = get_user_meta( $user_id, 'auction_watchlist' );
+		if( ! isset( $watchlist[0] ) || empty( $watchlist[0] ) ) {
+			$widget_content  = '';
+			$widget_title    = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Recently viewed auctions', 'auction-software' ) : $instance['title'], $instance );
+			$widget_content .= $widget_title;
+			$widget_content .= '<p>You don\'t have any product in your watchlist.</p>';
+			return $widget_content;
+		}
 		if ( isset( $watchlist[0] ) && ! empty( $watchlist[0] ) ) {
 			$watchlist = explode( ',', $watchlist[0] );
-			error_log( print_r( $watchlist, true ) );
 		}
 
 		$auction_types = apply_filters(
@@ -281,7 +287,11 @@ class Auction_Software_Blocks_Callback {
 		$viewed_products = array_filter( array_map( 'absint', $viewed_products ) );
 
 		if ( empty( $viewed_products ) ) {
-			return;
+			$widget_content  = '';
+			$widget_title    = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Recently viewed auctions', 'auction-software' ) : $instance['title'], $instance );
+			$widget_content .= $widget_title;
+			$widget_content .= '<p>You haven\'t viewed any product yet</p>';
+			return $widget_content;
 		}
 
 		$title  = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Recently viewed auctions', 'auction-software' ) : $instance['title'], $instance );
@@ -328,10 +338,9 @@ class Auction_Software_Blocks_Callback {
 		if ( $r->have_posts() ) {
 			$hide_time = $instance['hide_time_left'] ? 1 : 0;
 
-			$content .= $before_widget;
 
 			if ( $title ) {
-				$content .= $before_title . $title . $after_title;
+				$content .= $title;
 			}
 
 			$content .= '<ul class="product_list_widget">';
@@ -461,10 +470,9 @@ class Auction_Software_Blocks_Callback {
 		if ( $r->have_posts() ) {
 			$hide_time = $instance['hide_time_left'] ? 1 : 0;
 
-			$content .= $before_widget;
 
 			if ( $title ) {
-				$content .= $before_title . $title . $after_title;
+				$content .= $title;
 			}
 
 			$content .= '<ul class="product_list_widget">';

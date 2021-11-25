@@ -158,7 +158,7 @@ class Auction_Software_Public {
 	 * Track view of viewed auctions.
 	 */
 	public function auction_software_track_view() {
-		if ( ! is_singular( 'product' ) || ! is_active_widget( false, false, 'recently_viewed_auctions', true ) ) {
+		if ( ! is_singular( 'product' ) ) {
 			return;
 		}
 
