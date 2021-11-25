@@ -34,16 +34,22 @@ data.forEach((chunk) => {
 				})
 			}
 	
-			return props.isSelected ? (<div>
-				<p>{__('Title', 'auction-software')}</p>
-				<input type="text" value={props.attributes.title} onChange={(e) => {handleChange('title', e)}}/>
+			return props.isSelected ? (<div style={{padding: "10px"}}>
+				<div style={{marginBottom: "10px"}}>
+					<span style={{marginBottom: "5px", display: "block"}}>{__('Title:', 'auction-software')}</span>
+					<input style={{width: "35%"}} type="text" value={props.attributes.title} onChange={(e) => {handleChange('title', e)}}/>
+				</div>
 	
-				<p>{__('Number of auctions to show:', 'auction-software')}</p>
-				<input type="number" value={props.attributes.num_of_auctions} onChange={(e) => {handleChange('num_of_auctions', e)}}/>
-	
-				<p>{__('Hide Time Left', 'auction-software')}</p>
-				<input type="checkbox" checked={props.attributes.hide_time_left} onChange={(e) => {handleChange('hide_time_left', e)}}/>
-			</div>): (<div>
+				<div style={{marginBottom: "10px"}}>
+					<span style={{marginBottom: "5px", display: "block"}}>{__('Number of auctions to show:', 'auction-software')}</span>
+					<input style={{width: "35%"}} type="number" value={props.attributes.num_of_auctions} onChange={(e) => {handleChange('num_of_auctions', e)}}/>
+				</div>
+
+				<div style={{marginBottom: "10px"}}>
+					<span style={{marginRight: "10px"}}>{__('Hide Time Left:', 'auction-software')}</span>
+					<input type="checkbox" checked={props.attributes.hide_time_left} onChange={(e) => {handleChange('hide_time_left', e)}}/>
+				</div>
+			</div>): (<div style={{padding: "10px", border: "1px solid black"}}>
 				<p>{__(chunk.fallbackTitleIfNotSelected, 'auction-software')}</p>
 			</div>);
 		},
