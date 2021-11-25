@@ -1600,130 +1600,46 @@ class Auction_Software_Admin {
 	 */
 	public function auction_software_register_gutenberg_blocks() {
 
-		wp_register_script(
-			'auction-software-ending-soon-auctions',
-			plugin_dir_url( __DIR__ ) . 'admin/js/gutenberg-blocks/auction-software-ending-soon-auctions.js',
-			array( 'wp-blocks', 'wp-components', 'wp-i18n' ),
-			$this->version,
-			false
-		);
-		wp_register_script(
-			'auction-software-watchlist-auctions',
-			plugin_dir_url( __DIR__ ) . 'admin/js/gutenberg-blocks/auction-software-watchlist-auctions.js',
-			array( 'wp-blocks', 'wp-components', 'wp-i18n' ),
-			$this->version,
-			false
-		);
-		wp_register_script(
-			'auction-software-recently-viewed-auctions',
-			plugin_dir_url( __DIR__ ) . 'admin/js/gutenberg-blocks/auction-software-recently-viewed-auctions.js',
-			array( 'wp-blocks', 'wp-components', 'wp-i18n' ),
-			$this->version,
-			false
-		);
-		wp_register_script(
-			'auction-software-my-auctions',
-			plugin_dir_url( __DIR__ ) . 'admin/js/gutenberg-blocks/auction-software-my-auctions.js',
-			array( 'wp-blocks', 'wp-components', 'wp-i18n' ),
-			$this->version,
-			false
-		);
-		// wp_localize_script( 'auction-software-ending-soon-auctions', 'data', array( 'singlead_nonce' => wp_create_nonce( 'singlead_nonce' ) ) );.
-		if ( function_exists( 'register_block_type' ) ) {
-			register_block_type(
-				'auction-software/ending-soon-auctions',
-				array(
-					'editor_script'   => 'auction-software-ending-soon-auctions',
-					'attributes'      => array(
-						'title'           => array(
-							'type'    => 'string',
-							'default' => 'Auction Ending Soon',
-						),
-						'num_of_auctions' => array(
-							'type'    => 'string',
-							'default' => 5,
-						),
-						'hide_time_left'  => array(
-							'type'    => 'boolean',
-							'default' => false,
-						),
-					),
-					'render_callback' => array( $this->block_callbacks, 'auction_software_ending_soon_callback' ),
-				)
-			);
-		}
+		// get json data for all 8 blocks and decode it
+		$data = file_get_contents( AUCTION_SOFTWARE_PLUGIN_PATH . 'src/gutenberg-blocks/data.json' );
+		$data = json_decode( $data );
 
-		if ( function_exists( 'register_block_type' ) ) {
-			register_block_type(
-				'auction-software/watchlist-auctions',
-				array(
-					'editor_script'   => 'auction-software-watchlist-auctions',
-					'attributes'      => array(
-						'title'           => array(
-							'type'    => 'string',
-							'default' => 'Watchlist Auctions',
-						),
-						'num_of_auctions' => array(
-							'type'    => 'string',
-							'default' => 2,
-						),
-						'hide_time_left'  => array(
-							'type'    => 'boolean',
-							'default' => false,
-						),
-					),
-					'render_callback' => array( $this->block_callbacks, 'auction_software_watchlist_auction_callback' ),
-				)
-			);
-		}
+		// register a single script file which loops through all 8 blocks and regs them one by one
+		wp_register_script(
+			'auction-software-auction-widgets',
+			plugin_dir_url( __DIR__ ) . 'admin/js/gutenberg-blocks/auction-software-auction-widgets.js',
+			array( 'wp-blocks', 'wp-components', 'wp-i18n' ),
+			$this->version,
+			false
+		);
 
+		// if function exists for wordpress 5 and above, loop through all 8 blocks and register them.
 		if ( function_exists( 'register_block_type' ) ) {
-			register_block_type(
-				'auction-software/recently-viewed-auctions',
-				array(
-					'editor_script'   => 'auction-software-recently-viewed-auctions',
-					'attributes'      => array(
-						'title'           => array(
-							'type'    => 'string',
-							'default' => 'Recently Viewed Auctions',
+			foreach ( $data as $chunk ) {
+				register_block_type(
+					'auction-software/' . $chunk->registerBlockType,//phpcs:ignore
+					array(
+						'editor_script'   => 'auction-software-auction-widgets',
+						'attributes'      => array(
+							'title'           => array(
+								'type'    => 'string',
+								'default' => $chunk->attributesTitleDefault,//phpcs:ignore
+							),
+							'num_of_auctions' => array(
+								'type'    => 'string',
+								'default' => 5,
+							),
+							'hide_time_left'  => array(
+								'type'    => 'boolean',
+								'default' => false,
+							),
 						),
-						'num_of_auctions' => array(
-							'type'    => 'string',
-							'default' => 5,
-						),
-						'hide_time_left'  => array(
-							'type'    => 'boolean',
-							'default' => false,
-						),
-					),
-					'render_callback' => array( $this->block_callbacks, 'auction_software_recently_viewed_auction_callback' ),
-				)
-			);
-		}
-
-		if ( function_exists( 'register_block_type' ) ) {
-			register_block_type(
-				'auction-software/my-auctions',
-				array(
-					'editor_script'   => 'auction-software-my-auctions',
-					'attributes'      => array(
-						'title'           => array(
-							'type'    => 'string',
-							'default' => 'My Auctions',
-						),
-						'num_of_auctions' => array(
-							'type'    => 'string',
-							'default' => 5,
-						),
-						'hide_time_left'  => array(
-							'type'    => 'boolean',
-							'default' => false,
-						),
-					),
-					'render_callback' => array( $this->block_callbacks, 'auction_software_my_auction_callback' ),
-				)
-			);
+						'render_callback' => array( $this->block_callbacks, $chunk->renderCallback ),//phpcs:ignore
+					)
+				);
+			}
 		}
 	}
+
 
 }
