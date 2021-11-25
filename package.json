@@ -17,7 +17,8 @@
         "grunt-contrib-uglify": "~0.5.0",
         "grunt-contrib-cssmin": "3.0.0"
     },
-	"scripts": {
-		"build:gutenbergblocks": "wp-scripts build --config webpack.config.gutenbergscripts.js"
-	}
+    "scripts": {
+        "build:gutenbergblocks": "wp-scripts build --config webpack.config.gutenbergscripts.js",
+        "start:gutenbergblocks": "wp-scripts build --config webpack.config.gutenbergscripts.js --watch"
+    }
 }

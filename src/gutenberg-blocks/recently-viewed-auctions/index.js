@@ -2,16 +2,16 @@ const { registerBlockType } = wp.blocks;
 const { Placeholder } = wp.components;
 const { __ } = wp.i18n;
 
-registerBlockType("auction-software/ending-soon-auctions", {
-    title: __("Auction Software Ending Soon Auctions", "auction-software"),
-    description: __("Shows the list of ending soon auctions", "auction-software"),
+registerBlockType("auction-software/recently-viewed-auctions", {
+    title: __("Auction Software Recently Viewed Auctions", "auction-software"),
+    description: __("Shows the list of recently viewed auctions", "auction-software"),
     icon: "flag",
     category: "auction-software",
 
     attributes: {
 		title: {
 			type: 'text',
-			default: 'Auction Ending Soon',
+			default: 'Recently Viewed Auctions',
 		},
 		num_of_auctions: {
 			type: 'text',
@@ -40,7 +40,7 @@ registerBlockType("auction-software/ending-soon-auctions", {
 			<p>{__('Hide Time Left', 'auction-software')}</p>
 			<input type="checkbox" checked={props.attributes.hide_time_left} onChange={(e) => {handleChange('hide_time_left', e)}}/>
 		</div>): (<div>
-			<p>{__('Auction Software Ending Soon Auction Widget', 'auction-software')}</p>
+			<p>{__('Auction Software Recently Viewed Auction Widget', 'auction-software')}</p>
 		</div>);
     },
 
