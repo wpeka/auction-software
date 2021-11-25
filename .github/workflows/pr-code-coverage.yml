@@ -1,7 +1,6 @@
 name: Run CI
 on:
-  push
-  pull_request
+  ['push', 'pull_request']
 jobs:
   test:
     name: Code coverage (PHP 7.4, WP Latest)
