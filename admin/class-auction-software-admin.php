@@ -1615,10 +1615,24 @@ class Auction_Software_Admin {
 			$this->version,
 			false
 		);
+		wp_register_script(
+			'auction-software-watchlist-auctions',
+			plugin_dir_url( __DIR__ ) . 'admin/js/gutenberg-blocks/auction-software-watchlist-auctions.js',
+			array( 'wp-blocks', 'wp-components', 'wp-i18n' ),
+			$this->version,
+			false
+		);
 
 		wp_register_script(
 			'auction-software-random-auctions',
 			plugin_dir_url( __DIR__ ) . 'admin/js/gutenberg-blocks/auction-software-random-auctions.js',
+			array( 'wp-blocks', 'wp-components', 'wp-i18n' ),
+			$this->version,
+			false
+		);
+		wp_register_script(
+			'auction-software-recently-viewed-auctions',
+			plugin_dir_url( __DIR__ ) . 'admin/js/gutenberg-blocks/auction-software-recently-viewed-auctions.js',
 			array( 'wp-blocks', 'wp-components', 'wp-i18n' ),
 			$this->version,
 			false
@@ -1635,6 +1649,13 @@ class Auction_Software_Admin {
 		wp_register_script(
 			'auction-software-featured-auctions',
 			plugin_dir_url( __DIR__ ) . 'admin/js/gutenberg-blocks/auction-software-featured-auctions.js',
+			array( 'wp-blocks', 'wp-components', 'wp-i18n' ),
+			$this->version,
+			false
+		);
+		wp_register_script(
+			'auction-software-my-auctions',
+			plugin_dir_url( __DIR__ ) . 'admin/js/gutenberg-blocks/auction-software-my-auctions.js',
 			array( 'wp-blocks', 'wp-components', 'wp-i18n' ),
 			$this->version,
 			false
@@ -1748,6 +1769,72 @@ class Auction_Software_Admin {
 						),
 					),
 					'render_callback' => array( $this->block_callbacks, 'auction_software_featured_auction_callback' ),
+				)
+			);
+
+			register_block_type(
+				'auction-software/watchlist-auctions',
+				array(
+					'editor_script'   => 'auction-software-watchlist-auctions',
+					'attributes'      => array(
+						'title'           => array(
+							'type'    => 'string',
+							'default' => 'Watchlist Auctions',
+						),
+						'num_of_auctions' => array(
+							'type'    => 'string',
+							'default' => 2,
+						),
+						'hide_time_left'  => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
+					),
+					'render_callback' => array( $this->block_callbacks, 'auction_software_watchlist_auction_callback' ),
+				)
+			);
+
+			register_block_type(
+				'auction-software/recently-viewed-auctions',
+				array(
+					'editor_script'   => 'auction-software-recently-viewed-auctions',
+					'attributes'      => array(
+						'title'           => array(
+							'type'    => 'string',
+							'default' => 'Recently Viewed Auctions',
+						),
+						'num_of_auctions' => array(
+							'type'    => 'string',
+							'default' => 5,
+						),
+						'hide_time_left'  => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
+					),
+					'render_callback' => array( $this->block_callbacks, 'auction_software_recently_viewed_auction_callback' ),
+				)
+			);
+
+			register_block_type(
+				'auction-software/my-auctions',
+				array(
+					'editor_script'   => 'auction-software-my-auctions',
+					'attributes'      => array(
+						'title'           => array(
+							'type'    => 'string',
+							'default' => 'My Auctions',
+						),
+						'num_of_auctions' => array(
+							'type'    => 'string',
+							'default' => 5,
+						),
+						'hide_time_left'  => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
+					),
+					'render_callback' => array( $this->block_callbacks, 'auction_software_my_auction_callback' ),
 				)
 			);
 		}

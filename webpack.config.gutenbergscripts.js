@@ -14,7 +14,10 @@ module.exports = {
 		'coming-soon-auctions': './src/gutenberg-blocks/coming-soon-auctions',
 		'random-auctions': './src/gutenberg-blocks/random-auctions',
 		'recent-auctions': './src/gutenberg-blocks/recent-auctions',
-		'featured-auctions': './src/gutenberg-blocks/featured-auctions'
+		'featured-auctions': './src/gutenberg-blocks/featured-auctions',
+        'recently-viewed-auctions': './src/gutenberg-blocks/recently-viewed-auctions',
+        'watchlist-auctions': './src/gutenberg-blocks/watchlist-auctions',
+        'my-auctions': './src/gutenberg-blocks/my-auctions'
 	},
     output: {
         path: path.resolve(__dirname, "admin/js/gutenberg-blocks"),
