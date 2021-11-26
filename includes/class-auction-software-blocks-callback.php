@@ -355,7 +355,6 @@ class Auction_Software_Blocks_Callback {
 					endif;
 
 					$date_to_or_from = '';
-					error_log( print_r( $hide_time, true ) );
 					if ( false === $product->is_started() && 1 !== (int) $hide_time ) {
 						if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
 							$content        .= '<p class="auction_starts_in startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Starts In:', 'auction-software' ) . '</p>';
