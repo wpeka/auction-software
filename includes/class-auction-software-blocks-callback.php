@@ -71,7 +71,7 @@ class Auction_Software_Blocks_Callback {
 			$hide_time = $instance['hide_time_left'] ? 1 : 0;
 
 			if ( $title ) {
-				$content .= $title;
+				$content .= '<p>' . $title . '</p>';
 			}
 
 			$content .= '<ul class="product_list_widget">';
@@ -200,7 +200,7 @@ class Auction_Software_Blocks_Callback {
 			$hide_time = $instance['hide_time_left'] ? 1 : 0;
 
 			if ( $title ) {
-				$content .= $title;
+				$content .= '<p>' . $title . '</p>';
 			}
 
 			$content .= '<ul class="product_list_widget">';
@@ -236,7 +236,7 @@ class Auction_Software_Blocks_Callback {
 
 					$date_to_or_from = '';
 					if ( false === $product->is_started() ) {
-						if ( ! in_array( 'starts_in', $excluded_fields, true ) && 1 !== (int) $hide_time ) :
+						if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
 							$content        .= '<p class="auction_starts_in startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Starts In:', 'auction-software' ) . '</p>';
 							$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
 							$date_to_or_from = $product->get_auction_date_from();
@@ -319,7 +319,7 @@ class Auction_Software_Blocks_Callback {
 			$hide_time = $instance['hide_time_left'] ? 1 : 0;
 
 			if ( $title ) {
-				$content .= $title;
+				$content .= '<p>' . $title . '</p>';
 			}
 
 			$content .= '<ul class="product_list_widget">';
@@ -437,7 +437,7 @@ class Auction_Software_Blocks_Callback {
 			$hide_time = $instance['hide_time_left'] ? 1 : 0;
 
 			if ( $title ) {
-				$content .= $title;
+				$content .= '<p>' . $title . '</p>';
 			}
 
 			$content .= '<ul class="product_list_widget">';
@@ -562,7 +562,7 @@ class Auction_Software_Blocks_Callback {
 		if ( $r->have_posts() ) {
 			$hide_time = $instance['hide_time_left'] ? 1 : 0;
 			if ( $title ) {
-				$content .= $title;
+				$content .= '<p>' . $title . '</p>';
 			}
 
 			$content .= '<ul class="product_list_widget">';
@@ -694,7 +694,7 @@ class Auction_Software_Blocks_Callback {
 			$hide_time = $instance['hide_time_left'] ? 1 : 0;
 
 			if ( $title ) {
-				$content .= $title;
+				$content .= '<p>' . $title . '</p>';
 			}
 
 			$content .= '<ul class="product_list_widget">';
@@ -828,7 +828,7 @@ class Auction_Software_Blocks_Callback {
 			$hide_time = $instance['hide_time_left'] ? 1 : 0;
 
 			if ( $title ) {
-				$content .= $title;
+				$content .= '<p>' . $title . '</p>';
 			}
 
 			$content .= '<ul class="product_list_widget">';
@@ -958,7 +958,7 @@ class Auction_Software_Blocks_Callback {
 			$hide_time = $instance['hide_time_left'] ? 1 : 0;
 
 			if ( $title ) {
-				$content .= $title;
+				$content .= '<p>' . $title . '</p>';
 			}
 
 			$content .= '<ul class="product_list_widget">';
