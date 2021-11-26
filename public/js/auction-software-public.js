@@ -76,7 +76,7 @@
 								if ($( ".timeLeft" + newIndex ).length) {
 									var startEndText = document.getElementsByClassName( 'startEndText' + newIndex );
 									var endText      = 'Auction has ended';
-									for( let i = 0 ; i < startEndText.length; i++ ) {
+									for( var i = 0 ; i < startEndText.length; i++ ) {
 										if ($( startEndText[i] ).hasClass( 'auction_starts_in' )) {
 											endText = 'Auction has started. Please refresh the page.';
 										}
