@@ -42,7 +42,9 @@
 			var timeLeftIds = [];
 			$( '.timeLeftId' ).each(
 				function() {
-					timeLeftIds.push( this.value );
+					if ( ! timeLeftIds.includes(this.value) ) {
+						timeLeftIds.push( this.value );
+					}						
 				}
 			);
 
@@ -56,7 +58,6 @@
 						function () {
 
 							var countDownDate = new Date( endDateValue.replace( /-/g, "/" ) ).getTime();
-
 							var now = 0;
 							if (php_vars.default) {
 								var d           = new Date();
@@ -75,12 +76,15 @@
 								if ($( ".timeLeft" + newIndex ).length) {
 									var startEndText = document.getElementsByClassName( 'startEndText' + newIndex );
 									var endText      = 'Auction has ended';
-									if ($( '.startEndText' + newIndex ).hasClass( 'auction_starts_in' )) {
-										endText = 'Auction has started. Please refresh the page.';
+									for( var i = 0 ; i < startEndText.length; i++ ) {
+										if ($( startEndText[i] ).hasClass( 'auction_starts_in' )) {
+											endText = 'Auction has started. Please refresh the page.';
+										}
 									}
-									$( startEndText ).remove();
 									$( '.timeLeft' + newIndex ).text( endText );
 									$( '.timeLeft' + newIndex ).css( 'display','inline-block' );
+									$( startEndText ).remove();
+									
 
 								}
 							} else {

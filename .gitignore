@@ -12,3 +12,5 @@ admin/css/*.min.css
 admin/js/*.min.js
 public/css/*.min.css
 public/js/*.min.js
+
+admin/js/gutenberg-blocks/*.asset.php
