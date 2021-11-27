@@ -112,3 +112,7 @@ p.auction_time_left {
 	margin: 0;
 	font-size: 12px;
 }
+
+.product_list_widget > li {
+	list-style: none;
+}

@@ -50,6 +50,15 @@ class Auction_Software_Admin {
 	private $auction_classes;
 
 	/**
+	 * instance of callback functions of all block-based widgets.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 * @var array $auction_classes Auction increment classes.
+	 */
+	private $block_callbacks;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -58,8 +67,9 @@ class Auction_Software_Admin {
 	 */
 	public function __construct( $plugin_name, $version ) {
 
-		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
+		$this->plugin_name     = $plugin_name;
+		$this->version         = $version;
+		$this->block_callbacks = new Auction_Software_Blocks_Callback();
 
 	}
 
@@ -1584,4 +1594,52 @@ class Auction_Software_Admin {
 
 		echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
+
+	/**
+	 * Register gutenberg blocks / block-based widgets.
+	 */
+	public function auction_software_register_gutenberg_blocks() {
+
+		// get json data for all 8 blocks and decode it
+		$data = file_get_contents( AUCTION_SOFTWARE_PLUGIN_PATH . 'src/gutenberg-blocks/data.json' );
+		$data = json_decode( $data );
+
+		// register a single script file which loops through all 8 blocks and regs them one by one
+		wp_register_script(
+			'auction-software-auction-widgets',
+			plugin_dir_url( __DIR__ ) . 'admin/js/gutenberg-blocks/auction-software-auction-widgets.js',
+			array( 'wp-blocks', 'wp-components', 'wp-i18n' ),
+			$this->version,
+			false
+		);
+
+		// if function exists for wordpress 5 and above, loop through all 8 blocks and register them.
+		if ( function_exists( 'register_block_type' ) ) {
+			foreach ( $data as $chunk ) {
+				register_block_type(
+					'auction-software/' . $chunk->registerBlockType,//phpcs:ignore
+					array(
+						'editor_script'   => 'auction-software-auction-widgets',
+						'attributes'      => array(
+							'title'           => array(
+								'type'    => 'string',
+								'default' => $chunk->attributesTitleDefault,//phpcs:ignore
+							),
+							'num_of_auctions' => array(
+								'type'    => 'string',
+								'default' => 5,
+							),
+							'hide_time_left'  => array(
+								'type'    => 'boolean',
+								'default' => false,
+							),
+						),
+						'render_callback' => array( $this->block_callbacks, $chunk->renderCallback ),//phpcs:ignore
+					)
+				);
+			}
+		}
+	}
+
+
 }
