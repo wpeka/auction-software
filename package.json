@@ -1,12 +1,12 @@
 {
     "name": "auction-software",
-    "version": "1.0.7",
+    "version": "1.2.0",
     "main": "Gruntfile.js",
     "author": "WPeka",
     "devDependencies": {
         "@wordpress/scripts": "^13.0.3",
         "grunt": "^1.0.4",
-		"grunt-shell": "^2.1.0",
+        "grunt-shell": "^2.1.0",
         "grunt-contrib-clean": "^2.0.0",
         "grunt-contrib-compress": "^1.5.0",
         "grunt-contrib-copy": "^1.0.0",

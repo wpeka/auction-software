@@ -5,7 +5,7 @@ Tags: auction, woocommerce auction, WordPress auction, auction plugin, proxy bid
 Requires at least: 4.6
 Tested up to: 5.8
 Requires PHP: 7.0
-Stable tag: 1.1.2
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.htm
 
@@ -193,6 +193,9 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 4. Auction Widgets.
 
 == Changelog ==
+= 1.2.0 =
+* Update: Added compatibility with WordPress 5.8 for auction software widgets (Gutenberg block widgets)
+
 = 1.1.2 =
 * Update: WordPress 5.8 compatibility.
 * Fix: PHP 8 compatibility issues fixed.
@@ -248,6 +251,9 @@ Fix: Fixed for broken cart and checkout pages.
 Feature: Initial version.
 
 == Upgrade Notice ==
+= 1.2.0 =
+* Update: Added compatibility with WordPress 5.8 for auction software widgets (Gutenberg block widgets)
+
 = 1.1.2 =
 * Update: WordPress 5.8 compatibility.
 * Fix: PHP 8 compatibility issues fixed.
