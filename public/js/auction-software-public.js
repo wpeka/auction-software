@@ -158,7 +158,13 @@
 								clearInterval( x );
 								document.getElementById( "time_left" ).innerHTML = "Auction has ended";
 								var buyitnow                                     = document.getElementsByClassName( 'single_add_to_cart_button' );
+								var bidnow                                       = document.getElementsByClassName('auction-bid-simple');
+								var penny                                        = document.getElementsByClassName('auction-bid-penny');
 								$( buyitnow ).remove();
+								$( bidnow ).remove();
+								$( penny ).remove();
+								window.location.reload();
+
 							}
 
 						},
