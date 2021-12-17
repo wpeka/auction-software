@@ -56,7 +56,7 @@ class Auction_Software_Public_Test extends WP_UnitTestCase {
 	 * @access public
 	 */
 	public static function wpSetUpBeforeClass( WP_UnitTest_Factory $factory ) {
-		self::$auction_software_public = new Auction_Software_Public( 'Auction-software', '1.2.0' );
+		self::$auction_software_public = new Auction_Software_Public( 'Auction-software', '1.2.1' );
 		self::$product_ids             = $factory->post->create_many( 3, array( 'post_type' => 'product' ) );
 		self::$simple_auction_post     = get_post( self::$product_ids[0] );
 		wp_set_object_terms( self::$product_ids[0], 'auction_simple', 'product_type' );
@@ -74,7 +74,7 @@ class Auction_Software_Public_Test extends WP_UnitTestCase {
 	 * @since 1.1.0
 	 */
 	public function test_construct() {
-		$obj = new Auction_Software_public( 'Auction-software', '1.2.0' );
+		$obj = new Auction_Software_public( 'Auction-software', '1.2.1' );
 		$this->assertTrue( $obj instanceof Auction_Software_public );
 	}
 
