@@ -86,7 +86,7 @@ class Auction_Software_Test extends WP_UnitTestCase {
 	 */
 	public function test_get_version() {
 		$plugin_version = self::$auction_software->get_version();
-		$this->assertEquals( '1.2.0', $plugin_version );
+		$this->assertEquals( '1.2.1', $plugin_version );
 	}
 
 	/**
