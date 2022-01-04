@@ -609,6 +609,9 @@ class Analytics {
 	 * Dismiss review notice.
 	 */
 	public function _ask_for_review_dismiss() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( -1 );
+		}
 		check_ajax_referer( 'ask_for_review', 'security' );
 		if ( isset( $_POST['slug'] ) ) {
 			$slug = $_POST['slug'] ? sanitize_text_field( $_POST['slug'] ) : '';
@@ -621,6 +624,9 @@ class Analytics {
 	 * Dismiss review notice.
 	 */
 	public function _ask_for_usage_dismiss() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( -1 );
+		}
 		check_ajax_referer( 'ask_for_usage', 'security' );
 		if ( isset( $_POST['slug'] ) ) {
 			$slug = $_POST['slug'] ? sanitize_text_field( $_POST['slug'] ) : '';
@@ -631,6 +637,9 @@ class Analytics {
 	}
 
 	public function _ask_for_usage_optin() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( -1 );
+		}
 		check_ajax_referer( 'ask_for_usage', 'security' );
 		if ( isset( $_POST['slug'] ) ) {
 			$slug = $_POST['slug'] ? sanitize_text_field( $_POST['slug'] ) : '';
@@ -693,7 +702,9 @@ class Analytics {
 	 * @since  1.0.0
 	 */
 	public function _submit_uninstall_reason_action() {
-
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( -1 );
+		}
 		check_ajax_referer( 'uninstall_reason', 'security' );
 
 		$deactivation_reason = as_request_get( 'deactivation_reason' );
