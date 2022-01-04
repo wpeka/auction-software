@@ -90,9 +90,14 @@ class Auction_Software_Blocks_Callback {
 					$content .= '<span class="auction_error">' . __( 'Please resolve the errors from Product admin.', 'auction-software' ) . '</span>';
 				} else {
 					if ( ! in_array( 'current_bid', $excluded_fields, true ) ) :
-						if ( true === $product->is_started() ) {
+						if ( true === $product->is_started() || $product->is_ended() ) {
 							if ( $product->is_ended() ) {
-								$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $product->get_auction_winning_bid() ) . '</span>';
+								$current_bid_value = $product->get_auction_current_bid();
+								if ( 0.00 === (float) $current_bid_value ) {
+									$content .= '<span class="auction-current-bid">' . __( 'No bids yet', 'auction-software' ) . '</span>';
+								} else {
+									$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $current_bid_value ) . '</span>';
+								}
 							} else {
 								$current_bid_value = $product->get_auction_current_bid();
 								if ( 0.00 === (float) $current_bid_value ) {
@@ -107,7 +112,8 @@ class Auction_Software_Blocks_Callback {
 					endif;
 
 					$date_to_or_from = '';
-					if ( 1 !== (int) $hide_time && false === $product->is_started() ) {
+
+					if ( 1 !== (int) $hide_time && false === $product->is_started() && ! $product->is_ended() ) {
 						if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
 							$content        .= '<p class="auction_starts_in startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Starts In:', 'auction-software' ) . '</p>';
 							$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
@@ -218,9 +224,14 @@ class Auction_Software_Blocks_Callback {
 					$content .= '<span class="auction_error">' . __( 'Please resolve the errors from Product admin.', 'auction-software' ) . '</span>';
 				} else {
 					if ( ! in_array( 'current_bid', $excluded_fields, true ) ) :
-						if ( true === $product->is_started() ) {
+						if ( true === $product->is_started() || $product->is_ended() ) {
 							if ( $product->is_ended() ) {
-								$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $product->get_auction_winning_bid() ) . '</span>';
+								$current_bid_value = $product->get_auction_current_bid();
+								if ( 0.00 === (float) $current_bid_value ) {
+									$content .= '<span class="auction-current-bid">' . __( 'No bids yet', 'auction-software' ) . '</span>';
+								} else {
+									$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $current_bid_value ) . '</span>';
+								}
 							} else {
 								$current_bid_value = $product->get_auction_current_bid();
 								if ( 0.00 === (float) $current_bid_value ) {
@@ -235,7 +246,7 @@ class Auction_Software_Blocks_Callback {
 					endif;
 
 					$date_to_or_from = '';
-					if ( false === $product->is_started() ) {
+					if ( false === $product->is_started() && ! $product->is_ended() ) {
 						if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
 							$content        .= '<p class="auction_starts_in startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Starts In:', 'auction-software' ) . '</p>';
 							$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
@@ -291,7 +302,7 @@ class Auction_Software_Blocks_Callback {
 		);
 
 		$excluded_fields = get_option( 'auctions_excluded_fields_product_widget', array() );
-
+		
 		$query_args = array(
 			'post_type'      => 'product',
 			'post_status'    => 'publish',
@@ -338,9 +349,14 @@ class Auction_Software_Blocks_Callback {
 					$content .= '<span class="auction_error">' . __( 'Please resolve the errors from Product admin.', 'auction-software' ) . '</span>';
 				} else {
 					if ( ! in_array( 'current_bid', $excluded_fields, true ) ) :
-						if ( true === $product->is_started() ) {
+						if ( true === $product->is_started() || $product->is_ended() ) {
 							if ( $product->is_ended() ) {
-								$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $product->get_auction_winning_bid() ) . '</span>';
+								$current_bid_value = $product->get_auction_current_bid();
+								if ( 0.00 === (float) $current_bid_value ) {
+									$content .= '<span class="auction-current-bid">' . __( 'No bids yet', 'auction-software' ) . '</span>';
+								} else {
+									$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $current_bid_value ) . '</span>';
+								}
 							} else {
 								$current_bid_value = $product->get_auction_current_bid();
 								if ( 0.00 === (float) $current_bid_value ) {
@@ -355,7 +371,7 @@ class Auction_Software_Blocks_Callback {
 					endif;
 
 					$date_to_or_from = '';
-					if ( false === $product->is_started() && 1 !== (int) $hide_time ) {
+					if ( false === $product->is_started() && 1 !== (int) $hide_time && ! $product->is_ended() ) {
 						if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
 							$content        .= '<p class="auction_starts_in startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Starts In:', 'auction-software' ) . '</p>';
 							$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
@@ -455,9 +471,14 @@ class Auction_Software_Blocks_Callback {
 					$content .= '<span class="auction_error">' . __( 'Please resolve the errors from Product admin.', 'auction-software' ) . '</span>';
 				} else {
 					if ( ! in_array( 'current_bid', $excluded_fields, true ) ) :
-						if ( true === $product->is_started() ) {
+						if ( true === $product->is_started() || $product->is_ended() ) {
 							if ( $product->is_ended() ) {
-								$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $product->get_auction_winning_bid() ) . '</span>';
+								$current_bid_value = $product->get_auction_current_bid();
+								if ( 0.00 === (float) $current_bid_value ) {
+									$content .= '<span class="auction-current-bid">' . __( 'No bids yet', 'auction-software' ) . '</span>';
+								} else {
+									$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $current_bid_value ) . '</span>';
+								}
 							} else {
 								$current_bid_value = $product->get_auction_current_bid();
 								if ( 0.00 === (float) $current_bid_value ) {
@@ -472,7 +493,7 @@ class Auction_Software_Blocks_Callback {
 					endif;
 
 					$date_to_or_from = '';
-					if ( false === $product->is_started() && 1 !== (int) $hide_time ) {
+					if ( false === $product->is_started() && 1 !== (int) $hide_time && ! $product->is_ended() ) {
 						if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
 							$content        .= '<p class="auction_starts_in startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Starts In:', 'auction-software' ) . '</p>';
 							$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
@@ -580,9 +601,14 @@ class Auction_Software_Blocks_Callback {
 					$content .= '<span class="auction_error">' . __( 'Please resolve the errors from Product admin.', 'auction-software' ) . '</span>';
 				} else {
 					if ( ! in_array( 'current_bid', $excluded_fields, true ) ) :
-						if ( true === $product->is_started() ) {
+						if ( true === $product->is_started() || $product->is_ended() ) {
 							if ( $product->is_ended() ) {
-								$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $product->get_auction_winning_bid() ) . '</span>';
+								$current_bid_value = $product->get_auction_current_bid();
+								if ( 0.00 === (float) $current_bid_value ) {
+									$content .= '<span class="auction-current-bid">' . __( 'No bids yet', 'auction-software' ) . '</span>';
+								} else {
+									$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $current_bid_value ) . '</span>';
+								}
 							} else {
 								$current_bid_value = $product->get_auction_current_bid();
 								if ( 0.00 === (float) $current_bid_value ) {
@@ -597,7 +623,7 @@ class Auction_Software_Blocks_Callback {
 					endif;
 
 					$date_to_or_from = '';
-					if ( false === $product->is_started() && 1 !== (int) $hide_time ) {
+					if ( false === $product->is_started() && 1 !== (int) $hide_time && ! $product->is_ended() ) {
 						if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
 							$content        .= '<p class="auction_starts_in startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Starts In:', 'auction-software' ) . '</p>';
 							$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
@@ -712,9 +738,14 @@ class Auction_Software_Blocks_Callback {
 						$content .= '<span class="auction_error">' . __( 'Please resolve the errors from Product admin.', 'auction-software' ) . '</span>';
 					} else {
 						if ( ! in_array( 'current_bid', $excluded_fields, true ) ) :
-							if ( true === $product->is_started() ) {
+							if ( true === $product->is_started() || $product->is_ended() ) {
 								if ( $product->is_ended() ) {
-									$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $product->get_auction_winning_bid() ) . '</span>';
+									$current_bid_value = $product->get_auction_current_bid();
+									if ( 0.00 === (float) $current_bid_value ) {
+										$content .= '<span class="auction-current-bid">' . __( 'No bids yet', 'auction-software' ) . '</span>';
+									} else {
+										$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $current_bid_value ) . '</span>';
+									}
 								} else {
 									$current_bid_value = $product->get_auction_current_bid();
 									if ( 0.00 === (float) $current_bid_value ) {
@@ -729,7 +760,7 @@ class Auction_Software_Blocks_Callback {
 						endif;
 
 						$date_to_or_from = '';
-						if ( 1 !== (int) $hide_time && false === $product->is_started() ) {
+						if ( 1 !== (int) $hide_time && false === $product->is_started() && ! $product->is_ended() ) {
 							if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
 								$content        .= '<p class="auction_starts_in startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Starts In:', 'auction-software' ) . '</p>';
 								$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
@@ -846,9 +877,14 @@ class Auction_Software_Blocks_Callback {
 					$content .= '<span class="auction_error">' . __( 'Please resolve the errors from Product admin.', 'auction-software' ) . '</span>';
 				} else {
 					if ( ! in_array( 'current_bid', $excluded_fields, true ) ) :
-						if ( true === $product->is_started() ) {
+						if ( true === $product->is_started() || $product->is_ended() ) {
 							if ( $product->is_ended() ) {
-								$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $product->get_auction_winning_bid() ) . '</span>';
+								$current_bid_value = $product->get_auction_current_bid();
+								if ( 0.00 === (float) $current_bid_value ) {
+									$content .= '<span class="auction-current-bid">' . __( 'No bids yet', 'auction-software' ) . '</span>';
+								} else {
+									$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $current_bid_value ) . '</span>';
+								}
 							} else {
 								$current_bid_value = $product->get_auction_current_bid();
 								if ( 0.00 === (float) $current_bid_value ) {
@@ -863,7 +899,7 @@ class Auction_Software_Blocks_Callback {
 					endif;
 
 					$date_to_or_from = '';
-					if ( 1 !== (int) $hide_time && false === $product->is_started() ) {
+					if ( 1 !== (int) $hide_time && false === $product->is_started() && ! $product->is_ended() ) {
 						if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
 							$content        .= '<p class="auction_starts_in startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Starts In:', 'auction-software' ) . '</p>';
 							$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
@@ -976,9 +1012,14 @@ class Auction_Software_Blocks_Callback {
 					$content .= '<span class="auction_error">' . __( 'Please resolve the errors from Product admin.', 'auction-software' ) . '</span>';
 				} else {
 					if ( ! in_array( 'current_bid', $excluded_fields, true ) ) :
-						if ( true === $product->is_started() ) {
+						if ( true === $product->is_started() || $product->is_ended() ) {
 							if ( $product->is_ended() ) {
-								$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $product->get_auction_winning_bid() ) . '</span>';
+								$current_bid_value = $product->get_auction_current_bid();
+								if ( 0.00 === (float) $current_bid_value ) {
+									$content .= '<span class="auction-current-bid">' . __( 'No bids yet', 'auction-software' ) . '</span>';
+								} else {
+									$content .= '<span class="auction-current-bid">' . __( 'Winning Bid: ', 'auction-software' ) . wc_price( $current_bid_value ) . '</span>';
+								}
 							} else {
 								$current_bid_value = $product->get_auction_current_bid();
 								if ( 0.00 === (float) $current_bid_value ) {
@@ -993,7 +1034,7 @@ class Auction_Software_Blocks_Callback {
 					endif;
 
 					$date_to_or_from = '';
-					if ( false === $product->is_started() ) {
+					if ( false === $product->is_started() && ! $product->is_ended() ) {
 						if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
 							$content        .= '<p class="auction_starts_in startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Starts In:', 'auction-software' ) . '</p>';
 							$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';

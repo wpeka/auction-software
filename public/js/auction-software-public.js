@@ -79,13 +79,11 @@
 									for( var i = 0 ; i < startEndText.length; i++ ) {
 										if ($( startEndText[i] ).hasClass( 'auction_starts_in' )) {
 											endText = 'Auction has started. Please refresh the page.';
+											$( startEndText[i] ).remove();
 										}
 									}
 									$( '.timeLeft' + newIndex ).text( endText );
-									$( '.timeLeft' + newIndex ).css( 'display','inline-block' );
-									$( startEndText ).remove();
-									
-
+									$( '.timeLeft' + newIndex ).css( 'display','inline-block' );	
 								}
 							} else {
 								var days    = Math.floor( distance / (1000 * 60 * 60 * 24) );
@@ -160,7 +158,13 @@
 								clearInterval( x );
 								document.getElementById( "time_left" ).innerHTML = "Auction has ended";
 								var buyitnow                                     = document.getElementsByClassName( 'single_add_to_cart_button' );
+								var bidnow                                       = document.getElementsByClassName('auction-bid-simple');
+								var penny                                        = document.getElementsByClassName('auction-bid-penny');
 								$( buyitnow ).remove();
+								$( bidnow ).remove();
+								$( penny ).remove();
+								window.location.reload();
+
 							}
 
 						},
