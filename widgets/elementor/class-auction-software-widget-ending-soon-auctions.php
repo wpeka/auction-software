@@ -6,7 +6,7 @@
  *
  * @since 1.0.0
  */
-class newplugin2_widgetclass extends \Elementor\Widget_Base {
+class Widget_Ending_Soon extends \Elementor\Widget_Base {
 
 	/**
 	 * Get widget name.
