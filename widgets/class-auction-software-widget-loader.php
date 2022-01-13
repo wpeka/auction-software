@@ -203,10 +203,12 @@ final class new_Plugin_Extension {
 		// Include Widget files
 		require_once( plugin_dir_path(__FILE__) . '/elementor/class-auction-software-widget-ending-soon-auctions.php' );
 		require_once( plugin_dir_path(__FILE__) . '/elementor/class-auction-software-widget-featured-auctions.php' );
+		require_once( plugin_dir_path(__FILE__) . '/elementor/class-auction-software-widget-coming-soon-auctions.php' );
 
 		// Register widget
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Widget_Ending_Soon() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Widget_Featured() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Widget_Coming_Soon() );
 
 	}
 
