@@ -207,6 +207,7 @@ final class new_Plugin_Extension {
 		require_once( plugin_dir_path(__FILE__) . '/elementor/class-auction-software-widget-my-auctions.php' );
 		require_once( plugin_dir_path(__FILE__) . '/elementor/class-auction-software-widget-random-auctions.php' );
 		require_once( plugin_dir_path(__FILE__) . '/elementor/class-auction-software-widget-recent-auctions.php' );
+		require_once( plugin_dir_path(__FILE__) . '/elementor/class-auction-software-widget-watchlist-auctions.php' );
 		require_once( plugin_dir_path(__FILE__) . '/elementor/class-auction-software-widget-recently-viewed-auctions.php' );
 
 		// Register widget
@@ -216,6 +217,7 @@ final class new_Plugin_Extension {
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Widget_My_Auctions() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Widget_Random_Auctions() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Widget_Recent_Auctions() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Widget_Watchlist_Auctions() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Widget_Recently_Viewed_Auctions() );
 
 	}
