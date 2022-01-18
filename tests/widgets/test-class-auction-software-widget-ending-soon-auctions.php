@@ -18,7 +18,7 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'widgets/class-auction-sof
  *
  * @since 1.1.0
  */
-class Auction_Software_Admin_Test extends WP_UnitTestCase {
+class Auction_Software_Widget_Ending_Soon_Test extends WP_UnitTestCase {
     /**
 	 * Testing Auction_Software_Widget_Ending_Soon_Auctions constructor.
 	 *
