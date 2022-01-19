@@ -1,6 +1,6 @@
 <?php
 /**
- * Elementor newplugin Widget.
+ * Elementor Widget_Watchlist_Auctions Widget.
  *
  * Elementor widget that inserts an embbedable content into the page, from any given URL.
  *
@@ -11,7 +11,7 @@ class Widget_Watchlist_Auctions extends \Elementor\Widget_Base {
 	/**
 	 * Get widget name.
 	 *
-	 * Retrieve newplugin widget name.
+	 * Retrieve Widget_Watchlist_Auctions widget name.
 	 *
 	 * @since 1.0.0
 	 * @access public
@@ -25,7 +25,7 @@ class Widget_Watchlist_Auctions extends \Elementor\Widget_Base {
 	/**
 	 * Get widget title.
 	 *
-	 * Retrieve newplugin widget title.
+	 * Retrieve Widget_Watchlist_Auctions widget title.
 	 *
 	 * @since 1.0.0
 	 * @access public
@@ -39,7 +39,7 @@ class Widget_Watchlist_Auctions extends \Elementor\Widget_Base {
 	/**
 	 * Get widget icon.
 	 *
-	 * Retrieve newplugin widget icon.
+	 * Retrieve Widget_Watchlist_Auctions widget icon.
 	 *
 	 * @since 1.0.0
 	 * @access public
@@ -53,7 +53,7 @@ class Widget_Watchlist_Auctions extends \Elementor\Widget_Base {
 	/**
 	 * Get widget categories.
 	 *
-	 * Retrieve the list of categories the newplugin widget belongs to.
+	 * Retrieve the list of categories the Widget_Watchlist_Auctions widget belongs to.
 	 *
 	 * @since 1.0.0
 	 * @access public
@@ -65,7 +65,7 @@ class Widget_Watchlist_Auctions extends \Elementor\Widget_Base {
 	}
 
 	/**
-	 * Register newplugin widget controls.
+	 * Register Widget_Watchlist_Auctions widget controls.
 	 *
 	 * Adds different input fields to allow the user to change and customize the widget settings.
 	 *
@@ -117,7 +117,7 @@ class Widget_Watchlist_Auctions extends \Elementor\Widget_Base {
 	}
 
 	/**
-	 * Render newplugin widget output on the frontend.
+	 * Render Widget_Watchlist_Auctions widget output on the frontend.
 	 *
 	 * Written in PHP and used to generate the final HTML.
 	 *
