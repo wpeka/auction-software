@@ -524,7 +524,13 @@ class Auction_Software_Public {
 		wp_die();
         // phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
-
+	public function get_post_author_email($id){
+		global $wpdb;
+		$tableName=$wpdb->prefix.'posts';
+		$author_id=$wpdb->get_results("SELECT `post_author` FROM $tableName WHERE `ID`=$id");
+		$new=$author_id[0]->post_author;
+		return get_the_author_meta('user_email',$new);
+	}
 	/**
 	 * Simple auction product add to cart.
 	 */
@@ -546,7 +552,7 @@ class Auction_Software_Public {
 		if ( isset( $_POST['auction_bid'] ) ) {
 			if ( true === $product->is_started() ) {
 				if ( is_user_logged_in() ) {
-					if ( get_the_author_meta( 'user_email', $product->post->post_author ) !== wp_get_current_user()->user_email ) {
+					if ( $this->get_post_author_email($product->get_id()) !== wp_get_current_user()->user_email ) {
 						$next_bid                = isset( $_POST['price'] ) ? sanitize_text_field( wp_unslash( $_POST['price'] ) ) : 0;
 						$set_auction_current_bid = $product->set_auction_current_bid( $current_bid, $next_bid, $user_id, $product_id );
 						if ( 5 === (int) $set_auction_current_bid ) {
