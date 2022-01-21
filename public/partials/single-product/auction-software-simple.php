@@ -1,5 +1,5 @@
 <?php
-namespace SimpleAuction;
+// namespace SimpleAuction;
 /**
  * Simple auction product.
  *
