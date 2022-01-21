@@ -1,4 +1,5 @@
 <?php
+namespace ReverseAuction;
 /**
  * Reverse auction product.
  *
