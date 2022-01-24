@@ -68,6 +68,9 @@ install_wp() {
 		download https://downloads.wordpress.org/plugin/woocommerce.5.4.1.zip $TMPDIR/woocommerce.zip
 		unzip -q $TMPDIR/woocommerce.zip -d $TMPDIR/woocommerce/
 		mv $TMPDIR/woocommerce/* $WP_CORE_DIR/wp-content/plugins/woocommerce/
+		download https://downloads.wordpress.org/plugin/elementor.3.5.4.zip $TMPDIR/elementor.zip
+		unzip -q $TMPDIR/elementor.zip -d $TMPDIR/elementor/
+		mv $TMPDIR/elementor/* $WP_CORE_DIR/wp-content/plugins/elementor/
 	else
 		if [ $WP_VERSION == 'latest' ]; then
 			local ARCHIVE_NAME='latest'
@@ -99,6 +102,9 @@ install_wp() {
 	download https://downloads.wordpress.org/plugin/woocommerce.5.4.1.zip $TMPDIR/woocommerce.zip
 	unzip -q $TMPDIR/woocommerce.zip -d $TMPDIR/woocommerce/
 	mv $TMPDIR/woocommerce/* $WP_CORE_DIR/wp-content/plugins/woocommerce/
+	download https://downloads.wordpress.org/plugin/elementor.3.5.4.zip $TMPDIR/elementor.zip
+	unzip -q $TMPDIR/elementor.zip -d $TMPDIR/elementor/
+	mv $TMPDIR/elementor/* $WP_CORE_DIR/wp-content/plugins/elementor/
 }
 
 install_test_suite() {
