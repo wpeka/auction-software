@@ -37,8 +37,6 @@ function _manually_load_plugin() {
 	$elementor = $plugins_dir . 'elementor/elementor.php';
 	require $elementor;
 	do_action( 'activate_' . trim( $elementor, '/' ) ); //phpcs:ignore
-
-
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
