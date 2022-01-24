@@ -6,14 +6,14 @@
  * @since      1.0.0
  *
  * @package    Auction_Software
- * @subpackage Auction_Software/admin
+ * @subpackage Auction_Software/include
  */
 
 /**
  * The callback-blocks functionality of the plugin.
  *
  * @package    Auction_Software
- * @subpackage Auction_Software/public
+ * @subpackage Auction_Software/include
  * @author     WPeka Club <support@wpeka.com>
  */
 class Auction_Software_Blocks_Callback {
