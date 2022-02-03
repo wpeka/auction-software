@@ -391,9 +391,7 @@ class WC_Product_Auction extends WC_Product {
 	 * @return int
 	 */
 	public function get_auction_date_from() {
-
 		return WC_Auction_Software_Helper::get_auction_post_meta( $this->id, 'auction_date_from' );
-
 	}
 
 	/**

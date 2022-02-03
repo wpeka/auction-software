@@ -267,11 +267,11 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 			 * @param array $tabs Tabs.
 			 * @return mixed
 			 */
-			function auction_history_tab( $tabs ) {
-				$tabs['auction_history_tab'] = array(
+			function auction_history_tab_reverse( $tabs ) {
+				$tabs['auction_history_tab_reverse'] = array(
 					'title'    => __( 'Auction History', 'auction-software' ),
 					'priority' => 1,
-					'callback' => 'auction_history_tab_content',
+					'callback' => 'auction_history_tab_content_reverse',
 				);
 				return $tabs;
 			}
@@ -279,14 +279,13 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 			/**
 			 * History tab content.
 			 */
-			function auction_history_tab_content() {
+			function auction_history_tab_content_reverse() {
 				echo '<h2>' . esc_html__( 'Auction History', 'auction-software' ) . '</h2>';
 				echo WC_Auction_Software_Helper::get_auction_history( get_the_ID() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 			if ( ! in_array( 'auction_history', $excluded_fields, true ) ) :
-				add_filter( 'woocommerce_product_tabs', 'auction_history_tab' );
+				add_filter( 'woocommerce_product_tabs', 'auction_history_tab_reverse' );
 		endif;
-
 	} else {
 		?>
 			<p class="auction_error">

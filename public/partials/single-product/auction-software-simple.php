@@ -284,7 +284,6 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 			if ( ! in_array( 'auction_history', $excluded_fields, true ) ) :
 				add_filter( 'woocommerce_product_tabs', 'auction_history_tab' );
 			endif;
-
 	} else {
 		?>
 		<p class="auction_error">

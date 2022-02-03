@@ -215,7 +215,6 @@ class Auction_Software_Widget_Watchlist_Auctions extends WP_Widget {
 						$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . $product->get_id() . "' />";
 
 						$content .= "<input type='hidden' class='timeLeftValue" . $product->get_id() . "' value='" . $date_to_or_from . "' />";
-
 					}
 					$content .= '</li>';
 				}
@@ -235,7 +234,6 @@ class Auction_Software_Widget_Watchlist_Auctions extends WP_Widget {
 		echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		wp_cache_set( 'widget_watchlist_auctions', $cache, 'widget' );
-
 	}
 
 	/**

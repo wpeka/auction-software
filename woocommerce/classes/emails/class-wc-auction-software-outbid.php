@@ -37,7 +37,6 @@ if ( class_exists( 'WC_Email' ) ) :
 		 * WC_Auction_Software_Outbid constructor.
 		 */
 		public function __construct() {
-
 			global $woocommerce_auctions;
 
 			$this->id          = 'auction_software_outbid';

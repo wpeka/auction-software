@@ -33,6 +33,10 @@ function _manually_load_plugin() {
 	$woocommerce = $plugins_dir . 'woocommerce/woocommerce.php';
 	require $woocommerce;
 	do_action( 'activate_' . trim( $woocommerce, '/' ) ); //phpcs:ignore
+
+	$elementor = $plugins_dir . 'elementor/elementor.php';
+	require $elementor;
+	do_action( 'activate_' . trim( $elementor, '/' ) ); //phpcs:ignore
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 

@@ -85,7 +85,6 @@ class Auction_Software_Admin_Test extends WP_UnitTestCase {
 		update_post_meta( self::$product_ids[0], 'auction_extend_duration_if_fail', 10 );
 		update_post_meta( self::$product_ids[0], 'auction_extend_duration_if_not_paid', 10 );
 		update_post_meta( self::$product_ids[0], 'auction_extend_duration_always', 10 );
-
 	}
 
 	/**
@@ -128,7 +127,8 @@ class Auction_Software_Admin_Test extends WP_UnitTestCase {
 	public function test_auction_software_widgets_init() {
 		self::$auction_software_admin->auction_software_widgets_init();
 		$widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );
-
+		$this->assertTrue( true );
+		fwrite(STDERR, print_r($widgets, TRUE));
 		$this->assertTrue( in_array( 'Auction_Software_Widget_Ending_Soon_Auctions', $widgets, true ) );
 		$this->assertTrue( in_array( 'Auction_Software_Widget_Featured_Auctions', $widgets, true ) );
 		$this->assertTrue( in_array( 'Auction_Software_Widget_Future_Auctions', $widgets, true ) );
@@ -268,7 +268,6 @@ class Auction_Software_Admin_Test extends WP_UnitTestCase {
 	 * Test for auction_software_get_product_auction_errors function
 	 */
 	public function test_auction_software_get_product_auction_errors() {
-
 		update_post_meta( self::$product_ids[0], 'auction_start_price_error', __( 'Start Price should not be negative or empty.', 'auction-software' ) );
 		update_post_meta( self::$product_ids[0], 'auction_bid_increment_error', __( 'Bid Increment should not be negative.', 'auction-software' ) );
 		update_post_meta( self::$product_ids[0], 'auction_date_from_error', __( 'Date From should not be empty.', 'auction-software' ) );

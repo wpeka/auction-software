@@ -78,7 +78,6 @@ class Auction_Software {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -195,7 +194,6 @@ class Auction_Software {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'woocommerce/classes/products/class-wc-product-auction-reverse.php';
 
 		$this->loader = new Auction_Software_Loader();
-
 	}
 
 	/**
@@ -208,11 +206,9 @@ class Auction_Software {
 	 * @access   private
 	 */
 	private function set_locale() {
-
 		$plugin_i18n = new Auction_Software_I18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -223,7 +219,6 @@ class Auction_Software {
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
-
 		$plugin_admin = new Auction_Software_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
@@ -263,7 +258,6 @@ class Auction_Software {
 	 * @access   private
 	 */
 	private function define_public_hooks() {
-
 		$plugin_public = new Auction_Software_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
@@ -299,7 +293,6 @@ class Auction_Software {
 
 		// Add Auctions Menu in my Account.
 		$this->loader->add_filter( 'woocommerce_account_menu_items', $plugin_public, 'auction_software_my_account_menu_items', 10, 1 );
-
 	}
 
 	/**

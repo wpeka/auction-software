@@ -28,7 +28,10 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-
+/**
+ * Include Elementor widgets loader
+ */
+require_once dirname( __FILE__ ) . '/widgets/class-auction-software-widget-loader.php';
 /**
  * Include the ASTGM_Plugin_Activation class.
  *
@@ -271,10 +274,8 @@ function auction_software_plugins_loaded() {
 		 * @since    1.0.0
 		 */
 		function run_auction_software() {
-
 			$plugin = new Auction_Software();
 			$plugin->run();
-
 		}
 		run_auction_software();
 	}
