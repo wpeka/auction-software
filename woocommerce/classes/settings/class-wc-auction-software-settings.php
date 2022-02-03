@@ -38,7 +38,6 @@ class WC_Auction_Software_Settings extends WC_Settings_Page {
 	 * @return array
 	 */
 	public function get_sections() {
-
 		$sections = array(
 			''     => __( 'Global Settings', 'auction-software' ),
 			'bids' => __( 'Bid Increment', 'auction-software' ),

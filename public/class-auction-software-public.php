@@ -48,10 +48,8 @@ class Auction_Software_Public {
 	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
-
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
-
 	}
 
 	/**
@@ -75,7 +73,6 @@ class Auction_Software_Public {
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/auction-software-public' . AUCTION_SOFTWARE_SUFFIX . '.css', array(), $this->version, 'all' );
 		wp_enqueue_style( 'dashicons' );
-
 	}
 
 	/**
@@ -126,7 +123,6 @@ class Auction_Software_Public {
 		$data_to_be_passed['timeinterval'] = $time_interval;
 
 		wp_localize_script( $this->plugin_name, 'php_vars', $data_to_be_passed );
-
 	}
 
 	/**

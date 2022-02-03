@@ -12,7 +12,7 @@ admin/css/*.min.css
 admin/js/*.min.js
 public/css/*.min.css
 public/js/*.min.js
-
+.vagrant/
 admin/js/gutenberg-blocks/*.asset.php
 
 yarn.lock

@@ -219,7 +219,6 @@ class Auction_Software_Widget_Future_Auctions extends WP_Widget {
 					$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . esc_attr( $product->get_id() ) . "' />";
 
 					$content .= "<input type='hidden' class='timeLeftValue" . esc_attr( $product->get_id() ) . "' value='" . esc_attr( $date_to_or_from ) . "' />";
-
 				}
 				$content .= '</li>';
 			}

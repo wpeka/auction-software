@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * The widget-specific functionality for future auctions.
+ *
+ * @link       https://club.wpeka.com/
+ * @since      1.0.0
+ *
+ * @package    Auction_Software
+ * @subpackage Auction_Software/widgets
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -12,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-final class new_Plugin_Extension {
+final class Auction_Software_Widget_Loader {
 
 	/**
 	 * Plugin Version
@@ -66,12 +74,10 @@ final class new_Plugin_Extension {
 	 * @return new_Plugin_Extension An instance of the class.
 	 */
 	public static function instance() {
-
 		if ( is_null( self::$_instance ) ) {
 			self::$_instance = new self();
 		}
 		return self::$_instance;
-
 	}
 
 	/**
@@ -82,11 +88,9 @@ final class new_Plugin_Extension {
 	 * @access public
 	 */
 	public function __construct() {
-
-		add_action( 'plugins_loaded', [ $this, 'on_plugins_loaded' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'load_wpac_scripts' ] );
-		add_action( 'elementor/elements/categories_registered',[$this,'add_elementor_widget_categories'] );
-
+		add_action( 'plugins_loaded', array( $this, 'on_plugins_loaded' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'load_wpac_scripts' ) );
+		add_action( 'elementor/elements/categories_registered', array( $this, 'add_elementor_widget_categories' ) );
 	}
 
 	/**
@@ -101,9 +105,7 @@ final class new_Plugin_Extension {
 	 * @access public
 	 */
 	public function i18n() {
-
 		load_plugin_textdomain( 'auction-software' );
-
 	}
 
 	/**
@@ -119,13 +121,8 @@ final class new_Plugin_Extension {
 	 * @access public
 	 */
 	public function on_plugins_loaded() {
-
-		if ( $this->is_compatible() ) {
-			add_action( 'elementor/init', [ $this, 'init' ] );
-		}
-
+			add_action( 'elementor/init', array( $this, 'init' ) );
 	}
-
 	/**
 	 * Compatibility Checks
 	 *
@@ -136,33 +133,17 @@ final class new_Plugin_Extension {
 	 *
 	 * @access public
 	 */
-	public function is_compatible() {
-
-		// Check if Elementor installed and activated
-		if ( ! did_action( 'elementor/loaded' ) ) {
-			add_action( 'admin_notices', [ $this, 'admin_notice_missing_main_plugin' ] );
-			return false;
-		}
-
-		// Check for required Elementor version
-		if ( ! version_compare( ELEMENTOR_VERSION, self::MINIMUM_ELEMENTOR_VERSION, '>=' ) ) {
-			add_action( 'admin_notices', [ $this, 'admin_notice_minimum_elementor_version' ] );
-			return false;
-		}
-
-		// Check for required PHP version
-		if ( version_compare( PHP_VERSION, self::MINIMUM_PHP_VERSION, '<' ) ) {
-			add_action( 'admin_notices', [ $this, 'admin_notice_minimum_php_version' ] );
-			return false;
-		}
-
-		return true;
-
-	}
-	public function load_wpac_scripts(){
-		wp_enqueue_script('jquery');
-		wp_enqueue_style('bootstrap-v3', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css', array(), '3.3.5' );
-		wp_enqueue_style('font-awesome');
+	/**
+	 * Load WPAC Scripts.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 */
+	public function load_wpac_scripts() {
+		wp_enqueue_script( 'jquery' );
+		wp_enqueue_style( 'bootstrap-v3', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css', array(), '3.3.5' );
+		wp_enqueue_style( 'font-awesome' );
 	}
 
 	/**
@@ -178,13 +159,10 @@ final class new_Plugin_Extension {
 	 * @access public
 	 */
 	public function init() {
-	
 		$this->i18n();
 
-		// Add Plugin actions
-		add_action( 'elementor/widgets/widgets_registered', [ $this, 'init_widgets' ] );
-		// add_action( 'elementor/controls/controls_registered', [ $this, 'init_controls' ] );
-
+		// Add Plugin actions.
+		add_action( 'elementor/widgets/widgets_registered', array( $this, 'init_widgets' ) );
 	}
 
 	/**
@@ -198,134 +176,43 @@ final class new_Plugin_Extension {
 	 */
 	public function init_widgets() {
 
-		// Include Widget files
-		require_once( plugin_dir_path(__FILE__) . '/elementor/class-auction-software-widget-ending-soon-auctions.php' );
-		require_once( plugin_dir_path(__FILE__) . '/elementor/class-auction-software-widget-featured-auctions.php' );
-		require_once( plugin_dir_path(__FILE__) . '/elementor/class-auction-software-widget-coming-soon-auctions.php' );
-		require_once( plugin_dir_path(__FILE__) . '/elementor/class-auction-software-widget-my-auctions.php' );
-		require_once( plugin_dir_path(__FILE__) . '/elementor/class-auction-software-widget-random-auctions.php' );
-		require_once( plugin_dir_path(__FILE__) . '/elementor/class-auction-software-widget-recent-auctions.php' );
-		require_once( plugin_dir_path(__FILE__) . '/elementor/class-auction-software-widget-watchlist-auctions.php' );
-		require_once( plugin_dir_path(__FILE__) . '/elementor/class-auction-software-widget-recently-viewed-auctions.php' );
+		// Include Widget files.
+		require_once plugin_dir_path( __FILE__ ) . '/elementor/class-auction-software-ending-soon-auctions.php';
+		require_once plugin_dir_path( __FILE__ ) . '/elementor/class-auction-software-featured-auctions.php';
+		require_once plugin_dir_path( __FILE__ ) . '/elementor/class-auction-software-coming-soon-auctions.php';
+		require_once plugin_dir_path( __FILE__ ) . '/elementor/class-auction-software-my-auctions.php';
+		require_once plugin_dir_path( __FILE__ ) . '/elementor/class-auction-software-random-auctions.php';
+		require_once plugin_dir_path( __FILE__ ) . '/elementor/class-auction-software-recent-auctions.php';
+		require_once plugin_dir_path( __FILE__ ) . '/elementor/class-auction-software-watchlist-auctions.php';
+		require_once plugin_dir_path( __FILE__ ) . '/elementor/class-auction-software-recently-viewed-auctions.php';
 
-		// Register widget
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Widget_Ending_Soon() );
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Widget_Featured() );
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Widget_Coming_Soon() );
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Widget_My_Auctions() );
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Widget_Random_Auctions() );
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Widget_Recent_Auctions() );
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Widget_Watchlist_Auctions() );
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Widget_Recently_Viewed_Auctions() );
-
+		// Register widget.
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Auction_Software_Ending_Soon_Auctions() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Auction_Software_Featured_Auctions() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Auction_Software_Coming_Soon_Auctions() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Auction_Software_My_Auctions() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Auction_Software_Random_Auctions() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Auction_Software_Recent_Auctions() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Auction_Software_Watchlist_Auctions() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Auction_Software_Recently_Viewed_Auctions() );
 	}
 
-	/**
-	 * Init Controls
-	 *
-	 * Include controls files and register them
-	 *
-	 * @since 1.0.0
-	 *
-	 * @access public
-	 */
-	// public function init_controls() {
-
-	// 	// Include Control files
-	// 	require_once( __DIR__ . '/controls/test-control.php' );
-
-	// 	// Register control
-	// 	\Elementor\Plugin::$instance->controls_manager->register_control( 'control-type-', new \Test_Control() );
-
-	// }
 	/**
 	 * Custom widgets category
-	 * 
+	 *
 	 *  @since 1.0.0
+	 *
+	 * @param array $elements_manager  Name of an property.
 	 */
-	public function add_elementor_widget_categories($elements_manager){
+	public function add_elementor_widget_categories( $elements_manager ) {
 		$elements_manager->add_category(
 			'wp-auction',
-			[
-				'title'=>__('Auction Software','auction-software'),
-				'icon'=>'eicon-menu-bar',
-			]
-			);
-	}
-	/**
-	 * Admin notice
-	 *
-	 * Warning when the site doesn't have Elementor installed or activated.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @access public
-	 */
-	public function admin_notice_missing_main_plugin() {
-
-		if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
-
-		$message = sprintf(
-			/* translators: 1: Plugin name 2: Elementor */
-			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'newplugin' ),
-			'<strong>' . esc_html__( 'Elementor Test Extension', 'newplugin' ) . '</strong>',
-			'<strong>' . esc_html__( 'Elementor', 'newplugin' ) . '</strong>'
+			array(
+				'title' => __( 'Auction Software', 'auction-software' ),
+				'icon'  => 'eicon-menu-bar',
+			)
 		);
-
-		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
-
 	}
-
-	/**
-	 * Admin notice
-	 *
-	 * Warning when the site doesn't have a minimum required Elementor version.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @access public
-	 */
-	public function admin_notice_minimum_elementor_version() {
-
-		if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
-
-		$message = sprintf(
-			/* translators: 1: Plugin name 2: Elementor 3: Required Elementor version */
-			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'newplugin' ),
-			'<strong>' . esc_html__( 'Elementor Test Extension', 'newplugin' ) . '</strong>',
-			'<strong>' . esc_html__( 'Elementor', 'newplugin' ) . '</strong>',
-			 self::MINIMUM_ELEMENTOR_VERSION
-		);
-
-		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
-
-	}
-
-	/**
-	 * Admin notice
-	 *
-	 * Warning when the site doesn't have a minimum required PHP version.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @access public
-	 */
-	public function admin_notice_minimum_php_version() {
-
-		if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
-
-		$message = sprintf(
-			/* translators: 1: Plugin name 2: PHP 3: Required PHP version */
-			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'newplugin' ),
-			'<strong>' . esc_html__( 'Elementor Test Extension', 'newplugin' ) . '</strong>',
-			'<strong>' . esc_html__( 'PHP', 'newplugin' ) . '</strong>',
-			 self::MINIMUM_PHP_VERSION
-		);
-
-		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
-
-	}
-
 }
 
-new_Plugin_Extension::instance();
+Auction_Software_Widget_Loader::instance();

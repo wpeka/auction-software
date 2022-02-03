@@ -140,7 +140,6 @@ class Auction_Software_Blocks_Callback {
 			}
 
 			$content .= '</ul>';
-
 		}
 
 		wp_reset_postdata();
@@ -152,7 +151,6 @@ class Auction_Software_Blocks_Callback {
 	 * Coming Soon Callback.
 	 */
 	public function auction_software_coming_soon_callback( $instance ) {
-
 		global $woocommerce;
 
 		$title  = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Coming Soon Auctions', 'auction-software' ) : $instance['title'], $instance );
@@ -267,13 +265,11 @@ class Auction_Software_Blocks_Callback {
 					$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . esc_attr( $product->get_id() ) . "' />";
 
 					$content .= "<input type='hidden' class='timeLeftValue" . esc_attr( $product->get_id() ) . "' value='" . esc_attr( $date_to_or_from ) . "' />";
-
 				}
 				$content .= '</li>';
 			}
 
 			$content .= '</ul>';
-
 		}
 
 		wp_reset_postdata();
@@ -302,7 +298,7 @@ class Auction_Software_Blocks_Callback {
 		);
 
 		$excluded_fields = get_option( 'auctions_excluded_fields_product_widget', array() );
-		
+
 		$query_args = array(
 			'post_type'      => 'product',
 			'post_status'    => 'publish',
@@ -391,7 +387,6 @@ class Auction_Software_Blocks_Callback {
 					$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . $product->get_id() . "' />";
 
 					$content .= "<input type='hidden' class='timeLeftValue" . $product->get_id() . "' value='" . $date_to_or_from . "' />";
-
 				}
 				$content .= '</li>';
 			}
@@ -643,7 +638,6 @@ class Auction_Software_Blocks_Callback {
 					$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . $product->get_id() . "' />";
 
 					$content .= "<input type='hidden' class='timeLeftValue" . $product->get_id() . "' value='" . $date_to_or_from . "' />";
-
 				}
 				$content .= '</li>';
 			}
@@ -780,20 +774,17 @@ class Auction_Software_Blocks_Callback {
 						$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . $product->get_id() . "' />";
 
 						$content .= "<input type='hidden' class='timeLeftValue" . $product->get_id() . "' value='" . $date_to_or_from . "' />";
-
 					}
 					$content .= '</li>';
 				}
 			}
 
 			$content .= '</ul>';
-
 		}
 
 		wp_reset_postdata();
 
 		return $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
 	}
 
 	/**
@@ -919,7 +910,6 @@ class Auction_Software_Blocks_Callback {
 					$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . $product->get_id() . "' />";
 
 					$content .= "<input type='hidden' class='timeLeftValue" . $product->get_id() . "' value='" . $date_to_or_from . "' />";
-
 				}
 				$content .= '</li>';
 			}
@@ -930,7 +920,6 @@ class Auction_Software_Blocks_Callback {
 		wp_reset_postdata();
 
 		return $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
 	}
 
 	/**
@@ -1054,7 +1043,6 @@ class Auction_Software_Blocks_Callback {
 					$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . $product->get_id() . "' />";
 
 					$content .= "<input type='hidden' class='timeLeftValue" . $product->get_id() . "' value='" . $date_to_or_from . "' />";
-
 				}
 				$content .= '</li>';
 			}
@@ -1065,7 +1053,6 @@ class Auction_Software_Blocks_Callback {
 		wp_reset_postdata();
 
 		return $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
 	}
 
 }

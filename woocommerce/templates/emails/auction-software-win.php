@@ -25,10 +25,10 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 <?php
 echo sprintf( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		/* translators: 1: Auction name, 2: Auction link */
-		esc_html__( "You've won the %1\$s auction. %2\$s to buy your product.", 'auction-software' ),
+	esc_html__( "You've won the %1\$s auction. %2\$s to buy your product.", 'auction-software' ),
 	esc_attr( $product_data->get_title() ),
 	sprintf( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			"<a href='%s' target='_blank'>Click here</a>",
+		"<a href='%s' target='_blank'>Click here</a>",
 		esc_url( get_permalink( $product_id ) )
 	)
 );

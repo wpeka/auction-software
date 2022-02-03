@@ -1,12 +1,20 @@
 <?php
 /**
- * Elementor Widget_Watchlist_Auctions Widget.
+ * The widget-specific functionality for Watchlist auctions.
  *
- * Elementor widget that inserts an embbedable content into the page, from any given URL.
+ * @link       https://club.wpeka.com/
+ * @since      1.0.0
+ *
+ * @package    Auction_Software
+ * @subpackage Auction_Software/widgets
+ */
+
+/**
+ * Elementor Widget_Watchlist_Auctions Widget.
  *
  * @since 1.0.0
  */
-class Widget_Watchlist_Auctions extends \Elementor\Widget_Base {
+class Auction_Software_Watchlist_Auctions extends \Elementor\Widget_Base {
 
 	/**
 	 * Get widget name.
@@ -61,7 +69,7 @@ class Widget_Watchlist_Auctions extends \Elementor\Widget_Base {
 	 * @return array Widget categories.
 	 */
 	public function get_categories() {
-		return [ 'wp-auction' ];
+		return array( 'wp-auction' );
 	}
 
 	/**
@@ -73,47 +81,45 @@ class Widget_Watchlist_Auctions extends \Elementor\Widget_Base {
 	 * @access protected
 	 */
 	protected function _register_controls() {
-
 		$this->start_controls_section(
 			'content_section',
-			[
+			array(
 				'label' => __( 'Content', 'auction-software' ),
-				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
-			]
+				'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
+			)
 		);
 		$this->add_control(
 			'widget_title_Watchlist',
-			[
-				'label' => __( 'Title', 'auction-software' ),
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'input_type' => 'text',
-				'default'=>__('Watchlist Auctions','auction-software'),
+			array(
+				'label'       => __( 'Title', 'auction-software' ),
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'input_type'  => 'text',
+				'default'     => __( 'Watchlist Auctions', 'auction-software' ),
 				'placeholder' => __( 'Type your title here', 'auction-software' ),
-			]
+			)
 		);
 		$this->add_control(
 			'widget_post_no_Watchlist',
-			[
-				'label' => __( 'Number of Auctions to Show', 'auction-software' ),
-				'type' => \Elementor\Controls_Manager::NUMBER,
-				'input_type' => 'number',
-				'default'=>__('5','auction-software'),
+			array(
+				'label'       => __( 'Number of Auctions to Show', 'auction-software' ),
+				'type'        => \Elementor\Controls_Manager::NUMBER,
+				'input_type'  => 'number',
+				'default'     => __( '5', 'auction-software' ),
 				'placeholder' => __( 'Enter the No. of Auctions to show', 'auction-software' ),
-			]
+			)
 		);
 		$this->add_control(
 			'show_time_Watchlist',
-			[
-				'label' => esc_html__( 'Hide Time Left', 'auction-software' ),
-				'type' => \Elementor\Controls_Manager::SWITCHER,
-				'label_on' => esc_html__( 'Show', 'auction-software' ),
+			array(
+				'label'     => esc_html__( 'Hide Time Left', 'auction-software' ),
+				'type'      => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'Show', 'auction-software' ),
 				'label_off' => esc_html__( 'Hide', 'auction-software' ),
-				'default' => 'no',
-			]
+				'default'   => 'no',
+			)
 		);
-		
-		$this->end_controls_section();
 
+		$this->end_controls_section();
 	}
 
 	/**
@@ -124,27 +130,27 @@ class Widget_Watchlist_Auctions extends \Elementor\Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-    protected function render() {
+	protected function render() {
 		global $woocommerce;
 
 		$cache = wp_cache_get( 'widget_watchlist_auctions', 'widget' );
 		if ( ! is_array( $cache ) ) {
 			$cache = array();
 		}
-        $settings=$this->get_settings_for_display();
-		$title  = __($settings['widget_title_Watchlist'],'auction-software');
+		$settings   = $this->get_settings_for_display();
+		$title      = __( $settings['widget_title_Watchlist'], 'auction-software' ); //phpcs:ignore
 			$number = 5;
-			if ($settings['widget_post_no_Watchlist'] ) {
-				if ( ! is_numeric( $settings['widget_post_no_Watchlist'] ) ) {
-					$number = 10;
-				} elseif ( $number < 1 ) {
-					$number = 1;
-				} elseif ( $number > 15 ) {
-					$number = 15;
-				} else {
-					$number = $settings['widget_post_no_Watchlist'];
-				}
+		if ( $settings['widget_post_no_Watchlist'] ) {
+			if ( ! is_numeric( $settings['widget_post_no_Watchlist'] ) ) {
+				$number = 10;
+			} elseif ( $number < 1 ) {
+				$number = 1;
+			} elseif ( $number > 15 ) {
+				$number = 15;
+			} else {
+				$number = $settings['widget_post_no_Watchlist'];
 			}
+		}
 
 		if ( ! is_user_logged_in() ) {
 			return;
@@ -188,8 +194,6 @@ class Widget_Watchlist_Auctions extends \Elementor\Widget_Base {
 
 		if ( $r->have_posts() ) {
 			$hide_time = empty( $instance['show_time_Watchlist'] ) ? 0 : 1;
-
-			// $content .= $before_widget;
 
 			if ( $title ) {
 				$content .= $title;
@@ -248,7 +252,6 @@ class Widget_Watchlist_Auctions extends \Elementor\Widget_Base {
 						$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . $product->get_id() . "' />";
 
 						$content .= "<input type='hidden' class='timeLeftValue" . $product->get_id() . "' value='" . $date_to_or_from . "' />";
-
 					}
 					$content .= '</li>';
 				}
@@ -256,7 +259,6 @@ class Widget_Watchlist_Auctions extends \Elementor\Widget_Base {
 
 			$content .= '</ul>';
 
-			// $content .= $after_widget;
 		}
 
 		wp_reset_postdata();

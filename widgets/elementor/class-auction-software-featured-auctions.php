@@ -1,12 +1,22 @@
 <?php
 /**
+ * The widget-specific functionality for Featured auctions.
+ *
+ * @link       https://club.wpeka.com/
+ * @since      1.0.0
+ *
+ * @package    Auction_Software
+ * @subpackage Auction_Software/widgets
+ */
+
+/**
  * Elementor Widget_Featured Widget.
  *
  * Elementor widget that inserts an embbedable content into the page, from any given URL.
  *
  * @since 1.0.0
  */
-class Widget_Featured extends \Elementor\Widget_Base {
+class Auction_Software_Featured_Auctions extends \Elementor\Widget_Base {
 
 	/**
 	 * Get widget name.
@@ -61,7 +71,7 @@ class Widget_Featured extends \Elementor\Widget_Base {
 	 * @return array Widget categories.
 	 */
 	public function get_categories() {
-		return [ 'wp-auction' ];
+		return array( 'wp-auction' );
 	}
 
 	/**
@@ -73,47 +83,45 @@ class Widget_Featured extends \Elementor\Widget_Base {
 	 * @access protected
 	 */
 	protected function _register_controls() {
-
 		$this->start_controls_section(
 			'content_section',
-			[
+			array(
 				'label' => __( 'Content', 'auction-software' ),
-				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
-			]
+				'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
+			)
 		);
 		$this->add_control(
 			'widget_featured_title',
-			[
-				'label' => __( 'Title', 'auction-software' ),
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'input_type' => 'text',
-				'default'=>__('Featured Auctions','auction-software'),
+			array(
+				'label'       => __( 'Title', 'auction-software' ),
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'input_type'  => 'text',
+				'default'     => __( 'Featured Auctions', 'auction-software' ),
 				'placeholder' => __( 'Type your title here', 'auction-software' ),
-			]
+			)
 		);
 		$this->add_control(
 			'widget_featured_post_no',
-			[
-				'label' => __( 'Number of Auctions to Show', 'auction-software' ),
-				'type' => \Elementor\Controls_Manager::NUMBER,
-				'input_type' => 'number',
-				'default'=>__('5','auction-software'),
+			array(
+				'label'       => __( 'Number of Auctions to Show', 'auction-software' ),
+				'type'        => \Elementor\Controls_Manager::NUMBER,
+				'input_type'  => 'number',
+				'default'     => __( '5', 'auction-software' ),
 				'placeholder' => __( 'Enter the No. of Auctions to show', 'auction-software' ),
-			]
+			)
 		);
 		$this->add_control(
 			'show_time_featured',
-			[
-				'label' => esc_html__( 'Hide Time Left', 'auction-software' ),
-				'type' => \Elementor\Controls_Manager::SWITCHER,
-				'label_on' => esc_html__( 'Show', 'auction-software' ),
+			array(
+				'label'     => esc_html__( 'Hide Time Left', 'auction-software' ),
+				'type'      => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'Show', 'auction-software' ),
 				'label_off' => esc_html__( 'Hide', 'auction-software' ),
-				'default' => 'no',
-			]
+				'default'   => 'no',
+			)
 		);
-		
-		$this->end_controls_section();
 
+		$this->end_controls_section();
 	}
 
 	/**
@@ -126,24 +134,24 @@ class Widget_Featured extends \Elementor\Widget_Base {
 	 */
 	protected function render() {
 		global $woocommerce;
-		$settings=$this->get_settings_for_display();
-		$cache = wp_cache_get( 'widget_featured_auctions', 'widget' );
+		$settings = $this->get_settings_for_display();
+		$cache    = wp_cache_get( 'widget_featured_auctions', 'widget' );
 		if ( ! is_array( $cache ) ) {
 			$cache = array();
 		}
-		$title  = __($settings['widget_featured_title'],'auction-software');
+		$title      = __( $settings['widget_featured_title'], 'auction-software' ); //phpcs:ignore
 			$number = 5;
-			if ($settings['widget_featured_post_no'] ) {
-				if ( ! is_numeric( $settings['widget_featured_post_no'] ) ) {
-					$number = 10;
-				} elseif ( $number < 1 ) {
-					$number = 1;
-				} elseif ( $number > 15 ) {
-					$number = 15;
-				} else {
-					$number = $settings['widget_featured_post_no'];
-				}
+		if ( $settings['widget_featured_post_no'] ) {
+			if ( ! is_numeric( $settings['widget_featured_post_no'] ) ) {
+				$number = 10;
+			} elseif ( $number < 1 ) {
+				$number = 1;
+			} elseif ( $number > 15 ) {
+				$number = 15;
+			} else {
+				$number = $settings['widget_featured_post_no'];
 			}
+		}
 
 		$auction_types = apply_filters(
 			'auction_software_auction_types',
@@ -189,8 +197,6 @@ class Widget_Featured extends \Elementor\Widget_Base {
 
 		if ( $r->have_posts() ) {
 			$hide_time = empty( $settings['show_time_featured'] ) ? 0 : 1;
-
-			// $content .= $before_widget;
 
 			if ( $title ) {
 				$content .= $title;
@@ -249,14 +255,12 @@ class Widget_Featured extends \Elementor\Widget_Base {
 					$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . $product->get_id() . "' />";
 
 					$content .= "<input type='hidden' class='timeLeftValue" . $product->get_id() . "' value='" . $date_to_or_from . "' />";
-
 				}
 				$content .= '</li>';
 			}
 
 			$content .= '</ul>';
 
-			// $content .= $after_widget;
 		}
 
 		wp_reset_postdata();

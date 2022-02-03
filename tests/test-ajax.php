@@ -142,7 +142,6 @@ class AjaxTest extends WP_Ajax_UnitTestCase {
 		update_user_meta( $user_id, 'auction_watchlist', self::$product_ids[1] );
 		try {
 			$this->_handleAjax( 'woocommerce_ajax_add_to_auctionwatchlist' );
-
 		} catch ( WPAjaxDieContinueException $e ) {
 			unset( $e );
 		}

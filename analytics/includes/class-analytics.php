@@ -189,7 +189,6 @@ class Analytics {
 	 * @throws Analytics_Exception Analytics Exception.
 	 */
 	public function dynamic_init( array $plugin_info ) {
-
 		if ( $this->should_stop_execution() ) {
 			return;
 		}
@@ -202,7 +201,6 @@ class Analytics {
 	 * @since  1.0.0
 	 */
 	private function register_constructor_hooks() {
-
 		if ( is_admin() ) {
 			add_action( 'admin_init', array( &$this, '_hook_action_links_and_register_account_hooks' ) );
 		}
@@ -221,7 +219,6 @@ class Analytics {
 	 * @return bool
 	 */
 	function is_user_admin() {
-
 		return ( $this->is_plugin() && current_user_can( is_multisite() ? 'manage_options' : 'activate_plugins' ) )
 			|| ( $this->is_theme() && current_user_can( 'switch_themes' ) );
 	}
@@ -247,7 +244,6 @@ class Analytics {
 	 * @return string Plugin slug.
 	 */
 	public function get_slug() {
-
 		return $this->_slug;
 	}
 
@@ -260,7 +256,6 @@ class Analytics {
 	 * @return bool
 	 */
 	private function should_stop_execution() {
-
 		if ( $this->is_activation_mode() ) {
 			if ( ! is_admin() ) {
 				/**
@@ -348,7 +343,6 @@ class Analytics {
 	 * @since  1.0.0
 	 */
 	public function _add_deactivation_feedback_dialog_box() {
-
 		$show_deactivation_feedback_form = true;
 
 		$vars = array(
@@ -388,7 +382,6 @@ class Analytics {
 	 * @return array The uninstall reasons for the specified user type.
 	 */
 	public function _get_uninstall_reasons( $user_type = 'long-term' ) {
-
 		$params                = array();
 		$params['module_type'] = $this->_module_type;
 
@@ -410,7 +403,6 @@ class Analytics {
 
 			set_transient( $this->_module_type . '_uninstall_reasons', $uninstall_reasons, 60 * 60 * 24 );
 		} else {
-
 			$uninstall_reasons = get_transient( $this->_module_type . '_uninstall_reasons' );
 		}
 		return $uninstall_reasons;
@@ -545,7 +537,6 @@ class Analytics {
 	 * @return array
 	 */
 	function _modify_plugin_action_links_hook( $links, $file ) {
-
 		$passed_deactivate = false;
 		$deactivate_link   = '';
 		$before_deactivate = array();
@@ -743,7 +734,6 @@ class Analytics {
 	 * @param arrat $reason Reasons.
 	 */
 	public function _uninstall_plugin_event( $check_user = true, $reason = array() ) {
-
 		if ( $check_user && ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
@@ -782,7 +772,6 @@ class Analytics {
 			$url      = esc_url( WP_STAT__ADDRESS . '/wp-json/action/submit/uninstall/reason/' );
 			$response = wp_remote_post( $url, $request );
 		}
-
 	}
 
 	/**

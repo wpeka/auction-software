@@ -745,7 +745,7 @@ if ( ! class_exists( 'ASTGM_Plugin_Activation' ) ) {
 		 */
 		public function install_plugins_page() {
 			// Store new instance of plugin table in object.
-			$plugin_table = new ASTGMPA_List_Table;
+			$plugin_table = new ASTGMPA_List_Table();
 
 			// Return early if processing a plugin installation action.
 			if ( ( ( 'tgmpa-bulk-install' === $plugin_table->current_action() || 'tgmpa-bulk-update' === $plugin_table->current_action() ) && $plugin_table->process_bulk_actions() ) || $this->do_plugin_install() ) {
@@ -810,7 +810,6 @@ if ( ! class_exists( 'ASTGM_Plugin_Activation' ) ) {
 
 			// Was an install or upgrade action link clicked?
 			if ( ( isset( $_GET['tgmpa-install'] ) && 'install-plugin' === $_GET['tgmpa-install'] ) || ( isset( $_GET['tgmpa-update'] ) && 'update-plugin' === $_GET['tgmpa-update'] ) ) {
-
 				$install_type = 'install';
 				if ( isset( $_GET['tgmpa-update'] ) && 'update-plugin' === $_GET['tgmpa-update'] ) {
 					$install_type = 'update';
@@ -947,14 +946,14 @@ if ( ! class_exists( 'ASTGM_Plugin_Activation' ) ) {
 			$repo_updates = get_site_transient( 'update_plugins' );
 
 			if ( ! is_object( $repo_updates ) ) {
-				$repo_updates = new stdClass;
+				$repo_updates = new stdClass();
 			}
 
 			foreach ( $plugins as $slug => $plugin ) {
 				$file_path = $plugin['file_path'];
 
 				if ( empty( $repo_updates->response[ $file_path ] ) ) {
-					$repo_updates->response[ $file_path ] = new stdClass;
+					$repo_updates->response[ $file_path ] = new stdClass();
 				}
 
 				// We only really need to set package, but let's do all we can in case WP changes something.
@@ -1024,10 +1023,24 @@ if ( ! class_exists( 'ASTGM_Plugin_Activation' ) ) {
 					if ( true === $GLOBALS['wp_filesystem']->move( $from_path, $to_path ) ) {
 						return trailingslashit( $to_path );
 					} else {
-						return new WP_Error( 'rename_failed', esc_html__( 'The remote plugin package does not contain a folder with the desired slug and renaming did not work.', 'tgmpa' ) . ' ' . esc_html__( 'Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines.', 'tgmpa' ), array( 'found' => $subdir_name, 'expected' => $desired_slug ) );
+						return new WP_Error(
+							'rename_failed',
+							esc_html__( 'The remote plugin package does not contain a folder with the desired slug and renaming did not work.', 'tgmpa' ) . ' ' . esc_html__( 'Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines.', 'tgmpa' ),
+							array(
+								'found'    => $subdir_name,
+								'expected' => $desired_slug,
+							)
+						);
 					}
 				} elseif ( empty( $subdir_name ) ) {
-					return new WP_Error( 'packaged_wrong', esc_html__( 'The remote plugin package consists of more than one file, but the files are not packaged in a folder.', 'tgmpa' ) . ' ' . esc_html__( 'Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines.', 'tgmpa' ), array( 'found' => $subdir_name, 'expected' => $desired_slug ) );
+					return new WP_Error(
+						'packaged_wrong',
+						esc_html__( 'The remote plugin package consists of more than one file, but the files are not packaged in a folder.', 'tgmpa' ) . ' ' . esc_html__( 'Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines.', 'tgmpa' ),
+						array(
+							'found'    => $subdir_name,
+							'expected' => $desired_slug,
+						)
+					);
 				}
 			}
 
@@ -1161,7 +1174,6 @@ if ( ! class_exists( 'ASTGM_Plugin_Activation' ) ) {
 					}
 
 					if ( $this->does_plugin_require_update( $slug ) || false !== $this->does_plugin_have_update( $slug ) ) {
-
 						if ( current_user_can( 'update_plugins' ) ) {
 							$update_link_count++;
 
@@ -1221,7 +1233,6 @@ if ( ! class_exists( 'ASTGM_Plugin_Activation' ) ) {
 								$count
 							)
 						);
-
 					}
 					unset( $type, $plugin_group, $linked_plugins, $count, $last_plugin, $imploded );
 
@@ -1648,7 +1659,13 @@ if ( ! class_exists( 'ASTGM_Plugin_Activation' ) ) {
 					require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 				}
 
-				$response = plugins_api( 'plugin_information', array( 'slug' => $slug, 'fields' => array( 'sections' => false ) ) );
+				$response = plugins_api(
+					'plugin_information',
+					array(
+						'slug'   => $slug,
+						'fields' => array( 'sections' => false ),
+					)
+				);
 
 				$api[ $slug ] = false;
 
@@ -2418,10 +2435,8 @@ if ( ! class_exists( 'ASTGMPA_List_Table' ) ) {
 
 			if ( $this->tgmpa->does_plugin_require_update( $slug ) && false === $this->tgmpa->does_plugin_have_update( $slug ) ) {
 				$update_status = __( 'Required Update not Available', 'tgmpa' );
-
 			} elseif ( $this->tgmpa->does_plugin_require_update( $slug ) ) {
 				$update_status = __( 'Requires Update', 'tgmpa' );
-
 			} elseif ( false !== $this->tgmpa->does_plugin_have_update( $slug ) ) {
 				$update_status = __( 'Update recommended', 'tgmpa' );
 			}
@@ -2498,7 +2513,6 @@ if ( ! class_exists( 'ASTGMPA_List_Table' ) ) {
 				}
 
 				if ( ! empty( $text ) ) {
-
 					$status_links[ $type ] = sprintf(
 						'<a href="%s"%s>%s</a>',
 						esc_url( $this->tgmpa->get_tgmpa_status_url( $type ) ),
@@ -2802,7 +2816,6 @@ if ( ! class_exists( 'ASTGMPA_List_Table' ) ) {
 		 * @return array $actions The bulk actions for the plugin install table.
 		 */
 		public function get_bulk_actions() {
-
 			$actions = array();
 
 			if ( 'update' !== $this->view_context && 'activate' !== $this->view_context ) {
@@ -2834,7 +2847,6 @@ if ( ! class_exists( 'ASTGMPA_List_Table' ) ) {
 		public function process_bulk_actions() {
 			// Bulk installation process.
 			if ( 'tgmpa-bulk-install' === $this->current_action() || 'tgmpa-bulk-update' === $this->current_action() ) {
-
 				check_admin_referer( 'bulk-' . $this->_args['plural'] );
 
 				$install_type = 'install';
@@ -2941,7 +2953,6 @@ if ( ! class_exists( 'ASTGMPA_List_Table' ) ) {
 						$names[] = $name;
 
 						switch ( $install_type ) {
-
 							case 'install':
 								$sources[] = $source;
 								break;
@@ -3407,12 +3418,16 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 						 *     @type array  $packages Array of plugin, theme, or core packages to update.
 						 * }
 						 */
-						do_action( 'upgrader_process_complete', $this, array(
-							'action'  => 'install', // [TGMPA + ] adjusted.
-							'type'    => 'plugin',
-							'bulk'    => true,
-							'plugins' => $plugins,
-						) );
+						do_action(
+							'upgrader_process_complete',
+							$this,
+							array(
+								'action'  => 'install', // [TGMPA + ] adjusted.
+								'type'    => 'plugin',
+								'bulk'    => true,
+								'plugins' => $plugins,
+							)
+						);
 
 						$this->skin->bulk_footer();
 
@@ -3442,7 +3457,6 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 					 * @return string|bool Install confirmation messages on success, false on failure.
 					 */
 					public function bulk_upgrade( $plugins, $args = array() ) {
-
 						add_filter( 'upgrader_post_install', array( $this, 'auto_activate' ), 10 );
 
 						$result = parent::bulk_upgrade( $plugins, $args );

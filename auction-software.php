@@ -274,10 +274,8 @@ function auction_software_plugins_loaded() {
 		 * @since    1.0.0
 		 */
 		function run_auction_software() {
-
 			$plugin = new Auction_Software();
 			$plugin->run();
-
 		}
 		run_auction_software();
 	}
