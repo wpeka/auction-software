@@ -21,7 +21,7 @@ echo '= ' . esc_html( $email_heading ) . " =\n\n";
 
 echo sprintf(
 	/* translators: 1: Auction name, 2: Auction link */
-	esc_html__( "The %1\$s auction has started. %2\$s to place your bid.", 'auction-software' ),
+	esc_html__( 'The %1$s auction has started. %2$s to place your bid.', 'auction-software' ),
 	esc_attr( $product_data->get_title() ),
 	sprintf( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		'<a href="%s" target="_blank">Click here</a>',

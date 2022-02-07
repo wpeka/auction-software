@@ -50,7 +50,7 @@ class Auction_Software_Admin {
 	private $auction_classes;
 
 	/**
-	 * instance of callback functions of all block-based widgets.
+	 * Instance of callback functions of all block-based widgets.
 	 *
 	 * @since 1.0.0
 	 * @access private
@@ -1432,7 +1432,6 @@ class Auction_Software_Admin {
 		?>
 		<script type='text/javascript'>
 			jQuery(document).ready(function ($) {
-				
 				// General tab for auction products.
 				jQuery('.general_options').addClass('show_if_simple show_if_external show_if_affiliate show_if_variable show_if_auction_simple show_if_auction_reverse show_if_auction_penny').show();
 				jQuery('#general_product_data ._tax_status_field').parent().addClass('show_if_auction_simple show_if_auction_reverse show_if_auction_penny').show();
@@ -1600,11 +1599,15 @@ class Auction_Software_Admin {
 	 */
 	public function auction_software_register_gutenberg_blocks() {
 
-		// get json data for all 8 blocks and decode it
-		$data = file_get_contents( AUCTION_SOFTWARE_PLUGIN_PATH . 'src/gutenberg-blocks/data.json' );
-		$data = json_decode( $data );
+		// get json data for all 8 blocks and decode it.
+		$data = wp_remote_get( AUCTION_SOFTWARE_PLUGIN_PATH . 'src/gutenberg-blocks/data.json' );
+		if ( $data ) {
+			$data = json_decode( $data );
+		} else {
+			return;
+		}
 
-		// register a single script file which loops through all 8 blocks and regs them one by one
+		// register a single script file which loops through all 8 blocks and regs them one by one.
 		wp_register_script(
 			'auction-software-auction-widgets',
 			plugin_dir_url( __DIR__ ) . 'admin/js/gutenberg-blocks/auction-software-auction-widgets.js',
@@ -1613,7 +1616,7 @@ class Auction_Software_Admin {
 			false
 		);
 
-		// if function exists for wordpress 5 and above, loop through all 8 blocks and register them.
+		// if function exists for WordPress 5 and above, loop through all 8 blocks and register them.
 		if ( function_exists( 'register_block_type' ) ) {
 			foreach ( $data as $chunk ) {
 				register_block_type(

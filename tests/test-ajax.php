@@ -82,46 +82,6 @@ class AjaxTest extends WP_Ajax_UnitTestCase {
 	}
 
 	/**
-	 * Test for auction_software_save_wc_classes function.
-	 *
-	 * @since 1.1.0
-	 */
-	// public function test_auction_software_save_wc_classes() {
-
-	// become administrator.
-	// $this->_setRole( 'administrator' );
-
-	// setup a default request.
-	// $_POST['wc_auction_classes_nonce'] = wp_create_nonce( 'wc_auction_classes_nonce' );
-	// $_POST['action']                   = 'auction_software_save_wc_classes';
-	// $changes                           = array(
-	// self::$auctiom_term_group[0] => array(
-	// 'name'        => '200',
-	// 'slug'        => '600',
-	// 'description' => 'Auction Bid 200',
-	// ),
-	// self::$auctiom_term_group[1] => array(
-	// 'name'        => '1200',
-	// 'slug'        => '1600',
-	// 'description' => 'Auction Bid 1200',
-	// ),
-	// );
-	// $_POST['changes']                  = $changes;
-	// try {
-	// $this->_handleAjax( 'auction_software_save_wc_classes' );
-	// } catch ( WPAjaxDieContinueException $e ) {
-	// unset( $e );
-	// }
-	// $response    = json_decode( $this->_last_response );
-	// $class_array = array();
-	// foreach ( $response->data->auction_classes as $class ) {
-	// array_push( $class_array, $class->term_id );
-	// }
-	// $this->assertTrue( in_array( self::$auctiom_term_group[0], $class_array, true ) );
-	// $this->assertTrue( in_array( self::$auctiom_term_group[1], $class_array, true ) );
-	// }
-
-	/**
 	 * Test for auction_software_wc_ajax_add_to_auctionwatchlist function
 	 *
 	 * @since 1.1.0
@@ -174,38 +134,5 @@ class AjaxTest extends WP_Ajax_UnitTestCase {
 		$this->assertEquals( 0, $response->change_bid );
 		$this->assertEquals( get_post_meta( self::$product_ids[0], 'auction_date_to', true ), $response->seconds );
 	}
-
-	/**
-	 * Test for auction_software_wc_ajax_remove_from_auctionwatchlist function
-	 *
-	 * @since 1.1.0
-	 */
-	// public function test_auction_software_wc_ajax_remove_from_auctionwatchlist() {
-
-	// setup a default request.
-	// $_POST['product_id'] = self::$product_ids[0];
-	// $_POST['action']     = 'woocommerce_ajax_remove_from_auctionwatchlist';
-
-	// become administrator.
-	// $user_id = self::factory()->user->create(
-	// array(
-	// 'role' => 'administrator',
-	// )
-	// );
-	// wp_set_current_user( $user_id );
-	// update_user_meta( $user_id, 'auction_watchlist', array( self::$product_ids[0] ) );
-	// $this->assertEquals( self::$product_ids[0], get_user_meta( $user_id, 'auction_watchlist', true )[0] );
-	// try {
-	// $this->_handleAjax( 'woocommerce_ajax_remove_from_auctionwatchlist' );
-
-	// } catch ( WPAjaxDieContinueException $e ) {
-	// unset( $e );
-	// }
-	// get response.
-	// $response = json_decode( $this->_last_response );
-	// $this->assertEquals( 'success', $response );
-	// $watchlist_products = get_user_meta( $user_id, 'auction_watchlist', true );
-	// $this->assertTrue( empty( $watchlist_products ) );
-	// }
 }
 

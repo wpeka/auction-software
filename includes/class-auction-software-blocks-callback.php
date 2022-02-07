@@ -6,12 +6,22 @@
  * @since      1.0.0
  *
  * @package    Auction_Software
- * @subpackage Auction_Software/admin
+ * @subpackage Auction_Software/include
+ */
+
+/**
+ * The callback-blocks functionality of the plugin.
+ *
+ * @package    Auction_Software
+ * @subpackage Auction_Software/include
+ * @author     WPeka Club <support@wpeka.com>
  */
 class Auction_Software_Blocks_Callback {
 
 	/**
 	 * Ending soon callback.
+	 *
+	 * @param array $instance Widget array.
 	 */
 	public function auction_software_ending_soon_callback( $instance ) {
 		global $woocommerce;
@@ -150,6 +160,8 @@ class Auction_Software_Blocks_Callback {
 
 	/**
 	 * Coming Soon Callback.
+	 *
+	 * @param      array $instance Widget array.
 	 */
 	public function auction_software_coming_soon_callback( $instance ) {
 
@@ -283,6 +295,8 @@ class Auction_Software_Blocks_Callback {
 
 	/**
 	 * Random Auction Callback.
+	 *
+	 * @param      array $instance Widget array.
 	 */
 	public function auction_software_random_auction_callback( $instance ) {
 		global $woocommerce;
@@ -302,7 +316,7 @@ class Auction_Software_Blocks_Callback {
 		);
 
 		$excluded_fields = get_option( 'auctions_excluded_fields_product_widget', array() );
-		
+
 		$query_args = array(
 			'post_type'      => 'product',
 			'post_status'    => 'publish',
@@ -406,6 +420,8 @@ class Auction_Software_Blocks_Callback {
 
 	/**
 	 * Recent Auction Callback.
+	 *
+	 * @param      array $instance Widget array.
 	 */
 	public function auction_software_recent_auction_callback( $instance ) {
 		global $woocommerce;
@@ -527,6 +543,8 @@ class Auction_Software_Blocks_Callback {
 
 	/**
 	 * Featured Auction Callback.
+	 *
+	 * @param      array $instance Widget array.
 	 */
 	public function auction_software_featured_auction_callback( $instance ) {
 		global $woocommerce;
@@ -658,6 +676,8 @@ class Auction_Software_Blocks_Callback {
 
 	/**
 	 * Watchlist Callback
+	 *
+	 * @param      array $instance Widget array.
 	 */
 	public function auction_software_watchlist_auction_callback( $instance ) {
 		global $woocommerce;
@@ -798,6 +818,8 @@ class Auction_Software_Blocks_Callback {
 
 	/**
 	 * Recently Viewed Auctions Callback
+	 *
+	 * @param      array $instance Widget array.
 	 */
 	public function auction_software_recently_viewed_auction_callback( $instance ) {
 		global $woocommerce;
@@ -935,6 +957,8 @@ class Auction_Software_Blocks_Callback {
 
 	/**
 	 * My auctions callback
+	 *
+	 * @param      array $instance Widget array.
 	 */
 	public function auction_software_my_auction_callback( $instance ) {
 		global $woocommerce, $wpdb;

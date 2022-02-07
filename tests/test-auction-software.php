@@ -7,6 +7,10 @@
  * @package Auction_Software
  * @subpackage Auction-Software/tests
  */
+
+/**
+ * Main plugin file unit tests.
+ */
 class Auction_Software_Plugin_File_Test extends WP_UnitTestCase {
 
 	/**
