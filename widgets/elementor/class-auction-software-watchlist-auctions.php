@@ -193,7 +193,7 @@ class Auction_Software_Watchlist_Auctions extends \Elementor\Widget_Base {
 		$content = '';
 
 		if ( $r->have_posts() ) {
-			$hide_time = empty( $instance['show_time_Watchlist'] ) ? 0 : 1;
+			$hide_time = empty( $settings['show_time_Watchlist'] ) ? 0 : 1;
 
 			if ( $title ) {
 				$content .= $title;

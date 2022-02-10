@@ -199,7 +199,7 @@ class Auction_Software_Random_Auctions extends \Elementor\Widget_Base {
 		$content = '';
 
 		if ( $query->have_posts() ) {
-			$hide_time = empty( $instance['show_time_random'] ) ? 0 : 1;
+			$hide_time = empty( $settings['show_time_random'] ) ? 0 : 1;
 
 			if ( $title ) {
 				$content .= $title;

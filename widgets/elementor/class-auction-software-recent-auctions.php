@@ -188,7 +188,7 @@ class Auction_Software_Recent_Auctions extends \Elementor\Widget_Base {
 		$content = '';
 
 		if ( $r->have_posts() ) {
-			$hide_time = empty( $instance['show_time_recent'] ) ? 0 : 1;
+			$hide_time = empty( $settings['show_time_recent'] ) ? 0 : 1;
 
 			if ( $title ) {
 				$content .= $title;

@@ -196,7 +196,7 @@ class Auction_Software_My_Auctions extends \Elementor\Widget_Base {
 		$content = '';
 
 		if ( $r->have_posts() ) {
-			$hide_time = empty( $settings['hide_time'] ) ? 0 : 1;
+			$hide_time = empty( $settings['show_time_my'] ) ? 0 : 1;
 
 			if ( $title ) {
 				$content .= $title;

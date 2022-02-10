@@ -27,7 +27,7 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'Auction Software Coming Soon Auctions';
+		return 'Auction-Software-Coming-Soon-Auctions';
 	}
 
 	/**
@@ -192,7 +192,7 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 			$content = '';
 
 			if ( $r->have_posts() ) {
-				$hide_time = empty( $instance['hide_time'] ) ? 0 : 1;
+				$hide_time = empty( $settings['show_time_coming_soon'] ) ? 0 : 1;
 
 				if ( $title ) {
 					$content .= $title;
