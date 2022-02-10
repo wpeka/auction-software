@@ -713,7 +713,7 @@
 				}
 			}
 		);
-	
+
 		$.each(
 			timeLeftIds,
 			function (index, value) {
@@ -722,7 +722,7 @@
 				var endDateValue = $('.' + newValue).val();
 				var x = setInterval(
 					function () {
-	
+
 						var countDownDate = new Date(endDateValue.replace(/-/g, "/")).getTime();
 						var now = 0;
 						if (php_vars.default) {
@@ -767,18 +767,39 @@
 								}
 							}
 						}
-	
+
 					},
 					1000
 				);
 			}
 		);
 	}
-	$( window ).on( 'elementor/frontend/init', function() {
-		elementorFrontend.hooks.addAction( 'frontend/element_ready/Auction-Software-Coming-Soon-Auctions.default', function($scope, $){
-		live_preview();
+	$(window).on('elementor/frontend/init', function () {
+		elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Coming-Soon-Auctions.default', function ($scope, $) {
+			live_preview();
 		});
-	 } );
+		elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Coming-Soon-Auctions.default', function ($scope, $) {
+			live_preview();
+		});
+		elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Coming-Soon-Auctions.default', function ($scope, $) {
+			live_preview();
+		});
+		elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Coming-Soon-Auctions.default', function ($scope, $) {
+			live_preview();
+		});
+		elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Coming-Soon-Auctions.default', function ($scope, $) {
+			live_preview();
+		});
+		elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Coming-Soon-Auctions.default', function ($scope, $) {
+			live_preview();
+		});
+		elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Coming-Soon-Auctions.default', function ($scope, $) {
+			live_preview();
+		});
+		elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Coming-Soon-Auctions.default', function ($scope, $) {
+			live_preview();
+		});
+	});
 })(jQuery);
 
 

@@ -20,7 +20,7 @@ class Auction_Software_Ending_Soon_Auctions extends \Elementor\Widget_Base {
 
 	public function __construct($data = [], $args = null) {
 		parent::__construct($data, $args);
-		wp_register_script( 'script-handle', '/public/js/auction-software-public.js', [ 'elementor-frontend' ], '1.0.0', true );
+		wp_register_script( 'script-handle', '/wp-content/plugins/auction-software/public/js/auction-software-public.js', [ 'elementor-frontend' ], '1.2.0', true );
 	 }
   
 	 public function get_script_depends() {
