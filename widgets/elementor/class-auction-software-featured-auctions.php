@@ -29,7 +29,7 @@ class Auction_Software_Featured_Auctions extends \Elementor\Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'Auction Software Featured Auctions';
+		return 'Auction-Software-Featured-Auctions';
 	}
 
 	/**
@@ -235,7 +235,7 @@ class Auction_Software_Featured_Auctions extends \Elementor\Widget_Base {
 					endif;
 
 					$date_to_or_from = '';
-					if ( false === $product->is_started() ) {
+					if (false === $product->is_started() ) {
 						if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
 							$content        .= '<p class="auction_starts_in startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Starts In:', 'auction-software' ) . '</p>';
 							$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';

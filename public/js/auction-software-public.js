@@ -775,30 +775,34 @@
 		);
 	}
 	$(window).on('elementor/frontend/init', function () {
-		elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Coming-Soon-Auctions.default', function ($scope, $) {
+		elementorFrontend.hooks.addAction('frontend/element_ready/widget', function ($scope, $) {
 			live_preview();
 		});
-		elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Coming-Soon-Auctions.default', function ($scope, $) {
-			live_preview();
-		});
-		elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Coming-Soon-Auctions.default', function ($scope, $) {
-			live_preview();
-		});
-		elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Coming-Soon-Auctions.default', function ($scope, $) {
-			live_preview();
-		});
-		elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Coming-Soon-Auctions.default', function ($scope, $) {
-			live_preview();
-		});
-		elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Coming-Soon-Auctions.default', function ($scope, $) {
-			live_preview();
-		});
-		elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Coming-Soon-Auctions.default', function ($scope, $) {
-			live_preview();
-		});
-		elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Coming-Soon-Auctions.default', function ($scope, $) {
-			live_preview();
-		});
+		// elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Coming-Soon-Auctions.default', function ($scope, $) {
+		// 	console.log($scope);
+		// 	live_preview();
+		// });
+		// elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Ending-Soon-Auctions.default', function ($scope, $) {
+		// 	live_preview();
+		// });
+		// elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Featured-Auctions.default', function ($scope, $) {
+		// 	live_preview();
+		// });
+		// elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-My-Auctions.default', function ($scope, $) {
+		// 	live_preview();
+		// });
+		// elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Random-Auctions.default', function ($scope, $) {
+		// 	live_preview();
+		// });
+		// elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Recent-Auctions.default', function ($scope, $) {
+		// 	live_preview();
+		// });
+		// elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Recently-Viewed-Auctions.default', function ($scope, $) {
+		// 	live_preview();
+		// });
+		// elementorFrontend.hooks.addAction('frontend/element_ready/Auction-Software-Watchlist-Auctions.default', function ($scope, $) {
+		// 	live_preview();
+		// });
 	});
 })(jQuery);
 

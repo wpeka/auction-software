@@ -27,7 +27,7 @@ class Auction_Software_Random_Auctions extends \Elementor\Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'Auction Software Random Auctions';
+		return 'Auction-Software-Random-Auctions';
 	}
 
 	/**

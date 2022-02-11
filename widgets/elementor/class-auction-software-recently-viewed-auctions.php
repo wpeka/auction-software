@@ -27,7 +27,7 @@ class Auction_Software_Recently_Viewed_Auctions extends \Elementor\Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'Auction Software Recently Viewed Auctions';
+		return 'Auction-Software-Recently-Viewed-Auctions';
 	}
 
 	/**

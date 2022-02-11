@@ -29,7 +29,7 @@ class Auction_Software_Recent_Auctions extends \Elementor\Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'Auction Software Recent Auctions';
+		return 'Auction-Software-Recent-Auctions';
 	}
 
 	/**

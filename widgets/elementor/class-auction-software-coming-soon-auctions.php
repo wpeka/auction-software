@@ -29,7 +29,6 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 	public function get_name() {
 		return 'Auction-Software-Coming-Soon-Auctions';
 	}
-
 	/**
 	 * Get widget title.
 	 *
@@ -133,7 +132,7 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 	protected function render() {
 			global $woocommerce;
 			$settings = $this->get_settings_for_display();
-			$cache    = wp_cache_get( 'widget_ending_soon_auctions', 'widget' );
+			$cache    = wp_cache_get( 'widget_coming_soon_auctions', 'widget' );
 		if ( ! is_array( $cache ) ) {
 			$cache = array();
 		}
@@ -193,6 +192,14 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 
 			if ( $r->have_posts() ) {
 				$hide_time = empty( $settings['show_time_coming_soon'] ) ? 0 : 1;
+
+				// echo "<script>console.log(".$settings['show_time_coming_soon']."</script>";
+				// if(empty($settings['show_time_coming_soon'])||$settings['show_time_coming_soon']==='no'){
+				// 	$hide_time=0;
+				// }else{
+				// 	$hide_time=1;
+				// }
+				// $hide_time = $settings['show_time_coming_soon'] ==='no' ? 0 : 1;
 
 				if ( $title ) {
 					$content .= $title;
@@ -267,7 +274,7 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 
 			echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-			wp_cache_set( 'widget_future_auctions', $cache, 'widget' );
+			wp_cache_set( 'widget_coming_soon_auctions', $cache, 'widget' );
 	}
 
 }
