@@ -30,6 +30,7 @@ class Auction_Software_Recent_Auctions extends \Elementor\Widget_Base {
 	 */
 	public function get_name() {
 		return 'Auction-Software-Recent-Auctions';
+
 	}
 
 	/**
@@ -190,6 +191,7 @@ class Auction_Software_Recent_Auctions extends \Elementor\Widget_Base {
 		if ( $r->have_posts() ) {
 			$hide_time = empty( $settings['show_time_recent'] ) ? 0 : 1;
 
+
 			if ( $title ) {
 				$content .= $title;
 			}
@@ -243,6 +245,7 @@ class Auction_Software_Recent_Auctions extends \Elementor\Widget_Base {
 							$content .= '<span class="has-finished">' . __( 'Auction finished', 'auction-software' ) . '</span>';
 						}
 					}
+
 
 					$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . $product->get_id() . "' />";
 

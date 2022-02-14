@@ -27,7 +27,9 @@ class Auction_Software_My_Auctions extends \Elementor\Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
+
 		return 'Auction-Software-My-Auctions';
+
 	}
 
 	/**
@@ -197,6 +199,7 @@ class Auction_Software_My_Auctions extends \Elementor\Widget_Base {
 
 		if ( $r->have_posts() ) {
 			$hide_time = empty( $settings['show_time_my'] ) ? 0 : 1;
+
 
 			if ( $title ) {
 				$content .= $title;

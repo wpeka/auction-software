@@ -30,6 +30,7 @@ class Auction_Software_Ending_Soon_Auctions extends \Elementor\Widget_Base {
 	 */
 	public function get_name() {
 		return 'Auction-Software-Ending-Soon-Auctions';
+
 	}
 
 	/**
@@ -253,6 +254,7 @@ class Auction_Software_Ending_Soon_Auctions extends \Elementor\Widget_Base {
 								$content .= '<span class="has-finished">' . __( 'Auction finished', 'auction-software' ) . '</span>';
 							}
 						}
+
 
 						$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . $product->get_id() . "' />";
 
