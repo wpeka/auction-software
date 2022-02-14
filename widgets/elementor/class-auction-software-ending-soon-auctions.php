@@ -18,15 +18,6 @@
  */
 class Auction_Software_Ending_Soon_Auctions extends \Elementor\Widget_Base {
 
-	// public function __construct($data = [], $args = null) {
-	// 	parent::__construct($data, $args);
-	// 	wp_register_script( 'script-handle', '/wp-content/plugins/auction-software/public/js/auction-software-public.js', [ 'elementor-frontend' ], '1.2.0', true );
-	//  }
-  
-	//  public function get_script_depends() {
-	// 	 return [ 'script-handle' ];
-	//  }
-
 	/**
 	 * Get widget name.
 	 *
@@ -39,6 +30,7 @@ class Auction_Software_Ending_Soon_Auctions extends \Elementor\Widget_Base {
 	 */
 	public function get_name() {
 		return 'Auction-Software-Ending-Soon-Auctions';
+
 	}
 
 	/**
@@ -245,6 +237,7 @@ class Auction_Software_Ending_Soon_Auctions extends \Elementor\Widget_Base {
 							}
 						endif;
 
+
 						if($hide_time){
 							if ( false === $product->is_started()) {
 								if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
@@ -262,6 +255,7 @@ class Auction_Software_Ending_Soon_Auctions extends \Elementor\Widget_Base {
 								$content .= '<span class="has-finished">' . __( 'Auction finished', 'auction-software' ) . '</span>';
 							}
 							}
+
 
 						$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . $product->get_id() . "' />";
 

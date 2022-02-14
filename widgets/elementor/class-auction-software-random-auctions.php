@@ -27,7 +27,9 @@ class Auction_Software_Random_Auctions extends \Elementor\Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
+
 		return 'Auction-Software-Random-Auctions';
+
 	}
 
 	/**
@@ -201,6 +203,7 @@ class Auction_Software_Random_Auctions extends \Elementor\Widget_Base {
 		if ( $query->have_posts() ) {
 			$hide_time = empty( $settings['show_time_random'] ) ? 0 : 1;
 
+
 			if ( $title ) {
 				$content .= $title;
 			}
@@ -254,6 +257,7 @@ class Auction_Software_Random_Auctions extends \Elementor\Widget_Base {
 							$content .= '<span class="has-finished">' . __( 'Auction finished', 'auction-software' ) . '</span>';
 						}
 						}
+
 
 					$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . $product->get_id() . "' />";
 

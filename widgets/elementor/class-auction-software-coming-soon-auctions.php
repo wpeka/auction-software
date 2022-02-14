@@ -109,6 +109,7 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 		);
 		$this->add_control(
 			'show_time_coming',
+
 			array(
 				'label'     => esc_html__( 'Hide Time Left', 'auction-software' ),
 				'type'      => \Elementor\Controls_Manager::SWITCHER,
@@ -150,6 +151,7 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 		$title  = __( $settings['widget_title_coming_soon'], 'auction-software' );;
 		$number = 5;
 		if ( isset( $settings['widget_post_no_coming_soon'] ) ) {
+
 			if ( ! is_numeric( $settings['widget_post_no_coming_soon'] ) ) {
 				$number = 10;
 			} elseif ( $number < 1 ) {
@@ -160,7 +162,6 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 				$number = $settings['widget_post_no_coming_soon'];
 			}
 		}
-
 		$auction_types = apply_filters(
 			'auction_software_auction_types',
 			array(
