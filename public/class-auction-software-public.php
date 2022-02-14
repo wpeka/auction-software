@@ -93,7 +93,7 @@ class Auction_Software_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/auction-software-public' . AUCTION_SOFTWARE_SUFFIX . '.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/auction-software-public.js', array( 'jquery' ), $this->version, false );
 		$data_to_be_passed = array(
 			'adminUrl' => get_admin_url(),
 			'ajaxurl'  => admin_url( 'admin-ajax.php' ),
