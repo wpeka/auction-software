@@ -1,5 +1,15 @@
 <?php
 /**
+ * Callbacks of the Plugin
+ *
+ * @link       https://club.wpeka.com/
+ * @since      1.0.0
+ *
+ * @package    Auction_Software
+ * @subpackage Auction_Software/includes
+ */
+
+/**
  * The callback-blocks functionality of the plugin.
  *
  * @link       https://club.wpeka.com/
@@ -12,6 +22,8 @@ class Auction_Software_Blocks_Callback {
 
 	/**
 	 * Ending soon callback.
+	 *
+	 * @param String $instance Instance.
 	 */
 	public function auction_software_ending_soon_callback( $instance ) {
 		global $woocommerce;
@@ -149,6 +161,8 @@ class Auction_Software_Blocks_Callback {
 
 	/**
 	 * Coming Soon Callback.
+	 *
+	 * @param String $instance Instance.
 	 */
 	public function auction_software_coming_soon_callback( $instance ) {
 		global $woocommerce;
@@ -279,6 +293,8 @@ class Auction_Software_Blocks_Callback {
 
 	/**
 	 * Random Auction Callback.
+	 *
+	 * @param String $instance Instance.
 	 */
 	public function auction_software_random_auction_callback( $instance ) {
 		global $woocommerce;
@@ -401,6 +417,8 @@ class Auction_Software_Blocks_Callback {
 
 	/**
 	 * Recent Auction Callback.
+	 *
+	 * @param String $instance Instance.
 	 */
 	public function auction_software_recent_auction_callback( $instance ) {
 		global $woocommerce;
@@ -522,6 +540,8 @@ class Auction_Software_Blocks_Callback {
 
 	/**
 	 * Featured Auction Callback.
+	 *
+	 * @param String $instance Instance.
 	 */
 	public function auction_software_featured_auction_callback( $instance ) {
 		global $woocommerce;
@@ -652,6 +672,8 @@ class Auction_Software_Blocks_Callback {
 
 	/**
 	 * Watchlist Callback
+	 *
+	 * @param String $instance Instance.
 	 */
 	public function auction_software_watchlist_auction_callback( $instance ) {
 		global $woocommerce;
@@ -789,6 +811,8 @@ class Auction_Software_Blocks_Callback {
 
 	/**
 	 * Recently Viewed Auctions Callback
+	 *
+	 * @param String $instance Instance.
 	 */
 	public function auction_software_recently_viewed_auction_callback( $instance ) {
 		global $woocommerce;
@@ -924,6 +948,8 @@ class Auction_Software_Blocks_Callback {
 
 	/**
 	 * My auctions callback
+	 *
+	 * @param String $instance Instance.
 	 */
 	public function auction_software_my_auction_callback( $instance ) {
 		global $woocommerce, $wpdb;

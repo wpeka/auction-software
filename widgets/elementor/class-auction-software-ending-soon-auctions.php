@@ -18,15 +18,6 @@
  */
 class Auction_Software_Ending_Soon_Auctions extends \Elementor\Widget_Base {
 
-	// public function __construct($data = [], $args = null) {
-	// 	parent::__construct($data, $args);
-	// 	wp_register_script( 'script-handle', '/wp-content/plugins/auction-software/public/js/auction-software-public.js', [ 'elementor-frontend' ], '1.2.0', true );
-	//  }
-  
-	//  public function get_script_depends() {
-	// 	 return [ 'script-handle' ];
-	//  }
-
 	/**
 	 * Get widget name.
 	 *
@@ -91,7 +82,7 @@ class Auction_Software_Ending_Soon_Auctions extends \Elementor\Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() {
+	protected function _register_controls() { //phpcs:ignore
 		$this->start_controls_section(
 			'content_section',
 			array(
@@ -245,14 +236,14 @@ class Auction_Software_Ending_Soon_Auctions extends \Elementor\Widget_Base {
 							}
 						endif;
 
-						if($hide_time){
-							if ( false === $product->is_started()) {
+						if ( $hide_time ) {
+							if ( false === $product->is_started() ) {
 								if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
 									$content        .= '<p class="auction_starts_in startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Starts In:', 'auction-software' ) . '</p>';
 									$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
 									$date_to_or_from = $product->get_auction_date_from();
 								endif;
-							} elseif (! $product->is_ended() ) {
+							} elseif ( ! $product->is_ended() ) {
 								if ( ! in_array( 'ends_in', $excluded_fields, true ) ) :
 									$content        .= '<p class="auction_time_left startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Ends In:', 'auction-software' ) . '</p>';
 									$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
@@ -261,7 +252,7 @@ class Auction_Software_Ending_Soon_Auctions extends \Elementor\Widget_Base {
 							} elseif ( $product->is_ended() ) {
 								$content .= '<span class="has-finished">' . __( 'Auction finished', 'auction-software' ) . '</span>';
 							}
-							}
+						}
 
 						$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . $product->get_id() . "' />";
 

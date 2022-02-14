@@ -128,7 +128,6 @@ class Auction_Software_Admin_Test extends WP_UnitTestCase {
 		self::$auction_software_admin->auction_software_widgets_init();
 		$widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );
 		$this->assertTrue( true );
-		fwrite(STDERR, print_r($widgets, TRUE));
 		$this->assertTrue( in_array( 'Auction_Software_Widget_Ending_Soon_Auctions', $widgets, true ) );
 		$this->assertTrue( in_array( 'Auction_Software_Widget_Featured_Auctions', $widgets, true ) );
 		$this->assertTrue( in_array( 'Auction_Software_Widget_Future_Auctions', $widgets, true ) );

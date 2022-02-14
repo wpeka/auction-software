@@ -79,7 +79,7 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() {
+	protected function _register_controls() { //phpcs:ignore
 		$this->start_controls_section(
 			'content_section',
 			array(
@@ -131,9 +131,9 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 	 */
 	protected function render() {
 		global $woocommerce;
-		$args=[];
+		$args     = array();
 		$settings = $this->get_settings_for_display();
-		$cache = wp_cache_get( 'widget_future_auctions', 'widget' );
+		$cache    = wp_cache_get( 'widget_future_auctions', 'widget' );
 		if ( ! is_array( $cache ) ) {
 			$cache = array();
 		}
@@ -147,7 +147,8 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 		$before_title  = isset( $args['before_title'] ) ? $args['before_title'] : '';
 		$after_title   = isset( $args['after_title'] ) ? $args['after_title'] : '';
 
-		$title  = __( $settings['widget_title_coming_soon'], 'auction-software' );;
+		$title = __( esc_html($settings['widget_title_coming_soon']), 'auction-software' );//phpcs:ignore
+
 		$number = 5;
 		if ( isset( $settings['widget_post_no_coming_soon'] ) ) {
 			if ( ! is_numeric( $settings['widget_post_no_coming_soon'] ) ) {
@@ -243,22 +244,22 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 					endif;
 
 					$date_to_or_from = '';
-					if($hide_time){
-					if ( false === $product->is_started()) {
-						if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
-							$content        .= '<p class="auction_starts_in startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Starts In:', 'auction-software' ) . '</p>';
-							$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
-							$date_to_or_from = $product->get_auction_date_from();
-						endif;
-					} elseif (! $product->is_ended() ) {
-						if ( ! in_array( 'ends_in', $excluded_fields, true ) ) :
-							$content        .= '<p class="auction_time_left startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Ends In:', 'auction-software' ) . '</p>';
-							$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
-							$date_to_or_from = $product->get_auction_date_to();
-						endif;
-					} elseif ( $product->is_ended() ) {
-						$content .= '<span class="has-finished">' . __( 'Auction finished', 'auction-software' ) . '</span>';
-					}
+					if ( $hide_time ) {
+						if ( false === $product->is_started() ) {
+							if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
+								$content        .= '<p class="auction_starts_in startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Starts In:', 'auction-software' ) . '</p>';
+								$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
+								$date_to_or_from = $product->get_auction_date_from();
+							endif;
+						} elseif ( ! $product->is_ended() ) {
+							if ( ! in_array( 'ends_in', $excluded_fields, true ) ) :
+								$content        .= '<p class="auction_time_left startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Ends In:', 'auction-software' ) . '</p>';
+								$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
+								$date_to_or_from = $product->get_auction_date_to();
+							endif;
+						} elseif ( $product->is_ended() ) {
+							$content .= '<span class="has-finished">' . __( 'Auction finished', 'auction-software' ) . '</span>';
+						}
 					}
 
 					$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . esc_attr( $product->get_id() ) . "' />";
