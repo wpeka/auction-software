@@ -144,8 +144,6 @@ final class Auction_Software_Widget_Loader {
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_style( 'bootstrap-v3', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css', array(), '3.3.5' );
 		wp_enqueue_style( 'font-awesome' );
-		// wp_register_script( 'frontend-script', plugins_url( 'elementor/assets/js/script.js', __FILE__ ) );
-		// wp_enqueue_script( 'frontend-script' );
 	}
 
 	/**
@@ -164,11 +162,7 @@ final class Auction_Software_Widget_Loader {
 		$this->i18n();
 
 		// Add Plugin actions.
-		add_action( 'elementor/editor/after_register_scripts',array($this,'editor_scripts'));
 		add_action( 'elementor/widgets/widgets_registered', array( $this, 'init_widgets' ) );
-	}
-	public function editor_scripts(){
-	
 	}
 	/**
 	 * Init Widgets
