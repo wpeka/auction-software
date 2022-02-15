@@ -92,6 +92,9 @@
 								var hours   = Math.floor( (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) );
 								var minutes = Math.floor( (distance % (1000 * 60 * 60)) / (1000 * 60) );
 								var seconds = Math.floor( (distance % (1000 * 60)) / 1000 );
+								if (isNaN( days )) {
+									return;
+								}
 								if (document.getElementsByClassName( "timeLeft" + newIndex ) != null) {
 									var timeLefts       = document.getElementsByClassName( "timeLeft" + newIndex );
 									var timeLeftsLength = timeLefts.length;

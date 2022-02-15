@@ -255,7 +255,6 @@ class Auction_Software_Ending_Soon_Auctions extends \Elementor\Widget_Base {
 							}
 						}
 
-
 						$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . $product->get_id() . "' />";
 
 						$content .= "<input type='hidden' class='timeLeftValue" . $product->get_id() . "' value='" . esc_attr( $date_to_or_from ) . "' />";

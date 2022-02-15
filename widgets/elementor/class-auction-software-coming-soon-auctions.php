@@ -109,7 +109,6 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 		);
 		$this->add_control(
 			'show_time_coming',
-
 			array(
 				'label'     => esc_html__( 'Hide Time Left', 'auction-software' ),
 				'type'      => \Elementor\Controls_Manager::SWITCHER,
