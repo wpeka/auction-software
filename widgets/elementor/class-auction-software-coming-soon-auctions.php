@@ -79,8 +79,7 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	// Can't Change the _register_controls as it required by Elementor to Work.
-	protected function _register_controls() { //phpcs:ignore
+	protected function register_controls() {
 		$this->start_controls_section(
 			'content_section',
 			array(
@@ -147,8 +146,8 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 		$after_widget  = isset( $args['after_widget'] ) ? $args['after_widget'] : '';
 		$before_title  = isset( $args['before_title'] ) ? $args['before_title'] : '';
 		$after_title   = isset( $args['after_title'] ) ? $args['after_title'] : '';
-		// Title should use internationalization.
-		$title = __( $settings['widget_title_coming_soon'], 'auction-software' );//phpcs:ignore
+
+		$title = sprintf( $settings['widget_title_coming_soon'], 'auction-software' );
 
 		$number = 5;
 		if ( isset( $settings['widget_post_no_coming_soon'] ) ) {

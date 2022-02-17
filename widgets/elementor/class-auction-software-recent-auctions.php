@@ -83,8 +83,7 @@ class Auction_Software_Recent_Auctions extends \Elementor\Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	// Can't Change the _register_controls as it required by Elementor to Work.
-	protected function _register_controls() { //phpcs:ignore
+	protected function register_controls() {
 		$this->start_controls_section(
 			'content_section',
 			array(
@@ -143,8 +142,7 @@ class Auction_Software_Recent_Auctions extends \Elementor\Widget_Base {
 		}
 
 		$settings   = $this->get_settings_for_display();
-		// Title should use internationalization.
-		$title      = __( $settings['widget_title_recent'], 'auction-software' ); //phpcs:ignore
+		$title      = sprintf( $settings['widget_title_recent'], 'auction-software' );
 			$number = 5;
 		if ( $settings['widget_post_no_recent'] ) {
 			if ( ! is_numeric( $settings['widget_post_no_recent'] ) ) {
