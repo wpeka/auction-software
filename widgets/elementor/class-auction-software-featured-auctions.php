@@ -84,6 +84,7 @@ class Auction_Software_Featured_Auctions extends \Elementor\Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
+	// Can't Change the _register_controls as it required by Elementor to Work.
 	protected function _register_controls() { //phpcs:ignore
 		$this->start_controls_section(
 			'content_section',
@@ -141,6 +142,7 @@ class Auction_Software_Featured_Auctions extends \Elementor\Widget_Base {
 		if ( ! is_array( $cache ) ) {
 			$cache = array();
 		}
+		// Title should use internationalization.
 		$title      = __( $settings['widget_featured_title'], 'auction-software' ); //phpcs:ignore
 			$number = 5;
 		if ( $settings['widget_featured_post_no'] ) {

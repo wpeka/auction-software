@@ -81,6 +81,7 @@ class Auction_Software_Watchlist_Auctions extends \Elementor\Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
+	// Can't Change the _register_controls as it required by Elementor to Work.
 	protected function _register_controls() { //phpcs:ignore
 		$this->start_controls_section(
 			'content_section',
@@ -139,6 +140,7 @@ class Auction_Software_Watchlist_Auctions extends \Elementor\Widget_Base {
 			$cache = array();
 		}
 		$settings   = $this->get_settings_for_display();
+	// Can't Change the _register_controls as it required by Elementor to Work.
 		$title      = __( $settings['widget_title_Watchlist'], 'auction-software' ); //phpcs:ignore
 			$number = 5;
 		if ( $settings['widget_post_no_Watchlist'] ) {

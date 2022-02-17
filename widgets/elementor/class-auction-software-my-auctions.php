@@ -82,6 +82,7 @@ class Auction_Software_My_Auctions extends \Elementor\Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
+	// Can't Change the _register_controls as it required by Elementor to Work.
 	protected function _register_controls() { //phpcs:ignore
 		$this->start_controls_section(
 			'content_section',
@@ -139,6 +140,7 @@ class Auction_Software_My_Auctions extends \Elementor\Widget_Base {
 		if ( ! is_array( $cache ) ) {
 			$cache = array();
 		}
+		// Title should use internationalization.
 		$title      = __( $settings['widget_title_my'], 'auction-software' ); //phpcs:ignore
 			$number = 5;
 		if ( $settings['widget_post_no_my'] ) {
@@ -152,20 +154,6 @@ class Auction_Software_My_Auctions extends \Elementor\Widget_Base {
 				$number = $settings['widget_post_no_my'];
 			}
 		}
-
-		// if ( ! is_user_logged_in() ) {
-		// 	return;
-		// }
-		// $user_id       = get_current_user_id();
-		// $post_ids      = array();
-		// $user_auctions = $wpdb->get_results( $wpdb->prepare( 'SELECT  DISTINCT auction_id FROM ' . $wpdb->prefix . 'auction_software_logs WHERE user_id = %d', array( $user_id ) ), ARRAY_N ); // db call ok; no-cache ok.
-		// if ( isset( $user_auctions ) && ! empty( $user_auctions ) ) {
-		// 	foreach ( $user_auctions as $auction ) {
-		// 		$post_ids[] = $auction[0];
-		// 	}
-		// } else {
-		// 	return;
-		// }
 
 		$auction_types = apply_filters(
 			'auction_software_auction_types',
