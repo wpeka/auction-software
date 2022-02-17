@@ -1588,7 +1588,7 @@ class Auction_Software_Admin {
 	 */
 	public function auction_software_register_gutenberg_blocks() {
 		// get json data for all 8 blocks and decode it.
-		$data = file_get_contents( AUCTION_SOFTWARE_PLUGIN_PATH . 'src/gutenberg-blocks/data.json' ); //phpcs:ignore
+		$data = wp_remote_get( AUCTION_SOFTWARE_PLUGIN_PATH . 'src/gutenberg-blocks/data.json' );
 		$data = json_decode( $data );
 
 		// register a single script file which loops through all 8 blocks and regs them one by one.
@@ -1604,13 +1604,13 @@ class Auction_Software_Admin {
 		if ( function_exists( 'register_block_type' ) ) {
 			foreach ( $data as $chunk ) {
 				register_block_type(
-					'auction-software/' . $chunk->registerBlockType,//phpcs:ignore
+					'auction-software/' . $chunk->registerBlockType, // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 					array(
 						'editor_script'   => 'auction-software-auction-widgets',
 						'attributes'      => array(
 							'title'           => array(
 								'type'    => 'string',
-								'default' => $chunk->attributesTitleDefault,//phpcs:ignore
+								'default' => $chunk->attributesTitleDefault, //phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 							),
 							'num_of_auctions' => array(
 								'type'    => 'string',
@@ -1621,7 +1621,7 @@ class Auction_Software_Admin {
 								'default' => false,
 							),
 						),
-						'render_callback' => array( $this->block_callbacks, $chunk->renderCallback ),//phpcs:ignore
+						'render_callback' => array( $this->block_callbacks, $chunk->renderCallback ), //phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 					)
 				);
 			}

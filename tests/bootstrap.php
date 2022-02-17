@@ -26,17 +26,17 @@ function _manually_load_plugin() {
 	$string = dirname( dirname( __FILE__ ) ) . '/auction-software.php';
 	require $string;
 	// activate the plugin to get ads_statistics table on activation for testing.
-	do_action( 'activate_' . trim( $string, '/' ) ); //phpcs:ignore
+	do_action( 'activate_' . trim( $string, '/' ) ); //phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 
 	// Activate woocommerce plugin.
 	$plugins_dir = ABSPATH . str_replace( site_url() . '/', '', plugins_url() ) . '/';
 	$woocommerce = $plugins_dir . 'woocommerce/woocommerce.php';
 	require $woocommerce;
-	do_action( 'activate_' . trim( $woocommerce, '/' ) ); //phpcs:ignore
+	do_action( 'activate_' . trim( $woocommerce, '/' ) ); //phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 
 	$elementor = $plugins_dir . 'elementor/elementor.php';
 	require $elementor;
-	do_action( 'activate_' . trim( $elementor, '/' ) ); //phpcs:ignore
+	do_action( 'activate_' . trim( $elementor, '/' ) ); //phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 

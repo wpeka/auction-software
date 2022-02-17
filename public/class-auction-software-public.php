@@ -600,7 +600,7 @@ class Auction_Software_Public {
 			if ( 'yes' === $product->is_anti_snipping() ) {
 				$seconds      = get_option( 'auctions_anti_snipping_duration', 0 );
 				$trigger_time = get_option( 'auctions_anti_snipping_trigger_time', 5 );
-				$time         = current_time( 'timestamp' ); // phpcs:ignore
+				$time         = current_time( 'timestamp' ); //phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
 				$timeplus     = gmdate( 'Y-m-d H:i:s', strtotime( '+' . $trigger_time . ' minutes', $time ) );
 				if ( $timeplus > $date_to ) {
 					$date_time_to->add( new DateInterval( 'PT' . $seconds . 'S' ) );
@@ -716,7 +716,7 @@ class Auction_Software_Public {
 			if ( 'yes' === $product->is_anti_snipping() ) {
 				$seconds      = get_option( 'auctions_anti_snipping_duration', 0 );
 				$trigger_time = get_option( 'auctions_anti_snipping_trigger_time', 5 );
-				$time         = current_time( 'timestamp' ); // phpcs:ignore
+				$time         = current_time( 'timestamp' ); //phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
 				$timeplus     = gmdate( 'Y-m-d H:i:s', strtotime( '+' . $trigger_time . ' minutes', $time ) );
 				if ( $timeplus > $date_to ) {
 					$date_time_to->add( new DateInterval( 'PT' . $seconds . 'S' ) );
@@ -790,7 +790,7 @@ class Auction_Software_Public {
 		if ( isset( $watchlist[0] ) && ! empty( $watchlist[0] ) ) {
 			$watchlist = explode( ',', $watchlist[0] );
 			array_shift( $watchlist );
-			$key = array_search( $product_id, $watchlist ); //phpcs:ignore
+			$key = array_search( $product_id, $watchlist, true );
 			if ( false !== $key ) {
 				unset( $watchlist[ $key ] );
 			}
