@@ -131,23 +131,17 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 	 */
 	protected function render() {
 		global $woocommerce;
-		$args     = array();
 		$settings = $this->get_settings_for_display();
 		$cache    = wp_cache_get( 'widget_future_auctions', 'widget' );
 		if ( ! is_array( $cache ) ) {
 			$cache = array();
 		}
-		if ( isset( $cache[ $args['widget_id'] ] ) ) {
-			echo $cache[ $args['widget_id'] ]; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			return;
-		}
 
-		$before_widget = isset( $args['before_widget'] ) ? $args['before_widget'] : '';
-		$after_widget  = isset( $args['after_widget'] ) ? $args['after_widget'] : '';
-		$before_title  = isset( $args['before_title'] ) ? $args['before_title'] : '';
-		$after_title   = isset( $args['after_title'] ) ? $args['after_title'] : '';
-
-		$title = sprintf( $settings['widget_title_coming_soon'], 'auction-software' );
+		$title = sprintf(
+			/* translators: 1: Title */
+			__( '%s', 'auction-software' ), //phpcs:ignore WordPress.WP.I18n.NoEmptyStrings
+			$settings['widget_title_coming_soon']
+		);
 
 		$number = 5;
 		if ( isset( $settings['widget_post_no_coming_soon'] ) ) {
@@ -206,10 +200,8 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 		if ( $r->have_posts() ) {
 			$hide_time = empty( $settings['show_time_coming'] ) ? 0 : 1;
 
-			$content .= $before_widget;
-
 			if ( $title ) {
-				$content .= $before_title . $title . $after_title;
+				$content .= $title;
 			}
 
 			$content .= '<ul class="product_list_widget">';
@@ -271,14 +263,9 @@ class Auction_Software_Coming_Soon_Auctions extends \Elementor\Widget_Base {
 
 			$content .= '</ul>';
 
-			$content .= $after_widget;
 		}
 
 		wp_reset_postdata();
-
-		if ( isset( $args['widget_id'] ) ) {
-			$cache[ $args['widget_id'] ] = $content;
-		}
 
 		echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 

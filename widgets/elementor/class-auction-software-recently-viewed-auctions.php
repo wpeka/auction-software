@@ -145,8 +145,12 @@ class Auction_Software_Recently_Viewed_Auctions extends \Elementor\Widget_Base {
 		if ( empty( $viewed_products ) ) {
 			return;
 		}
-		$settings   = $this->get_settings_for_display();
-		$title      = sprintf( $settings['widget_title_recently'], 'auction-software' );
+		$settings = $this->get_settings_for_display();
+		$title    = sprintf(
+			/* translators: 1: Title */
+			__( '%s', 'auction-software' ), //phpcs:ignore WordPress.WP.I18n.NoEmptyStrings
+			$settings['widget_title_recently']
+		);
 			$number = 5;
 		if ( $settings['widget_post_no_recently'] ) {
 			if ( ! is_numeric( $settings['widget_post_no_recently'] ) ) {

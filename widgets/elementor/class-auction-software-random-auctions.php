@@ -139,7 +139,11 @@ class Auction_Software_Random_Auctions extends \Elementor\Widget_Base {
 		if ( ! is_array( $cache ) ) {
 			$cache = array();
 		}
-		$title      = sprintf( $settings['widget_title_random'], 'auction-software' );
+		$title = sprintf(
+			/* translators: 1: Title */
+			__( '%s', 'auction-software' ), //phpcs:ignore WordPress.WP.I18n.NoEmptyStrings 
+			$settings['widget_title_random']
+		);
 			$number = 5;
 		if ( $settings['widget_post_no_random'] ) {
 			if ( ! is_numeric( $settings['widget_post_no_random'] ) ) {

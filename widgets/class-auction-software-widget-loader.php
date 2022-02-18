@@ -59,7 +59,7 @@ final class Auction_Software_Widget_Loader {
 	 *
 	 * @var new_Plugin_Extension The single instance of the class.
 	 */
-	private static $_instance = null;
+	private static $_instance = null; // phpcs:ignore PSR2.Classes.PropertyDeclaration.Underscore
 
 	/**
 	 * Instance

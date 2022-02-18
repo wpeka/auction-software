@@ -1588,7 +1588,7 @@ class Auction_Software_Admin {
 	 */
 	public function auction_software_register_gutenberg_blocks() {
 		// get json data for all 8 blocks and decode it.
-		$data = wp_remote_get( AUCTION_SOFTWARE_PLUGIN_PATH . 'src/gutenberg-blocks/data.json' );
+		$data = file_get_contents( AUCTION_SOFTWARE_PLUGIN_PATH . 'src/gutenberg-blocks/data.json' ); //phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		$data = json_decode( $data );
 
 		// register a single script file which loops through all 8 blocks and regs them one by one.

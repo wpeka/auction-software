@@ -139,8 +139,12 @@ class Auction_Software_Watchlist_Auctions extends \Elementor\Widget_Base {
 			$cache = array();
 		}
 		$settings = $this->get_settings_for_display();
-		$title    = sprintf( $settings['widget_title_Watchlist'], 'auction-software' );
-		$number   = 5;
+		$title    = sprintf(
+			/* translators: 1: Title */
+			__( '%s', 'auction-software' ), //phpcs:ignore WordPress.WP.I18n.NoEmptyStrings
+			$settings['widget_title_Watchlist']
+		);
+		$number = 5;
 		if ( $settings['widget_post_no_Watchlist'] ) {
 			if ( ! is_numeric( $settings['widget_post_no_Watchlist'] ) ) {
 				$number = 10;
