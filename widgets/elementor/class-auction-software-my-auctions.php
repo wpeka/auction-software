@@ -27,7 +27,9 @@ class Auction_Software_My_Auctions extends \Elementor\Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'Auction Software My Auctions';
+
+		return 'Auction-Software-My-Auctions';
+
 	}
 
 	/**
@@ -80,7 +82,7 @@ class Auction_Software_My_Auctions extends \Elementor\Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->start_controls_section(
 			'content_section',
 			array(
@@ -137,7 +139,11 @@ class Auction_Software_My_Auctions extends \Elementor\Widget_Base {
 		if ( ! is_array( $cache ) ) {
 			$cache = array();
 		}
-		$title      = __( $settings['widget_title_my'], 'auction-software' ); //phpcs:ignore
+		$title = sprintf(
+			/* translators: 1: Title */
+			__( '%s', 'auction-software' ), //phpcs:ignore WordPress.WP.I18n.NoEmptyStrings 
+			$settings['widget_title_my']
+		);
 			$number = 5;
 		if ( $settings['widget_post_no_my'] ) {
 			if ( ! is_numeric( $settings['widget_post_no_my'] ) ) {
@@ -149,20 +155,6 @@ class Auction_Software_My_Auctions extends \Elementor\Widget_Base {
 			} else {
 				$number = $settings['widget_post_no_my'];
 			}
-		}
-
-		if ( ! is_user_logged_in() ) {
-			return;
-		}
-		$user_id       = get_current_user_id();
-		$post_ids      = array();
-		$user_auctions = $wpdb->get_results( $wpdb->prepare( 'SELECT  DISTINCT auction_id FROM ' . $wpdb->prefix . 'auction_software_logs WHERE user_id = %d', array( $user_id ) ), ARRAY_N ); // db call ok; no-cache ok.
-		if ( isset( $user_auctions ) && ! empty( $user_auctions ) ) {
-			foreach ( $user_auctions as $auction ) {
-				$post_ids[] = $auction[0];
-			}
-		} else {
-			return;
 		}
 
 		$auction_types = apply_filters(
@@ -196,7 +188,7 @@ class Auction_Software_My_Auctions extends \Elementor\Widget_Base {
 		$content = '';
 
 		if ( $r->have_posts() ) {
-			$hide_time = empty( $settings['hide_time'] ) ? 0 : 1;
+			$hide_time = empty( $settings['show_time_my'] ) ? 0 : 1;
 
 			if ( $title ) {
 				$content .= $title;
@@ -234,22 +226,22 @@ class Auction_Software_My_Auctions extends \Elementor\Widget_Base {
 						}
 					endif;
 
-					$date_to_or_from = '';
-					if ( false === $product->is_started() ) {
-						if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
-							$content        .= '<p class="auction_starts_in startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Starts In:', 'auction-software' ) . '</p>';
-							$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
-							$date_to_or_from = $product->get_auction_date_from();
-						endif;
-					} elseif ( 1 !== (int) $hide_time && ! $product->is_ended() ) {
-						if ( ! in_array( 'ends_in', $excluded_fields, true ) ) :
-							$content        .= '<p class="auction_time_left startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Ends In:', 'auction-software' ) . '</p>';
-							$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
-							$date_to_or_from = $product->get_auction_date_to();
-						endif;
-					}
-					if ( $product->is_ended() ) {
-						$content .= '<span class="has-finished">' . __( 'Auction finished', 'auction-software' ) . '</span>';
+					if ( $hide_time ) {
+						if ( false === $product->is_started() ) {
+							if ( ! in_array( 'starts_in', $excluded_fields, true ) ) :
+								$content        .= '<p class="auction_starts_in startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Starts In:', 'auction-software' ) . '</p>';
+								$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
+								$date_to_or_from = $product->get_auction_date_from();
+							endif;
+						} elseif ( ! $product->is_ended() ) {
+							if ( ! in_array( 'ends_in', $excluded_fields, true ) ) :
+								$content        .= '<p class="auction_time_left startEndText' . $product->get_id() . '">' . esc_html__( 'Auction Ends In:', 'auction-software' ) . '</p>';
+								$content        .= '<p class="timeLeft timeLeft' . $product->get_id() . '" id="timeLeft' . $product->get_id() . '"></p>';
+								$date_to_or_from = $product->get_auction_date_to();
+							endif;
+						} elseif ( $product->is_ended() ) {
+							$content .= '<span class="has-finished">' . __( 'Auction finished', 'auction-software' ) . '</span>';
+						}
 					}
 
 					$content .= "<input type='hidden' class='timeLeftId' name='timeLeftId' value='" . $product->get_id() . "' />";

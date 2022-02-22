@@ -67,6 +67,12 @@ function auction_software_register_required_plugins() {
 			'version'  => '4.2.0',
 			'required' => true,
 		),
+		array(
+			'name'     => 'Elementor Website Builder',
+			'slug'     => 'elementor',
+			'version'  => '3.5.5',
+			'required' => true,
+		),
 	);
 
 	/*

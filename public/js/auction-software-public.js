@@ -6,7 +6,7 @@
  * @author     WPeka Club <support@wpeka.com>
  */
 
-(function( $ ) {
+(function ($) {
 	'use strict';
 
 	/**
@@ -36,21 +36,22 @@
 	 * Although scripts in the WordPress core, Plugins and Themes may be
 	 * practising this, we should strive to set a better example in our own work.
 	 */
+
 	$( document ).ready(
 		function ($) {
 
 			var timeLeftIds = [];
 			$( '.timeLeftId' ).each(
-				function() {
-					if ( ! timeLeftIds.includes(this.value) ) {
+				function () {
+					if ( ! timeLeftIds.includes( this.value )) {
 						timeLeftIds.push( this.value );
-					}						
+					}
 				}
 			);
 
 			$.each(
 				timeLeftIds,
-				function( index, value ) {
+				function (index, value) {
 					var newIndex     = value;
 					var newValue     = 'timeLeftValue' + newIndex;
 					var endDateValue = $( '.' + newValue ).val();
@@ -58,7 +59,7 @@
 						function () {
 
 							var countDownDate = new Date( endDateValue.replace( /-/g, "/" ) ).getTime();
-							var now = 0;
+							var now           = 0;
 							if (php_vars.default) {
 								var d           = new Date();
 								var localTime   = d.getTime();
@@ -66,7 +67,7 @@
 								var utc         = localTime + localOffset;
 								now             = utc + (3600000 * php_vars.timezone);
 							} else {
-								var timezoneTime = new Date().toLocaleString( "en-US", {timeZone: php_vars.timezone } );
+								var timezoneTime = new Date().toLocaleString( "en-US", { timeZone: php_vars.timezone } );
 								timezoneTime     = new Date( timezoneTime );
 								now              = timezoneTime.getTime();
 							}
@@ -74,26 +75,30 @@
 							if (distance <= 0) {
 								clearInterval( x );
 								if ($( ".timeLeft" + newIndex ).length) {
-									var startEndText = document.getElementsByClassName( 'startEndText' + newIndex );
-									var endText      = 'Auction has ended';
-									for( var i = 0 ; i < startEndText.length; i++ ) {
+									var startEndText       = document.getElementsByClassName( 'startEndText' + newIndex );
+									var endText            = 'Auction has ended';
+									var startEndTextLength = startEndText.length;
+									for (var i = 0; i < startEndTextLength; i++) {
 										if ($( startEndText[i] ).hasClass( 'auction_starts_in' )) {
 											endText = 'Auction has started. Please refresh the page.';
 											$( startEndText[i] ).remove();
 										}
 									}
 									$( '.timeLeft' + newIndex ).text( endText );
-									$( '.timeLeft' + newIndex ).css( 'display','inline-block' );	
+									$( '.timeLeft' + newIndex ).css( 'display', 'inline-block' );
 								}
 							} else {
 								var days    = Math.floor( distance / (1000 * 60 * 60 * 24) );
 								var hours   = Math.floor( (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) );
 								var minutes = Math.floor( (distance % (1000 * 60 * 60)) / (1000 * 60) );
 								var seconds = Math.floor( (distance % (1000 * 60)) / 1000 );
+								if (isNaN( days )) {
+									return;
+								}
 								if (document.getElementsByClassName( "timeLeft" + newIndex ) != null) {
 									var timeLefts       = document.getElementsByClassName( "timeLeft" + newIndex );
 									var timeLeftsLength = timeLefts.length;
-									for (var index = 0;index < timeLeftsLength;index++) {
+									for (var index = 0; index < timeLeftsLength; index++) {
 										timeLefts[index].innerHTML = '<div class="time_left-box"><p class="time-span">' + days + '</p><span class="label-span">Days</span></div>' +
 											'<div class="time_left-box"><p class="time-span">' + hours + '</p><span class="label-span">Hours</span></div>' +
 											'<div class="time_left-box"><p class="time-span">' + minutes + '</p><span class="label-span">Minutes</span></div>' +
@@ -113,13 +118,13 @@
 				var productAuctionType = document.getElementById( 'product_auction_type' ) != null ? document.getElementById( 'product_auction_type' ).value : '';
 				var window_focus       = true;
 				$( window ).on(
-					'focusin' ,
-					function() {
+					'focusin',
+					function () {
 						window_focus = true;
 					}
 				).on(
 					'focusout',
-					function() {
+					function () {
 						window_focus = false;
 					}
 				);
@@ -139,7 +144,7 @@
 								var utc         = localTime + localOffset;
 								now             = utc + (3600000 * php_vars.timezone);
 							} else {
-								var timezoneTime = new Date().toLocaleString( "en-US", {timeZone: php_vars.timezone } );
+								var timezoneTime = new Date().toLocaleString( "en-US", { timeZone: php_vars.timezone } );
 								timezoneTime     = new Date( timezoneTime );
 								now              = timezoneTime.getTime();
 							}
@@ -151,15 +156,15 @@
 							var minutes = Math.floor( (distance % (1000 * 60 * 60)) / (1000 * 60) );
 							var seconds = Math.floor( (distance % (1000 * 60)) / 1000 );
 							document.getElementById( "time_left" ) != null ? document.getElementById( "time_left" ).innerHTML = '<div class="time_left-box"><p class="time-span">' + days + '</p><span class="label-span">Days</span></div>' +
-																																'<div class="time_left-box"><p class="time-span">' + hours + '</p><span class="label-span">Hours</span></div>' +
-																																'<div class="time_left-box"><p class="time-span">' + minutes + '</p><span class="label-span">Minutes</span></div>' +
-																																'<div class="time_left-box"><p class="time-span">' + seconds + '</p><span class="label-span">Seconds</span></div>' : "";
+								'<div class="time_left-box"><p class="time-span">' + hours + '</p><span class="label-span">Hours</span></div>' +
+								'<div class="time_left-box"><p class="time-span">' + minutes + '</p><span class="label-span">Minutes</span></div>' +
+								'<div class="time_left-box"><p class="time-span">' + seconds + '</p><span class="label-span">Seconds</span></div>' : "";
 							if (distance < 0) {
 								clearInterval( x );
 								document.getElementById( "time_left" ).innerHTML = "Auction has ended";
 								var buyitnow                                     = document.getElementsByClassName( 'single_add_to_cart_button' );
-								var bidnow                                       = document.getElementsByClassName('auction-bid-simple');
-								var penny                                        = document.getElementsByClassName('auction-bid-penny');
+								var bidnow                                       = document.getElementsByClassName( 'auction-bid-simple' );
+								var penny                                        = document.getElementsByClassName( 'auction-bid-penny' );
 								$( buyitnow ).remove();
 								$( bidnow ).remove();
 								$( penny ).remove();
@@ -312,7 +317,7 @@
 												}
 												var max_bid = document.getElementById( 'auction_max_bid' );
 												if (response.change_max_bid == 1) {
-													$( max_bid ).css( {'display':'table-row'} );
+													$( max_bid ).css( { 'display': 'table-row' } );
 													var max_bid_value = document.getElementsByClassName( 'auction_max_bid_simple' );
 													$( max_bid_value ).empty();
 													$( max_bid_value ).append( response.change_max_bid_value );
@@ -474,7 +479,7 @@
 
 												var max_bid = document.getElementById( 'auction_max_bid' );
 												if (response.change_max_bid == 1) {
-													$( max_bid ).css( {'display':'table-row'} );
+													$( max_bid ).css( { 'display': 'table-row' } );
 													var max_bid_value = document.getElementsByClassName( 'auction_max_bid_reverse' );
 													$( max_bid_value ).empty();
 													$( max_bid_value ).append( response.change_max_bid_value );
@@ -570,7 +575,7 @@
 								var utc         = localTime + localOffset;
 								now             = utc + (3600000 * php_vars.timezone);
 							} else {
-								var timezoneTime = new Date().toLocaleString( "en-US", {timeZone: php_vars.timezone } );
+								var timezoneTime = new Date().toLocaleString( "en-US", { timeZone: php_vars.timezone } );
 								timezoneTime     = new Date( timezoneTime );
 								now              = timezoneTime.getTime();
 							}
@@ -583,9 +588,9 @@
 							var seconds = Math.floor( (distance % (1000 * 60)) / 1000 );
 
 							document.getElementById( "time_start" ) != null ? document.getElementById( "time_start" ).innerHTML = '<div class="time_left-box"><p class="time-span">' + days + '</p><span class="label-span">Days</span></div>' +
-																																'<div class="time_left-box"><p class="time-span">' + hours + '</p><span class="label-span">Hours</span></div>' +
-																																'<div class="time_left-box"><p class="time-span">' + minutes + '</p><span class="label-span">Minutes</span></div>' +
-																																'<div class="time_left-box"><p class="time-span">' + seconds + '</p><span class="label-span">Seconds</span></div>' : "";
+								'<div class="time_left-box"><p class="time-span">' + hours + '</p><span class="label-span">Hours</span></div>' +
+								'<div class="time_left-box"><p class="time-span">' + minutes + '</p><span class="label-span">Minutes</span></div>' +
+								'<div class="time_left-box"><p class="time-span">' + seconds + '</p><span class="label-span">Seconds</span></div>' : "";
 
 							if (distance < 0) {
 								clearInterval( x );
@@ -702,6 +707,91 @@
 				}
 			);
 
+		}
+	);
+	function elementor_js() {
+		var timeLeftIds = [];
+		$( '.timeLeftId' ).each(
+			function () {
+				if ( ! timeLeftIds.includes( this.value )) {
+					timeLeftIds.push( this.value );
+				}
+			}
+		);
+		$.each(
+			timeLeftIds,
+			function (index, value) {
+				var newIndex     = value;
+				var newValue     = 'timeLeftValue' + newIndex;
+				var endDateValue = $( '.' + newValue ).val();
+				var x            = setInterval(
+					function () {
+
+						var countDownDate = new Date( endDateValue.replace( /-/g, "/" ) ).getTime();
+						var now           = 0;
+						if (php_vars.default) {
+							var d           = new Date();
+							var localTime   = d.getTime();
+							var localOffset = d.getTimezoneOffset() * 60000;
+							var utc         = localTime + localOffset;
+							now             = utc + (3600000 * php_vars.timezone);
+						} else {
+							var timezoneTime = new Date().toLocaleString( "en-US", { timeZone: php_vars.timezone } );
+							timezoneTime     = new Date( timezoneTime );
+							now              = timezoneTime.getTime();
+						}
+						var distance = countDownDate - now;
+						if (distance <= 0) {
+							clearInterval( x );
+							if ($( ".timeLeft" + newIndex ).length) {
+								var startEndText       = document.getElementsByClassName( 'startEndText' + newIndex );
+								var endText            = 'Auction has ended';
+								var startEndTextLength = startEndText.length;
+								for (var i = 0; i < startEndTextLength; i++) {
+									if ($( startEndText[i] ).hasClass( 'auction_starts_in' )) {
+										endText = 'Auction has started. Please refresh the page.';
+										$( startEndText[i] ).remove();
+									}
+								}
+								$( '.timeLeft' + newIndex ).text( endText );
+								$( '.timeLeft' + newIndex ).css( 'display', 'inline-block' );
+							}
+						} else {
+							var days    = Math.floor( distance / (1000 * 60 * 60 * 24) );
+							var hours   = Math.floor( (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) );
+							var minutes = Math.floor( (distance % (1000 * 60 * 60)) / (1000 * 60) );
+							var seconds = Math.floor( (distance % (1000 * 60)) / 1000 );
+							if (isNaN( days )) {
+								return;
+							}
+
+							if (document.getElementsByClassName( "timeLeft" + newIndex ) != null) {
+								var timeLefts       = document.getElementsByClassName( "timeLeft" + newIndex );
+								var timeLeftsLength = timeLefts.length;
+								for (var index = 0; index < timeLeftsLength; index++) {
+									timeLefts[index].innerHTML = '<div class="time_left-box"><p class="time-span">' + days + '</p><span class="label-span">Days</span></div>' +
+										'<div class="time_left-box"><p class="time-span">' + hours + '</p><span class="label-span">Hours</span></div>' +
+										'<div class="time_left-box"><p class="time-span">' + minutes + '</p><span class="label-span">Minutes</span></div>' +
+										'<div class="time_left-box"><p class="time-span">' + seconds + '</p><span class="label-span">Seconds</span></div>';
+								}
+							}
+						}
+
+					},
+					1000
+				);
+			}
+		);
+	}
+	$( window ).on(
+		'elementor/frontend/init',
+		function () {
+			elementorFrontend.hooks.addAction(
+				'frontend/element_ready/widget',
+				function ($scope, $) {
+					elementor_js();
+				}
+			);
 		}
 	);
 })( jQuery );
