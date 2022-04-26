@@ -5,7 +5,7 @@ Tags: auction, woocommerce auction, WordPress auction, auction plugin, proxy bid
 Requires at least: 4.6
 Tested up to: 5.8
 Requires PHP: 7.0
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.htm
 
@@ -193,6 +193,9 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 4. Auction Widgets.
 
 == Changelog ==
+= 1.2.3 =
+* Update: Removed analytics library.
+
 = 1.2.2 =
 * Fix: Security related issues fixed.
 
