@@ -77,6 +77,7 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 					<label for="auction_start_price"><?php esc_html_e( 'Start Price: ', 'auction-software' ); ?></label>
 				</td>
 				<td class="title">
+					<?php // The below phpcs ignore comment has been added after referring WooCommerce Plugin. ?>
 					<?php echo wc_price( $product->get_auction_start_price() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</td>
 			</tr>
@@ -94,6 +95,7 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 					if ( 0.00 === (float) $current_bid_value ) {
 						esc_html_e( 'No bids yet ', 'auction-software' );
 					} else {
+						// The below phpcs ignore comment has been added after referring WooCommerce Plugin.
 						echo wc_price( $product->get_auction_current_bid() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 					?>
@@ -108,6 +110,7 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 					<label for="auction_bid_increment"><?php esc_html_e( 'Bid Increment: ', 'auction-software' ); ?></label>
 				</td>
 				<td class="title auction_bid_increment">
+					<?php // The below phpcs ignore comment has been added after referring WooCommerce Plugin. ?>
 					<?php echo wc_price( $product->get_auction_bid_increment() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</td>
 			</tr>
@@ -138,6 +141,7 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 					<label for="auction_max_bid"><?php esc_html_e( 'Your Maximum Bid: ', 'auction-software' ); ?></label>
 				</td>
 				<td class="title auction_max_bid_reverse">
+					<?php // The below phpcs ignore comment has been added after referring WooCommerce Plugin. ?>
 					<?php echo wc_price( $max_bid ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</td>
 			</tr>
@@ -172,6 +176,7 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 				</div>
 				<button type="submit" name="auction-bid" value="<?php echo esc_attr( $product->get_id() ); ?>"
 					class="auction-bid-reverse button alt" id="auction-bid-reverse"><?php echo esc_attr( $product->single_add_to_cart_text() ); ?></button>
+					<?php // The below phpcs ignore comment has been added after referring WooCommerce Plugin. ?>
 				<p class="auction-start-text">(Enter less than or equal to: <?php echo wc_price( $product->get_auction_start_price() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>)</p> 
 			</div>
 			<br />
@@ -218,6 +223,7 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 						<label for="auction_start_price"><?php esc_html_e( 'Start Price: ', 'auction-software' ); ?></label>
 					</td>
 					<td class="title">
+						<?php // The below phpcs ignore comment has been added after referring WooCommerce Plugin. ?>
 						<?php echo wc_price( $product->get_auction_start_price() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</td>
 				</tr>
@@ -230,6 +236,7 @@ do_action( 'auction_reverse_before_add_to_cart_form' );
 						<label for="auction_bid_increment"><?php esc_html_e( 'Bid Increment: ', 'auction-software' ); ?></label>
 					</td>
 					<td class="title auction_bid_increment">
+						<?php // The below phpcs ignore comment has been added after referring WooCommerce Plugin. ?>
 						<?php echo wc_price( $product->get_auction_bid_increment() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</td>
 				</tr>

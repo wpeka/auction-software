@@ -6,7 +6,7 @@ const data = require('./data.json');
 
 // loop through all blocks and register them one by one but with changes such as id, title, description, default attribute title, fallbackifnotselectedtitle.
 data.forEach((chunk) => {
-	registerBlockType("auction-software/" + chunk.registerBlockType, {
+	registerBlockType("auction-software/" + chunk.register_block_type, {
 		title: __(chunk.title, "auction-software"),
 		description: __(chunk.description, "auction-software"),
 		icon: "flag",
@@ -15,7 +15,7 @@ data.forEach((chunk) => {
 		attributes: {
 			title: {
 				type: 'text',
-				default: chunk.attributesTitleDefault,
+				default: chunk.attributes_title_default,
 			},
 			num_of_auctions: {
 				type: 'text',

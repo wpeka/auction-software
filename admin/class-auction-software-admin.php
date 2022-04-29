@@ -50,7 +50,7 @@ class Auction_Software_Admin {
 	private $auction_classes;
 
 	/**
-	 * instance of callback functions of all block-based widgets.
+	 * Instance of callback functions of all block-based widgets.
 	 *
 	 * @since 1.0.0
 	 * @access private
@@ -549,7 +549,7 @@ class Auction_Software_Admin {
 			wp_die();
 		}
 
-		if ( ! wp_verify_nonce( wp_unslash( $_POST['wc_auction_classes_nonce'] ), 'wc_auction_classes_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wc_auction_classes_nonce'] ) ), 'wc_auction_classes_nonce' ) ) {
 			wp_send_json_error( 'bad_nonce' );
 			wp_die();
 		}
@@ -558,7 +558,7 @@ class Auction_Software_Admin {
 			wp_send_json_error( 'missing_capabilities' );
 			wp_die();
 		}
-
+		// The below phpcs ignore comment has been added after referring WooCommerce plugin.
 		$changes = wp_unslash( $_POST['changes'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		foreach ( $changes as $term_id => $data ) {
 			$term_id = absint( $term_id );
@@ -1432,7 +1432,7 @@ class Auction_Software_Admin {
 		?>
 		<script type='text/javascript'>
 			jQuery(document).ready(function ($) {
-				
+
 				// General tab for auction products.
 				jQuery('.general_options').addClass('show_if_simple show_if_external show_if_affiliate show_if_variable show_if_auction_simple show_if_auction_reverse show_if_auction_penny').show();
 				jQuery('#general_product_data ._tax_status_field').parent().addClass('show_if_auction_simple show_if_auction_reverse show_if_auction_penny').show();
@@ -1600,11 +1600,17 @@ class Auction_Software_Admin {
 	 */
 	public function auction_software_register_gutenberg_blocks() {
 
-		// get json data for all 8 blocks and decode it
-		$data = file_get_contents( AUCTION_SOFTWARE_PLUGIN_PATH . 'src/gutenberg-blocks/data.json' );
-		$data = json_decode( $data );
-
-		// register a single script file which loops through all 8 blocks and regs them one by one
+		// Get json data for all 8 blocks and decode it.
+		$response = wp_remote_get( AUCTION_SOFTWARE_PLUGIN_URL . 'src/gutenberg-blocks/data.json' );
+		if ( is_array( $response ) && ! is_wp_error( $response ) ) {
+			$data = wp_remote_retrieve_body( $response );
+		}
+		if ( $data ) {
+			$data = json_decode( $data );
+		} else {
+			$data = array();
+		}
+		// Register a single script file which loops through all 8 blocks and regs them one by one.
 		wp_register_script(
 			'auction-software-auction-widgets',
 			plugin_dir_url( __DIR__ ) . 'admin/js/gutenberg-blocks/auction-software-auction-widgets.js',
@@ -1613,17 +1619,17 @@ class Auction_Software_Admin {
 			false
 		);
 
-		// if function exists for wordpress 5 and above, loop through all 8 blocks and register them.
+		// If function exists for WordPress 5 and above, loop through all 8 blocks and register them.
 		if ( function_exists( 'register_block_type' ) ) {
 			foreach ( $data as $chunk ) {
 				register_block_type(
-					'auction-software/' . $chunk->registerBlockType,//phpcs:ignore
+					'auction-software/' . $chunk->register_block_type,
 					array(
 						'editor_script'   => 'auction-software-auction-widgets',
 						'attributes'      => array(
 							'title'           => array(
 								'type'    => 'string',
-								'default' => $chunk->attributesTitleDefault,//phpcs:ignore
+								'default' => $chunk->attributes_title_default,
 							),
 							'num_of_auctions' => array(
 								'type'    => 'string',
@@ -1634,7 +1640,7 @@ class Auction_Software_Admin {
 								'default' => false,
 							),
 						),
-						'render_callback' => array( $this->block_callbacks, $chunk->renderCallback ),//phpcs:ignore
+						'render_callback' => array( $this->block_callbacks, $chunk->render_callback ),
 					)
 				);
 			}
