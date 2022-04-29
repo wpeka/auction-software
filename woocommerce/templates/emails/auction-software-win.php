@@ -23,12 +23,12 @@ $product_data = wc_get_product( $product_id );
 do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
 <?php
-echo sprintf( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+echo sprintf(
 		/* translators: 1: Auction name, 2: Auction link */
-		esc_html__( "You've won the %1\$s auction. %2\$s to buy your product.", 'auction-software' ),
+	esc_html__( "You've won the %1\$s auction. %2\$s to buy your product.", 'auction-software' ),
 	esc_attr( $product_data->get_title() ),
-	sprintf( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			"<a href='%s' target='_blank'>Click here</a>",
+	sprintf(
+		"<a href='%s' target='_blank'>Click here</a>",
 		esc_url( get_permalink( $product_id ) )
 	)
 );
@@ -56,6 +56,7 @@ echo sprintf( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				<td style="color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif;word-wrap:break-word">
 					<?php
 					esc_html_e( 'Start Price: ', 'auction-software' );
+					// The below phpcs ignore comment has been added after referring WooCommerce Plugin.
 					echo wc_price( $product_data->get_meta( 'auction_start_price' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					?>
 					<br>
@@ -71,6 +72,7 @@ echo sprintf( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					<br>
 					<?php
 					esc_html_e( 'Bid Increment: ', 'auction-software' );
+					// The below phpcs ignore comment has been added after referring WooCommerce Plugin.
 					echo wc_price( $product_data->get_auction_bid_increment() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					?>
 					<br>

@@ -251,7 +251,7 @@ class Auction_Software {
 		// #My Auctions List Code.
 		$this->loader->add_filter( 'plugin_action_links_' . AUCTION_SOFTWARE_PLUGIN_BASENAME, $plugin_admin, 'auction_software_plugin_action_links' );
 
-		// block based widgets
+		// Block based widgets.
 		$this->loader->add_action( 'init', $plugin_admin, 'auction_software_register_gutenberg_blocks' );
 	}
 

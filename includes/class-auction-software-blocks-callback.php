@@ -8,10 +8,22 @@
  * @package    Auction_Software
  * @subpackage Auction_Software/admin
  */
+
+/**
+ * The callback-blocks functionality class of the plugin.
+ *
+ * @link       https://club.wpeka.com/
+ * @since      1.0.0
+ *
+ * @package    Auction_Software
+ * @subpackage Auction_Software/admin
+ */
 class Auction_Software_Blocks_Callback {
 
 	/**
 	 * Ending soon callback.
+	 *
+	 * @param array $instance Instance array.
 	 */
 	public function auction_software_ending_soon_callback( $instance ) {
 		global $woocommerce;
@@ -150,6 +162,8 @@ class Auction_Software_Blocks_Callback {
 
 	/**
 	 * Coming Soon Callback.
+	 *
+	 * @param array $instance Instance array.
 	 */
 	public function auction_software_coming_soon_callback( $instance ) {
 
@@ -283,6 +297,8 @@ class Auction_Software_Blocks_Callback {
 
 	/**
 	 * Random Auction Callback.
+	 *
+	 * @param array $instance Instance array.
 	 */
 	public function auction_software_random_auction_callback( $instance ) {
 		global $woocommerce;
@@ -302,7 +318,7 @@ class Auction_Software_Blocks_Callback {
 		);
 
 		$excluded_fields = get_option( 'auctions_excluded_fields_product_widget', array() );
-		
+
 		$query_args = array(
 			'post_type'      => 'product',
 			'post_status'    => 'publish',
@@ -406,6 +422,8 @@ class Auction_Software_Blocks_Callback {
 
 	/**
 	 * Recent Auction Callback.
+	 *
+	 * @param array $instance Instance array.
 	 */
 	public function auction_software_recent_auction_callback( $instance ) {
 		global $woocommerce;
@@ -522,11 +540,13 @@ class Auction_Software_Blocks_Callback {
 
 		wp_reset_postdata();
 
-		return $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		return $content;
 	}
 
 	/**
 	 * Featured Auction Callback.
+	 *
+	 * @param array $instance Instance array.
 	 */
 	public function auction_software_featured_auction_callback( $instance ) {
 		global $woocommerce;
@@ -653,11 +673,13 @@ class Auction_Software_Blocks_Callback {
 
 		wp_reset_postdata();
 
-		return $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		return $content;
 	}
 
 	/**
 	 * Watchlist Callback
+	 *
+	 * @param array $instance Instance array.
 	 */
 	public function auction_software_watchlist_auction_callback( $instance ) {
 		global $woocommerce;
@@ -792,12 +814,14 @@ class Auction_Software_Blocks_Callback {
 
 		wp_reset_postdata();
 
-		return $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		return $content;
 
 	}
 
 	/**
 	 * Recently Viewed Auctions Callback
+	 *
+	 * @param array $instance Instance array.
 	 */
 	public function auction_software_recently_viewed_auction_callback( $instance ) {
 		global $woocommerce;
@@ -929,12 +953,14 @@ class Auction_Software_Blocks_Callback {
 
 		wp_reset_postdata();
 
-		return $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		return $content;
 
 	}
 
 	/**
 	 * My auctions callback
+	 *
+	 * @param array $instance Instance array.
 	 */
 	public function auction_software_my_auction_callback( $instance ) {
 		global $woocommerce, $wpdb;
@@ -1064,7 +1090,7 @@ class Auction_Software_Blocks_Callback {
 
 		wp_reset_postdata();
 
-		return $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		return $content;
 
 	}
 
