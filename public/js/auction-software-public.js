@@ -42,7 +42,9 @@
 			var timeLeftIds = [];
 			$( '.timeLeftId' ).each(
 				function() {
-					timeLeftIds.push( this.value );
+					if ( ! timeLeftIds.includes(this.value) ) {
+						timeLeftIds.push( this.value );
+					}						
 				}
 			);
 
@@ -56,7 +58,6 @@
 						function () {
 
 							var countDownDate = new Date( endDateValue.replace( /-/g, "/" ) ).getTime();
-
 							var now = 0;
 							if (php_vars.default) {
 								var d           = new Date();
@@ -75,13 +76,14 @@
 								if ($( ".timeLeft" + newIndex ).length) {
 									var startEndText = document.getElementsByClassName( 'startEndText' + newIndex );
 									var endText      = 'Auction has ended';
-									if ($( '.startEndText' + newIndex ).hasClass( 'auction_starts_in' )) {
-										endText = 'Auction has started. Please refresh the page.';
+									for( var i = 0 ; i < startEndText.length; i++ ) {
+										if ($( startEndText[i] ).hasClass( 'auction_starts_in' )) {
+											endText = 'Auction has started. Please refresh the page.';
+											$( startEndText[i] ).remove();
+										}
 									}
-									$( startEndText ).remove();
 									$( '.timeLeft' + newIndex ).text( endText );
-									$( '.timeLeft' + newIndex ).css( 'display','inline-block' );
-
+									$( '.timeLeft' + newIndex ).css( 'display','inline-block' );	
 								}
 							} else {
 								var days    = Math.floor( distance / (1000 * 60 * 60 * 24) );
@@ -156,7 +158,13 @@
 								clearInterval( x );
 								document.getElementById( "time_left" ).innerHTML = "Auction has ended";
 								var buyitnow                                     = document.getElementsByClassName( 'single_add_to_cart_button' );
+								var bidnow                                       = document.getElementsByClassName('auction-bid-simple');
+								var penny                                        = document.getElementsByClassName('auction-bid-penny');
 								$( buyitnow ).remove();
+								$( bidnow ).remove();
+								$( penny ).remove();
+								window.location.reload();
+
 							}
 
 						},

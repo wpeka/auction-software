@@ -1,0 +1,66 @@
+[
+	{
+		"register_block_type": "coming-soon-auctions",
+		"title": "Auction Software Coming Soon Auctions",
+		"description": "Shows the list of coming soon auctions",
+		"attributes_title_default": "Coming Soon Auctions",
+		"fallbackTitleIfNotSelected": "Auction Software Coming Soon Auctions Block",
+		"render_callback": "auction_software_coming_soon_callback"
+	},
+	{
+		"register_block_type": "ending-soon-auctions",
+		"title": "Auction Software Ending Soon Auctions",
+		"description": "Shows the list of ending soon auctions",
+		"attributes_title_default": "Ending Soon Auctions",
+		"fallbackTitleIfNotSelected": "Auction Software Ending Soon Auctions Block",
+		"render_callback": "auction_software_ending_soon_callback"
+	},
+	{
+		"register_block_type": "featured-auctions",
+		"title": "Auction Software Featured Auctions",
+		"description": "Shows the list of featured auctions",
+		"attributes_title_default": "Featured Auctions",
+		"fallbackTitleIfNotSelected": "Auction Software Featured Auctions Block",
+		"render_callback": "auction_software_featured_auction_callback"
+	},
+	{
+		"register_block_type": "my-auctions",
+		"title": "Auction Software My Auctions",
+		"description": "Shows the list of My auctions",
+		"attributes_title_default": "My Auctions",
+		"fallbackTitleIfNotSelected": "Auction Software My Auctions Block",
+		"render_callback": "auction_software_my_auction_callback"
+	},
+	{
+		"register_block_type": "random-auctions",
+		"title": "Auction Software Random Auctions",
+		"description": "Shows the list of Random auctions",
+		"attributes_title_default": "Random Auctions",
+		"fallbackTitleIfNotSelected": "Auction Software Random Auctions Block",
+		"render_callback": "auction_software_random_auction_callback"
+	},
+	{
+		"register_block_type": "recent-auctions",
+		"title": "Auction Software Recent Auctions",
+		"description": "Shows the list of Recent auctions",
+		"attributes_title_default": "Recent Auctions",
+		"fallbackTitleIfNotSelected": "Auction Software Recent Auctions Block",
+		"render_callback": "auction_software_recent_auction_callback"
+	},
+	{
+		"register_block_type": "recently-viewed-auctions",
+		"title": "Auction Software Recently Viewed Auctions",
+		"description": "Shows the list of Recently Viewed auctions",
+		"attributes_title_default": "Recently Viewed Auctions",
+		"fallbackTitleIfNotSelected": "Auction Software Recently Viewed Auctions Block",
+		"render_callback": "auction_software_recently_viewed_auction_callback"
+	},
+	{
+		"register_block_type": "watchlist-auctions",
+		"title": "Auction Software Watchlist Auctions",
+		"description": "Shows the list of Watchlist auctions",
+		"attributes_title_default": "Watchlist Auctions",
+		"fallbackTitleIfNotSelected": "Auction Software Watchlist Auctions Block",
+		"render_callback": "auction_software_watchlist_auction_callback"
+	}
+]

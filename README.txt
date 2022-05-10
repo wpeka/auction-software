@@ -1,11 +1,11 @@
 === Woo Auction Software: WordPress Auction Plugin ===
 Contributors: WPeka Club
 Donate link: https://club.wpeka.com/
-Tags: auction, woocommerce auction, WordPress auction, auction plugin, proxy bidding, penny auction, eBay auction, simple auction, reverse auction, penny auction, eBay, bidding, auction script, wp auctions
+Tags: auction, woocommerce auction, WordPress auction, auction plugin, proxy bidding, penny auction, eBay auction, simple auction, reverse auction, penny auction, eBay, bidding, auction script, wp auctions, auction site, auction website, woocommerce auction plugin, wordpress auction plugin, wp auction plugin
 Requires at least: 4.6
-Tested up to: 5.6
+Tested up to: 5.8
 Requires PHP: 7.0
-Stable tag: 1.1.1
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.htm
 
@@ -16,7 +16,7 @@ Woo Auction Software is one of the flexible and intuitive WordPress Auction Plug
 Woo Auction Software is built for WordPress website owners who want to run successful auctions on their websites.
 
 👉 Demo Site: [Click Here](https://demo.wpeka.com/woo-auction-software/)
-👉 Learn More About Woo Auction Software(PRO): [Click Here](https://club.wpeka.com/product/woo-auction-software/)
+👉 Learn More About Woo Auction Software(PRO): [Click Here](https://club.wpeka.com/product/woo-auction-software/?utm_source=referral&utm_medium=wporg&utm_campaign=wpauction)
 
 This is a powerful auction plugin for WordPress that allows you to host live auctions on your website. You can do this without any coding knowledge.
 
@@ -24,9 +24,9 @@ Combine the ease of use of WordPress and the power of WooCommerce with this plug
 
 = Woo Auction Software supports these types of auctions: =
 
-➡️ <strong>Forward Auctions -</strong> Buyers bid for your products, highest bidder wins.
-➡️ <strong>Reverse Auction -</strong> Sellers bid the price at which they are willing to sell their products or services, <strong>Lowest Bid Wins.</strong>🏆
-➡️ <strong>Penny Auction (PRO) -</strong> Host a bidding fee auction, allowing participants to pay a non-refundable fee to place each bid. The auction can be extended each time a new bid is placed.
+➡️ <strong>[Forward Auctions](https://www.wpauctionsoftware.com/wordpress-forward-auctions-plugin/?utm_source=referral&utm_medium=wporg&utm_campaign=wpauction) -</strong> Buyers bid for your products, highest bidder wins.
+➡️ <strong>[Reverse Auction](https://www.wpauctionsoftware.com/wordpress-reverse-auction-plugin/?utm_source=referral&utm_medium=wporg&utm_campaign=wpauction) -</strong> Sellers bid the price at which they are willing to sell their products or services, <strong>Lowest Bid Wins.</strong>🏆
+➡️ <strong>[Penny Auction](https://www.wpauctionsoftware.com/wordpress-penny-auction-plugin/?utm_source=referral&utm_medium=wporg&utm_campaign=wpauction) (PRO) -</strong> Host a bidding fee auction, allowing participants to pay a non-refundable fee to place each bid. The auction can be extended each time a new bid is placed.
 
 = Here are some key features: =
 
@@ -51,7 +51,7 @@ This plugin can be used to host auctions in any language with the help of local 
 
 == How to get started with Woo Auction Software ==
 
-[youtube https://www.youtube.com/watch?v=wDojKIpaf7s]
+[youtube https://www.youtube.com/watch?v=hREy6K8PsOU]
 
 It is effortless to set up Woo Auction Software in different auction modes. You can use these auctions to create professional auction websites, eBay-type auctions, and many more. The plugin comes with pre-designed email templates that make it easy for you to customize the email notifications. The plugin works with all modern WordPress themes available.
 
@@ -127,16 +127,21 @@ Woo Auction Software plugin supports the following type of auctions:
 
 == Looking for the PRO Features? ==
 
-Unlock the PRO version now,
-Visit – ➡️[Woo Auction Software Pro](https://club.wpeka.com/product/woo-auction-software/)⬅️
+Unlock the PRO version now, Visit – ➡️[Woo Auction Software Pro](https://club.wpeka.com/product/woo-auction-software//?utm_source=referral&utm_medium=orgpage&utm_campaign=wpauction)⬅️
+
+==Help Resources==
+
+Check out our specially curated playlist on YouTube for tutorial videos  [WooAuction tutorial videos](https://youtube.com/playlist?list=PLb2uZyVYHgAXwKXCGHdX99JxnfzEsUFL-)
+
+Browse through our [Help documentations and FAQs](https://docs.wpeka.com/woo-auction/?utm_source=referral&utm_medium=wporg&utm_campaign=wpauction)
 
 == Our other Awesome Projects ==
 
 If you like this plugin, then consider checking out our other projects:
 
-- ➡️[WP Legal Pages](https://wplegalpages.com/?utm_source=wporg&utm_medium=referral&utm_campaign=wpadcenter)⬅️: Generate 25+ legal policy pages for your WordPress website in just a few minutes, including, Privacy Policy, Terms & Conditions, Cookie Policy, and many more.
+- ➡️[WP Legal Pages](https://wplegalpages.com/?utm_source=wporg&utm_medium=referral&utm_campaign=wpauction)⬅️: Generate 25+ legal policy pages for your WordPress website in just a few minutes, including, Privacy Policy, Terms & Conditions, Cookie Policy, and many more.
 
-- ➡️[WP Cookie Consent](https://wplegalpages.com/cookie-consent-banner-on-your-website/?utm_source=wporg&utm_medium=referral&utm_campaign=wpadcenter)⬅️: Display a customized cookie consent notice (for GDPR), and "Do Not Sell" opt-out notice (for CCPA). Get granular consent and record a consent log.
+- ➡️[WP Cookie Consent](https://wplegalpages.com/wordpress-cookie-notice-plugin/?utm_source=referral&utm_medium=wporg&utm_campaign=wpauction)⬅️: Display a customized cookie consent notice (for GDPR), and "Do Not Sell" opt-out notice (for CCPA). Get granular consent and record a consent log.
 
 - ➡️[WP AdCenter](https://wpadcenter.com/?&utm_source=wporg&utm_medium=referral&utm_campaign=wpauction)⬅️: Insert and manage Google AdSense, Amazon Ads, Media.net, ads.txt, banner ads, location-specific ads, random ads & rotating ads.
 
@@ -146,11 +151,22 @@ If you like this plugin, then consider checking out our other projects:
 
 == Installation ==
 
-1. Download the zip file.
-2. Log in as the WordPress Admin of your website.
-3. Navigate to Plugins > Add New to upload plugin
-4. Choose the plugin file to upload.
-5. Activate the plugin.
+= From within WordPress =
+
+1. Head over to your WordPress Dashboard
+2. Click on 'Plugins > Add New'
+3. Type “WooAuction Software” on the search bar
+4. Select the Woo Auction Software plugin by WPeka Club
+5. Click on Install Now button, and then Activate
+6.  You can configure the settings under WooCommerce Auction tab to get started
+7. The free auction plugin is now ready to use.
+
+= Manually =
+
+1. On your WordPress Dashboard, click on 'Plugins> Add New'
+2. Click on 'Upload Plugin', and select the plugin files that you have downloaded from WordPress.org.
+3. Install and activate the plugin.
+4. You can configure the settings under WooCommerce Auction tab to get started
 
 == Frequently Asked Questions ==
 
@@ -177,6 +193,22 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 4. Auction Widgets.
 
 == Changelog ==
+= 1.2.3 =
+* Update: Removed analytics library.
+
+= 1.2.2 =
+* Fix: Security related issues fixed.
+
+= 1.2.1 =
+* Fix: Fixed issue related to Bid now button visiable after auction is ended.
+
+= 1.2.0 =
+* Update: Added compatibility with WordPress 5.8 for auction software widgets (Gutenberg block widgets)
+
+= 1.1.2 =
+* Update: WordPress 5.8 compatibility.
+* Fix: PHP 8 compatibility issues fixed.
+
 = 1.1.1 =
 * Update: Add editable tax fields for auction products.
 
@@ -228,6 +260,19 @@ Fix: Fixed for broken cart and checkout pages.
 Feature: Initial version.
 
 == Upgrade Notice ==
+= 1.2.2 =
+* Fix: Security related issues fixed.
+
+= 1.2.1 =
+* Fix: Fixed issue related to Bid now button visiable after auction is ended.
+
+= 1.2.0 =
+* Update: Added compatibility with WordPress 5.8 for auction software widgets (Gutenberg block widgets)
+
+= 1.1.2 =
+* Update: WordPress 5.8 compatibility.
+* Fix: PHP 8 compatibility issues fixed.
+
 = 1.1.1 =
 * Update: Add editable tax fields for auction products.
 

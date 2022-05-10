@@ -96,7 +96,6 @@ class Auction_Software_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/auction-software-public' . AUCTION_SOFTWARE_SUFFIX . '.js', array( 'jquery' ), $this->version, false );
 		$data_to_be_passed = array(
 			'adminUrl' => get_admin_url(),
@@ -159,7 +158,7 @@ class Auction_Software_Public {
 	 * Track view of viewed auctions.
 	 */
 	public function auction_software_track_view() {
-		if ( ! is_singular( 'product' ) || ! is_active_widget( false, false, 'recently_viewed_auctions', true ) ) {
+		if ( ! is_singular( 'product' ) ) {
 			return;
 		}
 
@@ -794,7 +793,8 @@ class Auction_Software_Public {
 		$watchlist = get_user_meta( $user_id, 'auction_watchlist' );
 		if ( isset( $watchlist[0] ) && ! empty( $watchlist[0] ) ) {
 			$watchlist = explode( ',', $watchlist[0] );
-			$key       = array_search( $product_id, $watchlist, true );
+			array_shift( $watchlist );
+			$key = array_search( $product_id, $watchlist ); //phpcs:ignore
 			if ( false !== $key ) {
 				unset( $watchlist[ $key ] );
 			}

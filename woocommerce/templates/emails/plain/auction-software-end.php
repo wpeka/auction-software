@@ -23,10 +23,11 @@ echo '= ' . esc_html( $email_heading ) . " =\n\n";
 echo sprintf( esc_html__( 'The %s auction has ended.', 'auction-software' ), esc_attr( $product_data->get_title() ) );
 
 echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
-
+// The below phpcs ignore comment has been added after referring WooCommerce Plugin.
 echo esc_html__( 'Start Price: ', 'auction-software' ) . wc_price( $product_data->get_meta( 'auction_start_price' ) ) . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 echo esc_html__( 'Start Date: ', 'auction-software' ) . esc_attr( $product_data->get_meta( 'auction_date_from' ) ) . "\n";
 echo esc_html__( 'End Date: ', 'auction-software' ) . esc_attr( $product_data->get_meta( 'auction_date_to' ) ) . "\n";
+// The below phpcs ignore comment has been added after referring WooCommerce Plugin.
 echo esc_html__( 'Bid Increment: ', 'auction-software' ) . wc_price( $product_data->get_auction_bid_increment() ) . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 echo esc_html( apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) ) );

@@ -64,7 +64,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 	<input id="auction_current_bid" type="hidden" value="<?php echo esc_attr( $product->get_auction_current_bid() ); ?>"/>
 	<input id="auction_initial_bid_placed" type="hidden" value="<?php echo esc_attr( WC_Auction_Software_Helper::get_auction_post_meta( $postid, 'auction_initial_bid_placed' ) ); ?>"/>
 	<input id="auction_bid_increment" type="hidden" value="<?php echo esc_attr( $product->get_auction_bid_increment() ); ?>"/>
-	<?php if ( '' === $product->get_auction_errors() ) { ?>
+	<?php if ( '' === $product->get_auction_errors() || 0 === $product->get_auction_errors() ) { ?>
 		<?php if ( true === $product->is_started() && 1 !== (int) $product->get_auction_is_sold() && false === $product->is_ended() ) { ?>
 			<table cellspacing="0">
 				<tbody>
@@ -74,6 +74,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 						<label for="auction_start_price"><?php esc_html_e( 'Start Price: ', 'auction-software' ); ?></label>
 					</td>
 					<td class="title">
+						<?php // The below phpcs ignore comment has been added after referring WooCommerce Plugin. ?>
 						<?php echo wc_price( $product->get_auction_start_price() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</td>
 				</tr>
@@ -91,6 +92,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 					if ( 0.00 === (float) $current_bid_value ) {
 						esc_html_e( 'No bids yet.', 'auction-software' );
 					} else {
+						// The below phpcs ignore comment has been added after referring WooCommerce Plugin.
 						echo wc_price( $product->get_auction_current_bid() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 					?>
@@ -105,6 +107,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 						<label for="auction_bid_increment"><?php esc_html_e( 'Bid Increment: ', 'auction-software' ); ?></label>
 					</td>
 					<td class="title auction_bid_increment">
+						<?php // The below phpcs ignore comment has been added after referring WooCommerce Plugin. ?>
 						<?php echo wc_price( $product->get_auction_bid_increment() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</td>
 				</tr>
@@ -135,6 +138,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 						<label for="auction_max_bid"><?php esc_html_e( 'Your Maximum Bid: ', 'auction-software' ); ?></label>
 					</td>
 					<td class="title auction_max_bid_simple">
+						<?php // The below phpcs ignore comment has been added after referring WooCommerce Plugin. ?>
 						<?php echo wc_price( $max_bid ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</td>
 				</tr>
@@ -142,7 +146,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 			</table>
 			<?php if ( ! in_array( 'ends_in', $excluded_fields, true ) ) : ?>
 			<p for="auction_time_left" class="auction-time"><?php esc_html_e( 'Auction Ends In:', 'auction-software' ); ?></p>
-			<p class="time-left" id="time_left"></p>
+			<p class="time-left" id="time_left">Auction Ends In</p>
 			<?php endif; ?>
 			<?php if ( ! in_array( 'ending_on', $excluded_fields, true ) ) : ?>
 				<p for="auction_ending_time" class="auction-ending-time"><?php esc_html_e( 'Ending On: ', 'auction-software' ); ?><?php echo esc_attr( gmdate( $auction_date_format, strtotime( $product->get_auction_date_to() ) ) . ' (' . $timezone_string . ')' ); ?></p>
@@ -169,6 +173,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 					</div>
 					<button type="submit" name="auction-bid" value="<?php echo esc_attr( $product->get_id() ); ?>"
 							class="auction-bid-simple button alt" id="auction-bid-simple"><?php echo esc_attr( $product->single_add_to_cart_text() ); ?></button>
+							<?php // The below phpcs ignore comment has been added after referring WooCommerce Plugin. ?>
 					<p class="auction-start-text">(Enter more than or equal to: <?php echo wc_price( $product->get_auction_start_price() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>)</p> 
 				</div>
 				<br />
@@ -216,6 +221,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 						<label for="auction_start_price"><?php esc_html_e( 'Start Price: ', 'auction-software' ); ?></label>
 					</td>
 					<td class="title">
+						<?php // The below phpcs ignore comment has been added after referring WooCommerce Plugin. ?>
 						<?php echo wc_price( $product->get_auction_start_price() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</td>
 				</tr>
@@ -228,6 +234,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 						<label for="auction_bid_increment"><?php esc_html_e( 'Bid Increment: ', 'auction-software' ); ?></label>
 					</td>
 					<td class="title auction_bid_increment">
+						<?php // The below phpcs ignore comment has been added after referring WooCommerce Plugin. ?>
 						<?php echo wc_price( $product->get_auction_bid_increment() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</td>
 				</tr>
@@ -250,7 +257,7 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 			</table>
 			<?php if ( ! in_array( 'starts_in', $excluded_fields, true ) ) : ?>
 				<p for="auction_starts_in" class="auction-time"><?php esc_html_e( 'Auction Starts In:', 'auction-software' ); ?></p>
-				<p class="time-left" id="time_start"></p>
+				<p class="time-left" id="time_start">Auction Starts In</p>
 			<?php endif; ?>
 				<?php
 				if ( ! in_array( 'starting_on', $excluded_fields, true ) ) :
@@ -271,7 +278,6 @@ do_action( 'auction_simple_before_add_to_cart_form' );
 					'priority' => 1,
 					'callback' => 'auction_history_tab_content',
 				);
-
 				return $tabs;
 			}
 

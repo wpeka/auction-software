@@ -50,6 +50,15 @@ class Auction_Software_Admin {
 	private $auction_classes;
 
 	/**
+	 * Instance of callback functions of all block-based widgets.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 * @var array $auction_classes Auction increment classes.
+	 */
+	private $block_callbacks;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -58,8 +67,9 @@ class Auction_Software_Admin {
 	 */
 	public function __construct( $plugin_name, $version ) {
 
-		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
+		$this->plugin_name     = $plugin_name;
+		$this->version         = $version;
+		$this->block_callbacks = new Auction_Software_Blocks_Callback();
 
 	}
 
@@ -296,6 +306,14 @@ class Auction_Software_Admin {
 	 * Register widgets.
 	 */
 	public function auction_software_widgets_init() {
+
+		// No widgets will be register for WordPress version >= 5.8.
+		global $wp_version;
+
+		if ( version_compare( $wp_version, '5.8' ) >= 0 ) {
+			return;
+		}
+
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'widgets/class-auction-software-widget-ending-soon-auctions.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'widgets/class-auction-software-widget-featured-auctions.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'widgets/class-auction-software-widget-future-auctions.php';
@@ -411,8 +429,8 @@ class Auction_Software_Admin {
 
 					if ( 1 === (int) $is_ended ) {
 						if ( 'yes' !== $is_reserve_price_met && 1 !== (int) $is_sold && 'yes' === $if_fail ) {
-								$date = $date_time_to;
-								$date->add( new DateInterval( 'PT' . $wait_time_before_if_fail . 'M' ) );
+							$date = $date_time_to;
+							$date->add( new DateInterval( 'PT' . $wait_time_before_if_fail . 'M' ) );
 							if ( $date_time_current_date >= $date ) {
 								update_post_meta( $postid, 'auction_is_ended', 0 );
 								update_post_meta( $postid, 'auction_is_sold', 0 );
@@ -531,7 +549,7 @@ class Auction_Software_Admin {
 			wp_die();
 		}
 
-		if ( ! wp_verify_nonce( wp_unslash( $_POST['wc_auction_classes_nonce'] ), 'wc_auction_classes_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wc_auction_classes_nonce'] ) ), 'wc_auction_classes_nonce' ) ) {
 			wp_send_json_error( 'bad_nonce' );
 			wp_die();
 		}
@@ -540,7 +558,7 @@ class Auction_Software_Admin {
 			wp_send_json_error( 'missing_capabilities' );
 			wp_die();
 		}
-
+		// The below phpcs ignore comment has been added after referring WooCommerce plugin.
 		$changes = wp_unslash( $_POST['changes'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		foreach ( $changes as $term_id => $data ) {
 			$term_id = absint( $term_id );
@@ -675,93 +693,93 @@ class Auction_Software_Admin {
 		update_post_meta( get_the_ID(), 'auction_errors', $auction_errors );
 		?>
 		<div id='auction_options' class='panel woocommerce_options_panel'>		<div class='options_group'>
-				<?php
-				if ( ! empty( $auction_errors ) ) {
-					echo '<p class="auction_error">' . $auction_errors . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				}
+		<?php
+		if ( ! empty( $auction_errors ) ) {
+			echo '<p class="auction_error">' . $auction_errors . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		}
+		?>
+		<?php
+		$auction        = new WC_Product_Auction();
+		$attribute_data = $auction->attribute_data;
+		$custom_attr    = array();
+		foreach ( $attribute_data as $attribute ) {
+			WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['label'], $attribute['desc_tip'], $attribute['description'], $attribute['currency'], $attribute['options'], $custom_attr );
+			if ( 'date_to' === $attribute['id'] ) {
 				?>
-				<?php
-				$auction        = new WC_Product_Auction();
-				$attribute_data = $auction->attribute_data;
-				$custom_attr    = array();
-				foreach ( $attribute_data as $attribute ) {
-					WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['label'], $attribute['desc_tip'], $attribute['description'], $attribute['currency'], $attribute['options'], $custom_attr );
-					if ( 'date_to' === $attribute['id'] ) {
-						?>
 						<p class="auctiontimezone_notice">
-							<?php
-							echo sprintf(
-							/* translators: 1: Current time 2: Timezone 3: Link */
-								__( "Your website's current time is <strong>%1\$1s</strong> Timezone: <strong>%2\$2s</strong> %3\$3s" ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-								esc_attr( wp_date( 'Y-m-d H:i:s', time(), wp_timezone() ) ),
-								esc_attr( wp_timezone_string() ),
-								sprintf(
-								/* translators: 1: Link URL 2: Link text */
-									'<a href="%1s" target="_blank">%2s</a>',
-									esc_url( admin_url( 'options-general.php?#timezone_string' ) ),
-									esc_html__( 'Click here to change', 'auction-software' )
-								)
-							);
-							?>
+					<?php
+					echo sprintf(
+					/* translators: 1: Current time 2: Timezone 3: Link */
+						__( "Your website's current time is <strong>%1\$1s</strong> Timezone: <strong>%2\$2s</strong> %3\$3s" ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						esc_attr( wp_date( 'Y-m-d H:i:s', time(), wp_timezone() ) ),
+						esc_attr( wp_timezone_string() ),
+						sprintf(
+						/* translators: 1: Link URL 2: Link text */
+							'<a href="%1s" target="_blank">%2s</a>',
+							esc_url( admin_url( 'options-general.php?#timezone_string' ) ),
+							esc_html__( 'Click here to change', 'auction-software' )
+						)
+					);
+					?>
 						</p>
-						<?php
-					}
-				}
-				?>
+					<?php
+			}
+		}
+		?>
 			</div> <?php do_action( 'woocommerce_product_options_auction_product_data' ); ?>
 		</div>		<div id='auction_history' class='panel woocommerce_options_panel'>			<div class='options_group'>
-				<?php
-					echo WC_Auction_Software_Helper::get_auction_history( get_the_ID() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				?>
+			<?php
+			echo WC_Auction_Software_Helper::get_auction_history( get_the_ID() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			?>
 			</div>
 		</div>
 
 		<div id='auction_relist' class='panel woocommerce_options_panel'>		<div class='options_group'>
-				<?php
-				if ( ! empty( $auction_errors ) ) {
-					echo '<p class="auction_error">' . $auction_errors . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				}
-				?>
-				<?php
-				$relist_attribute_data = $auction->extend_relist_attribute_data;
-				$custom_attr           = array();
-				foreach ( $relist_attribute_data as $relist_attribute ) {
-					$wrapper_class = '';
-					if ( 'extend_or_relist_auction' !== $relist_attribute['id'] ) {
-						if ( false !== strpos( $relist_attribute['id'], 'extend' ) ) {
-							$wrapper_class .= 'auction_extend ';
-							if ( 'checkbox' !== $relist_attribute['type'] ) {
-								if ( false !== strpos( $relist_attribute['id'], 'if_fail' ) ) {
-									$wrapper_class .= 'auction_extend_if_fail ';
-								}
-								if ( false !== strpos( $relist_attribute['id'], 'if_not_paid' ) ) {
-									$wrapper_class .= 'auction_extend_if_not_paid ';
-								}
-								if ( false !== strpos( $relist_attribute['id'], 'always' ) ) {
-									$wrapper_class .= 'auction_extend_always ';
-								}
+			<?php
+			if ( ! empty( $auction_errors ) ) {
+				echo '<p class="auction_error">' . $auction_errors . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			}
+			?>
+			<?php
+			$relist_attribute_data = $auction->extend_relist_attribute_data;
+			$custom_attr           = array();
+			foreach ( $relist_attribute_data as $relist_attribute ) {
+				$wrapper_class = '';
+				if ( 'extend_or_relist_auction' !== $relist_attribute['id'] ) {
+					if ( false !== strpos( $relist_attribute['id'], 'extend' ) ) {
+						$wrapper_class .= 'auction_extend ';
+						if ( 'checkbox' !== $relist_attribute['type'] ) {
+							if ( false !== strpos( $relist_attribute['id'], 'if_fail' ) ) {
+								$wrapper_class .= 'auction_extend_if_fail ';
 							}
-						} elseif ( false !== strpos( $relist_attribute['id'], 'relist' ) ) {
-							$wrapper_class .= 'auction_relist ';
-							if ( 'checkbox' !== $relist_attribute['type'] ) {
-								if ( false !== strpos( $relist_attribute['id'], 'if_fail' ) ) {
-									$wrapper_class .= 'auction_relist_if_fail ';
-								}
-								if ( false !== strpos( $relist_attribute['id'], 'if_not_paid' ) ) {
-									$wrapper_class .= 'auction_relist_if_not_paid ';
-								}
-								if ( false !== strpos( $relist_attribute['id'], 'always' ) ) {
-									$wrapper_class .= 'auction_relist_always ';
-								}
+							if ( false !== strpos( $relist_attribute['id'], 'if_not_paid' ) ) {
+								$wrapper_class .= 'auction_extend_if_not_paid ';
+							}
+							if ( false !== strpos( $relist_attribute['id'], 'always' ) ) {
+								$wrapper_class .= 'auction_extend_always ';
+							}
+						}
+					} elseif ( false !== strpos( $relist_attribute['id'], 'relist' ) ) {
+						$wrapper_class .= 'auction_relist ';
+						if ( 'checkbox' !== $relist_attribute['type'] ) {
+							if ( false !== strpos( $relist_attribute['id'], 'if_fail' ) ) {
+								$wrapper_class .= 'auction_relist_if_fail ';
+							}
+							if ( false !== strpos( $relist_attribute['id'], 'if_not_paid' ) ) {
+								$wrapper_class .= 'auction_relist_if_not_paid ';
+							}
+							if ( false !== strpos( $relist_attribute['id'], 'always' ) ) {
+								$wrapper_class .= 'auction_relist_always ';
 							}
 						}
 					}
-					WC_Auction_Software_Helper::get_product_tab_fields( $relist_attribute['type'], $relist_attribute['id'], $relist_attribute['label'], $relist_attribute['desc_tip'], $relist_attribute['description'], $relist_attribute['currency'], $relist_attribute['options'], $custom_attr, '', $wrapper_class );
 				}
-				?>
+				WC_Auction_Software_Helper::get_product_tab_fields( $relist_attribute['type'], $relist_attribute['id'], $relist_attribute['label'], $relist_attribute['desc_tip'], $relist_attribute['description'], $relist_attribute['currency'], $relist_attribute['options'], $custom_attr, '', $wrapper_class );
+			}
+			?>
 			</div>
 		</div>
-		<?php
+			<?php
 	}
 
 	/**
@@ -860,24 +878,24 @@ class Auction_Software_Admin {
 	public function auction_software_product_auction_tab_fields() {
 		?>
 		<div class='options_group show_if_auction_simple'>
-			<?php
-			$auction_simple = new WC_Product_Auction_Simple();
-			$attribute_data = $auction_simple->attribute_data;
-			foreach ( $attribute_data as $attribute ) {
-				$custom_attr = array();
-				WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['label'], $attribute['desc_tip'], $attribute['description'], $attribute['currency'], $attribute['options'], $custom_attr );
-			}
-			?>
+		<?php
+		$auction_simple = new WC_Product_Auction_Simple();
+		$attribute_data = $auction_simple->attribute_data;
+		foreach ( $attribute_data as $attribute ) {
+			$custom_attr = array();
+			WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['label'], $attribute['desc_tip'], $attribute['description'], $attribute['currency'], $attribute['options'], $custom_attr );
+		}
+		?>
 		</div>
 		<div class='options_group show_if_auction_reverse'>
-			<?php
-			$auction_reverse = new WC_Product_Auction_Reverse();
-			$attribute_data  = $auction_reverse->attribute_data;
-			foreach ( $attribute_data as $attribute ) {
-				$custom_attr = array();
-				WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['label'], $attribute['desc_tip'], $attribute['description'], $attribute['currency'], $attribute['options'], $custom_attr );
-			}
-			?>
+		<?php
+		$auction_reverse = new WC_Product_Auction_Reverse();
+		$attribute_data  = $auction_reverse->attribute_data;
+		foreach ( $attribute_data as $attribute ) {
+			$custom_attr = array();
+			WC_Auction_Software_Helper::get_product_tab_fields( $attribute['type'], $attribute['id'], $attribute['label'], $attribute['desc_tip'], $attribute['description'], $attribute['currency'], $attribute['options'], $custom_attr );
+		}
+		?>
 		</div>
 		<?php
 		do_action( 'auction_software_product_auction_tab_fields' );
@@ -890,7 +908,7 @@ class Auction_Software_Admin {
 	 * @param int $post_id Product post id.
 	 */
 	public function auction_software_save_product_auction_options( $post_id ) {
-        // phpcs:disable WordPress.Security.NonceVerification.Missing
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		$error_flag     = false;
 		$product_type   = isset( $_POST['product-type'] ) ? sanitize_text_field( wp_unslash( $_POST['product-type'] ) ) : '';
 		$auction        = new WC_Product_Auction();
@@ -942,7 +960,7 @@ class Auction_Software_Admin {
 			}
 			update_post_meta( $post_id, 'auction_is_started', 1 );
 		}
-        // phpcs:enable WordPress.Security.NonceVerification.Missing
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
@@ -1266,7 +1284,7 @@ class Auction_Software_Admin {
 	 * @return int
 	 */
 	public function auction_software_check_validations( $key, $value, $post_id, $error_flag = false ) {
-        // phpcs:disable WordPress.Security.NonceVerification.Missing
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		$product_type = isset( $_POST['product-type'] ) ? sanitize_text_field( wp_unslash( $_POST['product-type'] ) ) : '';
 		$date_to      = isset( $_POST['auction_date_to'] ) ? sanitize_text_field( wp_unslash( $_POST['auction_date_to'] ) ) : '';
 		$date_from    = isset( $_POST['auction_date_from'] ) ? sanitize_text_field( wp_unslash( $_POST['auction_date_from'] ) ) : '';
@@ -1280,9 +1298,9 @@ class Auction_Software_Admin {
 				}
 				break;
 			case 'bid_increment':
-				if ( $value < 0 ) {
+				if ( '' === $value || $value < 0 ) {
 					$error_flag = true;
-					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Bid Increment should not be negative.', 'auction-software' ) );
+					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Bid Increment should not be negative or empty.', 'auction-software' ) );
 				} else {
 					update_post_meta( $post_id, 'auction_' . $key . '_error', '' );
 				}
@@ -1312,7 +1330,7 @@ class Auction_Software_Admin {
 			case 'reserve_price':
 				// Seller can lower but can not raise the reserve price.
 				if ( 'auction_simple' === $product_type ) {
-					if ( $value < 0 ) {
+					if ( '' !== $value && $value < 0 ) {
 						$error_flag = true;
 						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Reserve Price should not be negative.', 'auction-software' ) );
 					} else {
@@ -1323,7 +1341,7 @@ class Auction_Software_Admin {
 			case 'reserve_price_reverse':
 				// Seller can lower but can not raise the reserve price.
 				if ( 'auction_reverse' === $product_type ) {
-					if ( $value < 0 ) {
+					if ( '' !== $value && $value < 0 ) {
 						$error_flag = true;
 						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Reserve Price should not be negative.', 'auction-software' ) );
 					} else {
@@ -1333,7 +1351,7 @@ class Auction_Software_Admin {
 				break;
 			case 'buy_it_now_price':
 				if ( 'auction_simple' === $product_type ) {
-					if ( $value < 0 ) {
+					if ( '' !== $value && $value < 0 ) {
 						$error_flag = true;
 						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Buy It Now Price should not be negative.', 'auction-software' ) );
 					} else {
@@ -1343,7 +1361,7 @@ class Auction_Software_Admin {
 				break;
 			case 'buy_it_now_price_reverse':
 				if ( 'auction_reverse' === $product_type ) {
-					if ( $value < 0 ) {
+					if ( '' !== $value && $value < 0 ) {
 						$error_flag = true;
 						update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Buy It Now Price should not be negative.', 'auction-software' ) );
 					} else {
@@ -1354,7 +1372,7 @@ class Auction_Software_Admin {
 			case 'wait_time_before_relist_if_fail':
 			case 'wait_time_before_relist_if_not_paid':
 			case 'wait_time_before_relist_always':
-				if ( $value < 0 ) {
+				if ( '' !== $value && $value < 0 ) {
 					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Wait time before relist should not be negative.', 'auction-software' ) );
 				} else {
@@ -1364,7 +1382,7 @@ class Auction_Software_Admin {
 			case 'relist_duration_if_fail':
 			case 'relist_duration_if_not_paid':
 			case 'relist_duration_always':
-				if ( $value < 0 ) {
+				if ( '' !== $value && $value < 0 ) {
 					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Relist Duration should not be negative.', 'auction-software' ) );
 				} else {
@@ -1374,7 +1392,7 @@ class Auction_Software_Admin {
 			case 'wait_time_before_extend_if_fail':
 			case 'wait_time_before_extend_if_not_paid':
 			case 'wait_time_before_extend_always':
-				if ( $value < 0 ) {
+				if ( '' !== $value && $value < 0 ) {
 					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Wait time before extend should not be negative.', 'auction-software' ) );
 				} else {
@@ -1384,7 +1402,7 @@ class Auction_Software_Admin {
 			case 'extend_duration_if_fail':
 			case 'extend_duration_if_not_paid':
 			case 'extend_duration_always':
-				if ( $value < 0 ) {
+				if ( '' !== $value && $value < 0 ) {
 					$error_flag = true;
 					update_post_meta( $post_id, 'auction_' . $key . '_error', __( 'Extend Duration should not be negative.', 'auction-software' ) );
 				} else {
@@ -1398,7 +1416,7 @@ class Auction_Software_Admin {
 				break;
 		}
 		return $error_flag;
-        // phpcs:enable WordPress.Security.NonceVerification.Missing
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
@@ -1409,17 +1427,16 @@ class Auction_Software_Admin {
 	public function auction_software_product_auction_inventory_section() {
 		if ( 'product' !== get_post_type() ) :
 			return;
-		endif;
+			endif;
 
 		?>
 		<script type='text/javascript'>
 			jQuery(document).ready(function ($) {
 
 				// General tab for auction products.
-				jQuery('.product_data_tabs .general_tab').addClass('show_if_simple show_if_external show_if_affiliate show_if_variable show_if_auction_simple show_if_auction_reverse show_if_auction_penny').show();
-				jQuery('#general_product_data .pricing').addClass('show_if_simple show_if_external show_if_affiliate').show();
-				jQuery('._tax_status_field').parent().addClass('show_if_simple show_if_external show_if_affiliate show_if_variable show_if_auction_simple show_if_auction_reverse show_if_auction_penny');
-				
+				jQuery('.general_options').addClass('show_if_simple show_if_external show_if_affiliate show_if_variable show_if_auction_simple show_if_auction_reverse show_if_auction_penny').show();
+				jQuery('#general_product_data ._tax_status_field').parent().addClass('show_if_auction_simple show_if_auction_reverse show_if_auction_penny').show();
+
 				// For Inventory tab.
 				$('.inventory_options').addClass('show_if_auction_simple show_if_auction_reverse').show();
 				$('#inventory_product_data ._manage_stock_field').addClass('show_if_auction_simple show_if_auction_reverse').show();
@@ -1577,4 +1594,58 @@ class Auction_Software_Admin {
 
 		echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
+
+	/**
+	 * Register gutenberg blocks / block-based widgets.
+	 */
+	public function auction_software_register_gutenberg_blocks() {
+
+		// Get json data for all 8 blocks and decode it.
+		$response = wp_remote_get( AUCTION_SOFTWARE_PLUGIN_URL . 'src/gutenberg-blocks/data.json' );
+		if ( is_array( $response ) && ! is_wp_error( $response ) ) {
+			$data = wp_remote_retrieve_body( $response );
+		}
+		if ( $data ) {
+			$data = json_decode( $data );
+		} else {
+			$data = array();
+		}
+		// Register a single script file which loops through all 8 blocks and regs them one by one.
+		wp_register_script(
+			'auction-software-auction-widgets',
+			plugin_dir_url( __DIR__ ) . 'admin/js/gutenberg-blocks/auction-software-auction-widgets.js',
+			array( 'wp-blocks', 'wp-components', 'wp-i18n' ),
+			$this->version,
+			false
+		);
+
+		// If function exists for WordPress 5 and above, loop through all 8 blocks and register them.
+		if ( function_exists( 'register_block_type' ) ) {
+			foreach ( $data as $chunk ) {
+				register_block_type(
+					'auction-software/' . $chunk->register_block_type,
+					array(
+						'editor_script'   => 'auction-software-auction-widgets',
+						'attributes'      => array(
+							'title'           => array(
+								'type'    => 'string',
+								'default' => $chunk->attributes_title_default,
+							),
+							'num_of_auctions' => array(
+								'type'    => 'string',
+								'default' => 5,
+							),
+							'hide_time_left'  => array(
+								'type'    => 'boolean',
+								'default' => false,
+							),
+						),
+						'render_callback' => array( $this->block_callbacks, $chunk->render_callback ),
+					)
+				);
+			}
+		}
+	}
+
+
 }
