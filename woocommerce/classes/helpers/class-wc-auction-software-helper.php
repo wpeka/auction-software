@@ -427,8 +427,8 @@ class WC_Auction_Software_Helper {
 			'post_type'      => 'product',
 		);
 		$query_args['post__in']   = $post_ids;
-		$query_args['meta_query'] = $woocommerce->query->get_meta_query(); // phpcs:ignore slow query
-		$query_args['tax_query']  = array( // phpcs:ignore slow query
+		$query_args['meta_query'] = $woocommerce->query->get_meta_query(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+		$query_args['tax_query']  = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			array(
 				'taxonomy' => 'product_type',
 				'field'    => 'slug',

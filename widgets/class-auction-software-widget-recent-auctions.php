@@ -90,7 +90,7 @@ class Auction_Software_Widget_Recent_Auctions extends WP_Widget {
 			$cache = array();
 		}
 		if ( isset( $cache[ $args['widget_id'] ] ) ) {
-			echo $cache[ $args['widget_id'] ]; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo wp_kses_post( $cache[ $args['widget_id'] ] );
 			return;
 		}
 
@@ -130,10 +130,10 @@ class Auction_Software_Widget_Recent_Auctions extends WP_Widget {
 			'post_type'      => 'product',
 		);
 
-		$query_args['meta_query']   = array(); // phpcs:ignore slow query
+		$query_args['meta_query']   = array(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 		$query_args['meta_query'][] = $woocommerce->query->stock_status_meta_query();
-		$query_args['meta_query']   = array_filter( $query_args['meta_query'] ); // phpcs:ignore slow query
-		$query_args['tax_query']    = array( // phpcs:ignore slow query
+		$query_args['meta_query']   = array_filter( $query_args['meta_query'] ); // // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+		$query_args['tax_query']    = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			array(
 				'taxonomy' => 'product_type',
 				'field'    => 'slug',
@@ -222,7 +222,7 @@ class Auction_Software_Widget_Recent_Auctions extends WP_Widget {
 			$cache[ $args['widget_id'] ] = $content;
 		}
 
-		echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post( $content );
 
 		wp_cache_set( 'widget_recent_auctions', $cache, 'widget' );
 	}

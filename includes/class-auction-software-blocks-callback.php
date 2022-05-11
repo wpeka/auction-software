@@ -44,13 +44,14 @@ class Auction_Software_Blocks_Callback {
 
 		$excluded_fields = get_option( 'auctions_excluded_fields_product_widget', array() );
 
-		$query_args                 = array(
+		$query_args = array(
 			'posts_per_page' => $number,
 			'no_found_rows'  => 1,
 			'post_status'    => 'publish',
 			'post_type'      => 'product',
 		);
-		$query_args['meta_query']   = array(); // phpcs:ignore slow query
+
+		$query_args['meta_query']   = array(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 		$query_args['meta_query'][] = $woocommerce->query->stock_status_meta_query();
 		$query_args['meta_query'][] = array(
 			'key'     => 'auction_date_from',
@@ -64,8 +65,8 @@ class Auction_Software_Blocks_Callback {
 			'compare' => '>=',
 			'type'    => 'DATETIME',
 		);
-		$query_args['meta_query']   = array_filter( $query_args['meta_query'] ); // phpcs:ignore slow query
-		$query_args['tax_query']    = array( // phpcs:ignore slow query
+		$query_args['meta_query']   = array_filter( $query_args['meta_query'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+		$query_args['tax_query']    = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			array(
 				'taxonomy' => 'product_type',
 				'field'    => 'slug',
@@ -191,7 +192,7 @@ class Auction_Software_Blocks_Callback {
 			'post_status'    => 'publish',
 			'post_type'      => 'product',
 		);
-		$query_args['meta_query']      = array(); // phpcs:ignore slow query
+		$query_args['meta_query']      = array(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 		$query_args['meta_query'][]    = $woocommerce->query->stock_status_meta_query();
 		$query_args['meta_query'][]    = array(
 			'key'     => 'auction_date_from',
@@ -199,8 +200,8 @@ class Auction_Software_Blocks_Callback {
 			'compare' => '>',
 			'type'    => 'DATETIME',
 		);
-		$query_args['meta_query']      = array_filter( $query_args['meta_query'] ); // phpcs:ignore slow query
-		$query_args['tax_query']       = array( // phpcs:ignore slow query
+		$query_args['meta_query']      = array_filter( $query_args['meta_query'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+		$query_args['tax_query']       = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			array(
 				'taxonomy' => 'product_type',
 				'field'    => 'slug',
@@ -327,10 +328,10 @@ class Auction_Software_Blocks_Callback {
 			'no_found_rows'  => 1,
 		);
 
-		$query_args['meta_query']   = array(); // phpcs:ignore slow query
+		$query_args['meta_query']   = array(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 		$query_args['meta_query'][] = $woocommerce->query->stock_status_meta_query();
-		$query_args['meta_query']   = array_filter( $query_args['meta_query'] ); // phpcs:ignore slow query
-		$query_args['tax_query']    = array( // phpcs:ignore slow query
+		$query_args['meta_query']   = array_filter( $query_args['meta_query'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+		$query_args['tax_query']    = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			array(
 				'taxonomy' => 'product_type',
 				'field'    => 'slug',
@@ -451,10 +452,10 @@ class Auction_Software_Blocks_Callback {
 			'post_type'      => 'product',
 		);
 
-		$query_args['meta_query']   = array(); // phpcs:ignore slow query
+		$query_args['meta_query']   = array(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 		$query_args['meta_query'][] = $woocommerce->query->stock_status_meta_query();
-		$query_args['meta_query']   = array_filter( $query_args['meta_query'] ); // phpcs:ignore slow query
-		$query_args['tax_query']    = array( // phpcs:ignore slow query
+		$query_args['meta_query']   = array_filter( $query_args['meta_query'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+		$query_args['tax_query']    = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			array(
 				'taxonomy' => 'product_type',
 				'field'    => 'slug',
@@ -573,8 +574,8 @@ class Auction_Software_Blocks_Callback {
 			'post_status'    => 'publish',
 			'post_type'      => 'product',
 		);
-		$query_args['meta_query'] = $woocommerce->query->get_meta_query(); // phpcs:ignore slow query
-		$query_args['tax_query']  = array( // phpcs:ignore slow query
+		$query_args['meta_query'] = $woocommerce->query->get_meta_query(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+		$query_args['tax_query']  = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			array(
 				'taxonomy' => 'product_type',
 				'field'    => 'slug',
@@ -724,8 +725,8 @@ class Auction_Software_Blocks_Callback {
 			'post_type'      => 'product',
 		);
 		$query_args['post__in']   = $watchlist;
-		$query_args['meta_query'] = $woocommerce->query->get_meta_query(); // phpcs:ignore slow query
-		$query_args['tax_query']  = array( // phpcs:ignore slow query
+		$query_args['meta_query'] = $woocommerce->query->get_meta_query(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+		$query_args['tax_query']  = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			array(
 				'taxonomy' => 'product_type',
 				'field'    => 'slug',
@@ -862,10 +863,10 @@ class Auction_Software_Blocks_Callback {
 			'orderby'        => 'rand',
 		);
 
-		$query_args['meta_query']      = array(); // phpcs:ignore slow query
+		$query_args['meta_query']      = array(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 		$query_args['meta_query'][]    = $woocommerce->query->stock_status_meta_query();
-		$query_args['meta_query']      = array_filter( $query_args['meta_query'] ); // phpcs:ignore slow query
-		$query_args['tax_query']       = array( // phpcs:ignore slow query
+		$query_args['meta_query']      = array_filter( $query_args['meta_query'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+		$query_args['tax_query']       = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			array(
 				'taxonomy' => 'product_type',
 				'field'    => 'slug',
@@ -1002,8 +1003,8 @@ class Auction_Software_Blocks_Callback {
 			'post_type'      => 'product',
 		);
 		$query_args['post__in']   = $post_ids;
-		$query_args['meta_query'] = $woocommerce->query->get_meta_query(); // phpcs:ignore slow query
-		$query_args['tax_query']  = array( // phpcs:ignore slow query
+		$query_args['meta_query'] = $woocommerce->query->get_meta_query(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+		$query_args['tax_query']  = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			array(
 				'taxonomy' => 'product_type',
 				'field'    => 'slug',

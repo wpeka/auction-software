@@ -695,7 +695,7 @@ class Auction_Software_Admin {
 		<div id='auction_options' class='panel woocommerce_options_panel'>		<div class='options_group'>
 		<?php
 		if ( ! empty( $auction_errors ) ) {
-			echo '<p class="auction_error">' . $auction_errors . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<p class="auction_error">' . wp_kses_post( $auction_errors ) . '</p>';
 		}
 		?>
 		<?php
@@ -710,7 +710,7 @@ class Auction_Software_Admin {
 					<?php
 					echo sprintf(
 					/* translators: 1: Current time 2: Timezone 3: Link */
-						__( "Your website's current time is <strong>%1\$1s</strong> Timezone: <strong>%2\$2s</strong> %3\$3s" ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						wp_kses_post( __( "Your website's current time is <strong>%1\$1s</strong> Timezone: <strong>%2\$2s</strong> %3\$3s" ) ),
 						esc_attr( wp_date( 'Y-m-d H:i:s', time(), wp_timezone() ) ),
 						esc_attr( wp_timezone_string() ),
 						sprintf(
@@ -737,7 +737,7 @@ class Auction_Software_Admin {
 		<div id='auction_relist' class='panel woocommerce_options_panel'>		<div class='options_group'>
 			<?php
 			if ( ! empty( $auction_errors ) ) {
-				echo '<p class="auction_error">' . $auction_errors . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<p class="auction_error">' . wp_kses_post( $auction_errors, $arr ) . '</p>';
 			}
 			?>
 			<?php
@@ -1592,7 +1592,7 @@ class Auction_Software_Admin {
 
 		$content .= '</table></form></div>';
 
-		echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post( $content );
 	}
 
 	/**
