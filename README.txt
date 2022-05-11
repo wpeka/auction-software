@@ -1,11 +1,11 @@
-=== Woo Auction Software: WordPress Auction Plugin ===
+=== WPAuction software ===
 Contributors: WPeka Club
 Donate link: https://club.wpeka.com/
 Tags: auction, woocommerce auction, WordPress auction, auction plugin, proxy bidding, penny auction, eBay auction, simple auction, reverse auction, penny auction, eBay, bidding, auction script, wp auctions, auction site, auction website, woocommerce auction plugin, wordpress auction plugin, wp auction plugin
 Requires at least: 4.6
 Tested up to: 5.8
 Requires PHP: 7.0
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.htm
 
@@ -193,6 +193,9 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 4. Auction Widgets.
 
 == Changelog ==
+= 1.2.4 =
+* Fix: Fixed plugin code as per WP standards and PHPCS.
+
 = 1.2.3 =
 * Update: Removed analytics library.
 
