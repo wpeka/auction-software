@@ -9,20 +9,20 @@ Stable tag: 1.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.htm
 
-Woo Auction Software is one of the flexible and intuitive WordPress Auction Plugin to host your online auctions.
+WPAuction software is one of the flexible and intuitive WordPress Auction Plugin to host your online auctions.
 
 == Description ==
 
-Woo Auction Software is built for WordPress website owners who want to run successful auctions on their websites.
+WPAuction software is built for WordPress website owners who want to run successful auctions on their websites.
 
 👉 Demo Site: [Click Here](https://demo.wpeka.com/woo-auction-software/)
-👉 Learn More About Woo Auction Software(PRO): [Click Here](https://club.wpeka.com/product/woo-auction-software/?utm_source=referral&utm_medium=wporg&utm_campaign=wpauction)
+👉 Learn More About WPAuction software(PRO): [Click Here](https://club.wpeka.com/product/woo-auction-software/?utm_source=referral&utm_medium=wporg&utm_campaign=wpauction)
 
 This is a powerful auction plugin for WordPress that allows you to host live auctions on your website. You can do this without any coding knowledge.
 
 Combine the ease of use of WordPress and the power of WooCommerce with this plugin to setup eCommerce auctions quickly. You can run auctions for digital or physical products.
 
-= Woo Auction Software supports these types of auctions: =
+= WPAuction software supports these types of auctions: =
 
 ➡️ <strong>[Forward Auctions](https://www.wpauctionsoftware.com/wordpress-forward-auctions-plugin/?utm_source=referral&utm_medium=wporg&utm_campaign=wpauction) -</strong> Buyers bid for your products, highest bidder wins.
 ➡️ <strong>[Reverse Auction](https://www.wpauctionsoftware.com/wordpress-reverse-auction-plugin/?utm_source=referral&utm_medium=wporg&utm_campaign=wpauction) -</strong> Sellers bid the price at which they are willing to sell their products or services, <strong>Lowest Bid Wins.</strong>🏆
@@ -33,7 +33,7 @@ Combine the ease of use of WordPress and the power of WooCommerce with this plug
 ➡️ <strong>Sign up users to host auctions on your website (PRO) -</strong> Setup eBay style auctions by allowing users to host auctions on your site for a fee.
 ➡️ <strong>WooCommerce Payment Integration -</strong> Accept payments online from bidders using PayPal, Stripe or other supported payment gateways.
 
-Woo Auction Software WordPress auction management plugin is designed to be simple, elegant, and easy to operate. It takes only a few minutes to install and get started.
+WPAuction software WordPress auction management plugin is designed to be simple, elegant, and easy to operate. It takes only a few minutes to install and get started.
 
 It is easy to create, edit, and manage auctions on your website using the plugin’s intuitive interface. You can create unlimited auctions, and schedule them to go live in the future.
 
@@ -41,19 +41,19 @@ With this free online auction plugin, you get access to various filters that sav
 
 The WordPress auction plugin also offers multi-vendor options. This helps you create an eBay-style vendor auction marketplace on your site. This feature allows your website visitors and other 3rd parties to host their own auction on your website and sell to your audience. This gives your website visitors a variety of auctions to choose from and bid, and you can also monetize by the commissions earned.
 
-Woo Auction Software plugin integrates with WooCommerce to provide a diverse set of payment gateways so that your users can place bids in their native currency through any popular payment gateway supported.
+WPAuction software plugin integrates with WooCommerce to provide a diverse set of payment gateways so that your users can place bids in their native currency through any popular payment gateway supported.
 
 This plugin can be used to host auctions in any language with the help of local translation plugins. You may be a novice or an expert, this plugin supports all types of users needing no technical or coding skills on your part.
 
-***Here’s what Darryl has to say about Woo Auction Software:***
+***Here’s what Darryl has to say about WPAuction software:***
 
->This was exactly what I was looking for. Woo Auction Software has provided me with features and functionalities that make a perfect auction site. - Darryl Lane
+>This was exactly what I was looking for. WPAuction software has provided me with features and functionalities that make a perfect auction site. - Darryl Lane
 
-== How to get started with Woo Auction Software ==
+== How to get started with WPAuction software ==
 
 [youtube https://www.youtube.com/watch?v=hREy6K8PsOU]
 
-It is effortless to set up Woo Auction Software in different auction modes. You can use these auctions to create professional auction websites, eBay-type auctions, and many more. The plugin comes with pre-designed email templates that make it easy for you to customize the email notifications. The plugin works with all modern WordPress themes available.
+It is effortless to set up WPAuction software in different auction modes. You can use these auctions to create professional auction websites, eBay-type auctions, and many more. The plugin comes with pre-designed email templates that make it easy for you to customize the email notifications. The plugin works with all modern WordPress themes available.
 
 = The various types of WooCommerce Auctions supported by this plugin are: =
 
@@ -65,13 +65,13 @@ It is effortless to set up Woo Auction Software in different auction modes. You 
 
 This online auction plugin allows you to create a vendor auction marketplace on your website, allowing other users to host their auctions on your site. All they need to do is simply register on your auction website and list their products. You can then specify the percentage of commission for every single vendor.
 
-***See what Jennifer has to say about Woo Auction Software:***
+***See what Jennifer has to say about WPAuction software:***
 
 >I love the way sellers can get paid through the site. It is a handy and simple-to-use plugin having an integrated payment system. - Jennifer Wesley
 
 == Features ==
 
-The Woo Auction Software auction management plugin is built with scalable features -
+The WPAuction software auction management plugin is built with scalable features -
 🔥 <strong>Forward Auction -</strong> Simple forward auctions to build a variety of auction sites — antiques, art, or charity auctions.
 🔥 <strong>Reverse Auction -</strong> Set up auctions to invite sellers and vendors to compete for the lowest bid price.
 🔥 <strong>Quality Assurance -</strong>Quality tested with the latest WordPress and WooCommerce versions.
@@ -107,7 +107,7 @@ Send email notifications to auction participants automatically. You can specify 
 
 = Widgets included =
 
-Woo Auction Software plugin supports the following type of auctions:
+WPAuction software plugin supports the following type of auctions:
 
 ⭐Ending Soon Auctions
 ⭐Featured Auctions
@@ -121,13 +121,13 @@ Woo Auction Software plugin supports the following type of auctions:
 ⭐Live Auctions (Coming Soon)
 
 
-***See what Thomas has to say about the Woo Auction Software:***
+***See what Thomas has to say about the WPAuction software:***
 
->I just love Woo Auction Software. It is by far the best auction plugin with all the features and at a reasonable price. Support is good too. - Thomas B.
+>I just love WPAuction software. It is by far the best auction plugin with all the features and at a reasonable price. Support is good too. - Thomas B.
 
 == Looking for the PRO Features? ==
 
-Unlock the PRO version now, Visit – ➡️[Woo Auction Software Pro](https://club.wpeka.com/product/woo-auction-software//?utm_source=referral&utm_medium=orgpage&utm_campaign=wpauction)⬅️
+Unlock the PRO version now, Visit – ➡️[WPAuction software Pro](https://club.wpeka.com/product/woo-auction-software//?utm_source=referral&utm_medium=orgpage&utm_campaign=wpauction)⬅️
 
 ==Help Resources==
 
@@ -156,7 +156,7 @@ If you like this plugin, then consider checking out our other projects:
 1. Head over to your WordPress Dashboard
 2. Click on 'Plugins > Add New'
 3. Type “WooAuction Software” on the search bar
-4. Select the Woo Auction Software plugin by WPeka Club
+4. Select the WPAuction software plugin by WPeka Club
 5. Click on Install Now button, and then Activate
 6.  You can configure the settings under WooCommerce Auction tab to get started
 7. The free auction plugin is now ready to use.
