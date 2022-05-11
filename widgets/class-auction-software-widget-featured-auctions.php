@@ -129,7 +129,7 @@ class Auction_Software_Widget_Featured_Auctions extends WP_Widget {
 			'post_status'    => 'publish',
 			'post_type'      => 'product',
 		);
-		// The following phpcs comments have been added after referring to the woocommerce plugin.
+
 		$query_args['meta_query'] = $woocommerce->query->get_meta_query(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 		$query_args['tax_query']  = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			array(

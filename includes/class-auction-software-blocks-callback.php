@@ -50,7 +50,7 @@ class Auction_Software_Blocks_Callback {
 			'post_status'    => 'publish',
 			'post_type'      => 'product',
 		);
-		// The following phpcs comments have been added after referring to the woocommerce plugin.
+
 		$query_args['meta_query']   = array(); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 		$query_args['meta_query'][] = $woocommerce->query->stock_status_meta_query();
 		$query_args['meta_query'][] = array(
