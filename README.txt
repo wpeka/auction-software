@@ -194,7 +194,7 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 
 == Changelog ==
 = 1.2.6 =
-* Fix: Fixed the widget and Gutenberg blocks not showing issue.
+* Fix: Widget and Gutenberg blocks were not displayed correctly.
 
 = 1.2.5 =
 * Fix: Updated readme
