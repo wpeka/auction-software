@@ -15,7 +15,7 @@
  * Plugin Name:       Auction Software
  * Plugin URI:        https://demo.wpeka.com/woo-auction-software/
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.2.5
+ * Version:           1.2.6
  * Author:            WPeka Club
  * Author URI:        https://club.wpeka.com/
  * License:           GPL-2.0+
