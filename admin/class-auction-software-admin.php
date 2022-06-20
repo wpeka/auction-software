@@ -1602,6 +1602,7 @@ class Auction_Software_Admin {
 
 		// Get json data for all 8 blocks and decode it.
 		$response = wp_remote_get( AUCTION_SOFTWARE_PLUGIN_URL . 'src/gutenberg-blocks/data.json' );
+		$data;
 		if ( is_array( $response ) && ! is_wp_error( $response ) ) {
 			$data = wp_remote_retrieve_body( $response );
 		}

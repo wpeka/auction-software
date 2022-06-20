@@ -116,3 +116,7 @@ p.auction_time_left {
 .product_list_widget > li {
 	list-style: none;
 }
+
+.product_list_widget > li > a > img {
+	display: block;
+}
