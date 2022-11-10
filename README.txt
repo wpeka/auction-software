@@ -195,7 +195,7 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 == Changelog ==
 = 1.2.7 =
 * Update: Compatibility with WordPress 6.1
-* Fix: Fixed Minor CSS Issues
+* Fix: Minor CSS Issues
 
 = 1.2.6 =
 * Fix: Widget and Gutenberg blocks were not displayed correctly.
