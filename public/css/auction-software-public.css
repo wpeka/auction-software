@@ -120,3 +120,33 @@ p.auction_time_left {
 .product_list_widget > li > a > img {
 	display: block;
 }
+
+table td, table th {
+	padding: 20px;
+	border: 1px solid;
+}
+table {
+	width: 100%;
+	min-width: 240px;
+	border-collapse: collapse;
+	border-spacing: 2px;
+	text-indent: initial;
+	box-sizing: border-box;
+	border-color: gray;
+}
+td {
+	display: table-cell;
+	vertical-align: inherit;
+}
+
+tr {
+	display: table-row;
+	vertical-align: inherit;
+	border-color: inherit;
+}
+
+tbody {
+	display: table-row-group;
+	vertical-align: middle;
+	border-color: inherit;
+}

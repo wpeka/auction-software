@@ -69,7 +69,7 @@ class Auction_Software {
 		if ( defined( 'AUCTION_SOFTWARE_VERSION' ) ) {
 			$this->version = AUCTION_SOFTWARE_VERSION;
 		} else {
-			$this->version = '1.2.6';
+			$this->version = '1.2.7';
 		}
 		$this->plugin_name = 'auction-software';
 
@@ -122,7 +122,7 @@ class Auction_Software {
                 `auction_id` bigint(20) unsigned DEFAULT NULL,
                 `bid` decimal(32,4) DEFAULT NULL,
                 `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                `status` varchar(255), 
+                `status` varchar(255),
                 PRIMARY KEY (`id`)
 			);";
 			dbDelta( $create_table_sql );
