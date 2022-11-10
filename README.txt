@@ -3,9 +3,9 @@ Contributors: WPeka Club
 Donate link: https://club.wpeka.com/
 Tags: auction, woocommerce auction, WordPress auction, auction plugin, proxy bidding, penny auction, eBay auction, simple auction, reverse auction, penny auction, eBay, bidding, auction script, wp auctions, auction site, auction website, woocommerce auction plugin, wordpress auction plugin, wp auction plugin
 Requires at least: 4.6
-Tested up to: 5.9.3
+Tested up to: 6.1
 Requires PHP: 7.0
-Stable tag: 1.2.6
+Stable tag: 1.2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.htm
 
@@ -193,6 +193,10 @@ Yes. To know more about setting up escrow payments click [here](https://docs.wpe
 4. Auction Widgets.
 
 == Changelog ==
+= 1.2.7 =
+* Update: Compatibility with WordPress 6.1
+* Fix: Fixed Css for table for WordPress 2022 and 2023 Theme
+
 = 1.2.6 =
 * Fix: Widget and Gutenberg blocks were not displayed correctly.
 
