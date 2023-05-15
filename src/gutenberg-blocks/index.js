@@ -9,7 +9,7 @@ data.forEach((chunk) => {
 	registerBlockType("auction-software/" + chunk.register_block_type, {
 		title: __(chunk.title, "auction-software"),
 		description: __(chunk.description, "auction-software"),
-		icon: "flag",
+		icon: "hammer",
 		category: "auction-software",
 	
 		attributes: {

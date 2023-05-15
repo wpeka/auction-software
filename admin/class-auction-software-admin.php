@@ -1647,6 +1647,23 @@ class Auction_Software_Admin {
 			}
 		}
 	}
+	/**
+	* Registers Auction Software block in widgets.
+	*
+	* @param array $categories contains categories of gutenberg block.
+	*
+	*/
+	public function auction_software_gutenberg_block_categories( $categories ) {
 
+		return array_merge(
+			$categories,
+			array(
+				array(
+					'slug' => 'auction-software',
+					'title' => __( 'Auction Software', 'auction-software' ),
+				),
+			)
+		);
+	}
 
 }

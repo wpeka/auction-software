@@ -14,8 +14,8 @@
  * @wordpress-plugin
  * Plugin Name:       Auction Software
  * Plugin URI:        https://demo.wpeka.com/woo-auction-software/
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.2.7
+ * Description:       Woo Auction Software is used to add auction products on the website. You can create different auction types namely Simple, Penny and the Reverse auction with the Pro version.
+ * Version:           1.2.8
  * Author:            WPeka Club
  * Author URI:        https://club.wpeka.com/
  * License:           GPL-2.0+

@@ -92,7 +92,6 @@
 				}
 			);
 			var extend_relist = $( '#auction_extend_or_relist_auction' ).val();
-			console.log( extend_relist );
 
 			if ('extend' == extend_relist) {
 				$( '.form-field.auction_extend' ).find( ':checkbox' ).each(
