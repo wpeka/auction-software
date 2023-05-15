@@ -69,7 +69,7 @@ class Auction_Software {
 		if ( defined( 'AUCTION_SOFTWARE_VERSION' ) ) {
 			$this->version = AUCTION_SOFTWARE_VERSION;
 		} else {
-			$this->version = '1.2.7';
+			$this->version = '1.2.8';
 		}
 		$this->plugin_name = 'auction-software';
 
@@ -253,6 +253,7 @@ class Auction_Software {
 
 		// Block based widgets.
 		$this->loader->add_action( 'init', $plugin_admin, 'auction_software_register_gutenberg_blocks' );
+		$this->loader->add_filter( 'block_categories_all', $plugin_admin, 'auction_software_gutenberg_block_categories', 10, 1 );
 	}
 
 	/**

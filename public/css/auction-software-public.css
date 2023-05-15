@@ -150,3 +150,9 @@ tbody {
 	vertical-align: middle;
 	border-color: inherit;
 }
+.dashicons.dashicons-visibility{
+	vertical-align: baseline;
+}
+.dashicons.dashicons-hidden{
+	vertical-align: baseline;
+}
