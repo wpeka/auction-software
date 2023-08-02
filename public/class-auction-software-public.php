@@ -110,6 +110,8 @@ class Auction_Software_Public {
 			'default'  => false,
 		);
 
+		wp_enqueue_script( 'wc-cart-fragments' );
+
 		$timezone_string = wc_timezone_string();
 		if ( strpos( $timezone_string, ':' ) !== false ) {
 			$data_to_be_passed['default'] = true;
