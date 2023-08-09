@@ -94,10 +94,10 @@
 									var timeLefts       = document.getElementsByClassName( "timeLeft" + newIndex );
 									var timeLeftsLength = timeLefts.length;
 									for (var index = 0;index < timeLeftsLength;index++) {
-										timeLefts[index].innerHTML = '<div class="time_left-box"><p class="time-span">' + days + '</p><span class="label-span">Days</span></div>' +
-											'<div class="time_left-box"><p class="time-span">' + hours + '</p><span class="label-span">Hours</span></div>' +
-											'<div class="time_left-box"><p class="time-span">' + minutes + '</p><span class="label-span">Minutes</span></div>' +
-											'<div class="time_left-box"><p class="time-span">' + seconds + '</p><span class="label-span">Seconds</span></div>';
+										timeLefts[index].innerHTML = '<div class="time_left-box"><p class="time-span">' + days + '</p><span class="label-span">data_to_be_passed.php_vars.Days</span></div>' +
+											'<div class="time_left-box"><p class="time-span">' + hours + '</p><span class="label-span">data_to_be_passed.php_vars.Hours</span></div>' +
+											'<div class="time_left-box"><p class="time-span">' + minutes + '</p><span class="label-span">data_to_be_passed.php_vars.Minutes</span></div>' +
+											'<div class="time_left-box"><p class="time-span">' + seconds + '</p><span class="label-span">data_to_be_passed.php_vars.Seconds</span></div>';
 									}
 								}
 							}
@@ -150,10 +150,10 @@
 							var hours   = Math.floor( (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) );
 							var minutes = Math.floor( (distance % (1000 * 60 * 60)) / (1000 * 60) );
 							var seconds = Math.floor( (distance % (1000 * 60)) / 1000 );
-							document.getElementById( "time_left" ) != null ? document.getElementById( "time_left" ).innerHTML = '<div class="time_left-box"><p class="time-span">' + days + '</p><span class="label-span">Days</span></div>' +
-																																'<div class="time_left-box"><p class="time-span">' + hours + '</p><span class="label-span">Hours</span></div>' +
-																																'<div class="time_left-box"><p class="time-span">' + minutes + '</p><span class="label-span">Minutes</span></div>' +
-																																'<div class="time_left-box"><p class="time-span">' + seconds + '</p><span class="label-span">Seconds</span></div>' : "";
+							document.getElementById( "time_left" ) != null ? document.getElementById( "time_left" ).innerHTML = '<div class="time_left-box"><p class="time-span">' + days + '</p><span class="label-span">data_to_be_passed.php_vars.Days</span></div>' +
+																																'<div class="time_left-box"><p class="time-span">' + hours + '</p><span class="label-span">data_to_be_passed.php_vars.Hours</span></div>' +
+																																'<div class="time_left-box"><p class="time-span">' + minutes + '</p><span class="label-span">data_to_be_passed.php_vars.Minutes</span></div>' +
+																																'<div class="time_left-box"><p class="time-span">' + seconds + '</p><span class="label-span">data_to_be_passed.php_vars.Seconds</span></div>' : "";
 							if (distance < 0) {
 								clearInterval( x );
 								document.getElementById( "time_left" ).innerHTML = "Auction has ended";
@@ -582,10 +582,10 @@
 							var minutes = Math.floor( (distance % (1000 * 60 * 60)) / (1000 * 60) );
 							var seconds = Math.floor( (distance % (1000 * 60)) / 1000 );
 
-							document.getElementById( "time_start" ) != null ? document.getElementById( "time_start" ).innerHTML = '<div class="time_left-box"><p class="time-span">' + days + '</p><span class="label-span">Days</span></div>' +
-																																'<div class="time_left-box"><p class="time-span">' + hours + '</p><span class="label-span">Hours</span></div>' +
-																																'<div class="time_left-box"><p class="time-span">' + minutes + '</p><span class="label-span">Minutes</span></div>' +
-																																'<div class="time_left-box"><p class="time-span">' + seconds + '</p><span class="label-span">Seconds</span></div>' : "";
+							document.getElementById( "time_start" ) != null ? document.getElementById( "time_start" ).innerHTML = '<div class="time_left-box"><p class="time-span">' + days + '</p><span class="label-span">data_to_be_passed.php_vars.Days</span></div>' +
+																																'<div class="time_left-box"><p class="time-span">' + hours + '</p><span class="label-span">data_to_be_passed.php_vars.Hours</span></div>' +
+																																'<div class="time_left-box"><p class="time-span">' + minutes + '</p><span class="label-span">data_to_be_passed.php_vars.Minutes</span></div>' +
+																																'<div class="time_left-box"><p class="time-span">' + seconds + '</p><span class="label-span">data_to_be_passed.php_vars.Seconds</span></div>' : "";
 
 							if (distance < 0) {
 								clearInterval( x );
