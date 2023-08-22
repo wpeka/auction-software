@@ -383,20 +383,36 @@ msgstr ""
 msgid "Please contact the administrator of this site for help."
 msgstr ""
 
-#: public/class-auction-software-public.php:107
+#: public/class-auction-software-public.php:106
 msgid " days "
 msgstr ""
 
-#: public/class-auction-software-public.php:108
+#: public/class-auction-software-public.php:107
 msgid " hours "
 msgstr ""
 
-#: public/class-auction-software-public.php:109
+#: public/class-auction-software-public.php:108
 msgid " minutes "
 msgstr ""
 
-#: public/class-auction-software-public.php:110
+#: public/class-auction-software-public.php:109
 msgid " seconds "
+msgstr ""
+
+#: public/class-auction-software-public.php:110
+msgid " Days "
+msgstr ""
+
+#: public/class-auction-software-public.php:111
+msgid " Hours "
+msgstr ""
+
+#: public/class-auction-software-public.php:112
+msgid " Minutes "
+msgstr ""
+
+#: public/class-auction-software-public.php:113
+msgid " Seconds "
 msgstr ""
 
 #: public/class-auction-software-public.php:247

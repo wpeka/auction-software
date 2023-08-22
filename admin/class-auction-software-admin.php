@@ -916,7 +916,9 @@ class Auction_Software_Admin {
 		foreach ( $attribute_data as $attribute ) {
 			$attribute_id = isset( $_POST[ 'auction_' . $attribute['id'] ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'auction_' . $attribute['id'] ] ) ) : '';
 			if ( ( 'start_price' === $attribute['id'] ) || ( ( 'bid_increment' === $attribute['id'] ) && '' !== $attribute_id ) ) {
-				$attribute_id = round( $attribute_id, 2 );
+				if(is_numeric($attribute_id)){
+					$attribute_id = round( $attribute_id, 2 );
+				}
 			}
 			$error_flag = $this->auction_software_check_validations( $attribute['id'], $attribute_id, $post_id, $error_flag );
 			update_post_meta( $post_id, 'auction_' . $attribute['id'], $attribute_id );

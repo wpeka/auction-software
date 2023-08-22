@@ -107,6 +107,10 @@ class Auction_Software_Public {
 			'hours'    => __( ' hours ', 'auction-software' ),
 			'minutes'  => __( ' minutes ', 'auction-software' ),
 			'seconds'  => __( ' seconds ', 'auction-software' ),
+			'Days'     => __( ' Days ', 'auction-software' ),
+			'Hours'    => __( ' Hours ', 'auction-software' ),
+			'Minutes'  => __( ' Minutes ', 'auction-software' ),
+			'Seconds'  => __( ' Seconds ', 'auction-software' ),
 			'default'  => false,
 		);
 
