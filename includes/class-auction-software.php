@@ -253,6 +253,10 @@ class Auction_Software {
 
 		// Block based widgets.
 		$this->loader->add_action( 'init', $plugin_admin, 'auction_software_register_gutenberg_blocks' );
+
+		// Add custom category
+		add_filter( 'block_categories_all', array( $this, 'auction_software_add_custom_block_category' ), 9999999,2 );
+
 	}
 
 	/**
@@ -331,7 +335,33 @@ class Auction_Software {
 	public function get_loader() {
 		return $this->loader;
 	}
-
+     
+	/** Adds the Auction Software block category.
+	 *
+	 * @param array $categories Existing block categories.
+	 *
+	 * @return array Updated block categories.
+	 */
+	public function auction_software_add_custom_block_category( $categories ) {
+		$category = array(
+			'slug'  => 'auction_software',
+			'title' => __( 'Auction Software Blocks', 'auction-software' ),
+		);
+	
+		if ( is_array( $categories ) ) {
+			$existingSlugs = array_column( $categories, 'slug' );
+	
+			if ( is_array( $existingSlugs ) ) {
+				if ( in_array( $category['slug'], $existingSlugs ) ) {
+					return $categories; // Bail early if category exists
+				}
+			}
+		}
+			
+		array_unshift( $categories, $category ); // Add category on top of pile
+	
+		return $categories;
+	}
 	/**
 	 * Retrieve the version number of the plugin.
 	 *
