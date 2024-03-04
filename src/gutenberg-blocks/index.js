@@ -10,7 +10,7 @@ data.forEach((chunk) => {
 		title: __(chunk.title, "auction-software"),
 		description: __(chunk.description, "auction-software"),
 		icon: "flag",
-		category: "auction-software",
+		category: "auction_software",
 	
 		attributes: {
 			title: {
