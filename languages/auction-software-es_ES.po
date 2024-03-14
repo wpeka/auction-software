@@ -1,15 +1,15 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Auction Software\n"
-"POT-Creation-Date: 2024-03-14 15:11+0530\n"
-"PO-Revision-Date: 2024-03-14 15:11+0530\n"
+"POT-Creation-Date: 2024-03-14 15:12+0530\n"
+"PO-Revision-Date: 2024-03-14 15:22+0530\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.4.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
@@ -26,18 +26,18 @@ msgstr ""
 #: admin/class-auction-software-admin.php:176
 #: release/1.2.8/admin/class-auction-software-admin.php:176
 msgid "Product Auction Classes"
-msgstr ""
+msgstr "Clases de subastas de productos"
 
 #: admin/class-auction-software-admin.php:375
 #: release/1.2.8/admin/class-auction-software-admin.php:375
 msgid "Upgrade to Pro"
-msgstr ""
+msgstr "Actualizar a Pro"
 
 #: admin/class-auction-software-admin.php:664
 #: release/1.2.8/admin/class-auction-software-admin.php:664
 #: tests/test-class-auction-software-admin.php:189
 msgid "Auction Settings"
-msgstr ""
+msgstr "Configuración de la subasta"
 
 #: admin/class-auction-software-admin.php:671
 #: public/partials/single-product/auction-software-reverse.php:279
@@ -53,13 +53,13 @@ msgstr ""
 #: tests/test-class-auction-software-admin.php:193
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:138
 msgid "Auction History"
-msgstr ""
+msgstr "Historial de Subastas"
 
 #: admin/class-auction-software-admin.php:678
 #: release/1.2.8/admin/class-auction-software-admin.php:678
 #: tests/test-class-auction-software-admin.php:197
 msgid "Auction Relist Settings"
-msgstr ""
+msgstr "Ajustes para volver a subastar"
 
 #. translators: 1: Current time 2: Timezone 3: Link
 #: admin/class-auction-software-admin.php:713
@@ -69,23 +69,25 @@ msgid ""
 "Your website's current time is <strong>%1$1s</strong> Timezone: <strong>"
 "%2$2s</strong> %3$3s"
 msgstr ""
+"La hora actual de su sitio web es <strong>%1$1s</strong> Zona horaria: "
+"<strong>%2$2s</strong> %3$3s"
 
 #: admin/class-auction-software-admin.php:720
 #: release/1.2.8/admin/class-auction-software-admin.php:720
 msgid "Click here to change"
-msgstr ""
+msgstr "Haga clic aquí para cambiar"
 
 #: admin/class-auction-software-admin.php:868
 #: release/1.2.8/admin/class-auction-software-admin.php:868
 #: tests/test-class-auction-software-admin.php:208
 msgid "Simple Auction"
-msgstr ""
+msgstr "Subasta simple"
 
 #: admin/class-auction-software-admin.php:869
 #: release/1.2.8/admin/class-auction-software-admin.php:869
 #: tests/test-class-auction-software-admin.php:209
 msgid "Reverse Auction"
-msgstr ""
+msgstr "Subasta inversa"
 
 #: admin/class-auction-software-admin.php:1030
 #: admin/class-auction-software-admin.php:1031
@@ -96,7 +98,7 @@ msgstr ""
 #: tests/test-class-auction-software-admin.php:272
 #: tests/test-class-auction-software-admin.php:383
 msgid "Start Price should not be negative or empty."
-msgstr ""
+msgstr "El precio inicial no debe ser negativo ni estar vacío."
 
 #: admin/class-auction-software-admin.php:1039
 #: admin/class-auction-software-admin.php:1040
@@ -105,7 +107,7 @@ msgstr ""
 #: tests/test-class-auction-software-admin.php:273
 #: tests/test-class-auction-software-admin.php:384
 msgid "Bid Increment should not be negative."
-msgstr ""
+msgstr "El incremento de la oferta no debe ser negativo."
 
 #: admin/class-auction-software-admin.php:1048
 #: admin/class-auction-software-admin.php:1049
@@ -116,7 +118,7 @@ msgstr ""
 #: tests/test-class-auction-software-admin.php:274
 #: tests/test-class-auction-software-admin.php:385
 msgid "Date From should not be empty."
-msgstr ""
+msgstr "La fecha Desde no debe estar vacía."
 
 #: admin/class-auction-software-admin.php:1052
 #: admin/class-auction-software-admin.php:1053
@@ -125,7 +127,7 @@ msgstr ""
 #: release/1.2.8/admin/class-auction-software-admin.php:1053
 #: release/1.2.8/admin/class-auction-software-admin.php:1316
 msgid "Date From should not be greater than Date To."
-msgstr ""
+msgstr "La fecha desde no debe ser mayor que la fecha hasta."
 
 #: admin/class-auction-software-admin.php:1061
 #: admin/class-auction-software-admin.php:1062
@@ -136,7 +138,7 @@ msgstr ""
 #: tests/test-class-auction-software-admin.php:275
 #: tests/test-class-auction-software-admin.php:386
 msgid "Date To should not be empty."
-msgstr ""
+msgstr "La fecha Hasta no debe estar vacía."
 
 #: admin/class-auction-software-admin.php:1065
 #: admin/class-auction-software-admin.php:1066
@@ -145,7 +147,7 @@ msgstr ""
 #: release/1.2.8/admin/class-auction-software-admin.php:1066
 #: release/1.2.8/admin/class-auction-software-admin.php:1327
 msgid "Date To should not be smaller than Date From."
-msgstr ""
+msgstr "La fecha Hasta no debe ser menor que la fecha Desde."
 
 #: admin/class-auction-software-admin.php:1075
 #: admin/class-auction-software-admin.php:1076
@@ -165,7 +167,7 @@ msgstr ""
 #: release/1.2.8/admin/class-auction-software-admin.php:1348
 #: tests/test-class-auction-software-admin.php:387
 msgid "Reserve Price should not be negative."
-msgstr ""
+msgstr "El precio de reserva no debe ser negativo."
 
 #: admin/class-auction-software-admin.php:1108
 #: admin/class-auction-software-admin.php:1109
@@ -184,7 +186,7 @@ msgstr ""
 #: release/1.2.8/admin/class-auction-software-admin.php:1358
 #: release/1.2.8/admin/class-auction-software-admin.php:1368
 msgid "Buy It Now Price should not be negative."
-msgstr ""
+msgstr "Cómpralo Ya El precio no debe ser negativo."
 
 #: admin/class-auction-software-admin.php:1141
 #: admin/class-auction-software-admin.php:1142
@@ -201,7 +203,7 @@ msgstr ""
 #: release/1.2.8/admin/class-auction-software-admin.php:1186
 #: release/1.2.8/admin/class-auction-software-admin.php:1379
 msgid "Wait time before relist should not be negative."
-msgstr ""
+msgstr "El tiempo de espera antes de la relista no debe ser negativo."
 
 #: admin/class-auction-software-admin.php:1152
 #: admin/class-auction-software-admin.php:1153
@@ -216,7 +218,7 @@ msgstr ""
 #: release/1.2.8/admin/class-auction-software-admin.php:1196
 #: release/1.2.8/admin/class-auction-software-admin.php:1197
 msgid "Relist duration should not be negative."
-msgstr ""
+msgstr "La duración de la relista no debe ser negativa."
 
 #: admin/class-auction-software-admin.php:1207
 #: admin/class-auction-software-admin.php:1208
@@ -233,7 +235,7 @@ msgstr ""
 #: release/1.2.8/admin/class-auction-software-admin.php:1252
 #: release/1.2.8/admin/class-auction-software-admin.php:1399
 msgid "Wait time before extend should not be negative."
-msgstr ""
+msgstr "El tiempo de espera antes de la ampliación no debe ser negativo."
 
 #: admin/class-auction-software-admin.php:1218
 #: admin/class-auction-software-admin.php:1219
@@ -248,22 +250,22 @@ msgstr ""
 #: release/1.2.8/admin/class-auction-software-admin.php:1262
 #: release/1.2.8/admin/class-auction-software-admin.php:1263
 msgid "Extend duration should not be negative."
-msgstr ""
+msgstr "La duración de la prórroga no debe ser negativa."
 
 #: admin/class-auction-software-admin.php:1305
 #: release/1.2.8/admin/class-auction-software-admin.php:1305
 msgid "Bid Increment should not be negative or empty."
-msgstr ""
+msgstr "El incremento de la oferta no debe ser negativo ni estar vacío."
 
 #: admin/class-auction-software-admin.php:1389
 #: release/1.2.8/admin/class-auction-software-admin.php:1389
 msgid "Relist Duration should not be negative."
-msgstr ""
+msgstr "La duración de la relista no debe ser negativa."
 
 #: admin/class-auction-software-admin.php:1409
 #: release/1.2.8/admin/class-auction-software-admin.php:1409
 msgid "Extend Duration should not be negative."
-msgstr ""
+msgstr "Extender Duración no debe ser negativo."
 
 #: admin/class-auction-software-admin.php:1493
 #: admin/class-auction-software-admin.php:1512
@@ -273,7 +275,7 @@ msgstr ""
 #: tests/test-class-auction-software-admin.php:428
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:31
 msgid "Auctions"
-msgstr ""
+msgstr "Subastas"
 
 #: admin/class-auction-software-admin.php:1508
 #: includes/class-auction-software-blocks-callback.php:969
@@ -284,7 +286,7 @@ msgstr ""
 #: widgets/class-auction-software-widget-my-auctions.php:102
 #: widgets/class-auction-software-widget-my-auctions.php:285
 msgid "My Auctions"
-msgstr ""
+msgstr "Mis subastas"
 
 #: admin/class-auction-software-admin.php:1513
 #: release/1.2.8/admin/class-auction-software-admin.php:1513
@@ -293,26 +295,26 @@ msgstr ""
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:141
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:162
 msgid "Current Bid"
-msgstr ""
+msgstr "Puja Actual"
 
 #: admin/class-auction-software-admin.php:1514
 #: release/1.2.8/admin/class-auction-software-admin.php:1514
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:144
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:144
 msgid "Item Condition"
-msgstr ""
+msgstr "Condición del artículo"
 
 #: admin/class-auction-software-admin.php:1515
 #: class-astgm-plugin-activation.php:2647
 #: release/1.2.8/admin/class-auction-software-admin.php:1515
 #: release/1.2.8/class-astgm-plugin-activation.php:2647
 msgid "Status"
-msgstr ""
+msgstr "Estado"
 
 #: admin/class-auction-software-admin.php:1516
 #: release/1.2.8/admin/class-auction-software-admin.php:1516
 msgid "Action"
-msgstr ""
+msgstr "Acción"
 
 #: admin/class-auction-software-admin.php:1534
 #: admin/class-auction-software-admin.php:1540
@@ -399,7 +401,7 @@ msgstr ""
 #: widgets/class-auction-software-widget-watchlist-auctions.php:187
 #: widgets/class-auction-software-widget-watchlist-auctions.php:193
 msgid "No bids yet"
-msgstr ""
+msgstr "Aún no hay ofertas"
 
 #: admin/class-auction-software-admin.php:1546
 #: includes/class-auction-software-blocks-callback.php:144
@@ -436,34 +438,34 @@ msgstr ""
 #: widgets/class-auction-software-widget-recently-viewed-auctions.php:214
 #: widgets/class-auction-software-widget-watchlist-auctions.php:212
 msgid "Auction finished"
-msgstr ""
+msgstr "Subasta terminada"
 
 #: admin/class-auction-software-admin.php:1557
 #: admin/class-auction-software-admin.php:1565
 #: release/1.2.8/admin/class-auction-software-admin.php:1557
 #: release/1.2.8/admin/class-auction-software-admin.php:1565
 msgid "Won"
-msgstr ""
+msgstr "Ganados"
 
 #: admin/class-auction-software-admin.php:1568
 #: release/1.2.8/admin/class-auction-software-admin.php:1568
 msgid "Won by "
-msgstr ""
+msgstr "Ganado por"
 
 #: admin/class-auction-software-admin.php:1570
 #: release/1.2.8/admin/class-auction-software-admin.php:1570
 msgid "Buy it Now Used by "
-msgstr ""
+msgstr "Comprar ahora Usado por"
 
 #: admin/class-auction-software-admin.php:1580
 #: release/1.2.8/admin/class-auction-software-admin.php:1580
 msgid "Auction in progress"
-msgstr ""
+msgstr "Subasta en curso"
 
 #: admin/class-auction-software-admin.php:1591
 #: release/1.2.8/admin/class-auction-software-admin.php:1591
 msgid "You didn't participated in any Auctions."
-msgstr ""
+msgstr "No ha participado en ninguna subasta."
 
 #: admin/js/gutenberg-blocks/auction-software-auction-widgets.js:1
 #: release/1.2.8/admin/js/gutenberg-blocks/auction-software-auction-widgets.js:1
@@ -486,7 +488,7 @@ msgstr ""
 #: widgets/class-auction-software-widget-recently-viewed-auctions.php:290
 #: widgets/class-auction-software-widget-watchlist-auctions.php:290
 msgid "Title:"
-msgstr ""
+msgstr "Título:"
 
 #: admin/js/gutenberg-blocks/auction-software-auction-widgets.js:1
 #: release/1.2.8/admin/js/gutenberg-blocks/auction-software-auction-widgets.js:1
@@ -509,26 +511,26 @@ msgstr ""
 #: widgets/class-auction-software-widget-recently-viewed-auctions.php:295
 #: widgets/class-auction-software-widget-watchlist-auctions.php:295
 msgid "Number of auctions to show:"
-msgstr ""
+msgstr "Número de subastas para mostrar:"
 
 #: admin/js/gutenberg-blocks/auction-software-auction-widgets.js:1
 #: release/1.2.8/admin/js/gutenberg-blocks/auction-software-auction-widgets.js:1
 #: release/1.2.8/src/gutenberg-blocks/index.js:49
 #: src/gutenberg-blocks/index.js:49
 msgid "Hide Time Left:"
-msgstr ""
+msgstr "Ocultar tiempo restante:"
 
 #: auction-software.php:90 class-astgm-plugin-activation.php:334
 #: release/1.2.8/auction-software.php:90
 #: release/1.2.8/class-astgm-plugin-activation.php:334
 msgid "Install Required Plugins"
-msgstr ""
+msgstr "Instalar Plugins Requeridos"
 
 #: auction-software.php:91 class-astgm-plugin-activation.php:335
 #: release/1.2.8/auction-software.php:91
 #: release/1.2.8/class-astgm-plugin-activation.php:335
 msgid "Install Plugins"
-msgstr ""
+msgstr "Instalar Plugins"
 
 #. translators: %s: plugin name.
 #: auction-software.php:93 class-astgm-plugin-activation.php:337
@@ -536,7 +538,7 @@ msgstr ""
 #: release/1.2.8/class-astgm-plugin-activation.php:337
 #, php-format
 msgid "Installing Plugin: %s"
-msgstr ""
+msgstr "Instalando Plugin: %s"
 
 #. translators: %s: plugin name.
 #: auction-software.php:95 class-astgm-plugin-activation.php:339
@@ -544,19 +546,19 @@ msgstr ""
 #: release/1.2.8/class-astgm-plugin-activation.php:339
 #, php-format
 msgid "Updating Plugin: %s"
-msgstr ""
+msgstr "Actualizar Plugin: %s"
 
 #: auction-software.php:96 class-astgm-plugin-activation.php:340
 #: release/1.2.8/auction-software.php:96
 #: release/1.2.8/class-astgm-plugin-activation.php:340
 msgid "Something went wrong with the plugin API."
-msgstr ""
+msgstr "Algo salió mal con la API del plugin."
 
 #: auction-software.php:99 release/1.2.8/auction-software.php:99
 #, php-format
 msgid "Auction Software requires the following plugin: %1$s."
 msgid_plural "Auction Software requires the following plugins: %1$s."
-msgstr[0] ""
+msgstr[0] "Auction Software requiere el siguiente plugin: %1$s."
 msgstr[1] ""
 
 #. translators: 1: plugin name(s).
@@ -566,7 +568,7 @@ msgstr[1] ""
 #, php-format
 msgid "This theme recommends the following plugin: %1$s."
 msgid_plural "This theme recommends the following plugins: %1$s."
-msgstr[0] ""
+msgstr[0] "Este tema recomienda el siguiente plugin: %1$s."
 msgstr[1] ""
 
 #: auction-software.php:111 release/1.2.8/auction-software.php:111
@@ -578,6 +580,8 @@ msgid_plural ""
 "The following plugins need to be updated to their latest version to ensure "
 "maximum compatibility with Auction Software: %1$s."
 msgstr[0] ""
+"El siguiente plugin necesita ser actualizado a su última versión para "
+"asegurar la máxima compatibilidad con el Software de Subastas: %1$s."
 msgstr[1] ""
 
 #. translators: 1: plugin name(s).
@@ -587,7 +591,7 @@ msgstr[1] ""
 #, php-format
 msgid "There is an update available for: %1$s."
 msgid_plural "There are updates available for the following plugins: %1$s."
-msgstr[0] ""
+msgstr[0] "Hay una actualización disponible para: %1$s."
 msgstr[1] ""
 
 #. translators: 1: plugin name(s).
@@ -597,7 +601,7 @@ msgstr[1] ""
 #, php-format
 msgid "The following required plugin is currently inactive: %1$s."
 msgid_plural "The following required plugins are currently inactive: %1$s."
-msgstr[0] ""
+msgstr[0] "El siguiente plugin necesario está actualmente desactivado: %1$s."
 msgstr[1] ""
 
 #. translators: 1: plugin name(s).
@@ -607,7 +611,7 @@ msgstr[1] ""
 #, php-format
 msgid "The following recommended plugin is currently inactive: %1$s."
 msgid_plural "The following recommended plugins are currently inactive: %1$s."
-msgstr[0] ""
+msgstr[0] "El siguiente plugin recomendado esta actualmente inactivo: %1$s."
 msgstr[1] ""
 
 #: auction-software.php:134 class-astgm-plugin-activation.php:378
@@ -615,7 +619,7 @@ msgstr[1] ""
 #: release/1.2.8/class-astgm-plugin-activation.php:378
 msgid "Begin installing plugin"
 msgid_plural "Begin installing plugins"
-msgstr[0] ""
+msgstr[0] "Comenzar a instalar el plugin"
 msgstr[1] ""
 
 #: auction-software.php:139 class-astgm-plugin-activation.php:383
@@ -623,7 +627,7 @@ msgstr[1] ""
 #: release/1.2.8/class-astgm-plugin-activation.php:383
 msgid "Begin updating plugin"
 msgid_plural "Begin updating plugins"
-msgstr[0] ""
+msgstr[0] "Comenzar a actualizar el plugin"
 msgstr[1] ""
 
 #: auction-software.php:144 class-astgm-plugin-activation.php:388
@@ -631,14 +635,14 @@ msgstr[1] ""
 #: release/1.2.8/class-astgm-plugin-activation.php:388
 msgid "Begin activating plugin"
 msgid_plural "Begin activating plugins"
-msgstr[0] ""
+msgstr[0] "Comenzar a activar el plugin"
 msgstr[1] ""
 
 #: auction-software.php:148 class-astgm-plugin-activation.php:392
 #: release/1.2.8/auction-software.php:148
 #: release/1.2.8/class-astgm-plugin-activation.php:392
 msgid "Return to Required Plugins Installer"
-msgstr ""
+msgstr "Volver al instalador de plugins necesarios"
 
 #: auction-software.php:149 class-astgm-plugin-activation.php:394
 #: class-astgm-plugin-activation.php:3252
@@ -646,7 +650,7 @@ msgstr ""
 #: release/1.2.8/class-astgm-plugin-activation.php:394
 #: release/1.2.8/class-astgm-plugin-activation.php:3252
 msgid "Plugin activated successfully."
-msgstr ""
+msgstr "Plugin activado correctamente."
 
 #: auction-software.php:150 class-astgm-plugin-activation.php:395
 #: class-astgm-plugin-activation.php:3045
@@ -655,7 +659,7 @@ msgstr ""
 #: release/1.2.8/class-astgm-plugin-activation.php:3045
 msgid "The following plugin was activated successfully:"
 msgid_plural "The following plugins were activated successfully:"
-msgstr[0] ""
+msgstr[0] "El siguiente plugin ha sido activado con éxito:"
 msgstr[1] ""
 
 #. translators: 1: plugin name.
@@ -664,7 +668,7 @@ msgstr[1] ""
 #: release/1.2.8/class-astgm-plugin-activation.php:397
 #, php-format
 msgid "No action taken. Plugin %1$s was already active."
-msgstr ""
+msgstr "No se realizó ninguna acción. El plugin %1$s ya estaba activado."
 
 #. translators: 1: plugin name.
 #: auction-software.php:154 class-astgm-plugin-activation.php:399
@@ -675,6 +679,8 @@ msgid ""
 "Plugin not activated. A higher version of %s is needed for this theme. "
 "Please update the plugin."
 msgstr ""
+"Plugin no activado. Una versión superior de %s es necesaria para este tema. "
+"Por favor actualice el plugin."
 
 #. translators: 1: dashboard link.
 #: auction-software.php:156 class-astgm-plugin-activation.php:401
@@ -682,13 +688,13 @@ msgstr ""
 #: release/1.2.8/class-astgm-plugin-activation.php:401
 #, php-format
 msgid "All plugins installed and activated successfully. %1$s"
-msgstr ""
+msgstr "Todos los plugins instalados y activados con éxito. %1$s"
 
 #: auction-software.php:157 class-astgm-plugin-activation.php:402
 #: release/1.2.8/auction-software.php:157
 #: release/1.2.8/class-astgm-plugin-activation.php:402
 msgid "Dismiss this notice"
-msgstr ""
+msgstr "Descartar este aviso"
 
 #: auction-software.php:158 class-astgm-plugin-activation.php:403
 #: release/1.2.8/auction-software.php:158
@@ -697,12 +703,16 @@ msgid ""
 "There are one or more required or recommended plugins to install, update or "
 "activate."
 msgstr ""
+"Hay uno o más plugins necesarios o recomendados para instalar, actualizar o "
+"activar."
 
 #: auction-software.php:159 class-astgm-plugin-activation.php:404
 #: release/1.2.8/auction-software.php:159
 #: release/1.2.8/class-astgm-plugin-activation.php:404
 msgid "Please contact the administrator of this site for help."
 msgstr ""
+"Por favor, póngase en contacto con el administrador de este sitio para "
+"obtener ayuda."
 
 #. translators: 1: plugin name(s).
 #: class-astgm-plugin-activation.php:343
@@ -710,7 +720,7 @@ msgstr ""
 #, php-format
 msgid "This theme requires the following plugin: %1$s."
 msgid_plural "This theme requires the following plugins: %1$s."
-msgstr[0] ""
+msgstr[0] "Este tema necesita el siguiente plugin: %1$s."
 msgstr[1] ""
 
 #. translators: 1: plugin name(s).
@@ -724,6 +734,8 @@ msgid_plural ""
 "The following plugins need to be updated to their latest version to ensure "
 "maximum compatibility with this theme: %1$s."
 msgstr[0] ""
+"El siguiente plugin debe actualizarse a su última versión para garantizar la "
+"máxima compatibilidad con este tema: %1$s."
 msgstr[1] ""
 
 #: class-astgm-plugin-activation.php:393 class-astgm-plugin-activation.php:920
@@ -734,22 +746,22 @@ msgstr[1] ""
 #: release/1.2.8/class-astgm-plugin-activation.php:2626
 #: release/1.2.8/class-astgm-plugin-activation.php:3673
 msgid "Return to the Dashboard"
-msgstr ""
+msgstr "Volver al Escritorio"
 
 #: class-astgm-plugin-activation.php:607
 #: release/1.2.8/class-astgm-plugin-activation.php:607
 msgid "This plugin needs to be updated to be compatible with your theme."
-msgstr ""
+msgstr "Este plugin debe actualizarse para que sea compatible con tu tema."
 
 #: class-astgm-plugin-activation.php:608
 #: release/1.2.8/class-astgm-plugin-activation.php:608
 msgid "Update Required"
-msgstr ""
+msgstr "Actualización Requerida"
 
 #: class-astgm-plugin-activation.php:725
 #: release/1.2.8/class-astgm-plugin-activation.php:725
 msgid "Set the parent_slug config variable instead."
-msgstr ""
+msgstr "Establezca la variable de configuración parent_slug."
 
 #: class-astgm-plugin-activation.php:1027
 #: release/1.2.8/class-astgm-plugin-activation.php:1027
@@ -757,6 +769,8 @@ msgid ""
 "The remote plugin package does not contain a folder with the desired slug "
 "and renaming did not work."
 msgstr ""
+"El paquete del plugin externo no contiene una carpeta con el slug deseado y "
+"el renombrado no ha funcionado."
 
 #: class-astgm-plugin-activation.php:1027
 #: class-astgm-plugin-activation.php:1030
@@ -766,6 +780,8 @@ msgid ""
 "Please contact the plugin provider and ask them to package their plugin "
 "according to the WordPress guidelines."
 msgstr ""
+"Por favor, póngase en contacto con el proveedor del plugin para que "
+"empaqueten su plugin de acuerdo con las directrices de Wordpress ."
 
 #: class-astgm-plugin-activation.php:1030
 #: release/1.2.8/class-astgm-plugin-activation.php:1030
@@ -773,6 +789,8 @@ msgid ""
 "The remote plugin package consists of more than one file, but the files are "
 "not packaged in a folder."
 msgstr ""
+"El paquete remoto de plugin consiste en más de un archivo, pero los mismos "
+"no fueron empaquetados en una carpeta."
 
 #: class-astgm-plugin-activation.php:1214
 #: class-astgm-plugin-activation.php:3041
@@ -780,69 +798,69 @@ msgstr ""
 #: release/1.2.8/class-astgm-plugin-activation.php:3041
 msgctxt "plugin A *and* plugin B"
 msgid "and"
-msgstr ""
+msgstr "y"
 
 #. translators: %s: version number
 #: class-astgm-plugin-activation.php:2075
 #: release/1.2.8/class-astgm-plugin-activation.php:2075
 #, php-format
 msgid "TGMPA v%s"
-msgstr ""
+msgstr "TGMPA v%s"
 
 #: class-astgm-plugin-activation.php:2366
 #: release/1.2.8/class-astgm-plugin-activation.php:2366
 msgid "Required"
-msgstr ""
+msgstr "Necesario"
 
 #: class-astgm-plugin-activation.php:2369
 #: release/1.2.8/class-astgm-plugin-activation.php:2369
 msgid "Recommended"
-msgstr ""
+msgstr "Recomendado"
 
 #: class-astgm-plugin-activation.php:2385
 #: release/1.2.8/class-astgm-plugin-activation.php:2385
 msgid "WordPress Repository"
-msgstr ""
+msgstr "Repositorio de WordPress"
 
 #: class-astgm-plugin-activation.php:2388
 #: release/1.2.8/class-astgm-plugin-activation.php:2388
 msgid "External Source"
-msgstr ""
+msgstr "Fuente externa"
 
 #: class-astgm-plugin-activation.php:2391
 #: release/1.2.8/class-astgm-plugin-activation.php:2391
 msgid "Pre-Packaged"
-msgstr ""
+msgstr "Pre-Empaquetado"
 
 #: class-astgm-plugin-activation.php:2408
 #: release/1.2.8/class-astgm-plugin-activation.php:2408
 msgid "Not Installed"
-msgstr ""
+msgstr "No instalado"
 
 #: class-astgm-plugin-activation.php:2412
 #: release/1.2.8/class-astgm-plugin-activation.php:2412
 msgid "Installed But Not Activated"
-msgstr ""
+msgstr "Instalado pero no activado"
 
 #: class-astgm-plugin-activation.php:2414
 #: release/1.2.8/class-astgm-plugin-activation.php:2414
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 #: class-astgm-plugin-activation.php:2420
 #: release/1.2.8/class-astgm-plugin-activation.php:2420
 msgid "Required Update not Available"
-msgstr ""
+msgstr "Actualización requerida no disponible"
 
 #: class-astgm-plugin-activation.php:2423
 #: release/1.2.8/class-astgm-plugin-activation.php:2423
 msgid "Requires Update"
-msgstr ""
+msgstr "Requiere actualización"
 
 #: class-astgm-plugin-activation.php:2426
 #: release/1.2.8/class-astgm-plugin-activation.php:2426
 msgid "Update recommended"
-msgstr ""
+msgstr "Actualización recomendada"
 
 #. translators: 1: install status, 2: update status
 #: class-astgm-plugin-activation.php:2435
@@ -850,7 +868,7 @@ msgstr ""
 #, php-format
 msgctxt "Install/Update Status"
 msgid "%1$s, %2$s"
-msgstr ""
+msgstr "%1$s, %2$s"
 
 #. translators: 1: number of plugins.
 #: class-astgm-plugin-activation.php:2481
@@ -859,7 +877,7 @@ msgstr ""
 msgctxt "plugins"
 msgid "All <span class=\"count\">(%s)</span>"
 msgid_plural "All <span class=\"count\">(%s)</span>"
-msgstr[0] ""
+msgstr[0] "Todo <span class=\"count\">(%s)</span>"
 msgstr[1] ""
 
 #. translators: 1: number of plugins.
@@ -868,7 +886,7 @@ msgstr[1] ""
 #, php-format
 msgid "To Install <span class=\"count\">(%s)</span>"
 msgid_plural "To Install <span class=\"count\">(%s)</span>"
-msgstr[0] ""
+msgstr[0] "Para instalar <span class=\"count\">(%s)</span>"
 msgstr[1] ""
 
 #. translators: 1: number of plugins.
@@ -877,7 +895,7 @@ msgstr[1] ""
 #, php-format
 msgid "Update Available <span class=\"count\">(%s)</span>"
 msgid_plural "Update Available <span class=\"count\">(%s)</span>"
-msgstr[0] ""
+msgstr[0] "Actualización Disponible <span class=\"count\">(%s)</span>"
 msgstr[1] ""
 
 #. translators: 1: number of plugins.
@@ -886,137 +904,140 @@ msgstr[1] ""
 #, php-format
 msgid "To Activate <span class=\"count\">(%s)</span>"
 msgid_plural "To Activate <span class=\"count\">(%s)</span>"
-msgstr[0] ""
+msgstr[0] "Para Activar <span class=\"count\">(%s)</span>"
 msgstr[1] ""
 
 #: class-astgm-plugin-activation.php:2575
 #: release/1.2.8/class-astgm-plugin-activation.php:2575
 msgctxt "as in: \"version nr unknown\""
 msgid "unknown"
-msgstr ""
+msgstr "desconocido"
 
 #: class-astgm-plugin-activation.php:2583
 #: release/1.2.8/class-astgm-plugin-activation.php:2583
 msgid "Installed version:"
-msgstr ""
+msgstr "Versión instalada:"
 
 #: class-astgm-plugin-activation.php:2591
 #: release/1.2.8/class-astgm-plugin-activation.php:2591
 msgid "Minimum required version:"
-msgstr ""
+msgstr "Versión mínima requerida:"
 
 #: class-astgm-plugin-activation.php:2603
 #: release/1.2.8/class-astgm-plugin-activation.php:2603
 msgid "Available version:"
-msgstr ""
+msgstr "Versión disponible:"
 
 #: class-astgm-plugin-activation.php:2626
 #: release/1.2.8/class-astgm-plugin-activation.php:2626
 msgid "No plugins to install, update or activate."
-msgstr ""
+msgstr "No hay plugins para instalar, actualizar o activar."
 
 #: class-astgm-plugin-activation.php:2640
 #: release/1.2.8/class-astgm-plugin-activation.php:2640
 msgid "Plugin"
-msgstr ""
+msgstr "Plugin"
 
 #: class-astgm-plugin-activation.php:2641
 #: release/1.2.8/class-astgm-plugin-activation.php:2641
 msgid "Source"
-msgstr ""
+msgstr "Fuente"
 
 #: class-astgm-plugin-activation.php:2642
 #: release/1.2.8/class-astgm-plugin-activation.php:2642
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: class-astgm-plugin-activation.php:2646
 #: release/1.2.8/class-astgm-plugin-activation.php:2646
 msgid "Version"
-msgstr ""
+msgstr "Versión"
 
 #. translators: %2$s: plugin name in screen reader markup
 #: class-astgm-plugin-activation.php:2696
 #: release/1.2.8/class-astgm-plugin-activation.php:2696
 #, php-format
 msgid "Install %2$s"
-msgstr ""
+msgstr "Instalar %2$s"
 
 #. translators: %2$s: plugin name in screen reader markup
 #: class-astgm-plugin-activation.php:2701
 #: release/1.2.8/class-astgm-plugin-activation.php:2701
 #, php-format
 msgid "Update %2$s"
-msgstr ""
+msgstr "Actualizar %2$s"
 
 #. translators: %2$s: plugin name in screen reader markup
 #: class-astgm-plugin-activation.php:2707
 #: release/1.2.8/class-astgm-plugin-activation.php:2707
 #, php-format
 msgid "Activate %2$s"
-msgstr ""
+msgstr "Activar %2$s"
 
 #: class-astgm-plugin-activation.php:2777
 #: release/1.2.8/class-astgm-plugin-activation.php:2777
 msgid "Upgrade message from the plugin author:"
-msgstr ""
+msgstr "Mensaje de actualización del autor del plugin:"
 
 #: class-astgm-plugin-activation.php:2810
 #: release/1.2.8/class-astgm-plugin-activation.php:2810
 msgid "Install"
-msgstr ""
+msgstr "Instalar"
 
 #: class-astgm-plugin-activation.php:2816
 #: release/1.2.8/class-astgm-plugin-activation.php:2816
 msgid "Update"
-msgstr ""
+msgstr "Actualizar"
 
 #: class-astgm-plugin-activation.php:2819
 #: release/1.2.8/class-astgm-plugin-activation.php:2819
 msgid "Activate"
-msgstr ""
+msgstr "Activar"
 
 #: class-astgm-plugin-activation.php:2850
 #: release/1.2.8/class-astgm-plugin-activation.php:2850
 msgid "No plugins were selected to be installed. No action taken."
 msgstr ""
+"Ningún plugin seleccionado para ser instalado. Ninguna acción a realizar."
 
 #: class-astgm-plugin-activation.php:2852
 #: release/1.2.8/class-astgm-plugin-activation.php:2852
 msgid "No plugins were selected to be updated. No action taken."
 msgstr ""
+"No se seleccionaron complementos para actualizarse. Ninguna acción tomada."
 
 #: class-astgm-plugin-activation.php:2893
 #: release/1.2.8/class-astgm-plugin-activation.php:2893
 msgid "No plugins are available to be installed at this time."
-msgstr ""
+msgstr "No hay plugins disponibles para ser instalados en este momento."
 
 #: class-astgm-plugin-activation.php:2895
 #: release/1.2.8/class-astgm-plugin-activation.php:2895
 msgid "No plugins are available to be updated at this time."
-msgstr ""
+msgstr "No hay plugins disponibles para ser actualizados en este momento."
 
 #: class-astgm-plugin-activation.php:3001
 #: release/1.2.8/class-astgm-plugin-activation.php:3001
 msgid "No plugins were selected to be activated. No action taken."
 msgstr ""
+"Ningún plugin seleccionado para ser activado. Ninguna acción a realizar."
 
 #: class-astgm-plugin-activation.php:3027
 #: release/1.2.8/class-astgm-plugin-activation.php:3027
 msgid "No plugins are available to be activated at this time."
-msgstr ""
+msgstr "No hay plugins disponibles para ser activados en este momento."
 
 #: class-astgm-plugin-activation.php:3251
 #: release/1.2.8/class-astgm-plugin-activation.php:3251
 msgid "Plugin activation failed."
-msgstr ""
+msgstr "La activación del plugin ha fallado."
 
 #. translators: 1: plugin name, 2: action number 3: total number of actions.
 #: class-astgm-plugin-activation.php:3591
 #: release/1.2.8/class-astgm-plugin-activation.php:3591
 #, php-format
 msgid "Updating Plugin %1$s (%2$d/%3$d)"
-msgstr ""
+msgstr "Actualizando Plugin %1$s (%2$d/%3$d)"
 
 #. translators: 1: plugin name, 2: error message.
 #: class-astgm-plugin-activation.php:3594
@@ -1024,13 +1045,14 @@ msgstr ""
 #, php-format
 msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
 msgstr ""
+"Se produjo un error durante la instalación de %1$s: <strong>%2$s</strong>."
 
 #. translators: 1: plugin name.
 #: class-astgm-plugin-activation.php:3596
 #: release/1.2.8/class-astgm-plugin-activation.php:3596
 #, php-format
 msgid "The installation of %1$s failed."
-msgstr ""
+msgstr "La instalación de %1$s ha fallado."
 
 #: class-astgm-plugin-activation.php:3600
 #: release/1.2.8/class-astgm-plugin-activation.php:3600
@@ -1038,39 +1060,41 @@ msgid ""
 "The installation and activation process is starting. This process may take a "
 "while on some hosts, so please be patient."
 msgstr ""
+"Comienza el proceso de instalación y activación. Este proceso puede tardar "
+"un poco en algunos alojamientos, por favor sea paciente."
 
 #. translators: 1: plugin name.
 #: class-astgm-plugin-activation.php:3602
 #: release/1.2.8/class-astgm-plugin-activation.php:3602
 #, php-format
 msgid "%1$s installed and activated successfully."
-msgstr ""
+msgstr "%1$s instalado y activado correctamente."
 
 #: class-astgm-plugin-activation.php:3602
 #: class-astgm-plugin-activation.php:3610
 #: release/1.2.8/class-astgm-plugin-activation.php:3602
 #: release/1.2.8/class-astgm-plugin-activation.php:3610
 msgid "Show Details"
-msgstr ""
+msgstr "Mostrar detalles"
 
 #: class-astgm-plugin-activation.php:3602
 #: class-astgm-plugin-activation.php:3610
 #: release/1.2.8/class-astgm-plugin-activation.php:3602
 #: release/1.2.8/class-astgm-plugin-activation.php:3610
 msgid "Hide Details"
-msgstr ""
+msgstr "Ocultar detalles"
 
 #: class-astgm-plugin-activation.php:3603
 #: release/1.2.8/class-astgm-plugin-activation.php:3603
 msgid "All installations and activations have been completed."
-msgstr ""
+msgstr "Todas las instalaciones y activaciones han sido completadas."
 
 #. translators: 1: plugin name, 2: action number 3: total number of actions.
 #: class-astgm-plugin-activation.php:3605
 #: release/1.2.8/class-astgm-plugin-activation.php:3605
 #, php-format
 msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
-msgstr ""
+msgstr "Instalando y activando el plugin %1$s (%2$d/%3$d)"
 
 #: class-astgm-plugin-activation.php:3608
 #: release/1.2.8/class-astgm-plugin-activation.php:3608
@@ -1078,25 +1102,27 @@ msgid ""
 "The installation process is starting. This process may take a while on some "
 "hosts, so please be patient."
 msgstr ""
+"El proceso de instalación se está iniciando. Este proceso puede tardar un "
+"poco en algunos servidores, así que por favor sea paciente."
 
 #. translators: 1: plugin name.
 #: class-astgm-plugin-activation.php:3610
 #: release/1.2.8/class-astgm-plugin-activation.php:3610
 #, php-format
 msgid "%1$s installed successfully."
-msgstr ""
+msgstr "%1$s instalado correctamente."
 
 #: class-astgm-plugin-activation.php:3611
 #: release/1.2.8/class-astgm-plugin-activation.php:3611
 msgid "All installations have been completed."
-msgstr ""
+msgstr "Todas las instalaciones se han completado."
 
 #. translators: 1: plugin name, 2: action number 3: total number of actions.
 #: class-astgm-plugin-activation.php:3613
 #: release/1.2.8/class-astgm-plugin-activation.php:3613
 #, php-format
 msgid "Installing Plugin %1$s (%2$d/%3$d)"
-msgstr ""
+msgstr "Instalando Plugin %1$s (%2$d/%3$d)"
 
 #: includes/class-auction-software-blocks-callback.php:31
 #: release/1.2.8/includes/class-auction-software-blocks-callback.php:31
@@ -1105,7 +1131,7 @@ msgstr ""
 #: widgets/class-auction-software-widget-ending-soon-auctions.php:103
 #: widgets/class-auction-software-widget-ending-soon-auctions.php:287
 msgid "Ending Soon Auctions"
-msgstr ""
+msgstr "Terminando pronto las subastas"
 
 #: includes/class-auction-software-blocks-callback.php:103
 #: includes/class-auction-software-blocks-callback.php:239
@@ -1146,7 +1172,7 @@ msgstr ""
 #: widgets/class-auction-software-widget-recently-viewed-auctions.php:180
 #: widgets/class-auction-software-widget-watchlist-auctions.php:178
 msgid "Please resolve the errors from Product admin."
-msgstr ""
+msgstr "Por favor, resuelva los errores desde Product admin."
 
 #: includes/class-auction-software-blocks-callback.php:112
 #: includes/class-auction-software-blocks-callback.php:248
@@ -1181,7 +1207,7 @@ msgstr ""
 #: widgets/class-auction-software-widget-recently-viewed-auctions.php:185
 #: widgets/class-auction-software-widget-watchlist-auctions.php:183
 msgid "Winning Bid: "
-msgstr ""
+msgstr "Oferta ganadora:"
 
 #: includes/class-auction-software-blocks-callback.php:119
 #: includes/class-auction-software-blocks-callback.php:255
@@ -1220,7 +1246,7 @@ msgstr ""
 #: widgets/class-auction-software-widget-recently-viewed-auctions.php:191
 #: widgets/class-auction-software-widget-watchlist-auctions.php:189
 msgid "Current Bid: "
-msgstr ""
+msgstr "Oferta actual: "
 
 #: includes/class-auction-software-blocks-callback.php:131
 #: includes/class-auction-software-blocks-callback.php:266
@@ -1259,7 +1285,7 @@ msgstr ""
 #: widgets/class-auction-software-widget-recently-viewed-auctions.php:202
 #: widgets/class-auction-software-widget-watchlist-auctions.php:200
 msgid "Auction Starts In:"
-msgstr ""
+msgstr "La subasta comienza en:"
 
 #: includes/class-auction-software-blocks-callback.php:137
 #: includes/class-auction-software-blocks-callback.php:272
@@ -1300,7 +1326,7 @@ msgstr ""
 #: widgets/class-auction-software-widget-recently-viewed-auctions.php:208
 #: widgets/class-auction-software-widget-watchlist-auctions.php:206
 msgid "Auction Ends In:"
-msgstr ""
+msgstr "La subasta termina en:"
 
 #: includes/class-auction-software-blocks-callback.php:173
 #: release/1.2.8/includes/class-auction-software-blocks-callback.php:173
@@ -1309,14 +1335,14 @@ msgstr ""
 #: widgets/class-auction-software-widget-future-auctions.php:105
 #: widgets/class-auction-software-widget-future-auctions.php:284
 msgid "Coming Soon Auctions"
-msgstr ""
+msgstr "Próximas subastas"
 
 #: includes/class-auction-software-blocks-callback.php:307
 #: release/1.2.8/includes/class-auction-software-blocks-callback.php:307
 #: release/1.2.8/widgets/class-auction-software-widget-random-auctions.php:103
 #: widgets/class-auction-software-widget-random-auctions.php:103
 msgid "Random Auctions"
-msgstr ""
+msgstr "Subastas aleatorias"
 
 #: includes/class-auction-software-blocks-callback.php:432
 #: release/1.2.8/includes/class-auction-software-blocks-callback.php:432
@@ -1325,7 +1351,7 @@ msgstr ""
 #: widgets/class-auction-software-widget-recent-auctions.php:102
 #: widgets/class-auction-software-widget-recent-auctions.php:271
 msgid "Recent Auctions"
-msgstr ""
+msgstr "Subastas recientes"
 
 #: includes/class-auction-software-blocks-callback.php:555
 #: release/1.2.8/includes/class-auction-software-blocks-callback.php:555
@@ -1334,7 +1360,7 @@ msgstr ""
 #: widgets/class-auction-software-widget-featured-auctions.php:102
 #: widgets/class-auction-software-widget-featured-auctions.php:284
 msgid "Featured Auctions"
-msgstr ""
+msgstr "Subastas Destacadas"
 
 #: includes/class-auction-software-blocks-callback.php:688
 #: release/1.2.8/includes/class-auction-software-blocks-callback.php:688
@@ -1343,7 +1369,7 @@ msgstr ""
 #: widgets/class-auction-software-widget-watchlist-auctions.php:102
 #: widgets/class-auction-software-widget-watchlist-auctions.php:282
 msgid "Watchlist Auctions"
-msgstr ""
+msgstr "Subastas Watchlist"
 
 #: includes/class-auction-software-blocks-callback.php:702
 #: includes/class-auction-software-blocks-callback.php:835
@@ -1356,52 +1382,52 @@ msgstr ""
 #: widgets/class-auction-software-widget-recently-viewed-auctions.php:109
 #: widgets/class-auction-software-widget-recently-viewed-auctions.php:282
 msgid "Recently viewed auctions"
-msgstr ""
+msgstr "Subastas vistas recientemente"
 
 #: includes/class-auction-software.php:345
 #: release/1.2.8/includes/class-auction-software.php:345
 msgid "Auction Software Blocks"
-msgstr ""
+msgstr "Bloques de software de subastas"
 
 #: public/class-auction-software-public.php:106
 #: release/1.2.8/public/class-auction-software-public.php:106
 msgid " days "
-msgstr ""
+msgstr " días"
 
 #: public/class-auction-software-public.php:107
 #: release/1.2.8/public/class-auction-software-public.php:107
 msgid " hours "
-msgstr ""
+msgstr " horas "
 
 #: public/class-auction-software-public.php:108
 #: release/1.2.8/public/class-auction-software-public.php:108
 msgid " minutes "
-msgstr ""
+msgstr " minutos  "
 
 #: public/class-auction-software-public.php:109
 #: release/1.2.8/public/class-auction-software-public.php:109
 msgid " seconds "
-msgstr ""
+msgstr " segundos"
 
 #: public/class-auction-software-public.php:110
 #: release/1.2.8/public/class-auction-software-public.php:110
 msgid " Days "
-msgstr ""
+msgstr " Días "
 
 #: public/class-auction-software-public.php:111
 #: release/1.2.8/public/class-auction-software-public.php:111
 msgid " Hours "
-msgstr ""
+msgstr " Horas "
 
 #: public/class-auction-software-public.php:112
 #: release/1.2.8/public/class-auction-software-public.php:112
 msgid " Minutes "
-msgstr ""
+msgstr " Minutos "
 
 #: public/class-auction-software-public.php:113
 #: release/1.2.8/public/class-auction-software-public.php:113
 msgid " Seconds "
-msgstr ""
+msgstr " Segundos"
 
 #: public/class-auction-software-public.php:270
 #: public/partials/single-product/auction-software-reverse.php:199
@@ -1414,57 +1440,57 @@ msgstr ""
 #: woocommerce/classes/emails/class-wc-auction-software-end.php:52
 #: woocommerce/classes/helpers/class-wc-auction-software-helper.php:158
 msgid "Auction has ended."
-msgstr ""
+msgstr "La subasta ha terminado."
 
 #: public/class-auction-software-public.php:301
 #: release/1.2.8/public/class-auction-software-public.php:301
 #: tests/test-class-auction-software-public.php:167
 msgid "Bid Now"
-msgstr ""
+msgstr "Ofertar"
 
 #: public/class-auction-software-public.php:303
 #: release/1.2.8/public/class-auction-software-public.php:303
 #: tests/test-class-auction-software-public.php:156
 msgid "Read more"
-msgstr ""
+msgstr "Leer más"
 
 #: public/class-auction-software-public.php:306
 #: release/1.2.8/public/class-auction-software-public.php:306
 #: tests/test-class-auction-software-public.php:159
 msgid "Add to cart"
-msgstr ""
+msgstr "Añadir al carrito"
 
 #: public/class-auction-software-public.php:334
 #: release/1.2.8/public/class-auction-software-public.php:334
 #: tests/test-class-auction-software-public.php:178
 msgid "View product"
-msgstr ""
+msgstr "Ver producto"
 
 #. translators: 1: href link
 #: public/class-auction-software-public.php:446
 #: release/1.2.8/public/class-auction-software-public.php:446
 #, php-format
 msgid "Product has already sold. %s"
-msgstr ""
+msgstr "Producto ya vendido. %s"
 
 #. translators: 1: href link
 #: public/class-auction-software-public.php:460
 #: release/1.2.8/public/class-auction-software-public.php:460
 #, php-format
 msgid "Product current bid exceeded buy it now price.. %s"
-msgstr ""
+msgstr "Producto oferta actual superado comprarlo ahora precio.. %s"
 
 #. translators: 1: href link
 #: public/class-auction-software-public.php:476
 #: release/1.2.8/public/class-auction-software-public.php:476
 #, php-format
 msgid "Auction has ended and you are not a winner. %s"
-msgstr ""
+msgstr "La subasta ha finalizado y usted no es el ganador. %s"
 
 #: public/class-auction-software-public.php:525
 #: release/1.2.8/public/class-auction-software-public.php:525
 msgid "You must be logged in."
-msgstr ""
+msgstr "Usted debe estar conectado."
 
 #: public/class-auction-software-public.php:559
 #: public/class-auction-software-public.php:593
@@ -1473,14 +1499,14 @@ msgstr ""
 #: release/1.2.8/public/class-auction-software-public.php:593
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:37
 msgid "Please enter a higher amount."
-msgstr ""
+msgstr "Por favor, introduzca una cantidad mayor."
 
 #: public/class-auction-software-public.php:561
 #: public/partials/single-product/auction-software-simple.php:31
 #: release/1.2.8/public/class-auction-software-public.php:561
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:31
 msgid "Bid should be greater than or equal to bid increment."
-msgstr ""
+msgstr "La oferta debe ser mayor o igual al incremento de la oferta."
 
 #: public/class-auction-software-public.php:563
 #: public/class-auction-software-public.php:677
@@ -1491,14 +1517,14 @@ msgstr ""
 #: release/1.2.8/public/partials/single-product/auction-software-reverse.php:34
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:33
 msgid "Bid placed successfully."
-msgstr ""
+msgstr "Oferta realizada con éxito."
 
 #: public/class-auction-software-public.php:578
 #: public/class-auction-software-public.php:692
 #: release/1.2.8/public/class-auction-software-public.php:578
 #: release/1.2.8/public/class-auction-software-public.php:692
 msgid "Bid placed successfully, but you have been outbid!"
-msgstr ""
+msgstr "Puja realizada con éxito, ¡pero ha sido superada!"
 
 #: public/class-auction-software-public.php:591
 #: public/class-auction-software-public.php:705
@@ -1509,7 +1535,7 @@ msgstr ""
 #: release/1.2.8/public/partials/single-product/auction-software-reverse.php:36
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:35
 msgid "Your bid is winning, no need to place again."
-msgstr ""
+msgstr "Su puja es ganadora, no es necesario volver a pujar."
 
 #: public/class-auction-software-public.php:595
 #: public/class-auction-software-public.php:709
@@ -1520,14 +1546,14 @@ msgstr ""
 #: release/1.2.8/public/partials/single-product/auction-software-reverse.php:40
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:39
 msgid "Bid not placed successfully."
-msgstr ""
+msgstr "Oferta no realizada con éxito."
 
 #: public/class-auction-software-public.php:598
 #: public/class-auction-software-public.php:712
 #: release/1.2.8/public/class-auction-software-public.php:598
 #: release/1.2.8/public/class-auction-software-public.php:712
 msgid "You can not place bid on your products."
-msgstr ""
+msgstr "No puede pujar por sus productos."
 
 #: public/class-auction-software-public.php:601
 #: public/class-auction-software-public.php:715
@@ -1538,7 +1564,7 @@ msgstr ""
 #: release/1.2.8/public/partials/single-product/auction-software-reverse.php:43
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:42
 msgid "You must be logged in to place bid. "
-msgstr ""
+msgstr "Debe iniciar sesión para pujar."
 
 #: public/class-auction-software-public.php:601
 #: public/class-auction-software-public.php:715
@@ -1549,14 +1575,14 @@ msgstr ""
 #: release/1.2.8/public/partials/single-product/auction-software-reverse.php:43
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:42
 msgid "Log in"
-msgstr ""
+msgstr "Iniciar sesión"
 
 #: public/class-auction-software-public.php:604
 #: public/class-auction-software-public.php:718
 #: release/1.2.8/public/class-auction-software-public.php:604
 #: release/1.2.8/public/class-auction-software-public.php:718
 msgid "Auction has expired. Please reload the page."
-msgstr ""
+msgstr "La subasta ha expirado. Por favor, vuelva a cargar la página."
 
 #: public/class-auction-software-public.php:623
 #: public/class-auction-software-public.php:739
@@ -1567,7 +1593,7 @@ msgstr ""
 #: woocommerce/classes/products/class-wc-product-auction-reverse.php:117
 #: woocommerce/classes/products/class-wc-product-auction-simple.php:117
 msgid "NA"
-msgstr ""
+msgstr "NA"
 
 #: public/class-auction-software-public.php:673
 #: public/class-auction-software-public.php:707
@@ -1576,26 +1602,26 @@ msgstr ""
 #: release/1.2.8/public/class-auction-software-public.php:707
 #: release/1.2.8/public/partials/single-product/auction-software-reverse.php:38
 msgid "Please enter a lower amount."
-msgstr ""
+msgstr "Introduzca un importe inferior."
 
 #: public/class-auction-software-public.php:675
 #: public/partials/single-product/auction-software-reverse.php:32
 #: release/1.2.8/public/class-auction-software-public.php:675
 #: release/1.2.8/public/partials/single-product/auction-software-reverse.php:32
 msgid "Bid should be less than or equal to bid increment."
-msgstr ""
+msgstr "La oferta debe ser inferior o igual al incremento de la oferta."
 
 #: public/class-auction-software-public.php:721
 #: release/1.2.8/public/class-auction-software-public.php:721
 msgid "Bid should not be negative."
-msgstr ""
+msgstr "La oferta no debe ser negativa."
 
 #: public/partials/single-product/auction-software-reverse.php:47
 #: public/partials/single-product/auction-software-simple.php:46
 #: release/1.2.8/public/partials/single-product/auction-software-reverse.php:47
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:46
 msgid "Auction has expired."
-msgstr ""
+msgstr "La subasta ha expirado."
 
 #: public/partials/single-product/auction-software-reverse.php:77
 #: public/partials/single-product/auction-software-reverse.php:223
@@ -1622,12 +1648,12 @@ msgstr ""
 #: woocommerce/templates/emails/plain/auction-software-start.php:34
 #: woocommerce/templates/emails/plain/auction-software-win.php:34
 msgid "Start Price: "
-msgstr ""
+msgstr "Precio de salida:"
 
 #: public/partials/single-product/auction-software-reverse.php:96
 #: release/1.2.8/public/partials/single-product/auction-software-reverse.php:96
 msgid "No bids yet "
-msgstr ""
+msgstr "Aún no hay ofertas"
 
 #: public/partials/single-product/auction-software-reverse.php:110
 #: public/partials/single-product/auction-software-reverse.php:236
@@ -1654,7 +1680,7 @@ msgstr ""
 #: woocommerce/templates/emails/plain/auction-software-start.php:38
 #: woocommerce/templates/emails/plain/auction-software-win.php:38
 msgid "Bid Increment: "
-msgstr ""
+msgstr "Incremento de oferta:"
 
 #: public/partials/single-product/auction-software-reverse.php:123
 #: public/partials/single-product/auction-software-reverse.php:249
@@ -1665,21 +1691,21 @@ msgstr ""
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:120
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:247
 msgid "Item Condition: "
-msgstr ""
+msgstr "Estado del artículo:"
 
 #: public/partials/single-product/auction-software-reverse.php:141
 #: public/partials/single-product/auction-software-simple.php:138
 #: release/1.2.8/public/partials/single-product/auction-software-reverse.php:141
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:138
 msgid "Your Maximum Bid: "
-msgstr ""
+msgstr "Su oferta máxima:"
 
 #: public/partials/single-product/auction-software-reverse.php:155
 #: public/partials/single-product/auction-software-simple.php:152
 #: release/1.2.8/public/partials/single-product/auction-software-reverse.php:155
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:152
 msgid "Ending On: "
-msgstr ""
+msgstr "Terminando en:"
 
 #: public/partials/single-product/auction-software-reverse.php:163
 #: public/partials/single-product/auction-software-reverse.php:202
@@ -1690,40 +1716,40 @@ msgstr ""
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:160
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:200
 msgid "Reserve price not met."
-msgstr ""
+msgstr "Precio de reserva no alcanzado."
 
 #: public/partials/single-product/auction-software-reverse.php:166
 #: public/partials/single-product/auction-software-simple.php:163
 #: release/1.2.8/public/partials/single-product/auction-software-reverse.php:166
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:163
 msgid "Reserve price met."
-msgstr ""
+msgstr "Precio de reserva alcanzado."
 
 #: public/partials/single-product/auction-software-reverse.php:261
 #: release/1.2.8/public/partials/single-product/auction-software-reverse.php:261
 msgid "Auction starts in:"
-msgstr ""
+msgstr "Subasta comienza en:"
 
 #: public/partials/single-product/auction-software-reverse.php:267
 #: public/partials/single-product/auction-software-simple.php:265
 #: release/1.2.8/public/partials/single-product/auction-software-reverse.php:267
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:265
 msgid "Starting On: "
-msgstr ""
+msgstr "Empezando el:"
 
 #: public/partials/single-product/auction-software-reverse.php:323
 #: public/partials/single-product/auction-software-simple.php:321
 #: release/1.2.8/public/partials/single-product/auction-software-reverse.php:323
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:321
 msgid "Remove from watchlist"
-msgstr ""
+msgstr "Eliminar de la lista de Seguimiento"
 
 #: public/partials/single-product/auction-software-reverse.php:328
 #: public/partials/single-product/auction-software-simple.php:326
 #: release/1.2.8/public/partials/single-product/auction-software-reverse.php:328
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:326
 msgid "Add to watchlist"
-msgstr ""
+msgstr "Añadir a lista de seguimiento"
 
 #. translators: %s: Login link
 #: public/partials/single-product/auction-software-reverse.php:339
@@ -1733,6 +1759,8 @@ msgstr ""
 #, php-format
 msgid "Sorry, you must be logged in to add auction to watchlist. %s"
 msgstr ""
+"Lo sentimos, debe iniciar sesión para añadir la subasta a la lista de "
+"seguimiento. %s"
 
 #: public/partials/single-product/auction-software-simple.php:87
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:87
@@ -1741,22 +1769,22 @@ msgstr ""
 #: woocommerce/classes/products/class-wc-product-auction-reverse.php:325
 #: woocommerce/classes/products/class-wc-product-auction-simple.php:291
 msgid "Current Bid:"
-msgstr ""
+msgstr "Puja Actual:"
 
 #: public/partials/single-product/auction-software-simple.php:93
 #: release/1.2.8/public/partials/single-product/auction-software-simple.php:93
 msgid "No bids yet."
-msgstr ""
+msgstr "Aún no hay ofertas."
 
 #: release/1.2.8/widgets/class-auction-software-widget-ending-soon-auctions.php:61
 #: widgets/class-auction-software-widget-ending-soon-auctions.php:61
 msgid "Display a list of ending soon auctions on your site."
-msgstr ""
+msgstr "Mostrar una lista de las subastas que terminan pronto en su sitio."
 
 #: release/1.2.8/widgets/class-auction-software-widget-ending-soon-auctions.php:63
 #: widgets/class-auction-software-widget-ending-soon-auctions.php:63
 msgid "Auction Software Ending Soon Auctions"
-msgstr ""
+msgstr "Software de subastas Subastas que terminan pronto"
 
 #: release/1.2.8/widgets/class-auction-software-widget-ending-soon-auctions.php:306
 #: release/1.2.8/widgets/class-auction-software-widget-featured-auctions.php:303
@@ -1775,94 +1803,95 @@ msgstr ""
 #: widgets/class-auction-software-widget-recently-viewed-auctions.php:301
 #: widgets/class-auction-software-widget-watchlist-auctions.php:301
 msgid "Hide time left"
-msgstr ""
+msgstr "Ocultar el tiempo restante"
 
 #: release/1.2.8/widgets/class-auction-software-widget-featured-auctions.php:60
 #: widgets/class-auction-software-widget-featured-auctions.php:60
 msgid "Display a list of featured auctions on your site."
-msgstr ""
+msgstr "Muestra una lista de subastas destacadas en tu sitio."
 
 #: release/1.2.8/widgets/class-auction-software-widget-featured-auctions.php:62
 #: widgets/class-auction-software-widget-featured-auctions.php:62
 msgid "Auction Software Featured Auction"
-msgstr ""
+msgstr "Software de subastas Subasta destacada"
 
 #: release/1.2.8/widgets/class-auction-software-widget-future-auctions.php:63
 #: widgets/class-auction-software-widget-future-auctions.php:63
 msgid "Display a list of coming soon auctions on your site."
-msgstr ""
+msgstr "Muestre una lista de las próximas subastas en su sitio web."
 
 #: release/1.2.8/widgets/class-auction-software-widget-future-auctions.php:65
 #: widgets/class-auction-software-widget-future-auctions.php:65
 msgid "Auction Software Coming Soon Auctions"
-msgstr ""
+msgstr "Software de subastas Próximamente Subastas"
 
 #: release/1.2.8/widgets/class-auction-software-widget-my-auctions.php:60
 #: widgets/class-auction-software-widget-my-auctions.php:60
 msgid "Display a list of auctions user participate."
-msgstr ""
+msgstr "Muestra una lista de subastas que el usuario participa."
 
 #: release/1.2.8/widgets/class-auction-software-widget-my-auctions.php:62
 #: widgets/class-auction-software-widget-my-auctions.php:62
 msgid "Auction Software My Auctions"
-msgstr ""
+msgstr "Software de subastas Mis subastas"
 
 #: release/1.2.8/widgets/class-auction-software-widget-random-auctions.php:60
 #: widgets/class-auction-software-widget-random-auctions.php:60
 msgid "Display a list of random auctions on your site."
-msgstr ""
+msgstr "Exhiba una lista de subastas al azar en su sitio."
 
 #: release/1.2.8/widgets/class-auction-software-widget-random-auctions.php:62
 #: widgets/class-auction-software-widget-random-auctions.php:62
 msgid "Auction Software Random Auctions"
-msgstr ""
+msgstr "Software de subastas Subastas aleatorias"
 
 #: release/1.2.8/widgets/class-auction-software-widget-random-auctions.php:274
 #: widgets/class-auction-software-widget-random-auctions.php:274
 msgid "Random auctions"
-msgstr ""
+msgstr "Subastas aleatorias"
 
 #: release/1.2.8/widgets/class-auction-software-widget-recent-auctions.php:60
 #: widgets/class-auction-software-widget-recent-auctions.php:60
 msgid "Display a list of most recent auctions on your site."
-msgstr ""
+msgstr "Mostrar una lista de las subastas más recientes en su sitio web."
 
 #: release/1.2.8/widgets/class-auction-software-widget-recent-auctions.php:62
 #: widgets/class-auction-software-widget-recent-auctions.php:62
 msgid "Auction Software Recent Auctions"
-msgstr ""
+msgstr "Software de subastas Subastas recientes"
 
 #: release/1.2.8/widgets/class-auction-software-widget-recently-viewed-auctions.php:60
 #: widgets/class-auction-software-widget-recently-viewed-auctions.php:60
 msgid "Display a list of recently viewed auctions."
-msgstr ""
+msgstr "Mostrar una lista de subastas recientemente vistas."
 
 #: release/1.2.8/widgets/class-auction-software-widget-recently-viewed-auctions.php:62
 #: widgets/class-auction-software-widget-recently-viewed-auctions.php:62
 msgid "Auction Software Recently Viewed Auctions"
-msgstr ""
+msgstr "Software de subastas Subastas vistas recientemente"
 
 #: release/1.2.8/widgets/class-auction-software-widget-watchlist-auctions.php:60
 #: widgets/class-auction-software-widget-watchlist-auctions.php:60
 msgid "Display a list of auctions on users watchlist."
 msgstr ""
+"Mostrar una lista de subastas en la lista de vigilancia de los usuarios."
 
 #: release/1.2.8/widgets/class-auction-software-widget-watchlist-auctions.php:62
 #: widgets/class-auction-software-widget-watchlist-auctions.php:62
 msgid "Auction Software Watchlist Auction"
-msgstr ""
+msgstr "Software de subastas Subasta Watchlist"
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-end.php:44
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-end.php:45
 #: woocommerce/classes/emails/class-wc-auction-software-end.php:44
 #: woocommerce/classes/emails/class-wc-auction-software-end.php:45
 msgid "Auction End"
-msgstr ""
+msgstr "Fin de la subasta"
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-end.php:51
 #: woocommerce/classes/emails/class-wc-auction-software-end.php:51
 msgid "{product name} auction has ended."
-msgstr ""
+msgstr "la subasta de {nombre del producto} ha finalizado."
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-end.php:172
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-start.php:160
@@ -1871,7 +1900,7 @@ msgstr ""
 #: woocommerce/classes/emails/class-wc-auction-software-start.php:160
 #: woocommerce/classes/emails/class-wc-auction-software-win.php:164
 msgid "Enable/Disable"
-msgstr ""
+msgstr "Activar/Desactivar"
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-end.php:174
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-start.php:162
@@ -1880,7 +1909,7 @@ msgstr ""
 #: woocommerce/classes/emails/class-wc-auction-software-start.php:162
 #: woocommerce/classes/emails/class-wc-auction-software-win.php:166
 msgid "Enable this email notification"
-msgstr ""
+msgstr "Activar este aviso por correo electrónico"
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-end.php:178
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-start.php:166
@@ -1889,7 +1918,7 @@ msgstr ""
 #: woocommerce/classes/emails/class-wc-auction-software-start.php:166
 #: woocommerce/classes/emails/class-wc-auction-software-win.php:170
 msgid "Recipient(s)"
-msgstr ""
+msgstr "Destinatario(s)"
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-end.php:180
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-start.php:168
@@ -1898,7 +1927,7 @@ msgstr ""
 #: woocommerce/classes/emails/class-wc-auction-software-start.php:168
 #: woocommerce/classes/emails/class-wc-auction-software-win.php:172
 msgid "Enter recipients (comma separated) for this email."
-msgstr ""
+msgstr "Introduzca destinatarios (separados por coma) para este email."
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-end.php:185
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-start.php:173
@@ -1907,7 +1936,7 @@ msgstr ""
 #: woocommerce/classes/emails/class-wc-auction-software-start.php:173
 #: woocommerce/classes/emails/class-wc-auction-software-win.php:177
 msgid "Subject"
-msgstr ""
+msgstr "Tema"
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-end.php:192
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-start.php:180
@@ -1916,7 +1945,7 @@ msgstr ""
 #: woocommerce/classes/emails/class-wc-auction-software-start.php:180
 #: woocommerce/classes/emails/class-wc-auction-software-win.php:184
 msgid "Email Heading"
-msgstr ""
+msgstr "Encabezado del correo electrónico"
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-end.php:199
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-start.php:187
@@ -1925,7 +1954,7 @@ msgstr ""
 #: woocommerce/classes/emails/class-wc-auction-software-start.php:187
 #: woocommerce/classes/emails/class-wc-auction-software-win.php:191
 msgid "Email type"
-msgstr ""
+msgstr "Tipo de correo electrónico"
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-end.php:201
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-start.php:189
@@ -1934,7 +1963,7 @@ msgstr ""
 #: woocommerce/classes/emails/class-wc-auction-software-start.php:189
 #: woocommerce/classes/emails/class-wc-auction-software-win.php:193
 msgid "Choose which format of email to send."
-msgstr ""
+msgstr "Elige el formato en el que se enviarán los emails."
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-end.php:205
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-start.php:193
@@ -1943,7 +1972,7 @@ msgstr ""
 #: woocommerce/classes/emails/class-wc-auction-software-start.php:193
 #: woocommerce/classes/emails/class-wc-auction-software-win.php:197
 msgid "Plain text"
-msgstr ""
+msgstr "Texto sin formato"
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-end.php:206
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-start.php:194
@@ -1952,7 +1981,7 @@ msgstr ""
 #: woocommerce/classes/emails/class-wc-auction-software-start.php:194
 #: woocommerce/classes/emails/class-wc-auction-software-win.php:198
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-end.php:207
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-start.php:195
@@ -1961,101 +1990,101 @@ msgstr ""
 #: woocommerce/classes/emails/class-wc-auction-software-start.php:195
 #: woocommerce/classes/emails/class-wc-auction-software-win.php:199
 msgid "Multipart"
-msgstr ""
+msgstr "Multiparte"
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-outbid.php:44
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-outbid.php:45
 #: woocommerce/classes/emails/class-wc-auction-software-outbid.php:44
 #: woocommerce/classes/emails/class-wc-auction-software-outbid.php:45
 msgid "Auction Outbid"
-msgstr ""
+msgstr "Subasta Outbid"
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-outbid.php:53
 #: woocommerce/classes/emails/class-wc-auction-software-outbid.php:53
 msgid "{product name} auction: You've been outbid."
-msgstr ""
+msgstr "subasta de {nombre del producto}: Has sido sobrepujado."
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-outbid.php:54
 #: woocommerce/classes/emails/class-wc-auction-software-outbid.php:54
 msgid "You've been outbid."
-msgstr ""
+msgstr "Te han sobrepujado."
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-start.php:44
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-start.php:45
 #: woocommerce/classes/emails/class-wc-auction-software-start.php:44
 #: woocommerce/classes/emails/class-wc-auction-software-start.php:45
 msgid "Auction Start"
-msgstr ""
+msgstr "Inicio de la subasta"
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-start.php:51
 #: woocommerce/classes/emails/class-wc-auction-software-start.php:51
 msgid "{product name} auction has started. Bid now!"
-msgstr ""
+msgstr "la subasta de {nombre del producto} ha comenzado. ¡Puja ahora!"
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-start.php:52
 #: woocommerce/classes/emails/class-wc-auction-software-start.php:52
 msgid "Auction has started."
-msgstr ""
+msgstr "La subasta ha comenzado."
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-win.php:44
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-win.php:45
 #: woocommerce/classes/emails/class-wc-auction-software-win.php:44
 #: woocommerce/classes/emails/class-wc-auction-software-win.php:45
 msgid "Auction Win"
-msgstr ""
+msgstr "Subasta ganada"
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-win.php:51
 #: woocommerce/classes/emails/class-wc-auction-software-win.php:51
 msgid "Congratulations! You've won the {product name} auction"
-msgstr ""
+msgstr "¡Enhorabuena! Has ganado la subasta de {nombre del producto}"
 
 #: release/1.2.8/woocommerce/classes/emails/class-wc-auction-software-win.php:52
 #: woocommerce/classes/emails/class-wc-auction-software-win.php:52
 msgid "Congratulations! You've won the auction."
-msgstr ""
+msgstr "Enhorabuena Has ganado la subasta."
 
 #: release/1.2.8/woocommerce/classes/helpers/class-wc-auction-software-helper.php:143
 #: release/1.2.8/woocommerce/classes/helpers/class-wc-auction-software-helper.php:211
 #: woocommerce/classes/helpers/class-wc-auction-software-helper.php:143
 #: woocommerce/classes/helpers/class-wc-auction-software-helper.php:211
 msgid "User"
-msgstr ""
+msgstr "Usuario"
 
 #: release/1.2.8/woocommerce/classes/helpers/class-wc-auction-software-helper.php:144
 #: release/1.2.8/woocommerce/classes/helpers/class-wc-auction-software-helper.php:212
 #: woocommerce/classes/helpers/class-wc-auction-software-helper.php:144
 #: woocommerce/classes/helpers/class-wc-auction-software-helper.php:212
 msgid "Bid"
-msgstr ""
+msgstr "Oferta"
 
 #: release/1.2.8/woocommerce/classes/helpers/class-wc-auction-software-helper.php:145
 #: release/1.2.8/woocommerce/classes/helpers/class-wc-auction-software-helper.php:213
 #: woocommerce/classes/helpers/class-wc-auction-software-helper.php:145
 #: woocommerce/classes/helpers/class-wc-auction-software-helper.php:213
 msgid "Date"
-msgstr ""
+msgstr "Fecha"
 
 #: release/1.2.8/woocommerce/classes/helpers/class-wc-auction-software-helper.php:146
 #: release/1.2.8/woocommerce/classes/helpers/class-wc-auction-software-helper.php:214
 #: woocommerce/classes/helpers/class-wc-auction-software-helper.php:146
 #: woocommerce/classes/helpers/class-wc-auction-software-helper.php:214
 msgid "Auto"
-msgstr ""
+msgstr "Automático"
 
 #: release/1.2.8/woocommerce/classes/helpers/class-wc-auction-software-helper.php:168
 #: woocommerce/classes/helpers/class-wc-auction-software-helper.php:168
 msgid "Auction is relisted."
-msgstr ""
+msgstr "La subasta se ha vuelto a poner en venta."
 
 #: release/1.2.8/woocommerce/classes/helpers/class-wc-auction-software-helper.php:178
 #: woocommerce/classes/helpers/class-wc-auction-software-helper.php:178
 msgid "Buy it now used by "
-msgstr ""
+msgstr "Comprar ahora usado por"
 
 #: release/1.2.8/woocommerce/classes/helpers/class-wc-auction-software-helper.php:205
 #: woocommerce/classes/helpers/class-wc-auction-software-helper.php:205
 msgid "Started On "
-msgstr ""
+msgstr "Iniciado en"
 
 #. translators: 1: Price
 #: release/1.2.8/woocommerce/classes/products/class-wc-product-auction-reverse.php:112
@@ -2064,7 +2093,7 @@ msgstr ""
 #: woocommerce/classes/products/class-wc-product-auction-simple.php:112
 #, php-format
 msgid "Add to cart for %s"
-msgstr ""
+msgstr "Añadir a la cesta por %s"
 
 #. translators: 1: Price
 #: release/1.2.8/woocommerce/classes/products/class-wc-product-auction-reverse.php:121
@@ -2073,172 +2102,175 @@ msgstr ""
 #: woocommerce/classes/products/class-wc-product-auction-simple.php:121
 #, php-format
 msgid "Buy it now for %s"
-msgstr ""
+msgstr "Cómpralo ahora por %s"
 
 #: release/1.2.8/woocommerce/classes/products/class-wc-product-auction-reverse.php:126
 #: release/1.2.8/woocommerce/classes/products/class-wc-product-auction-simple.php:126
 #: woocommerce/classes/products/class-wc-product-auction-reverse.php:126
 #: woocommerce/classes/products/class-wc-product-auction-simple.php:126
 msgid "Auction not started"
-msgstr ""
+msgstr "Subasta no iniciada"
 
 #: release/1.2.8/woocommerce/classes/products/class-wc-product-auction-reverse.php:323
 #: release/1.2.8/woocommerce/classes/products/class-wc-product-auction-simple.php:289
 #: woocommerce/classes/products/class-wc-product-auction-reverse.php:323
 #: woocommerce/classes/products/class-wc-product-auction-simple.php:289
 msgid "Winning Bid:"
-msgstr ""
+msgstr "Oferta ganadora:"
 
 #: release/1.2.8/woocommerce/classes/products/class-wc-product-auction.php:318
 #: woocommerce/classes/products/class-wc-product-auction.php:318
 msgid "Bid now"
-msgstr ""
+msgstr "Haga su oferta"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:43
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:199
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:43
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:199
 msgid "Global Settings"
-msgstr ""
+msgstr "Ajustes globales"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:44
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:140
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:44
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:140
 msgid "Bid Increment"
-msgstr ""
+msgstr "Incremento de la Puja"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:82
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:82
 msgid "Your changed data will be lost if you leave this page without saving."
 msgstr ""
+"Se perderán los cambios realizados si abandonas esta página sin guardar."
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:83
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:83
 msgid "Your changes were not saved. Please retry."
-msgstr ""
+msgstr "Tus cambios no se han guardado. Por favor, inténtalo de nuevo."
 
 #. translators: 1: Currency symbol
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:95
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:95
 #, php-format
 msgid "Lower Limit (%s)"
-msgstr ""
+msgstr "Límite inferior (%s)"
 
 #. translators: 1: Currency symbol
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:100
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:100
 #, php-format
 msgid "Upper Limit (%s)"
-msgstr ""
+msgstr "Límite superior (%s)"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:103
 #: release/1.2.8/woocommerce/classes/settings/views/auction-software-settings.php:99
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:103
 #: woocommerce/classes/settings/views/auction-software-settings.php:99
 msgid "Increment"
-msgstr ""
+msgstr "Incremento"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:137
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:137
 msgid "Add to Watchlist"
-msgstr ""
+msgstr "Añadir a la lista de vigilancia"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:139
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:139
 msgid "Available Bids"
-msgstr ""
+msgstr "Ofertas disponibles"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:142
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:163
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:142
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:163
 msgid "Auction Ends In"
-msgstr ""
+msgstr "La subasta finaliza en"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:143
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:143
 msgid "Ending On"
-msgstr ""
+msgstr "Fin"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:145
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:145
 msgid "Your Maximum Bid"
-msgstr ""
+msgstr "Su oferta máxima"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:146
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:146
 msgid "Reserve Price Text"
-msgstr ""
+msgstr "Precio de reserva Texto"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:147
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:164
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:147
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:164
 msgid "Auction Starts In"
-msgstr ""
+msgstr "La subasta comienza en"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:148
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:148
 msgid "Starting On"
-msgstr ""
+msgstr "A partir de"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:149
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:149
 msgid "Start Price"
-msgstr ""
+msgstr "Precio inicial"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:201
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:201
 msgid "This is where you can set the global settings for the auction products"
 msgstr ""
+"Aquí es donde puede establecer la configuración global de los productos de "
+"la subasta"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:205
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:205
 msgid "Enable proxy bidding"
-msgstr ""
+msgstr "Habilitar bids automáticos"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:211
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:211
 msgid "Enable anti sniping"
-msgstr ""
+msgstr "Activar el antidisparo"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:217
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:217
 msgid "Anti sniping start time"
-msgstr ""
+msgstr "Hora de inicio del Anti sniping"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:218
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:218
 msgid "In Minutes"
-msgstr ""
+msgstr "En minutos"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:219
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:219
 msgid "Time remaining for auction to end (in minutes)"
-msgstr ""
+msgstr "Tiempo restante para que finalice la subasta (en minutos)"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:225
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:225
 msgid "Anti sniping duration"
-msgstr ""
+msgstr "Duración de la lucha contra los francotiradores"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:226
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:234
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:226
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:234
 msgid "In Seconds"
-msgstr ""
+msgstr "En segundos"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:227
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:227
 msgid "Extend the auction end time by (in seconds)"
-msgstr ""
+msgstr "Ampliar la hora de finalización de la subasta en (en segundos)"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:233
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:233
 msgid "Bidding information update duration"
-msgstr ""
+msgstr "Duración de la actualización de la información de licitación"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:235
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:235
@@ -2246,11 +2278,13 @@ msgid ""
 "Time interval between two ajax requests in seconds (bigger intervals means "
 "less load for server)"
 msgstr ""
+"Intervalo de tiempo entre dos peticiones ajax en segundos (intervalos "
+"mayores significan menor carga para el servidor)"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:242
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:242
 msgid "Exclude auction fields on single product page"
-msgstr ""
+msgstr "Excluir campos de subasta en la página de un solo producto"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:249
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:261
@@ -2259,22 +2293,22 @@ msgstr ""
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:261
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:273
 msgid "Select some fields"
-msgstr ""
+msgstr "Seleccione algunos campos"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:254
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:254
 msgid "Exclude auction fields on product shop page"
-msgstr ""
+msgstr "Excluir campos de subasta en la página de la tienda de productos"
 
 #: release/1.2.8/woocommerce/classes/settings/class-wc-auction-software-settings.php:266
 #: woocommerce/classes/settings/class-wc-auction-software-settings.php:266
 msgid "Exclude auction fields in auction widgets"
-msgstr ""
+msgstr "Excluir campos de subasta en los widgets de subasta"
 
 #: release/1.2.8/woocommerce/classes/settings/views/auction-software-settings.php:16
 #: woocommerce/classes/settings/views/auction-software-settings.php:16
 msgid "Bid Increment Ranges"
-msgstr ""
+msgstr "Rangos de incremento de oferta"
 
 #. translators: 1: Currency symbol, 2: Currency symbol, 3: Currency symbol, 4: Currency symbol, 5: Currency symbol, 6: Currency symbol
 #: release/1.2.8/woocommerce/classes/settings/views/auction-software-settings.php:22
@@ -2287,48 +2321,54 @@ msgid ""
 "You can then add another range say between %4$s51 to %5$s100, the bid "
 "increment needs to be %6$s5."
 msgstr ""
+"El precio de la siguiente puja vendrá determinado por esto. Aquí puedes "
+"establecer un incremento diferente para cada rango. Por ejemplo, puedes "
+"decir que si el precio de la subasta está entre %1$s1 y %2$s50, entonces los "
+"incrementos de puja necesitan ser al menos %3$s2. Luego puedes añadir otro "
+"rango, por ejemplo entre %4$s51 y %5$s100, el incremento de puja tiene que "
+"ser %6$s5."
 
 #: release/1.2.8/woocommerce/classes/settings/views/auction-software-settings.php:44
 #: release/1.2.8/woocommerce/classes/settings/views/auction-software-settings.php:45
 #: woocommerce/classes/settings/views/auction-software-settings.php:44
 #: woocommerce/classes/settings/views/auction-software-settings.php:45
 msgid "Save Ranges"
-msgstr ""
+msgstr "Guardar rangos"
 
 #: release/1.2.8/woocommerce/classes/settings/views/auction-software-settings.php:46
 #: woocommerce/classes/settings/views/auction-software-settings.php:46
 msgid "Add New Range"
-msgstr ""
+msgstr "Añadir nuevo rango"
 
 #: release/1.2.8/woocommerce/classes/settings/views/auction-software-settings.php:56
 #: woocommerce/classes/settings/views/auction-software-settings.php:56
 msgid "No ranges have been created."
-msgstr ""
+msgstr "No se han creado rangos."
 
 #: release/1.2.8/woocommerce/classes/settings/views/auction-software-settings.php:71
 #: woocommerce/classes/settings/views/auction-software-settings.php:71
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: release/1.2.8/woocommerce/classes/settings/views/auction-software-settings.php:72
 #: woocommerce/classes/settings/views/auction-software-settings.php:72
 msgid "Remove"
-msgstr ""
+msgstr "Eliminar"
 
 #: release/1.2.8/woocommerce/classes/settings/views/auction-software-settings.php:78
 #: woocommerce/classes/settings/views/auction-software-settings.php:78
 msgid "Lower Limit"
-msgstr ""
+msgstr "Límite inferior"
 
 #: release/1.2.8/woocommerce/classes/settings/views/auction-software-settings.php:81
 #: woocommerce/classes/settings/views/auction-software-settings.php:81
 msgid "Cancel changes"
-msgstr ""
+msgstr "Cancelar cambios"
 
 #: release/1.2.8/woocommerce/classes/settings/views/auction-software-settings.php:91
 #: woocommerce/classes/settings/views/auction-software-settings.php:91
 msgid "Upper Limit"
-msgstr ""
+msgstr "Límite superior"
 
 #. translators: %s: Product title
 #: release/1.2.8/woocommerce/templates/emails/auction-software-end.php:26
@@ -2337,7 +2377,7 @@ msgstr ""
 #: woocommerce/templates/emails/plain/auction-software-end.php:23
 #, php-format
 msgid "The %s auction has ended."
-msgstr ""
+msgstr "La subasta %s ha finalizado."
 
 #: release/1.2.8/woocommerce/templates/emails/auction-software-end.php:33
 #: release/1.2.8/woocommerce/templates/emails/auction-software-outbid.php:32
@@ -2348,7 +2388,7 @@ msgstr ""
 #: woocommerce/templates/emails/auction-software-start.php:42
 #: woocommerce/templates/emails/auction-software-win.php:42
 msgid "Product"
-msgstr ""
+msgstr "Producto"
 
 #: release/1.2.8/woocommerce/templates/emails/auction-software-end.php:36
 #: release/1.2.8/woocommerce/templates/emails/auction-software-outbid.php:35
@@ -2359,7 +2399,7 @@ msgstr ""
 #: woocommerce/templates/emails/auction-software-start.php:45
 #: woocommerce/templates/emails/auction-software-win.php:45
 msgid "Auction Details"
-msgstr ""
+msgstr "Detalles de la Subasta"
 
 #: release/1.2.8/woocommerce/templates/emails/auction-software-end.php:55
 #: release/1.2.8/woocommerce/templates/emails/auction-software-outbid.php:54
@@ -2378,7 +2418,7 @@ msgstr ""
 #: woocommerce/templates/emails/plain/auction-software-start.php:35
 #: woocommerce/templates/emails/plain/auction-software-win.php:35
 msgid "Start Date: "
-msgstr ""
+msgstr "Fecha de inicio: "
 
 #: release/1.2.8/woocommerce/templates/emails/auction-software-end.php:60
 #: release/1.2.8/woocommerce/templates/emails/auction-software-outbid.php:59
@@ -2397,7 +2437,7 @@ msgstr ""
 #: woocommerce/templates/emails/plain/auction-software-start.php:36
 #: woocommerce/templates/emails/plain/auction-software-win.php:36
 msgid "End Date: "
-msgstr ""
+msgstr "Fecha de finalización: "
 
 #: release/1.2.8/woocommerce/templates/emails/auction-software-outbid.php:25
 #: release/1.2.8/woocommerce/templates/emails/plain/auction-software-outbid.php:22
@@ -2405,7 +2445,7 @@ msgstr ""
 #: woocommerce/templates/emails/plain/auction-software-outbid.php:22
 #, php-format
 msgid "You've been outbid in the %1$s auction. %2$s to place your next bid."
-msgstr ""
+msgstr "Has sido superado en la subasta %1$s. %2$s para hacer tu próxima puja."
 
 #. translators: 1: Auction name, 2: Auction link
 #: release/1.2.8/woocommerce/templates/emails/auction-software-start.php:28
@@ -2414,7 +2454,7 @@ msgstr ""
 #: woocommerce/templates/emails/plain/auction-software-start.php:24
 #, php-format
 msgid "The %1$s auction has started. %2$s to place your bid."
-msgstr ""
+msgstr "La subasta %1$s ha comenzado. %2$s para hacer su oferta."
 
 #. translators: 1: Auction name, 2: Auction link
 #: release/1.2.8/woocommerce/templates/emails/auction-software-win.php:28
@@ -2423,38 +2463,40 @@ msgstr ""
 #: woocommerce/templates/emails/plain/auction-software-win.php:24
 #, php-format
 msgid "You've won the %1$s auction. %2$s to buy your product."
-msgstr ""
+msgstr "Ha ganado la subasta %1$s. %2$s para comprar su producto."
 
 #: tests/test-class-auction-software-public.php:193
 msgid "Product has already sold."
-msgstr ""
+msgstr "El producto ya se ha vendido."
 
 #: tests/test-class-auction-software-public.php:207
 msgid "Product current bid exceeded buy it now price."
-msgstr ""
+msgstr "La oferta actual del producto supera el precio de compra."
 
 #: tests/test-class-auction-software-public.php:220
 msgid "Auction has ended and you are not a winner."
-msgstr ""
+msgstr "La subasta ha finalizado y usted no es el ganador."
 
 #. Plugin Name of the plugin/theme
 msgid "Auction Software"
-msgstr ""
+msgstr "Software de subastas"
 
 #. Plugin URI of the plugin/theme
 msgid "https://demo.wpeka.com/woo-auction-software/"
-msgstr ""
+msgstr "https://demo.wpeka.com/woo-auction-software/"
 
 #. Description of the plugin/theme
 msgid ""
 "This is a short description of what the plugin does. It's displayed in the "
 "WordPress admin area."
 msgstr ""
+"Esta es una breve descripción de lo que hace el plugin. Se muestra en el "
+"área de administración de WordPress."
 
 #. Author of the plugin/theme
 msgid "WPeka Club"
-msgstr ""
+msgstr "Club WPeka"
 
 #. Author URI of the plugin/theme
 msgid "https://club.wpeka.com/"
-msgstr ""
+msgstr "https://club.wpeka.com/"
