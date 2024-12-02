@@ -545,14 +545,15 @@ class Auction_Software_Public {
 		$current_bid    = $product->get_auction_current_bid();
 		$increment_bid  = $product->get_auction_bid_increment();
 		$date_to        = $product->get_auction_date_to();
-		$date_time_to   = datetime::createfromformat( 'Y-m-d H:i:s', $date_to );
+		$date_time_to   = DateTime::createFromFormat('Y-m-d H:i:s', $date_to);
 		$user_id        = get_current_user_id();
 		$flag           = 0;
 		$max_flag       = 0;
 		if ( isset( $_POST['auction_bid'] ) ) {
 			if ( true === $product->is_started() ) {
 				if ( is_user_logged_in() ) {
-					if ( get_the_author_meta( 'user_email', $product->post->post_author ) !== wp_get_current_user()->user_email ) {
+					$post_author_id = $product->get_meta('_auction_author_id'); // Use meta or custom method
+                    if (get_the_author_meta('user_email', $post_author_id) !== wp_get_current_user()->user_email) {
 						$next_bid                = isset( $_POST['price'] ) ? sanitize_text_field( wp_unslash( $_POST['price'] ) ) : 0;
 						$set_auction_current_bid = $product->set_auction_current_bid( $current_bid, $next_bid, $user_id, $product_id );
 						if ( 5 === (int) $set_auction_current_bid ) {
@@ -654,7 +655,7 @@ class Auction_Software_Public {
 		$current_bid    = $product->get_auction_current_bid();
 		$increment_bid  = $product->get_auction_bid_increment();
 		$date_to        = $product->get_auction_date_to();
-		$date_time_to   = datetime::createfromformat( 'Y-m-d H:i:s', $date_to );
+		$date_time_to   = DateTime::createFromFormat('Y-m-d H:i:s', $date_to);
 		$user_id        = get_current_user_id();
 		$flag           = 0;
 		$max_flag       = 0;
@@ -667,7 +668,8 @@ class Auction_Software_Public {
 		if ( isset( $_POST['auction_bid'] ) && 0 === (int) $is_negative ) {
 			if ( true === $product->is_started() ) {
 				if ( is_user_logged_in() ) {
-					if ( get_the_author_meta( 'user_email', $product->post->post_author ) !== wp_get_current_user()->user_email ) {
+					$post_author_id = $product->get_meta('_auction_author_id'); // Use meta or custom method
+                    if (get_the_author_meta('user_email', $post_author_id) !== wp_get_current_user()->user_email) {
 						$set_auction_current_bid = $product->set_auction_current_bid( $current_bid, $next_bid, $user_id, $product_id );
 						if ( 5 === (int) $set_auction_current_bid ) {
 							$notice_message = '<div class="woocommerce-message error auction-error" role="alert">' . __( 'Please enter a lower amount.', 'auction-software' ) . '</div>';
