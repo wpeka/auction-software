@@ -69,7 +69,7 @@ class Auction_Software {
 		if ( defined( 'AUCTION_SOFTWARE_VERSION' ) ) {
 			$this->version = AUCTION_SOFTWARE_VERSION;
 		} else {
-			$this->version = '1.3.0';
+			$this->version = '1.3.1';
 		}
 		$this->plugin_name = 'auction-software';
 		$this->setup_plugin();
